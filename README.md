@@ -7,15 +7,15 @@ Written in Python/Django
 * Django Version 2.0.0
 * Virtual Environment Version 16.0.0
 * PostgressSql Version 10.5
-##Getting Started:
+## Getting Started:
 1. Install Python from https://www.python.org/downloads/
 2. pip install Django==2.0
 3. pip install psycopg2
-##Database Migration:
+## Database Migration:
 navigate to the folder containing manage.py and run the following commands in order.
 1. python manage.py makemigrations
 2. python manage.py migrate
-##Test Server:
+## Test Server:
 navigate to the folder containing manage.py and run the following command.
 python manage.py runserver
 navigate to http://127.0.0.1:8000/ to go to the home page.
