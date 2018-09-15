@@ -38,9 +38,9 @@ ol {
 #header {
     padding:10px 100px;
     font-size:14px;
-    background:#12c064;
-    color:#fff;
-    border-bottom:4px solid #1cdf78;
+    background:#ed217c;
+    color:#ed217c;
+    border-bottom:4px solid #000000;
     overflow:auto;
 }
 
@@ -111,7 +111,7 @@ input, textarea {
 }
 input[type=submit], a.button {
     font-weight:bold;
-    background:#12c064;
+    background:#ed217c;
     color:#fff;
     padding:10px 20px;
     font-size:14px;
