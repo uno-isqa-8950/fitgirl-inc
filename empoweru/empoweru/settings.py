@@ -146,3 +146,5 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
 WAGTAIL_SITE_NAME = 'EmpowerU'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

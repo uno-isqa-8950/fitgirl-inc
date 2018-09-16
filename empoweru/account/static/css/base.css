@@ -12,17 +12,18 @@ body {
     font-family:helvetica, sans-serif;
 }
 
+
 p {
     line-height: 1.8;
 }
 
 a {
-    color:#12c064;
+    color:#ed217c;
     text-decoration:none;
 }
 
 a:hover {
-    color:#00a74f;
+    color:#ed217c;
 }
 
 h1, h2, h3, h4, h5 , h6 { font-family: 'Muli', sans-serif; font-weight:normal; }
@@ -70,7 +71,7 @@ ol {
 }
 
 #header ul.menu li.selected a, #header ul.menu li.selected a:hover {
-    color:#1b6d32;
+    color:#ed217c;
     font-weight:bold;
 }
 
@@ -159,8 +160,8 @@ ul.messages li.info {
     color:#fff;
 }
 
-ul.messages li.success { background:#81ce81; }
-ul.messages li.success a { color:#0ac33e; }
+ul.messages li.success { background:#ed217c; }
+ul.messages li.success a { color:#ed217c; }
 
 ul.messages li.error { background:#a30029; color:#e9828e; }
 ul.messages li.error a { color:#e9828e; }
@@ -231,7 +232,7 @@ a.like, a.follow { float:right; margin-top:-8px; }
     width:220px;
     height:300px;
     margin:0 10px 10px 10px;
-    border-top:8px solid #12c064;
+    border-top:8px solid #ed217c;
     background:#eee;
 }
 #image-list img { width:220px; height:220px; }
