@@ -1,10 +1,16 @@
 @import url(http://fonts.googleapis.com/css?family=Muli);
 
-body{;  no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;}  
+/*body{;  no-repeat: center center fixed;*/
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
+    /*background-size: cover;}  */
+
+body {
+    margin:0;
+    padding:0;
+    font-family:helvetica, sans-serif;
+}
 
 p {
     line-height: 1.8;
