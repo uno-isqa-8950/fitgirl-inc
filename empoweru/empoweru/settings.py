@@ -147,4 +147,11 @@ LOGOUT_URL = 'logout'
 
 WAGTAIL_SITE_NAME = 'EmpowerU'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'capstone18FA'
+EMAIL_HOST_PASSWORD = 'Isqa8950-002'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
