@@ -1,10 +1,10 @@
 @import url(http://fonts.googleapis.com/css?family=Muli);
 
-body {
-    margin:0;
-    padding:0;
-    font-family:helvetica, sans-serif;
-}
+body{;  no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;}  
 
 p {
     line-height: 1.8;
@@ -93,6 +93,12 @@ form p {
     width:100%;
     overflow:auto;
 }
+
+.form-container{
+	border: 0px solid #ffffff; padding: 30px 40px; margin-top: 20%;
+    -webkit-box-shadow: 3px 12px 58px 7px rgba(0,0,0,0.7);
+	-moz-box-shadow: 3px 12px 58px 7px rgba(0,0,0,0.7);
+	box-shadow: 3px 12px 58px 7px rgba(0,0,0,0.7);}
 
 label {
     float:left;
