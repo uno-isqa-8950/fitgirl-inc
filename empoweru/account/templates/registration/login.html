@@ -20,7 +20,12 @@
             <div class="col-12 col-sm-4 col-md-4">
             	<form class="form-container" method="POST" action="">{% csrf_token %}
                   <h4>Login</h4>
-                 <div class="form-group">
+                  {% if form.errors %}
+                  		<div class="alert alert-danger">
+                		<strong><p>Incorrect username or password</p></strong>
+            			</div>
+                    {% endif%}
+                  <div class="form-group">
                      <input type="text" class="form-control" name="username" id="InputUserName" aria-describedby="UserNameHelp" placeholder="Enter Username">
                  </div>
                  <div class="form-group">
@@ -28,6 +33,7 @@
                      <input type="password" class="form-control" name="password" id="Password1" placeholder="Password">
                  </div>  
                  <input type="submit" value="Login">
+                    
                     <p><a href="{% url "password_reset" %}">Forgotten your  password?</a></p>
                 </form>
             </div>
