@@ -3,6 +3,36 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-  <h1>Dashboard</h1>
-  <p>Welcome to your dashboard. You can <a href="{% url "password_change" %}">change your password</a>. </p>
+	{% if request.user.is_superuser %}
+  		<h1>Admin Dashboard</h1>
+  	{% else %}
+  		<h1>User Dashboard</h1>
+  	{% endif %}
+  	{% if request.user.is_superuser %}
+  		<div class="col-md-3 col-sm-3">
+              <div class="list-group">
+                  <a href="#" class="list-group-item list-group-item-action  main-color-bg">Dashboard</a>
+                  <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-edit"></i>  Modules <span class="badge badge-dark"> 4 </span></a>
+                  <a href="#" class="list-group-item list-group-item-action">  <i class="fas fa-female fa-2x"></i> Active Users <span class="badge badge-dark">80</span></a>
+                  <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-cog"></i>  Settings </a>
+                  <a href="{% url "password_change" %}" class="list-group-item list-group-item-action">Change Password</a>
+              </div>  
+		</div>
+  	{% else %}
+  		<div class="col-md-3 col-sm-3">
+              <div class="list-group">
+                  <a href="index.html" class="list-group-item list-group-item-action  main-color-bg">Dashboard</a>
+                  <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-edit"></i>  Modules <span class="badge badge-dark"> 4 </span></a>
+                  <a href="{% url "password_change" %}" class="list-group-item list-group-item-action">Change Password</a>
+              </div>
+			  <div class="card" style="width: 18rem;">
+              	<div class="card-body">
+                    <h5 class="card-title">Points Earned</h5>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                      </div>
+                  </div>
+                </div>  
+		</div>
+  	{% endif %}
 {% endblock %}
