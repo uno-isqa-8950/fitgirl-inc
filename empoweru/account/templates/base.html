@@ -2,31 +2,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{% block title %}{% endblock %}</title>
-  <link href="{% static 'css/base.css' %}" rel="stylesheet">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
+	<title>{% block title %}{% endblock %}</title>
+	<link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
 <body>
-  <div id="header">
-    <span class="logo">EmpowerU</span>
-
-  {% if request.user.is_authenticated %}
-      <ul class="menu">
-        <li>
-          <a href="{% url 'dashboard' %}">My dashboard</a>
-        </li>
-
-      </ul>
-    {% endif %}
-
-    <span class="user">
+		<nav class="navbar navbar-expand-md navbar-dark">
+      <a class="navbar-brand" href="/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
       {% if request.user.is_authenticated %}
-        Hello {{ request.user.first_name }},
-        <a href="{% url 'logout' %}">Logout</a>
-      {% else %}
-        <a href="{% url 'login' %}">Log-in</a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+		</button>	
+      <div class="collapse navbar-collapse" id="navbarsDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Program <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#">Weeks</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#">Modules</a>
+          </li>
+          {% if request.user.is_superuser %}
+          <li class="nav-item ">
+            <a class="nav-link " href="#">Users</a>
+          </li>
+          {% endif %}
+        </ul>
+        <ul class="navbar-nav navbar-right mr-auto offset-3">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Welcome, {{user.get_username }} <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+          </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control my-0 mr-sm-1" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline my-0 my-sm-1" type="submit">Search</button>
+        </form>
+      </div>
       {% endif %}
-    </span>
-  </div>
+    </nav>
   <div id="content">
     {% block content %}
     {% endblock %}
