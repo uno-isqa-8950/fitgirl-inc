@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.conf import settings
 
 # Create your models here.
 
@@ -22,3 +23,15 @@ class Program(models.Model):
 
     def __str__(self):
         return str(self.program_name)
+
+class Profile(models.Model):
+    #user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50, default=None)
+    last_name = models.CharField(max_length=50, default=None)
+    email = models.EmailField(blank=True, null=None)
+    date_of_birth = models.DateField(blank=True, null=True)
+    photo = models.ImageField(upload_to='profile_image',blank=True)
+
+    def __str__(self):
+        return str (self.user)

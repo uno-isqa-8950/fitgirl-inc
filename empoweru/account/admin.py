@@ -3,6 +3,7 @@
 # Register your models here.
 from django.contrib import admin
 from .models import Program
+from .models import Profile
 
 # Register your models here.
 
@@ -14,4 +15,10 @@ class ProgramList(admin.ModelAdmin):
 
 
 admin.site.register(Program, ProgramList)
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['user','first_name','last_name','email','date_of_birth', 'photo']
+
+admin.site.register(Profile, ProfileAdmin)
+
 
