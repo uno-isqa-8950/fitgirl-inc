@@ -32,6 +32,30 @@ def dashboard(request):
     return render(request,
                   'account/dashboard.html',
                   {'section': 'dashboard'})
+
+@login_required
+def createprogram(request):
+    return render(request,
+                  'account/createprogram.html',
+                  {'section': 'createprogram'})
+
+@login_required
+def registerusers(request):
+    return render(request,
+                  'account/registerusers.html',
+                  {'section': 'registerusers'})
+
+@login_required
+def users(request):
+    return render(request,
+                  'account/users.html',
+                  {'section': 'users'})
+
+@login_required
+def myprogram(request):
+    return render(request,
+                  'account/myprogram.html',
+                  {'section': 'myprogram'})
 @login_required
 def edit(request):
     if request.method == 'POST':

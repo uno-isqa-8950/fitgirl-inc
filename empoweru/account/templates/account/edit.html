@@ -3,6 +3,9 @@
 {% block title %}Edit your account{% endblock %}
 
 {% block content %}
+  <div class="col-sm-9">
+                Hi there
+
   <h1>Edit your account</h1>
   <p>You can edit your account using the following form:</p>
   <form action="." method="post" enctype="multipart/form-data">
@@ -11,4 +14,5 @@
     {% csrf_token %}
     <p><input type="submit" value="Save changes"></p>
   </form>
+  </div>
 {% endblock %}

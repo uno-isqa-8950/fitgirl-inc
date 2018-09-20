@@ -16,8 +16,9 @@
                 <div>
                       <div class="list-group">
                           <a href="#" class="list-group-item list-group-item-action  main-color-bg">Dashboard</a>
-                          <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-edit"></i>  Modules <span class="badge badge-dark"> 4 </span></a>
-                          <a href="#" class="list-group-item list-group-item-action">  <i class="fas fa-female fa-2x"></i> Active Users <span class="badge badge-dark">80</span></a>
+                          <a href="{% url "createprogram" %}" class="list-group-item list-group-item-action"><i class="fas fa-edit"></i> Create Program </a>
+                          <a href="{% url "registerusers" %}" class="list-group-item list-group-item-action"><i class="fas fa-edit"></i> Register Users </a>
+                          <a href="{% url "users" %}" class="list-group-item list-group-item-action">  <i class="fas fa-female fa-2x"></i> Users </a>
                           <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-cog"></i>  Settings </a>
                           <a href="{% url "password_change" %}" class="list-group-item list-group-item-action">Change Password</a>
                       </div>
@@ -25,8 +26,8 @@
             {% else %}
                 <div>
                       <div class="list-group">
-                          <a href="index.html" class="list-group-item list-group-item-action  main-color-bg">Dashboard</a>
-                          <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-edit"></i>  Modules <span class="badge badge-dark"> 4 </span></a>
+                          <a href="#" class="list-group-item list-group-item-action  main-color-bg">Dashboard</a>
+                          <a href="{% url "myprogram" %}" class="list-group-item list-group-item-action"><i class="fas fa-edit"></i>My Program</a>
                           <a href="{% url "password_change" %}" class="list-group-item list-group-item-action">Change Password</a>
                           <a href="{% url "edit" %}" class="list-group-item list-group-item-action">Edit Profile</a>
                       </div>
@@ -43,7 +44,8 @@
 
             </div>
             <div class="col-sm-9">
-                Hi there
+                {% block dash_content %}
+                {% endblock %}
             </div>
 
 </div>
