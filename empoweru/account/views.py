@@ -2,9 +2,12 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm
 from .forms import Profile,User, Program
-
+from .models import ValidUser
+from io import TextIOWrapper, StringIO
+import csv
+from django.contrib import messages
 
 
 def user_login(request):
@@ -53,17 +56,51 @@ def createprogram(request):
                   'account/createprogram.html',
                   {'section': 'createprogram','form':form})
 
+
+def validate_csv(value):
+    if not value.name.endswith('.csv'):
+        raise ValidationError('Invalid file type')
+
+def handle_uploaded_file(request):
+          csvf = StringIO(request.FILES['file'].read().decode())
+          reader = csv.reader(csvf, delimiter=',')
+          reader.__next__();
+          count = 0
+          for row in reader:
+                vu = ValidUser(email = row[1],first_name = row[2],last_name = row[3])
+                if vu is not None:
+                    vu.save()
+                    count = count + 1
+          return count
+
+
+
 @login_required
 def registerusers(request):
-    return render(request,
-                  'account/registerusers.html',
-                  {'section': 'registerusers'})
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file_name = request.FILES['file']
+            validate_csv(file_name)
+            value = handle_uploaded_file(request)
+            if value > 0:
+                messages.success(request, str(value)+' users added successfully')
+    else:
+        form = UploadFileForm()
+    return render(request, 'account/registerusers.html')
+
+
+
+
+
+
+
+
 
 @login_required
 def users(request):
-    return render(request,
-                  'account/users.html',
-                  {'section': 'users'})
+    registeredUsers = ValidUser.objects.all()
+    return render(request, 'account/viewUsers.html', {'registeredUsers' : registeredUsers})
 
 @login_required
 def myprogram(request):
@@ -99,4 +136,3 @@ def profile(request):
     return render(request,
                   'account/profile.html',
                   {'section': 'profile'})
-

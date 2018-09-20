@@ -11,6 +11,8 @@ class UserEditForm(forms.ModelForm):
         model = User
         fields = ('username', 'email')
 
+class UploadFileForm(forms.Form):
+    file = forms.FileField(label=" Choose the CSV file")
 
 class ProfileEditForm(forms.ModelForm):
     date_of_birth = forms.DateField(help_text='Required.Format: MM-DD-YYYY')
