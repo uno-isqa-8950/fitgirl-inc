@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm
-from .forms import Profile,User
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm
+from .forms import Profile,User, Program
 
 
 
@@ -35,9 +35,23 @@ def dashboard(request):
 
 @login_required
 def createprogram(request):
+    if request.method == 'POST':
+        form = ProgramForm(request.POST)
+        if form.is_valid():
+            print ("program_form")
+            program= form.save(commit=False)
+            #program.created_date = timezone.now()
+            program.save()
+            return HttpResponse('Profile updated successfully!')
+        else:
+            return HttpResponse('Error updating your profile!')
+    else:
+        form = ProgramForm()
+        print("Else")
+        #profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
                   'account/createprogram.html',
-                  {'section': 'createprogram'})
+                  {'section': 'createprogram','form':form})
 
 @login_required
 def registerusers(request):
