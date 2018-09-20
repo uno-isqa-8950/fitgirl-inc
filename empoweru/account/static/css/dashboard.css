@@ -8,7 +8,8 @@ body{
 /* NAVBAR */
 
 .navbar {
-    background-color: #980d7e;
+    background-color: #757575;
+    border-bottom:4px solid #ed217c;
   }
   .navbar .navbar-brand {
     color: #ecf0f1;
@@ -37,7 +38,7 @@ body{
     color: #fcfbfe;
   }
   .navbar .navbar-nav .dropdown-menu {
-    background-color: #e148b7;
+    background-color: #757575;
     border-color: #e07dc4;
   }
   .navbar .navbar-nav .dropdown-menu .dropdown-item {
@@ -86,8 +87,8 @@ body{
 
 .main-color-bg{
 
-    background-color: #e148b7 !important;
-    border: #e148b7 !important;
+    background-color: #757575 !important;
+    border: #ed217c !important;
     color: #ffffff;  
     
 
@@ -211,7 +212,7 @@ body{
     }
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
       color: #ecdbff;
-      background-color: #e07dc4;
+      background-color: #ed217c;
     }
   }
   
