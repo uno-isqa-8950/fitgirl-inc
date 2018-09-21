@@ -77,6 +77,8 @@ def handle_uploaded_file(request):
 
 @login_required
 def registerusers(request):
+    form = request.POST
+    program = Program.objects.all().order_by('program_name')
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -84,10 +86,14 @@ def registerusers(request):
             validate_csv(file_name)
             value = handle_uploaded_file(request)
             if value > 0:
+                form = request.POST
+                program = Program.objects.all().order_by('program_name')
                 messages.success(request, str(value)+' users added successfully')
     else:
         form = UploadFileForm()
-    return render(request, 'account/registerusers.html')
+    return render(request,
+                  'account/registerusers.html',
+                  {'program': program})
 
 @login_required
 def aboutus(request):
