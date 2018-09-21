@@ -89,14 +89,11 @@ def registerusers(request):
         form = UploadFileForm()
     return render(request, 'account/registerusers.html')
 
-
-
-
-
-
-
-
-
+@login_required
+def aboutus(request):
+    return render(request,
+                  'account/aboutus.html',
+                  {'section': 'aboutus'})
 @login_required
 def users(request):
     registeredUsers = ValidUser.objects.all()

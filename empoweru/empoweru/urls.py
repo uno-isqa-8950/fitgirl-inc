@@ -24,7 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
-    path('',include('account.urls')),
+    path('', include('account.urls')),
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^documents/', include(wagtaildocs_urls)),
     re_path(r'^pages/', include(wagtail_urls)),
