@@ -1,0 +1,1 @@
+web: gunicorn empoweru.wsgi --log-file -
