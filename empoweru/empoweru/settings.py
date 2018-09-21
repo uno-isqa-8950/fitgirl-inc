@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -98,10 +99,10 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'empoweru',
-        'USER': 'postgres',
-        'PASSWORD': 'instructor1a',
-        'HOST': 'localhost',
+        'NAME': 'd69kctd20oe7pc',
+        'USER': 'mesvstlvldxyxa',
+        'PASSWORD': 'd2c8a0b3973258e6bd9994dd3a6520906fc69e82ffd3995f4de25e8250704712',
+        'HOST': 'ec2-23-21-171-249.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -163,3 +164,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+django_heroku.settings(locals())
