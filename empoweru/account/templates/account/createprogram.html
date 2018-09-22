@@ -1,13 +1,32 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
 
-<div class="col-sm-9">
-    <h1>Create Program</h1>
-  <p>Fill in the following form to create program:</p>
-  <form method="POST" class="program-form">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <p><input type="submit" value="Save changes"></p>
-  </form>
-  </div>
+<!--<div class="col-sm-9">-->
+    <!--<h1>Create Program</h1>-->
+  <!--<p>Fill in the following form to create program:</p>-->
+  <!--<form method="POST" class="program-form">-->
+    <!--{{ form.as_p }}-->
+    <!--{% csrf_token %}-->
+    <!--<p><input type="submit" value="Save changes"></p>-->
+  <!--</form>-->
+  <!--</div>-->
+
+			<div class="col-12 col-md-4">
+            	<form class="container" method="post" action=".">{% csrf_token %}
+                  <div class="form-group">
+				     <label for="ProgramName">Program Name</label>
+                     <input type="text" class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
+                 </div>
+                 <div class="form-group">
+                     <label for="StartDate">Start Date</label>
+                     <input type="date" class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date">
+                 </div>
+				 <div class="form-group">
+                     <label for="EndDate">End Date</label>
+                     <input type="date" class="form-control" name="program_end_date" id="InputEndDate" placeholder="Enter End Date">
+                 </div>
+
+                 <input type="submit" value="Save Changes">
+                </form>
+            </div>
 {% endblock %}
