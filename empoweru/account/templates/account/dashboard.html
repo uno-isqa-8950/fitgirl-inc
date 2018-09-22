@@ -10,7 +10,7 @@
                 <h1><i class="fas fa-address-book"></i> Admin Dashboard</h1>
               </div>
   	{% else %}
-  		<h1>{{user.get_username }}'s Dashboard</h1>
+  		<h1 class="text-capitalize"><i class="fas fa-address-book"></i>{{user.first_name }} {{user.last_name}}'s Dashboard</h1>
   	{% endif %}
     </div>
     <div class="row">
