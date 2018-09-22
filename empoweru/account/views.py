@@ -37,6 +37,7 @@ def dashboard(request):
 
 @login_required
 def createprogram(request):
+    registeredPrograms = Program.objects.all()
     if request.method == 'POST':
         form = ProgramForm(request.POST)
         if form.is_valid():
@@ -44,6 +45,7 @@ def createprogram(request):
             program= form.save(commit=False)
             #program.created_date = timezone.now()
             program.save()
+            #messages.success(request,' Profile added successfully')
             return HttpResponse('Profile updated successfully!')
         else:
             return HttpResponse('Error updating your profile!')
@@ -53,7 +55,7 @@ def createprogram(request):
         #profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
                   'account/createprogram.html',
-                  {'section': 'createprogram','form':form})
+                  {'section': 'createprogram','form':form,'registeredPrograms':registeredPrograms})
 
 
 def validate_csv(value):
@@ -111,6 +113,11 @@ def myprogram(request):
     return render(request,
                   'account/myprogram.html',
                   {'section': 'myprogram'})
+@login_required
+def programs(request):
+    return render(request,
+                  'account/programs.html',
+                  {'section': 'programs'})
 @login_required
 def edit(request):
     if request.method == 'POST':

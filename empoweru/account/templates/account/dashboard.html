@@ -19,11 +19,12 @@
                 <div>
                       <div class="list-group">
                           <a href="#" class="list-group-item list-group-item-action  main-color-bg">Dashboard</a>
-                          <a href="{% url "createprogram" %}" class="list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i> Create Program </a>
+                          <a href="{% url "createprogram" %}" class="list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i> Programs </a>
                           <a href="{% url "registerusers" %}" class="list-group-item list-group-item-action"><i class="fas fa-plus-circle fa-fw"></i> Register Users </a>
                           <a href="{% url "users" %}" class="list-group-item list-group-item-action">  <i class="fas fa-female fa-fw"></i> Users </a>
                           <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-cog fa-fw"></i>  Settings </a>
                           <a href="{% url "password_change" %}" class="list-group-item list-group-item-action"><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
+
                       </div>
                 </div>
             {% else %}
