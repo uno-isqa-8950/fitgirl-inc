@@ -11,6 +11,7 @@ Written in Python/Django
 1. Install Python from https://www.python.org/downloads/
 2. pip install Django==2.0.8
 3. pip install psycopg2
+4. pip install wagtail
 ## Database Migration:
 navigate to the folder containing manage.py and run the following commands in order.
 1. python manage.py makemigrations
@@ -18,4 +19,4 @@ navigate to the folder containing manage.py and run the following commands in or
 ## Test Server:
 navigate to the folder containing manage.py and run the following command.
 python manage.py runserver
-navigate to http://127.0.0.1:8000/ to go to the home page.
+navigate to http://127.0.0.1:8000/ to go to the home page..

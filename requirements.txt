@@ -1,0 +1,5 @@
+wagtail==2.2.2
+whitenoise==4.1
+psycopg2==2.7.5
+gunicorn==19.9.0
+Django==2.0.8

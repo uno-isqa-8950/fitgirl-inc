@@ -1,0 +1,31 @@
+{% extends 'account/dashboard.html' %}
+{% block dash_content %}
+
+<div class="col-sm-9">
+  <table class="table table-striped table-bordered table-hover" class="target">
+      <thead>
+      <tr class="bg-info">
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+      <th>Active</th>
+			</tr>
+      </thead>
+        <tbody>
+        {% for registeredUser in registeredUsers %}
+        <tr>
+        <td>{{ registeredUser.first_name }}</td>
+				<td>{{ registeredUser.last_name }}</td>
+				<td>{{ registeredUser.email }}</td>
+        {% if registeredUser.is_active %}
+          <td><button type="button" class="btn btn-lg btn-primary" disabled>Active</button></td>
+        {% else %}
+          <td><button type="button" class="btn btn-lg btn-primary" disabled>Inactive</button></td>
+
+        {% endif %}
+        {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
