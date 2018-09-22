@@ -12,6 +12,7 @@ Written in Python/Django
 2. pip install Django==2.0.8
 3. pip install psycopg2
 4. pip install wagtail
+5. pip install django_heroku
 ## Database Migration:
 navigate to the folder containing manage.py and run the following commands in order.
 1. python manage.py makemigrations
