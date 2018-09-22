@@ -9,7 +9,6 @@ from io import TextIOWrapper, StringIO
 import csv
 from django.contrib import messages
 
-
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -61,6 +60,7 @@ def validate_csv(value):
     if not value.name.endswith('.csv'):
         raise ValidationError('Invalid file type')
 
+
 def handle_uploaded_file(request):
           csvf = StringIO(request.FILES['file'].read().decode())
           reader = csv.reader(csvf, delimiter=',')
@@ -94,6 +94,7 @@ def aboutus(request):
     return render(request,
                   'account/aboutus.html',
                   {'section': 'aboutus'})
+
 @login_required
 def users(request):
     registeredUsers = ValidUser.objects.all()
@@ -133,3 +134,4 @@ def profile(request):
     return render(request,
                   'account/profile.html',
                   {'section': 'profile'})
+
