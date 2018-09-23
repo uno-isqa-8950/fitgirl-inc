@@ -87,9 +87,10 @@ body{
 
 .main-color-bg{
 
-    background-color: #757575 !important;
+    background-color: #ed217c !important;
     border: #ed217c !important;
-    color: #ffffff;  
+    color: #ffffff;
+    font-weight: bold;
     
 
 }

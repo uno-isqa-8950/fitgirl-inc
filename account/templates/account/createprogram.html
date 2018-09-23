@@ -13,8 +13,8 @@
 <div class="col-sm-9">
      <h1> All Programs</h1>
   <table class="table table-striped table-bordered table-hover" class="target">
-      <thead>
-      <tr class="bg-info">
+      <thead class="thead-pink">
+      <tr>
 			<th>Program Name</th>
 			<th>Start Date</th>
 			<th>End Date</th>
@@ -37,23 +37,31 @@
 
 
 
-			<div class="col-12 col-md-4">
+			<div class="col-sm-9">
                  <h1>Add New Program</h1>
             	<form class="container" method="post" action=".">{% csrf_token %}
-                  <div class="form-group">
+                  <div class="form-row">
+                    <div class="form-group">
 				     <label for="ProgramName">Program Name</label>
                      <input type="text" class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
-                 </div>
-                 <div class="form-group">
-                     <label for="StartDate">Start Date</label>
-                     <input type="date" class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date">
-                 </div>
-				 <div class="form-group">
-                     <label for="EndDate">End Date</label>
-                     <input type="date" class="form-control" name="program_end_date" id="InputEndDate" placeholder="Enter End Date">
-                 </div>
+                    </div>
+                   </div>
+                    <div class="form-row">
+                        <div class="col">
+                             <div class="form-group">
+                                 <label for="StartDate">Start Date</label>
+                                 <input type="date" class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date">
+                             </div>
+                        </div>
+                        <div class="col">
+                             <div class="form-group">
+                                 <label for="EndDate">End Date</label>
+                                 <input type="date" class="form-control" name="program_end_date" id="InputEndDate" placeholder="Enter End Date">
+                             </div>
+                        </div>
+                    </div>
 
-                 <input type="submit" value="Save Changes">
+                 <input type="submit" value="Save Program">
                 </form>
-            </div>
+            </form>
 {% endblock %}

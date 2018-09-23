@@ -32,6 +32,12 @@ a:hover {
     color:#ed217c;
 }
 
+.table .thead-pink th {
+  color: #fff;
+  background-color: #ed217c;
+  border-color: #ed217c;
+}
+
 h1, h2, h3, h4, h5 , h6 { font-family: 'Muli', sans-serif; font-weight:normal; }
 
 h1 {
