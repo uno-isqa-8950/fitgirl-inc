@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 #import django_heroku
 import os
+import dj_database_url
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -68,6 +69,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'empoweru.urls'
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES = { 'default': dj_database_url.config() }
 
 TEMPLATES = [
     {
