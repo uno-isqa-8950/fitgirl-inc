@@ -1,0 +1,18 @@
+{% extends 'account/dashboard.html' %}
+{% block dash_content %}
+
+<div class="col-sm-9">
+    <form action="." method="post" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit"> Upload file </button>
+    </form>
+</div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
