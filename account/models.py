@@ -30,8 +30,8 @@ class ValidUser(models.Model):
     email = models.EmailField(blank=True, null=None)
     first_name = models.CharField(max_length=50, default=None)
     last_name = models.CharField(max_length=50, default=None)
-    is_active = models.BooleanField(_('active'), default =False)
-    # program = models.ForeignKey(Program, on_delete=models.CASCADE)
+    is_active = models.BooleanField(_('active'), default =True)
+    program = models.CharField(max_length=50, default='Test')
 
 
 

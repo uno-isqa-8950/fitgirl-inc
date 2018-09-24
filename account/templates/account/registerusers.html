@@ -1,32 +1,18 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
-<!--<div class="col-15 col-4">-->
-            	<!--<form class="container" method="post">-->
-                  <!--<div class="form-group">-->
-				     <!--<label> Select Program </label>-->
-					<!--<select name = "program_id">-->
-						<!--{% for programname in program %}-->
-						<!--<option value="{{ program.name }}">{{ programname }}</option>-->
-						<!--{% endfor %}-->
-					<!--</select>-->
-				 <!--</div>-->
-                <!--</form>-->
-            <!--</div>-->
-<!--<div class="col-sm-9">-->
-    <!--<form action="." method="post" enctype="multipart/form-data">-->
-        <!--{% csrf_token %}-->
-        <!--<input type="file" accept=".csv" name="file">-->
-        <!--<button type="submit"> Upload file </button>-->
-    <!--</form>-->
-<!--</div>-->
-<!--{% if messages %}-->
-<!--<ul class="messages">-->
-    <!--{% for message in messages %}-->
-    <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
-    <!--{% endfor %}-->
-<!--</ul>-->
-<!--{% endif %}-->
-<div class="embed-responsive embed-responsive-16by9">
-    <iframe class="embed-responsive-item" src="/admin" allowfullscreen></iframe>
+
+<div class="col-sm-9">
+    <form action="." method="post" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit"> Upload file </button>
+    </form>
 </div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

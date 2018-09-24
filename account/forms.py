@@ -12,6 +12,13 @@ class UserEditForm(forms.ModelForm):
         fields = ('username', 'email')
 
 class UploadFileForm(forms.Form):
+    names = []
+    count = 0
+    d = {}
+    for program in Program.objects.all().order_by('program_name'):
+        d[program.program_name] = program.program_name
+    print(d.items())
+    programs = forms.ChoiceField(choices=d.items())
     file = forms.FileField(label=" Choose the CSV file")
 
 class ProfileEditForm(forms.ModelForm):

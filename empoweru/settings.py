@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 #import django_heroku
 import os
-import dj_database_url
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,7 +26,7 @@ SECRET_KEY = 'xz@m8r3&j2kh@t+9^rxmrbvg+-c4dv5$_&*ru2d1n1jf$3(l_-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.herokuapp.com']
+ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,6 +52,7 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     'empoweru',
+    'avatar',
 ]
 
 MIDDLEWARE = [
@@ -69,8 +69,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'empoweru.urls'
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES = { 'default': dj_database_url.config() }
 
 TEMPLATES = [
     {

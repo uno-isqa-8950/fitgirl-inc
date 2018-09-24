@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -6,8 +6,15 @@ from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, Upload
 from .forms import Profile,User, Program
 from .models import ValidUser
 from io import TextIOWrapper, StringIO
-import csv
+
+
+import csv, string, random
+from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.auth.forms import PasswordResetForm
+from django.conf import settings
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -46,7 +53,7 @@ def createprogram(request):
             #program.created_date = timezone.now()
             program.save()
             #messages.success(request,' Profile added successfully')
-            return HttpResponse('Profile updated successfully!')
+            return HttpResponse('Program added successfully!')
         else:
             return HttpResponse('Error updating your profile!')
     else:
@@ -63,39 +70,57 @@ def validate_csv(value):
         raise ValidationError('Invalid file type')
 
 
-def handle_uploaded_file(request):
+def handle_uploaded_file(request, name):
           csvf = StringIO(request.FILES['file'].read().decode())
           reader = csv.reader(csvf, delimiter=',')
           reader.__next__();
           count = 0
           for row in reader:
-                vu = ValidUser(email = row[1],first_name = row[2],last_name = row[3])
+                vu = ValidUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
+                current_site = get_current_site(request)
+                alphabet = string.ascii_letters + string.digits
+                # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
+                theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
+                theUser.set_password('fitgirl1')
+                theUser.save()
+                form = PasswordResetForm({'email': theUser.email})
+                if form.is_valid():
+                    request = HttpRequest()
+                    request.META['SERVER_NAME'] = '127.0.0.1:8000'
+                    request.META['SERVER_PORT'] = '80'
+                    form.save(
+                        request=request,
+                        from_email=settings.EMAIL_HOST_USER,
+                        subject_template_name='registration/new_user_subject.txt',
+                        email_template_name='registration/password_reset_newuser_email.html')
                 if vu is not None:
                     vu.save()
                     count = count + 1
           return count
 
 
+def get_short_name(self):
+    # The user is identified by their email address
+    return self.first_name
+
 
 @login_required
 def registerusers(request):
-    form = request.POST
-    program = Program.objects.all().order_by('program_name')
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             file_name = request.FILES['file']
             validate_csv(file_name)
-            value = handle_uploaded_file(request)
+            value = handle_uploaded_file(request,form.cleaned_data['programs'])
+
             if value > 0:
                 form = request.POST
-                program = Program.objects.all().order_by('program_name')
                 messages.success(request, str(value)+' users added successfully')
     else:
         form = UploadFileForm()
     return render(request,
                   'account/registerusers.html',
-                  {'program': program})
+                  {'form' : form})
 
 @login_required
 def aboutus(request):

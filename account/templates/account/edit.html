@@ -6,6 +6,9 @@
   <div class="col-sm-9">
     <h1>Edit your account</h1>
   <p>You can edit your account using the following form:</p>
+  {% load avatar_tags %}
+  {% avatar user 80 %}
+  <a href="{% url 'avatar_change' %}">Change your avatar</a>
   <form action="." method="post" enctype="multipart/form-data">
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
