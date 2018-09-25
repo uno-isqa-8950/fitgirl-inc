@@ -86,7 +86,7 @@ def handle_uploaded_file(request, name):
                 form = PasswordResetForm({'email': theUser.email})
                 if form.is_valid():
                     request = HttpRequest()
-                    request.META['SERVER_NAME'] = '127.0.0.1:8000'
+                    request.META['SERVER_NAME'] = 'current_site'
                     request.META['SERVER_PORT'] = '80'
                     form.save(
                         request=request,
