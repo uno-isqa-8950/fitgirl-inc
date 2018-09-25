@@ -24,5 +24,6 @@ urlpatterns = [
 
     path('myprogram/', views.myprogram, name='myprogram'),
     path('registerusers/', views.registerusers, name='registerusers'),
+    path('userdashboard/', views.userdashboard, name='userdashboard'),
 
 ]

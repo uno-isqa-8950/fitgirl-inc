@@ -1,0 +1,39 @@
+{% extends 'account/dashboard.html' %}
+{% block dash_content %}
+{% if request.user.is_superuser %}
+<div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="/admin" allowfullscreen></iframe>
+</div>
+{% else %}
+<div class="col-sm-9">
+    <h1>Welcome to EmpowerU Program by FirGirls Inc.</h1>
+    <p> The goals of the curriculum are for girls to :
+        <br>
+    1. Become more physically active, working their way upto getting 60 minutes of exercise a day... and staying active for life!
+    <br>
+        2. Develop and maintain self-respect, self-confidence, and a positive self-image.
+    <br>
+    3. Understand the connection between mind and body.
+    <br>
+    4. Internalize the message that there is no one "ideal" body type.
+    <br>
+    5. Begin to understand the consequences of and explore alternatives to health-risk behavious.
+    <br>
+    6. Gain developmentally appropriate knowledge of nutrition and the health benefits of physical activity.
+    <br>
+    7. Increase their motivation to participate in sports and other kinds of physical activity.
+    <br>
+    8. Be able to respond positively to peer pressure.
+    <br>
+    9. Accept and respect others.
+    <br>
+    10. Build positive relationships with adult facilitators and the peers in the group.
+    <br>
+    11. Build leadership skills and serve as role models for other girls to get physically active.
+    <br>
+    12. Learn how to set goals and work towards achieving them.
+    <br>
+    </p>
+</div>
+{% endif %}
+{% endblock %}

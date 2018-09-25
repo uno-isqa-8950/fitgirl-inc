@@ -8,6 +8,7 @@ from .models import ValidUser
 from io import TextIOWrapper, StringIO
 
 
+
 import csv, string, random
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -39,8 +40,14 @@ def user_login(request):
 @login_required
 def dashboard(request):
     return render(request,
-                  'account/dashboard.html',
+                  'account/userdashboard.html',
                   {'section': 'dashboard'})
+
+@login_required
+def userdashboard(request):
+    return render(request,
+                  'account/userdashboard.html',
+                  {'section': 'userdashboard'})
 
 @login_required
 def createprogram(request):
@@ -52,10 +59,11 @@ def createprogram(request):
             program= form.save(commit=False)
             #program.created_date = timezone.now()
             program.save()
-            #messages.success(request,' Profile added successfully')
-            return HttpResponse('Program added successfully!')
+            messages.success(request,' Program added successfully')
+            #return HttpResponse('Program added successfully!')
         else:
-            return HttpResponse('Error updating your profile!')
+            messages.error(request, ('Error updating program'))
+            #return HttpResponse('Error updating your profile!')
     else:
         form = ProgramForm()
         print("Else")
@@ -86,7 +94,7 @@ def handle_uploaded_file(request, name):
                 form = PasswordResetForm({'email': theUser.email})
                 if form.is_valid():
                     request = HttpRequest()
-                    request.META['SERVER_NAME'] = 'current_site'
+                    request.META['SERVER_NAME'] = current_site
                     request.META['SERVER_PORT'] = '80'
                     form.save(
                         request=request,
@@ -154,9 +162,13 @@ def edit(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return HttpResponse('Profile updated successfully!')
+            #return HttpResponseRedirect('Profile updated successfully!')
+            messages.success(request, ('Your profile was updated successfully.'))
+            #print("hi")
+            #return render(request,'account/dashboard.html')
         else:
-            return HttpResponse('Error updating your profile!')
+            messages.error(request,('Please correct the error below.'))
+            #return HttpResponse('Error updating your profile!')
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)
@@ -164,7 +176,6 @@ def edit(request):
                   'account/edit.html',
                   {'user_form': user_form,
                    'profile_form': profile_form})
-
 
 
 @login_required
