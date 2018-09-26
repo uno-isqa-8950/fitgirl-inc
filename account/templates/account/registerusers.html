@@ -2,10 +2,12 @@
 {% block dash_content %}
 
 <div class="col-sm-9">
+    <h1> Register Users by Adding the csv file</h1>
+    <p> Choose the program from drop-down below: </p>
     <form action="." method="post" enctype="multipart/form-data">
         {{ form.as_p }}
         {% csrf_token %}
-        <button type="submit"> Upload file </button>
+        <input type="submit" value="Upload File"></input>
     </form>
 </div>
 {% if messages %}
