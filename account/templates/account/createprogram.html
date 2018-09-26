@@ -13,6 +13,13 @@
 
 <div class="col-sm-9">
      <h1> All Programs</h1>
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
   <table class="table table-striped table-bordered table-hover" class="target">
       <thead class="thead-pink">
       <tr>
@@ -39,7 +46,7 @@
 
 
 			<div class="col-sm-9">
-                 <h1>Add New Program</h1>
+                 <h3>Add New Program</h3>
             	<form class="container" method="post" action=".">{% csrf_token %}
                   <div class="form-row">
                     <div class="form-group">
@@ -64,6 +71,7 @@
 
                  <input type="submit" value="Save Program">
                 </form>
+            </div>
             </form>
 
 <script>

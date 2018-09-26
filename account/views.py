@@ -54,17 +54,18 @@ def createprogram(request):
     if request.method == 'POST':
         form = ProgramForm(request.POST)
         if form.is_valid():
-            print ("program_form")
+            #print ("program_form")
             program= form.save(commit=False)
             #program.created_date = timezone.now()
             program.save()
-            #messages.success(request,' Profile added successfully')
-            return HttpResponse('Program added successfully!')
+            messages.success(request,' Program added successfully')
+            #return HttpResponse('Program added successfully!')
         else:
-            return HttpResponse('Error updating your profile!')
+            messages.error(request, ('Error updating program'))
+            #return HttpResponse('Error updating your profile!')
     else:
         form = ProgramForm()
-        print("Else")
+        #print("Else")
         #profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
                   'account/createprogram.html',
