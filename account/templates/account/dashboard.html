@@ -31,7 +31,7 @@
             {% else %}
                 <div>
                       <div class="list-group">
-                          <a href="#" class="list-group-item list-group-item-action  main-color-bg">Dashboard</a>
+                          <a href="{% url 'userdashboard' %}" class="list-group-item list-group-item-action  main-color-bg">Dashboard</a>
                           <a href="{% url "myprogram" %}" class="list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i> My Program</a>
                           <!--<a href="{% url "password_change" %}" class="list-group-item list-group-item-action">Change Password</a>-->
                           <a href="{% url "edit" %}" class="list-group-item list-group-item-action"><i class="fas fa-cog fa-fw"></i> Edit Profile</a>
