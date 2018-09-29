@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'taggit',
     'empoweru',
     'avatar',
+    'assessment',
 ]
 
 MIDDLEWARE = [
