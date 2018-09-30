@@ -58,7 +58,7 @@
                         <div class="col">
                              <div class="form-group">
                                  <label for="StartDate">Start Date</label>
-                                 <input type="date" class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date">
+                                 <input type="date" class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date" onchange="EndDate()">
                              </div>
                         </div>
                         <div class="col">
@@ -73,6 +73,28 @@
                 </form>
             </div>
             </form>
+
+<script>
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+     if(dd<10){
+            dd='0'+dd
+        }
+        if(mm<10){
+            mm='0'+mm
+        }
+
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("InputStartDate").setAttribute("min", today);
+</script>
+<script>
+    function EndDate() {
+        var InputStartDate = document.getElementById("InputStartDate").value;
+        document.getElementById("InputEndDate").setAttribute("min", InputStartDate);
+    }
+</script>
 
 <script>
 

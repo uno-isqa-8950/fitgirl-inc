@@ -2,7 +2,10 @@ body{
     background: #f4f4f4;  
 }
 
-
+.btn-fitgirl {
+    background-color: #ed217c!important;
+    color: #fff!important;
+}
 
 
 /* NAVBAR */
