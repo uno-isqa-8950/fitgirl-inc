@@ -4,16 +4,19 @@
 
 {% block dash_content %}
   <div class="col-sm-9">
-    <h1>Edit your account</h1>
-  <p>You can edit your account using the following form:</p>
-  {% load avatar_tags %}
-  {% avatar user 80 %}
-  <a href="{% url 'avatar_change' %}">Change your avatar</a>
+    <h2>Edit your account</h2>
+  <h3>You can edit your account using the following form:</h3>
+    <div class="content-section">
+
   <form action="." method="post" enctype="multipart/form-data">
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
     {% csrf_token %}
+        <div class='media'>
+      <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}">
+    </div>
     <p><input type="submit" value="Save changes"></p>
   </form>
+  </div>
   </div>
 {% endblock %}
