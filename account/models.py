@@ -27,22 +27,22 @@ class Program(models.Model):
 
 class ValidUser(models.Model):
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.EmailField(blank=True, null=None)
-    first_name = models.CharField(max_length=50, default=None)
-    last_name = models.CharField(max_length=50, default=None)
+    email = models.EmailField(blank=False, null=True)
+    first_name = models.CharField(max_length=50, blank=False, null=True)#default='None')
+    last_name = models.CharField(max_length=50, blank=False, null=True)#default='None')
     is_active = models.BooleanField(_('active'), default =True)
     program = models.CharField(max_length=50, default='Test')
 
 
 
 class Profile(models.Model):
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50, default=None)
-    last_name = models.CharField(max_length=50, default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=50, blank=False, null=True)#default='None')
+    last_name = models.CharField(max_length=50, blank=False, null=True)#default='None')
     email = models.EmailField(blank=True, null=None)
     date_of_birth = models.DateField(blank=True, null=True)
-    photo = models.ImageField(upload_to='profile_image',blank=True)
+    photo = models.ImageField(default='profile_image/default.jpg',upload_to='profile_image',blank=True)
 
     def __str__(self):
-        return str (self.user)
+        return f'{self.user.username} Profile'
