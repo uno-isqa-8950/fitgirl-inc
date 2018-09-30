@@ -1,6 +1,52 @@
-{% extends 'account/dashboard.html' %}
-{% block dash_content %}
 
+
+
+{% extends 'account/dashboard.html' %}
+
+{% block dash_content %}
+<style>
+
+    .accordion {
+    background-color: #ed217c;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background-color: #ed217c;
+    color: #ffffff;
+}
+
+.accordion:after {
+    content: '\002B';
+    background-color: #ed217c;
+    color: #ffffff;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+
+</style>
 <!--<div class="col-sm-9">-->
     <!--<h1>Create Program</h1>-->
   <!--<p>Fill in the following form to create program:</p>-->
@@ -42,18 +88,20 @@
     </table>
 </div>
 
+<div class="col-sm-9">
 
+                <button class="accordion">Add New Program</button>
+                <div class="panel">
 
-
-			<div class="col-sm-9">
-                 <h3>Add New Program</h3>
-            	<form class="container" method="post" action=".">{% csrf_token %}
+                    <form class="container" method="post" action=".">{% csrf_token %}
                   <div class="form-row">
-                    <div class="form-group">
+                    <div class="col">
+                      <div class="form-group">
 				     <label for="ProgramName">Program Name</label>
                      <input type="text" class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
                     </div>
                    </div>
+                  </div>
                     <div class="form-row">
                         <div class="col">
                              <div class="form-group">
@@ -69,18 +117,52 @@
                         </div>
                     </div>
 
-                 <input type="submit" value="Save Program">
+ <input type="submit" value="Save Program">
                 </form>
-            </div>
-            </form>
+
+                </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
 
 <script>
+
+
+
+
 
 $(document).ready(function(){
      
 
 
     $("#createProgram").css("border","2px solid")
+    $("#createProgram").css("background-color","#ed217c")
+    $("#createProgram").css("color","#ffffff")
+    $("#createProgram").css("border-color","black")
+
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+}
 
      
 
