@@ -40,7 +40,7 @@ class Profile(models.Model):
     #user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50, blank=False, null=True)#default='None')
     last_name = models.CharField(max_length=50, blank=False, null=True)#default='None')
-    email = models.EmailField(blank=True, null=None)
+    #email = models.EmailField(blank=True, null=None)
     date_of_birth = models.DateField(blank=True, null=True)
     photo = models.ImageField(default='profile_image/default.jpg',upload_to='profile_image',blank=True)
 
