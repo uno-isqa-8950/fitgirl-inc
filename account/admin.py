@@ -16,8 +16,8 @@ class ProgramList(admin.ModelAdmin):
 
 admin.site.register(Program, ProgramList)
 
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user','first_name','last_name','email','date_of_birth', 'photo']
+'''class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['user','first_name','last_name','email','date_of_birth', 'photo']'''
 
-admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Profile)
 admin.site.register(ValidUser)
