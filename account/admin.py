@@ -3,7 +3,9 @@
 # Register your models here.
 from django.contrib import admin
 from .models import Program
-from .models import Profile, ValidUser
+from .models import Profile, RegisterUser
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
 
@@ -16,8 +18,26 @@ class ProgramList(admin.ModelAdmin):
 
 admin.site.register(Program, ProgramList)
 
-'''class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user','first_name','last_name','email','date_of_birth', 'photo']'''
+# class ProfileAdmin(admin.ModelAdmin):
+#     list_display = ['user','first_name','last_name','bio','date_of_birth', 'photo']
 
-admin.site.register(Profile)
-admin.site.register(ValidUser)
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+    fk_name = 'user'
+
+class CustomUserAdmin(UserAdmin):
+    inlines = (ProfileInline, )
+
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super(CustomUserAdmin, self).get_inline_instances(request, obj)
+
+
+
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
+# admin.site.register(Profile, ProfileAdmin)
+admin.site.register(RegisterUser)

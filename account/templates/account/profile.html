@@ -8,10 +8,20 @@
 
     <p>First name: {{ user.first_name }}</p>
     <p>Last name: {{ user.last_name }}</p>
+    <p>Bio: {{ user.bio }}</p>
     <p>Email: {{ user.email }}</p>
     <p>Birthday: {{ user.date_of_birth}}</p>
     {% if user.userprofile.image %}
     <img src="{{ user.userprofile.image.url }}" width="240">
     {% endif %}
+    <p>Age: {{ user.age }}</p>
+    <p>Address: {{ user.address }}</p>
+    <p>Zip: {{ user.zip }}</p>
+    <p>City: {{ user.city }}</p>
+    <p>State: {{ user.state }}</p>
+    <p>Day Phone: {{ user.day_phone }}</p>
+    <p>Eve Phone: {{ user.eve_phone }}</p>
+    <p>Age Group:  {{ user.age_group }}</p>
+    <p>School: {{ user.school }}</p>
 </div>
 {% endblock %}

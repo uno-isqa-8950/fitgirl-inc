@@ -9,7 +9,7 @@ class LoginForm(forms.Form):
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'email')
+        fields = ('first_name','last_name', 'email')
 
 class UploadFileForm(forms.Form):
     names = []
@@ -22,10 +22,10 @@ class UploadFileForm(forms.Form):
     file = forms.FileField(label=" Choose the CSV file")
 
 class ProfileEditForm(forms.ModelForm):
-    date_of_birth = forms.DateField(help_text='Required.Format: MM-DD-YYYY')
+    date_of_birth = forms.DateField(help_text='Required Format: YYYY-MM-DD')
     class Meta:
         model = Profile
-        fields = ('first_name','last_name','date_of_birth','photo' )
+        fields = ('bio', 'date_of_birth', 'age', 'address', 'zip', 'city', 'state', 'day_phone', 'eve_phone', 'age_group', 'school', 'photo')
 
 class ProgramForm(forms.ModelForm):
     class Meta:
