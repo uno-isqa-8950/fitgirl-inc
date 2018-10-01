@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm
 from .forms import Profile,User, Program
-from .models import ValidUser
+from .models import RegisterUser
 from io import TextIOWrapper, StringIO
 
 
@@ -35,6 +35,7 @@ def user_login(request):
     else:
         form = LoginForm()
     return render(request, 'account/login.html', {'form': form})
+
 
 @login_required
 def dashboard(request):
@@ -83,7 +84,7 @@ def handle_uploaded_file(request, name):
           reader.__next__();
           count = 0
           for row in reader:
-                vu = ValidUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
+                vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
                 current_site = get_current_site(request)
                 alphabet = string.ascii_letters + string.digits
                 # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
@@ -93,7 +94,7 @@ def handle_uploaded_file(request, name):
                 form = PasswordResetForm({'email': theUser.email})
                 if form.is_valid():
                     request = HttpRequest()
-                    request.META['SERVER_NAME'] = 'empoweru.herokuapp.com' #'127.0.0.1:8000' 
+                    request.META['SERVER_NAME'] = 'empoweru.herokuapp.com'
                     request.META['SERVER_PORT'] = '80'
                     form.save(
                         request=request,
@@ -119,7 +120,6 @@ def registerusers(request):
             file_name = request.FILES['file']
             validate_csv(file_name)
             value = handle_uploaded_file(request,form.cleaned_data['programs'])
-
             if value > 0:
                 form = request.POST
                 messages.success(request, str(value)+' users added successfully')
@@ -137,7 +137,7 @@ def aboutus(request):
 
 @login_required
 def users(request):
-    registeredUsers = ValidUser.objects.all()
+    registeredUsers = User.objects.all()
     return render(request, 'account/viewUsers.html', {'registeredUsers' : registeredUsers})
 
 @login_required
@@ -179,4 +179,6 @@ def profile(request):
     return render(request,
                   'account/profile.html',
                   {'section': 'profile'})
+
+
 
