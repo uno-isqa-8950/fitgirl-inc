@@ -8,6 +8,9 @@
   <h3>You can edit your account using the following form:</h3>
   <br>
   <br>
+        <div class='media'>
+          <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" width="120">
+        </div>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset class="from-group">
