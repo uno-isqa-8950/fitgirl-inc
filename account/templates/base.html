@@ -51,7 +51,8 @@
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-                <img class="rounded-circle account-img" src="{{ user.profile.photo }}" width="30">
+                {% load avatar_tags %}
+                {% avatar user 30 %}</a>
                 <ul class="dropdown-menu dropdown-menu-right" >
                     {% if request.user.is_superuser %}
                     {% else %}
