@@ -3,18 +3,21 @@
 {% block title %}Edit your account{% endblock %}
 
 {% block dash_content %}
-  <div class="col-sm-9">
+  <div class="content-section">
     <h2>Edit your account</h2>
   <h3>You can edit your account using the following form:</h3>
   <br>
   <br>
-  <form action="." method="post" enctype="multipart/form-data">
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    <fieldset class="from-group">
+      {{ user_form.as_p }}
+      {{ profile_form.as_p }}
+    </fieldset>
         <div class='media'>
-      <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" width="80">
-    </div>
+          <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" width="80">
+        </div>
+
     <br>
     <br>
     <p><input type="submit" value="Save changes"></p>
