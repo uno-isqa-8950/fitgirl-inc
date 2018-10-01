@@ -6,23 +6,12 @@
   <div class="col-sm-9">
     <h1>Edit your account</h1>
   <p>You can edit your account using the following form:</p>
-  <br>
-  <br>
-        <div class='media'>
-          <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" width="120">
-        </div>
   <form action="." method="post" enctype="multipart/form-data">
-      {% csrf_token %}
     <fieldset class="from-group">
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
+        {% csrf_token %}
 	    </fieldset>
-        <div class='media'>
-          <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" width="80">
-        </div>
-
-    <br>
-    <br>
     <p><input type="submit" value="Save changes"></p>
   </form>
   </div>
