@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'taggit',
     'empoweru',
     'avatar',
-    'reset_migrations',
+#     'reset_migrations',
     'assessment',
 ]
 
