@@ -7,6 +7,13 @@ body{
     color: #fff!important;
 }
 
+.modal-dialog.modal-notify.modal-info .fa {
+    color: #ed217c;
+}
+
+.modal-dialog.modal-notify.modal-info .badge, .modal-dialog.modal-notify.modal-info .modal-header {
+    background-color: #ed217c;
+}
 
 /* NAVBAR */
 

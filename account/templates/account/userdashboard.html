@@ -1,5 +1,31 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
+<!--Pre-Assessment Popup-->
+             <!--Modal: pre_assess-->
+             <div class="modal fade" id="pre_assess" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                 <div class="modal-dialog modal-notify modal-info" role="document">
+                     <!--Content-->
+                     <div class="modal-content text-center">
+                         <!--Header-->
+                         <div class="modal-header d-flex justify-content-center">
+                            <p class="heading">Welcome to EmpowerU!</p>
+                         </div>
+                         <!--Body-->
+                         <div class="modal-body">
+                             <i class="fa fa-heart fa-4x animated rotateIn slow mb-4" ></i>
+                             <h2 ><p class="animated bounceIn slower ">Your Enrollment is Incomplete!</p></h2>
+                             {% if request.user.program_edit != "complete" %}
+                             <a href="{% url 'edit' %}" id="initial_settings" class="btn btn-fitgirl">Tell us About Yourself</a>
+                             {% endif %}
+                             <br>
+                             {% if request.user.program_status != "complete" %}
+                             <a href="{% url 'pre_assessment' %}" class="btn btn-fitgirl">Take Pre-Assessment</a>
+                             {% endif %}
+                         </div>
+                     </div>
+                     <!--/.Content-->
+                 </div>
+             </div>
 {% if request.user.is_superuser %}
 <div class="embed-responsive embed-responsive-16by9">
     <iframe class="embed-responsive-item" src="/admin" allowfullscreen></iframe>
@@ -35,5 +61,16 @@
     <br>
     </p>
 </div>
+{% endif %}
+<!--Pre-Assessment Check-->
+{% if request.user.is_superuser %}
+{% else %}
+    {% if request.user.program_status != "complete" %}
+        <script>
+            $(window).load(function(){
+            $('#pre_assess').modal('show');
+            });
+        </script>
+    {% endif %}
 {% endif %}
 {% endblock %}
