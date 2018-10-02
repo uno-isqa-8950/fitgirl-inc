@@ -94,7 +94,7 @@ def handle_uploaded_file(request, name):
                 form = PasswordResetForm({'email': theUser.email})
                 if form.is_valid():
                     request = HttpRequest()
-                    request.META['SERVER_NAME'] = 'empoweru.herokuapp.com' #'127.0.0.1:8000'
+                    request.META['SERVER_NAME'] = 'empoweru.herokuapp.com' #'127.0.0.1:8000' 
                     request.META['SERVER_PORT'] = '80'
                     form.save(
                         request=request,
@@ -161,9 +161,9 @@ def edit(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return HttpResponse('Profile updated successfully!')
+            messages.success(request, 'Profile updated successfully!')
         else:
-            return HttpResponse('Error updating your profile!')
+            messages.success(request, 'Error updating your profile!')
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)

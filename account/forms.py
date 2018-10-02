@@ -11,15 +11,24 @@ class UserEditForm(forms.ModelForm):
         model = User
         fields = ('first_name','last_name', 'email')
 
-class UploadFileForm(forms.Form):
+
+def my_choices():
     names = []
     count = 0
     d = {}
     for program in Program.objects.all().order_by('program_name'):
         d[program.program_name] = program.program_name
-    print(d.items())
-    programs = forms.ChoiceField(choices=d.items())
+    return d.items()
+
+
+class UploadFileForm(forms.Form):
+
     file = forms.FileField(label=" Choose the CSV file")
+
+    def __init__(self, *args,**kwargs):
+        super(UploadFileForm, self).__init__(*args, **kwargs)
+        self.fields['programs'] = forms.ChoiceField(
+            choices=my_choices())
 
 class ProfileEditForm(forms.ModelForm):
     date_of_birth = forms.DateField(help_text='Required Format: YYYY-MM-DD')

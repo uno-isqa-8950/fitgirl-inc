@@ -49,7 +49,7 @@ class Profile(models.Model):
     photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image', blank=True)
     # first_name = models.CharField(max_length=50, default=None)
     # last_name = models.CharField(max_length=50, default=None)
-    bio = models.CharField(max_length=255, blank=True, null=True)
+    bio = models.CharField(max_length=255, blank=False, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     age = models.IntegerField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
