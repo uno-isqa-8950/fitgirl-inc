@@ -1,52 +1,136 @@
-{% extends "base.html" %}
-
+<!DOCTYPE html>
+<html lang="en">
 {% load staticfiles %}
-
-{% block title %}Login{% endblock %}
-
-{% block content %}
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href="{% static 'css/base.css' %}" rel="stylesheet">
-    <script src="https://unpkg.com/vue"></script>
-  </head>
-  <body>
-    <section class="container-fluid">
-        <div class="row">
-            <div class="col-12 col-sm-4 col-md-4"></div>
-            <div class="col-12 col-sm-4 col-md-4">
-            	<form class="form-container" method="POST" action="">{% csrf_token %}
-                  <h4>Login</h4>
-                  {% if form.errors %}
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login</title>
+
+  <!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap core CSS -->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/css/mdb.min.css" rel="stylesheet">
+<link href="{% static 'css/login.css' %}" rel="stylesheet">
+</head>
+
+
+
+<body>
+ <!-- Main navigation -->
+<header>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <strong>EmpowerU</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">About Us
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+
+
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+    <!-- Full Page Intro -->
+    <div class="view" style="background-image: url({% static 'images/lgo.jpg' %}); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <!--<div class="background-image" style="background: url({% static 'images/lgo.jpg' %} ) no-repeat; background-size: 100%;">-->
+      <!-- Mask & flexbox options-->
+      <div class="mask rgba-indigo-strong d-flex justify-content-center align-items-center">
+        <!-- Content -->
+        <div class="container">
+          <!--Grid row-->
+          <div class="row pt-lg-5 mt-lg-5">
+            <!--Grid column-->
+            <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-center text-md-left wow fadeInLeft" data-wow-delay="0.3s">
+              <h1 class="display-4 font-weight-bold">EmpowerU</h1>
+              <hr class="hr-light">
+              <h6 class="mb-3">The mission of FITGirl, Inc. is to empower young girls as they develop and mature by demonstrating positive lifestyle choices; physical, mental, relational and nutritional.
+                FITGirl, Inc. focuses on what is already inside a young girl – we help her learn how to tap into her own skills and abilities to shine.
+              </h6>
+
+            </div>
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="col-md-6 col-xl-5 mb-4">
+              <!--Form-->
+              <form class="card wow fadeInRight" data-wow-delay="0.3s" method="POST" action="">{% csrf_token %}
+                <div class="card-body z-depth-2">
+                  <!--Header-->
+                  <div class="text-center">
+                    <h3 class="dark-grey-text">
+                      <strong>Login</strong>
+                      {% if form.errors %}
                   		<div class="alert alert-danger">
                 		<strong><p>Incorrect username or password</p></strong>
             			</div>
                     {% endif%}
-                  <div class="form-group">
-                     <input type="text" class="form-control" name="username" id="InputUserName" aria-describedby="UserNameHelp" placeholder="Enter Username">
-                 </div>
-                 <div class="form-group">
-                     <label for="InputPassword1">Password</label>
-                     <input type="password" class="form-control" name="password" id="Password1" placeholder="Password">
-                 </div>  
-                 <input type="submit" value="Login">
-                    
-                    <p><a href="{% url "password_reset" %}">Forgotten your  password?</a></p>
-                </form>
+                    </h3>
+                    <hr>
+                  </div>
+                  <!--Body-->
+                  <div class="md-form">
+                    <i class="fa fa-user prefix grey-text"></i>
+                    <input type="text" id="form3" name="username" class="form-control">
+                    <label for="form3">Username</label>
+                  </div>
+                  <div class="md-form">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" id="form2" name="password" class="form-control">
+                    <label for="form2">Enter Password</label>
+                  </div>
+
+                  <div class="text-center mt-3">
+                    <button class="btn btn-fitgirl" type="submit" value="login">Login</button>
+                    <hr>
+                      <p><a href="{% url 'password_reset' %}">Forgotten your password?</a></p>
+                  </div>
+                </div>
+              </form>
+              <!--/.Form-->
             </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
         </div>
-    </section>
-    
+        <!-- Content -->
+      </div>
+      <!-- Mask & flexbox options-->
+    </div>
+    <!-- Full Page Intro -->
+  </header>
+  <!-- Main navigation -->
 
 
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  </body>
-  </body>
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/js/mdb.min.js"></script>
+
+<script> new WOW().init();
+</script>
+</body>
+
 </html>
-{% endblock %}
