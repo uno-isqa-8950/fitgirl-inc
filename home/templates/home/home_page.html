@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+    <h1>Welcome to Empoweru Program. For every week you need to do all the four modules.
+     {% for post in page.get_children %}
+<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
+    {% endfor %}
+        {% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+{{page.whatyouneed}}
+{{page.directions}}
+{{ page.body|richtext }}
+<form action="{% pageurl page %}" method="POST">
+{{form.as_p}}
+  <input type="submit">
+</form>
+{{page.healthytip}}
+
+{% for post in page.get_children %}
+<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
+    {% endfor %}
+
+
+<p><a href="{{ page.get_parent.url }}">Return to Model</a></p>
+
+{% endblock %}
