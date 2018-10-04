@@ -25,7 +25,7 @@
         <ul class="navbar-nav mr-auto">
             {% if request.user.is_superuser %}
               <li class="nav-item">
-                <a class="nav-link" href="{%url 'createprogram'%}">Program <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/cms/"> Create Pages <span class="sr-only">(current)</span></a>
               </li>
             {% else %}
               <li class="nav-item">
@@ -33,7 +33,7 @@
               </li>
             {% endif %}
           <li class="nav-item ">
-            <a class="nav-link" href="#">Modules</a>
+            <a class="nav-link" href="/pages/">Modules</a>
           </li>
            {% if request.user.is_superuser %}
           <li class="nav-item ">
