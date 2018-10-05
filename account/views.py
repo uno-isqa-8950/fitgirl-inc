@@ -137,7 +137,7 @@ def aboutus(request):
 
 @login_required
 def users(request):
-    registeredUsers = User.objects.all()
+    registeredUsers = User.objects.filter(is_superuser = False)
     return render(request, 'account/viewUsers.html', {'registeredUsers' : registeredUsers})
 
 @login_required

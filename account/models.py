@@ -58,7 +58,7 @@ class Profile(models.Model):
     state = models.CharField(max_length=25, blank=True, null=True)
     day_phone = models.IntegerField(blank=True, null=True)
     eve_phone = models.IntegerField(blank=True, null=True)
-    age_group = models.IntegerField(choices=EVENT, blank=True, null=True, default=None)
+    age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
     school = models.CharField(max_length=50, blank=True, null=True)
 
 

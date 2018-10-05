@@ -9,6 +9,7 @@
 			<th>Last Name</th>
 			<th>Email</th>
             <th>Active</th>
+            <th>User Logged-In</th>
       </tr>
       </thead>
         <tbody>
@@ -21,7 +22,11 @@
           <td><button type="button" class="btn btn-lg btn-primary" disabled>Active</button></td>
         {% else %}
           <td><button type="button" class="btn btn-lg btn-primary" disabled>Inactive</button></td>
-
+        {% endif %}
+        {% if registeredUser.last_login is None %}
+           <td><button type="button" class="btn btn-lg btn-primary" disabled>No</button></td>
+        {% else %}
+          <td><button type="button" class="btn btn-lg btn-primary" disabled>Yes</button></td>
         {% endif %}
         {% endfor %}
         </tr>
