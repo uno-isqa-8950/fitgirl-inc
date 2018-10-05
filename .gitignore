@@ -59,7 +59,7 @@ settings.py
 empoweru/settings.py
 empoweru/settings.*
 db.sqlite3
-**/migrations/
+
 
 # Flask stuff:
 instance/
