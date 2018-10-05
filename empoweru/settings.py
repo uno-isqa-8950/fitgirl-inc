@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'assessment',
     'home',
     'week',
-
     'widget_tweaks',
 ]
 
