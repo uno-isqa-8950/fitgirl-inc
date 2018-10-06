@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load menu_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,8 @@
 	<link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
 <body>
-		<nav class="navbar navbar-expand-md navbar-dark">
+  
+		<nav class="navbar navbar-expand-md special-color">
       <a class="navbar-brand" href="/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
       {% if request.user.is_authenticated %}
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +35,7 @@
               </li>
             {% endif %}
           <li class="nav-item ">
-            <a class="nav-link" href="/pages/">Modules</a>
+            <a class="nav-link" data-toggle="collapse" href="#collapseExample">Modules</a>
           </li>
            {% if request.user.is_superuser %}
           <li class="nav-item ">
@@ -75,7 +77,17 @@
       </div>
       {% endif %}
     </nav>
-  <div id="content">
+                <header id="sub-header">
+  <div class="container-fluid">
+        <div class="row">
+            {% main_menu template="menus/program_menu.html" %}
+        </div>
+    </div>
+    </div>
+  </div>
+
+</header>
+  <div id="container">
     {% block content %}
     {% endblock %}
   </div>

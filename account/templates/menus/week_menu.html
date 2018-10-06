@@ -1,0 +1,13 @@
+{% load menu_tags %}
+<div class="collapse" id="collapseExample">
+    <nav class="navbar navbar-light bg-light" style="border:0">
+        {% for item in menu_items %}
+            <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                <button class="btn btn-sm btn-pink btn-rounded" type="button " id="ddtoggle_{{ item.link_page.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.text }}</button>
+                {% if item.has_children_in_menu %}
+        	        {% sub_menu item template="menus/module_submenu.html" %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </nav>
+</div>
