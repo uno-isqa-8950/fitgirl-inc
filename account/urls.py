@@ -25,5 +25,6 @@ urlpatterns = [
     path('myprogram/', views.myprogram, name='myprogram'),
     path('registerusers/', views.registerusers, name='registerusers'),
     path('userdashboard/', views.userdashboard, name='userdashboard'),
+    path('cms_frame/', views.cms_frame, name='cms_frame'),
 
 ]

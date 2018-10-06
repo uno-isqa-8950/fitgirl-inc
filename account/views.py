@@ -180,5 +180,9 @@ def profile(request):
                   'account/profile.html',
                   {'section': 'profile'})
 
-
+@login_required
+def cms_frame(request):
+    return render(request,
+                  'account/cms_frame.html',
+                  {'section': 'cms_frame'})
 
