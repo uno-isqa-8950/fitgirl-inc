@@ -14,11 +14,40 @@
         </div>
         {% else %}
         <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1>
+
+        
         {% endif %}
     </div>
     <!-- <div class="row">
         <div class="col-sm-3"> -->
     {% if request.user.is_superuser %}
+
+
+  <div id="image3" class="row">
+           
+        <div id="image2" class="col-sm-3">
+  
+        </div>  
+  
+  
+   <div id="image1" class ="col-sm-9">
+  
+      <img src="../../../media/images/fitgirl1.jpg" style="
+      width: 400px;
+      height: 433px;">
+        <img src="../../../media/images/fitgirl2.jpg" style="
+        width: 400px;
+        height: 433px;">
+  
+  </div>
+  
+  
+  
+  </div>
+   
+
+  
+   
     <div class="modal fade left" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-full-height modal-left" role="document"  style="padding-top:10%">
             <!--Content-->
@@ -112,6 +141,37 @@
         <!--</div>-->
         <!--</div>-->
     </div>
+<div class="row">
+
+<div class="col-sm-4"></div>
+
+        <div class="col-sm-4">
+                <p style="
+                /* text-align: center; */
+                font-size: large;
+                /* font-weight: bold; */
+                text-align: center;">Welcome to EmpoweU:
+        
+                        We have four categories that we will work from: Physical, Nutritional, Mental and Relational.
+                        
+                        Every week we will have something new and fun for you to do. Recipes! Exercises! Affirmations!! And much more.
+                        
+                        Thank you for enrolling in EmpowerU. </p>
+        </div>
+
+</div>
+
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-8">
+
+            <img src="../../../media/images/fitgirl3.jpg" style="
+            width: 500px;
+            height: 200px;">
+    </div>
+</div>
+
+  
     {% endif %}
 
 </div>
