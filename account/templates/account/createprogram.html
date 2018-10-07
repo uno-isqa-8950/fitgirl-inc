@@ -7,7 +7,7 @@
 <style>
 
     .accordion {
-    background-color: #ed217c;
+    background-color: #0075ff;
     color: #ffffff;
     cursor: pointer;
     padding: 18px;
@@ -20,13 +20,13 @@
 }
 
 .active, .accordion:hover {
-    background-color: #ed217c;
+    background-color: #0075ff;
     color: #ffffff;
 }
 
 .accordion:after {
     content: '\002B';
-    background-color: #ed217c;
+    background-color: #0075ff;
     color: #ffffff;
     font-weight: bold;
     float: right;
@@ -90,18 +90,36 @@
 
 <div class="col-sm-9">
 
-                <button class="accordion">Add New Program</button>
-                <div class="panel">
+                <button class="accordion" id="accordioncheck">Add New Program</button>
+                <div class="panel" id="divpanel">
 
                     <form class="container" method="post" action=".">{% csrf_token %}
+                      <div class="form-row">
+                        <div class="col">
+                          <div class="form-group">
+          </div>
+        </div>
+      </div>
+
+
                   <div class="form-row">
                     <div class="col">
                       <div class="form-group">
 				     <label for="ProgramName">Program Name</label>
-                     <input type="text" class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
-                    </div>
+           </div>
                    </div>
+                   <div class="col">
+                     <div class="form-group">
+                   <input type="text" class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
                   </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <div class="form-group">
+  </div>
+</div>
+</div>
                     <div class="form-row">
                         <div class="col">
                              <div class="form-group">
@@ -116,8 +134,27 @@
                              </div>
                         </div>
                     </div>
+                    <div class="form-row">
+                      <div class="col">
+                        <div class="form-group">
+        </div>
+      </div>
+    </div>
+<div class="form-row">
+  <div class="col">
+       <div class="form-group">
 
- <input type="submit" value="Save Program">
+         <button type="submit" class="btn btn-primary">Save Program</button>
+ <!-- <input type="submit" value="Save Program"> -->
+</div>
+</div>
+ <div class="col">
+      <div class="form-group">
+        <button type="button" id="cancelButton" class="btn btn-danger">Cancel</button>
+  <!-- <button type="cancel" value="Reset" id="cancelButton">Cancel</button> -->
+</div>
+</div>
+</div>
                 </form>
 
                 </div>
@@ -159,11 +196,16 @@
 <script>
 
 
-
+$("#cancelButton").click(function()
+{
+  // console.log($("#accordioncheck").attr("class"))
+  $("#accordioncheck").attr("class", "accordion");
+  $("#divpanel").attr("style","")
+});
 
 
 $(document).ready(function(){
-     
+
     $("#image1").remove()
     $("#image2").remove()
     $("#image3").remove()
@@ -188,9 +230,9 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 
-     
 
-  
+
+
 });
 </script>
 
