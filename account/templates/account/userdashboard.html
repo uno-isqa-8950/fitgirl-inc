@@ -7,12 +7,12 @@
                      <!--Content-->
                      <div class="modal-content text-center">
                          <!--Header-->
-                         <div class="modal-header d-flex justify-content-center">
+                         <div class="modal-header d-flex justify-content-center" style="background-color:#ed217c">
                             <p class="heading">Welcome to EmpowerU!</p>
                          </div>
                          <!--Body-->
                          <div class="modal-body">
-                             <i class="fa fa-heart fa-4x animated rotateIn slow mb-4" ></i>
+                             <i class="fa fa-heart fa-4x animated rotateIn slow mb-4" style="color:#ed217c" ></i>
                              <h2 ><p class="animated bounceIn slower ">Your Enrollment is Incomplete!</p></h2>
                              {% if request.user.program_edit != "complete" %}
                              <a href="{% url 'edit' %}" id="initial_settings" class="btn btn-fitgirl">Tell us About Yourself</a>
