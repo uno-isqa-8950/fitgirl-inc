@@ -23,29 +23,33 @@
     {% if request.user.is_superuser %}
 
 
-  <div id="image3" class="row">
-           
-        <div id="image2" class="col-sm-3">
-  
-        </div>  
-  
-  
-   <div id="image1" class ="col-sm-9">
-  
-      <img src="../../../media/images/fitgirl1.jpg" style="
-      width: 400px;
-      height: 433px;">
-        <img src="../../../media/images/fitgirl2.jpg" style="
-        width: 400px;
-        height: 433px;">
-  
-  </div>
-  
-  
-  
-  </div>
+  <!--<div id="image3" class="row">-->
+           <!---->
+        <!--<div id="image2" class="col-sm-3">-->
+  <!---->
+        <!--</div>  -->
+  <!---->
+  <!---->
+   <!--<div id="image1" class ="col-sm-9">-->
+  <!---->
+      <!--<img src="../../../media/images/fitgirl1.jpg" style="-->
+      <!--width: 400px;-->
+      <!--height: 433px;">-->
+        <!--<img src="../../../media/images/fitgirl2.jpg" style="-->
+        <!--width: 400px;-->
+        <!--height: 433px;">-->
+  <!---->
+  <!--</div>-->
+  <!---->
+  <!---->
+  <!---->
+  <!--</div>-->
    
-
+    {% if request.path == "/" %}
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="/admin" allowfullscreen></iframe>
+        </div>
+    {% endif %}
   
    
     <div class="modal fade left" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
