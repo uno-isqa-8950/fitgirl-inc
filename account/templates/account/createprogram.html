@@ -1,13 +1,10 @@
-
-
-
 {% extends 'account/dashboard.html' %}
 
 {% block dash_content %}
 <style>
 
-    .accordion {
-    background-color: #0075ff;
+  .accordion {
+    ;
     color: #ffffff;
     cursor: pointer;
     padding: 18px;
@@ -20,13 +17,13 @@
 }
 
 .active, .accordion:hover {
-    background-color: #0075ff;
+    ;
     color: #ffffff;
 }
 
 .accordion:after {
     content: '\002B';
-    background-color: #0075ff;
+    
     color: #ffffff;
     font-weight: bold;
     float: right;
@@ -48,119 +45,125 @@
 
 </style>
 <!--<div class="col-sm-9">-->
-    <!--<h1>Create Program</h1>-->
-  <!--<p>Fill in the following form to create program:</p>-->
-  <!--<form method="POST" class="program-form">-->
-    <!--{{ form.as_p }}-->
-    <!--{% csrf_token %}-->
-    <!--<p><input type="submit" value="Save changes"></p>-->
-  <!--</form>-->
-  <!--</div>-->
+<!--<h1>Create Program</h1>-->
+<!--<p>Fill in the following form to create program:</p>-->
+<!--<form method="POST" class="program-form">-->
+<!--{{ form.as_p }}-->
+<!--{% csrf_token %}-->
+<!--<p><input type="submit" value="Save changes"></p>-->
+<!--</form>-->
+<!--</div>-->
 
-<div class="col-sm-9">
-     <h1> All Programs</h1>
-    {% if messages %}
+<div class="container">
+  <div class="row">
+
+  
+<div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
+  <h1> All Programs</h1>
+  {% if messages %}
   <ul class="messages">
     {% for message in messages %}
-      <li class="{{ message.tags }}">{{ message }}</li>
+    <li class="{{ message.tags }}">{{ message }}</li>
     {% endfor %}
   </ul>
-{% endif %}
+  {% endif %}
   <table class="table table-striped table-bordered table-hover" class="target">
-      <thead class="thead-pink">
+    <thead class="thead default-color">
       <tr>
-			<th>Program Name</th>
-			<th>Start Date</th>
-			<th>End Date</th>
+        <th>Program Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
 
-			</tr>
-      </thead>
-        <tbody>
-        {% for registeredPrograms in registeredPrograms %}
-        <tr>
+      </tr>
+    </thead>
+    <tbody>
+      {% for registeredPrograms in registeredPrograms %}
+      <tr>
         <td>{{ registeredPrograms.program_name }}</td>
-				<td>{{ registeredPrograms.program_start_date }}</td>
-				<td>{{ registeredPrograms.program_end_date }}</td>
+        <td>{{ registeredPrograms.program_start_date }}</td>
+        <td>{{ registeredPrograms.program_end_date }}</td>
 
         {% endfor %}
-        </tr>
-        </tbody>
-    </table>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-<div class="col-sm-9">
+<div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
 
-                <button class="accordion" id="accordioncheck">Add New Program</button>
-                <div class="panel" id="divpanel">
+  <button class="accordion default-color-dark" id="accordioncheck">Add New Program</button>
+  <div class="panel" id="divpanel">
 
-                    <form class="container" method="post" action=".">{% csrf_token %}
-                      <div class="form-row">
-                        <div class="col">
-                          <div class="form-group">
+    <form class="container" method="post" action=".">{% csrf_token %}
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
           </div>
         </div>
       </div>
 
 
-                  <div class="form-row">
-                    <div class="col">
-                      <div class="form-group">
-				     <label for="ProgramName">Program Name</label>
-           </div>
-                   </div>
-                   <div class="col">
-                     <div class="form-group">
-                   <input type="text" class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
-                  </div>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="col">
-                  <div class="form-group">
-  </div>
-</div>
-</div>
-                    <div class="form-row">
-                        <div class="col">
-                             <div class="form-group">
-                                 <label for="StartDate">Start Date</label>
-                                 <input type="date" class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date" onchange="EndDate()">
-                             </div>
-                        </div>
-                        <div class="col">
-                             <div class="form-group">
-                                 <label for="EndDate">End Date</label>
-                                 <input type="date" class="form-control" name="program_end_date" id="InputEndDate" placeholder="Enter End Date">
-                             </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="col">
-                        <div class="form-group">
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="ProgramName">Program Name</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <input type="text" class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
+          </div>
         </div>
       </div>
-    </div>
-<div class="form-row">
-  <div class="col">
-       <div class="form-group">
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="StartDate">Start Date</label>
+            <input type="date" class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date"
+              onchange="EndDate()">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="EndDate">End Date</label>
+            <input type="date" class="form-control" name="program_end_date" id="InputEndDate" placeholder="Enter End Date">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
 
-         <button type="submit" class="btn btn-primary">Save Program</button>
- <!-- <input type="submit" value="Save Program"> -->
-</div>
-</div>
- <div class="col">
-      <div class="form-group">
-        <button type="button" id="cancelButton" class="btn btn-danger">Cancel</button>
-  <!-- <button type="cancel" value="Reset" id="cancelButton">Cancel</button> -->
-</div>
-</div>
-</div>
-                </form>
+            <button type="submit" class="btn btn-primary">Save Program</button>
+            <!-- <input type="submit" value="Save Program"> -->
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <button type="button" id="cancelButton" class="btn btn-danger">Cancel</button>
+            <!-- <button type="cancel" value="Reset" id="cancelButton">Cancel</button> -->
+          </div>
+        </div>
+      </div>
+    </form>
 
-                </div>
+  </div>
 
 </div>
-
+</div>
+</div>
 
 
 
@@ -172,68 +175,67 @@
 
 
 <script>
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
-     if(dd<10){
-            dd='0'+dd
-        }
-        if(mm<10){
-            mm='0'+mm
-        }
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
 
-    today = yyyy+'-'+mm+'-'+dd;
-    document.getElementById("InputStartDate").setAttribute("min", today);
+  today = yyyy + '-' + mm + '-' + dd;
+  document.getElementById("InputStartDate").setAttribute("min", today);
 </script>
 <script>
-    function EndDate() {
-        var InputStartDate = document.getElementById("InputStartDate").value;
-        document.getElementById("InputEndDate").setAttribute("min", InputStartDate);
-    }
+  function EndDate() {
+    var InputStartDate = document.getElementById("InputStartDate").value;
+    document.getElementById("InputEndDate").setAttribute("min", InputStartDate);
+  }
 </script>
 
 <script>
 
 
-$("#cancelButton").click(function()
-{
-  // console.log($("#accordioncheck").attr("class"))
-  $("#accordioncheck").attr("class", "accordion");
-  $("#divpanel").attr("style","")
-});
+  $("#cancelButton").click(function () {
+    // console.log($("#accordioncheck").attr("class"))
+    $("#accordioncheck").attr("class", "accordion");
+    $("#divpanel").attr("style", "")
+  });
 
 
-$(document).ready(function(){
+  $(document).ready(function () {
 
     $("#image1").remove()
     $("#image2").remove()
     $("#image3").remove()
 
-    $("#createProgram").css("border","2px solid")
-    $("#createProgram").css("background-color","#ed217c")
-    $("#createProgram").css("color","#ffffff")
-    $("#createProgram").css("border-color","black")
+    $("#createProgram").css("border", "2px solid")
+    $("#createProgram").css("background-color", "#ed217c")
+    $("#createProgram").css("color", "#ffffff")
+    $("#createProgram").css("border-color", "black")
 
-var acc = document.getElementsByClassName("accordion");
-var i;
+    var acc = document.getElementsByClassName("accordion");
+    var i;
 
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
     }
+
+
+
+
   });
-}
-
-
-
-
-});
 </script>
 
 

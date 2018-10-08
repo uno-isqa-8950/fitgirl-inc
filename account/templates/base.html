@@ -27,32 +27,32 @@
         <ul class="navbar-nav mr-auto">
             {% if request.user.is_superuser %}
               <li class="nav-item">
-                <a class="nav-link" href="/cms/"> Create Pages <span class="sr-only">(current)</span></a>
+                <a class="nav-link hoverable" href="/cms/"> Create Pages <span class="sr-only">(current)</span></a>
               </li>
             {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{%url 'myprogram'%}">Program <span class="sr-only">(current)</span></a>
+                <a class="nav-link hoverable" href="{%url 'myprogram'%}">Program <span class="sr-only">(current)</span></a>
               </li>
             {% endif %}
           <li class="nav-item ">
-            <a class="nav-link" data-toggle="collapse" href="#collapseExample">Modules</a>
+            <a class="nav-link hoverable" data-toggle="collapse" href="#collapseExample">Modules</a>
           </li>
            {% if request.user.is_superuser %}
           <li class="nav-item ">
-            <a class="nav-link " href="#">Users</a>
+            <a class="nav-link hoverable " href="#">Users</a>
           </li>
          {% else %}
             <li class="nav-item ">
-            <a class="nav-link" href= "{%url 'aboutus'%}">About Us</a>
+            <a class="nav-link hoverable" href= "{%url 'aboutus'%}">About Us</a>
           </li>
           {% endif %}
         </ul>
         <ul class="navbar-nav navbar-right">
             <li class="nav-item">
-              <a class="nav-link" href="#">Welcome {{ user.get_short_name|capfirst }},<span class="sr-only">(current)</span></a>
+              <a class="nav-link  " href="#">Welcome {{ user.get_short_name|capfirst }},<span class="sr-only">(current)</span></a>
             </li>
 
-            <li class="dropdown">
+            <li class="dropdown ">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
                   <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" height="30" width="30">
                 </a>

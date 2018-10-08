@@ -13,7 +13,9 @@
 
         </div>
         {% else %}
-        <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1>
+        <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
+            data-toggle="modal" data-target="#modalPush"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>
+        <!-- <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1> -->
 
         
         {% endif %}
@@ -52,6 +54,81 @@
     {% endif %}
   
    
+        <div class="modal fade left" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-full-height modal-left" role="document"  style="padding-top:10%">
+                <!--Content-->
+                <div class=" col-12 col-md-9">
+                    <div class="modal-content" >
+                        <div class="modal-header stylish-color">
+                            <h4 class="modal-title w-100" id="myModalLabel" style="color:white">Admin Dashboard</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <ul class="nav nav-justified ">
+                                        <div>
+                                            <li class="nav-item">
+                                                <a href="{% url 'createprogram' %}" id="createProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                        class="fas fa-edit fa-fw"></i> Program </a>
+                                            </li>
+                                            <div>
+                                                <li class="nav-item">
+                                                    <a href="{% url 'registerusers' %}" id="registerUsers" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable"><i
+                                                            class="fas fa-plus-circle fa-fw"></i> Register Users </a>
+                                                </li>
+                                                <div>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'users' %}" id="users" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-female fa-fw"></i> Users </a>
+                                                    </li>
+                                                    <div>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'cms_frame' %}" id="cms" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Manage Content </a>
+                                                    </li>
+                                                        <div>
+                                                    <li class="nav-item">
+                                                        <a href="https://docs.google.com/forms/d/1eM7xEBLvySCWnQSW3etSFW1mhSf8R7dDvAajQp-IwEY/edit" target="_blank" id="pre-assessment" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Pre-Assessment </a>
+                                                    </li>
+                                                    <!-- <div>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#panel53" role="tab">Mental</a>
+                                                    </div>
+                                                    </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    <!--we might use it later hence commenting out-->
+    <!-- <div class="list-group">
+                    <a href="{% url 'userdashboard' %}" id="dashboard" class="list-group-item list-group-item-action example hoverable btn-pink">Dashboard</a>
+                    <a href="{% url 'createprogram' %}" id="createProgram" class="list-group-item list-group-item-action example  hoverable"><i
+                            class="fas fa-edit fa-fw"></i> Program </a>
+                    <a href="{% url 'registerusers' %}" id="registerUsers" class="list-group-item list-group-item-action example hoverable"><i
+                            class="fas fa-plus-circle fa-fw"></i> Register Users </a>
+                    <a href="{% url 'users' %}" id="users" class="list-group-item list-group-item-action example hoverable">
+                        <i class="fas fa-female fa-fw"></i> Users </a>
+                    <a href="#" id="Settings" class="list-group-item list-group-item-action"><i class="fas fa-cog"></i>  Settings </a>-->
+    <!--<a href="{% url "password_change" %}" id="changePassword" class="list-group-item list-group-item-action">Change Password</a>-->
+    <!-- </div>
+            </div> -->
+    {% else %}
     <div class="modal fade left" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-full-height modal-left" role="document"  style="padding-top:10%">
             <!--Content-->
@@ -69,23 +146,21 @@
                                 <ul class="nav nav-justified ">
                                     <div>
                                         <li class="nav-item">
-                                            <a href="{% url 'createprogram' %}" id="createProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
-                                                    class="fas fa-edit fa-fw"></i> Program </a>
+                                            <a href="{% url 'userdashboard' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action hoverable">Dashboard</a>
                                         </li>
                                         <div>
                                             <li class="nav-item">
-                                                <a href="{% url 'registerusers' %}" id="registerUsers" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable"><i
-                                                        class="fas fa-plus-circle fa-fw"></i> Register Users </a>
+                                                <a href="{% url 'myprogram' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>
+                                                    My Program</a>
                                             </li>
                                             <div>
                                                 <li class="nav-item">
-                                                    <a href="{% url 'users' %}" id="users" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                        <i class="fas fa-female fa-fw"></i> Users </a>
+                                                    <a href="{% url "password_change" %}" class=" btn btn-block btn-pink list-group-item list-group-item-action">Change Password</a>
                                                 </li>
                                                 <div>
                                                 <li class="nav-item">
-                                                    <a href="{% url 'cms_frame' %}" id="cms" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                        <i class="fas fa-cog fa-fw"></i> Manage Content </a>
+                                                    <a href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-cog fa-fw"></i>
+                                                        Edit Profile</a>
                                                 </li>
                                                     <div>
                                                 <li class="nav-item">
@@ -111,31 +186,15 @@
 
 
 
-
-
-    <!--we might use it later hence commenting out-->
-    <!-- <div class="list-group">
-                    <a href="{% url 'userdashboard' %}" id="dashboard" class="list-group-item list-group-item-action example hoverable btn-pink">Dashboard</a>
-                    <a href="{% url 'createprogram' %}" id="createProgram" class="list-group-item list-group-item-action example  hoverable"><i
-                            class="fas fa-edit fa-fw"></i> Program </a>
-                    <a href="{% url 'registerusers' %}" id="registerUsers" class="list-group-item list-group-item-action example hoverable"><i
-                            class="fas fa-plus-circle fa-fw"></i> Register Users </a>
-                    <a href="{% url 'users' %}" id="users" class="list-group-item list-group-item-action example hoverable">
-                        <i class="fas fa-female fa-fw"></i> Users </a>
-                    <a href="#" id="Settings" class="list-group-item list-group-item-action"><i class="fas fa-cog"></i>  Settings </a>-->
-    <!--<a href="{% url "password_change" %}" id="changePassword" class="list-group-item list-group-item-action">Change Password</a>-->
-    <!-- </div>
-            </div> -->
-    {% else %}
-    <div>
+    <!-- <div>
         <div class="list-group">
             <a href="{% url 'userdashboard' %}" class="list-group-item list-group-item-action  main-color-bg">Dashboard</a>
             <a href="{% url 'myprogram' %}" class="list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>
                 My Program</a>
-            <!--<a href="{% url "password_change" %}" class="list-group-item list-group-item-action">Change Password</a>-->
-            <a href="{% url 'edit' %}" class="list-group-item list-group-item-action"><i class="fas fa-cog fa-fw"></i>
+            <a href="{% url "password_change" %}" class="list-group-item list-group-item-action">Change Password</a>-->
+            <!-- <a href="{% url 'edit' %}" class="list-group-item list-group-item-action"><i class="fas fa-cog fa-fw"></i>
                 Edit Profile</a>
-        </div>
+        </div> --> 
         <!--<div class="card" style="width: 18rem;">-->
         <!--<div class="card-body">-->
         <!--<h5 class="card-title">Points Earned</h5>-->
@@ -145,37 +204,38 @@
         <!--</div>-->
         <!--</div>-->
     </div>
-<div class="row" id="userLandingContent1">
-
-<div class="col-sm-4">
-
-</div>
-
-        <div class="col-sm-4">
-                <p style="
-                /* text-align: center; */
-                font-size: large;
-                /* font-weight: bold; */
-                text-align: center;">Welcome to EmpoweU:
+    <div class="mask rgba-gradient d-flex justify-content-center align-items-center">
+        <!-- Content -->
+        <div class="container px-md-3 px-sm-0">
+          <!--Grid row-->
+          <div class="row wow fadeIn">
+            <!--Grid column-->
+            <div class="col-md-12 mb-4 white-dark text-center wow fadeIn">
+              <h3 class="display-3 font-weight-bold white-dark mb-0 pt-md-5 pt-5">Welcome to EmpowerU!</h3>
+              <hr class="hr-dark my-4 w-75">
+              <h4 class="subtext-header mt-2 mb-4">Welcome to EmpoweU:
         
-                        We have four categories that we will work from: Physical, Nutritional, Mental and Relational.
-                        
-                        Every week we will have something new and fun for you to do. Recipes! Exercises! Affirmations!! And much more.
-                        
-                        Thank you for enrolling in EmpowerU. </p>
+                We have four categories that we will work from: Physical, Nutritional, Mental and Relational.
+                
+                Every week we will have something new and fun for you to do. Recipes! Exercises! Affirmations!! And much more.
+                
+                Thank you for enrolling in EmpowerU.</h4>
+              
+            </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
         </div>
-
-</div>
-
-<div class="row"  id="userLandingContent2">
-    <div class="col-sm-4"></div>
-    <div class="col-sm-8">
-
-            <img src="../../../media/images/fitgirl3.jpg" style="
-            width: 500px;
-            height: 200px;">
+        <!-- Content -->
+      </div>
+      <!-- Mask & flexbox options-->
     </div>
-</div>
+
+      
+
+
+
+
 
   
     {% endif %}

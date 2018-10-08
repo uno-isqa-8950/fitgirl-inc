@@ -1,11 +1,16 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
 
-<div class="col-sm-9">
+<div class="container">
+  <div class="row">
+
+
+<div class="col-12 col-sm-2 col-md-4 col-lg-10  offset-lg-1  ">
  
+  <div class="table-responsive">
   <h1> All Users</h1>
-  <table class="table table-striped table-bordered table-hover" class="target">
-      <thead class="thead-pink">
+  <table class="table table table-bordered table" class="target">
+      <thead class="thead blue-gradient text-white z-depth-2">
       <tr>
 			<th>First Name</th>
 			<th>Last Name</th>
@@ -14,26 +19,29 @@
             <th>User Logged-In</th>
       </tr>
       </thead>
-        <tbody>
+        <tbody  >
         {% for registeredUser in registeredUsers %}
-        <tr>
+        <tr class="hoverable">
         <td>{{ registeredUser.first_name }}</td>
 				<td>{{ registeredUser.last_name }}</td>
 				<td>{{ registeredUser.email }}</td>
         {% if registeredUser.is_active %}
-          <td><button type="button" class="btn btn-lg btn-primary" disabled>Active</button></td>
+          <td><button type="button" class="btn btn-md btn-primary " disabled>Active</button></td>
         {% else %}
-          <td><button type="button" class="btn btn-lg btn-primary" disabled>Inactive</button></td>
+          <td><button type="button" class="btn btn-md btn-primary" disabled>Inactive</button></td>
         {% endif %}
         {% if registeredUser.last_login is None %}
-           <td><button type="button" class="btn btn-lg btn-primary" disabled>No</button></td>
+           <td><button type="button" class="btn btn-md btn-primary" disabled>No</button></td>
         {% else %}
-          <td><button type="button" class="btn btn-lg btn-primary" disabled>Yes</button></td>
+          <td><button type="button" class="btn btn-md btn-primary" disabled>Yes</button></td>
         {% endif %}
         {% endfor %}
         </tr>
         </tbody>
     </table>
+</div>
+</div>
+</div>
 </div>
 
 <script>
