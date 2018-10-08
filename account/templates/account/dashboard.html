@@ -135,7 +135,7 @@
             <div class=" col-12 col-md-9">
                 <div class="modal-content" >
                     <div class="modal-header stylish-color">
-                        <h4 class="modal-title w-100" id="myModalLabel" style="color:white">Admin Dashboard</h4>
+                        <h4 class="modal-title w-100" id="myModalLabel" style="color:white">{{user.get_short_name|capfirst }}'s Dashboard</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -162,16 +162,7 @@
                                                     <a href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-cog fa-fw"></i>
                                                         Edit Profile</a>
                                                 </li>
-                                                    <div>
-                                                <li class="nav-item">
-                                                    <a href="https://docs.google.com/forms/d/1eM7xEBLvySCWnQSW3etSFW1mhSf8R7dDvAajQp-IwEY/edit" target="_blank" id="pre-assessment" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                        <i class="fas fa-cog fa-fw"></i> Pre-Assessment </a>
-                                                </li>
-                                                <!-- <div>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#panel53" role="tab">Mental</a>
-                                                </div>
-                                                </li> -->
+                                               
                                 </ul>
                             </div>
                         </div>
