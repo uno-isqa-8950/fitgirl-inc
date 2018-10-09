@@ -2,8 +2,12 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
+<div class ="container">
+    <br>
+    <br>
 <h2> Thank You for answering this </h2>
     {{page.thank_you_text|richtext}}
 
 <p><a href="{{ page.get_parent.url }}"> Return </a></p>
 {% endblock %}
+</div>
