@@ -24,7 +24,7 @@ class Pre_assessment_Question(models.Model):
 
 class Pre_assessment_Choice(models.Model):
     # user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=None)
+#     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=None)
     # models.ForeignKey(Pre_assessment_Question,on_delete = models.CASCADE)
     ans1 = models.CharField(max_length=20, default =None)
     ans2 = models.CharField(max_length=20, default =None)
