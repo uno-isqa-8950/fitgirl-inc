@@ -3,6 +3,9 @@
 
 
 {% block content %}
+<div class ="container">
+    <br>
+    <br>
   <h1> {{ page.title }}</h1>
 <h3> TRY IT!</h3>
 {{ page.body|richtext }}
@@ -23,3 +26,4 @@
 <p><a href="{{ page.get_parent.url }}">Return</a></p>
 
 {% endblock %}
+</div>
