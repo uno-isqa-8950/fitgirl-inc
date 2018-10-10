@@ -9,12 +9,12 @@
             {% if request.user.is_superuser %}
 
             <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
-                    data-toggle="modal" data-target="fullHeightModalRight"></i> Admin Dashboard</h4>
+                    data-toggle="modal" data-target="#fullHeightModalRight"></i> Admin Dashboard</h4>
 
         </div>
         {% else %}
         <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
-            data-toggle="modal" data-target="#modalPush"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>
+            data-toggle="modal" data-target="#fullHeightModalRight"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>
         <!-- <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1> -->
 
         
