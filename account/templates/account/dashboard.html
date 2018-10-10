@@ -53,20 +53,20 @@
         </div>
     {% endif %}
   
-   <div class="modal fade left" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal fade left w-60" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-full-height modal-left" role="document">
                 <!--Content-->
                
                     <div class="modal-content" >
                         <div class="modal-header stylish-color">
-                            <h4 class="modal-title w-80" id="myModalLabel" style="color:white">Admin Dashboard</h4>
+                            <h4 class="modal-title w-100" id="myModalLabel" style="color:white">Admin Dashboard</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="container">
-                                <div class="row">
+                                
                                     <ul class="nav nav-justified ">
                                         <div>
                                             <li class="nav-item">
@@ -99,7 +99,7 @@
                                                     </div>
                                                     </li> -->
                                     </ul>
-                                </div>
+                           
                             </div>
                         </div>
                         <div class="modal-footer justify-content-center">
@@ -134,12 +134,12 @@
             
                 <div class="modal-content" >
                     <div class="modal-header stylish-color">
-                        <h4 class="modal-title w-80" id="myModalLabel" style="color:white">{{user.get_short_name|capfirst }}'s Dashboard</h4>
+                        <h4 class="modal-title w-100" id="myModalLabel" style="color:white">{{user.get_short_name|capfirst }}'s Dashboard</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body w-60">
                         <div class="container">
                             <div class="row">
                                 <ul class="nav nav-justified ">
