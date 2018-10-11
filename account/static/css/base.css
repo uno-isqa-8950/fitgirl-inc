@@ -54,6 +54,15 @@ ol {
     line-height:1.5;
 }
 
+ul, menu, dir {
+    display: block;
+    list-style-type: none;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
 #header {
     padding:10px 100px;
     font-size:14px;
