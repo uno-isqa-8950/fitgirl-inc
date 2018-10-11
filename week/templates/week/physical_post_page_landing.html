@@ -1,0 +1,13 @@
+{% extends "week_page.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<p> Thankyou for submission. Please go to other modules and finish your weekly activity.</p>
+{% for post in page.get_children %}
+<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
+    {% endfor %}
+
+
+<p><a href="{{ page.get_parent.url }}">Return</a></p>
+
+{% endblock %}

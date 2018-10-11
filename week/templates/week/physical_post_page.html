@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+
+{% block content %}
+<div class= "container">
+  <h1> {{ page.title }}</h1>
+<h3> TRY IT!</h3>
+{{ page.body|richtext }}
+
+<!--<form action="{% pageurl page %}" method="POST">-->
+ <!--{% csrf_token %}-->
+<!--{{form.as_p}}-->
+  <!--<input type="submit">-->
+<!--</form>-->
+{{ page.strength|richtext}}
+{{ page.agility|richtext}}
+{{ page.flexibility|richtext}}
+
+
+{% for post in page.get_children %}
+<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
+    {% endfor %}
+
+
+<p><a href="{{ page.get_parent.url }}">Return</a></p>
+</div>
+{% endblock %}

@@ -96,5 +96,15 @@ class CustomFormSubmission(AbstractFormSubmission):
         unique_together = ('page', 'user')
 
 
-
+class PhysicalPostPage(Page):
+    body = RichTextField(blank=True)
+    strength = RichTextField(blank=True)
+    agility = RichTextField(blank=True)
+    flexibility = RichTextField(blank= True)
+    content_panels= Page.content_panels + [
+        FieldPanel('body', classname="full"),
+        FieldPanel('strength', classname="full"),
+        FieldPanel('agility', classname="full"),
+        FieldPanel('flexibility', classname="flexibility")
+    ]
 
