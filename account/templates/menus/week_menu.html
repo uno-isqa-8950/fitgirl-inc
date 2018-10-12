@@ -1,13 +1,33 @@
 {% load menu_tags %}
 <div class="collapse" id="collapseExample">
     <nav class="navbar navbar-light bg-light" style="border:0">
+        {% now "Y-m-d" as current_date %}
         {% for item in menu_items %}
-            <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                <button class="btn btn-sm btn-pink btn-rounded" type="button " id="ddtoggle_{{ item.link_page.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.text }}</button>
-                {% if item.has_children_in_menu %}
-        	        {% sub_menu item template="menus/module_submenu.html" %}
+            {% if item.expire_at and item.go_live_at %}
+                {% if current_date > item.expire_at|date:"Y-m-d" %}
+                    <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                        <button class="btn btn-sm btn-pink btn-rounded" type="button " disabled id="ddtoggle_{{ item.link_page.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.text }}</button>
+                    </li>
+                {% elif current_date < item.go_live_at|date:"Y-m-d" %}
+                    <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                        <button class="btn btn-sm btn-pink btn-rounded" type="button " disabled id="ddtoggle_{{ item.link_page.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.text }}</button>
+                    </li>
+                {% else %}
+                    <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                        <button class="btn btn-sm btn-pink btn-rounded" type="button " id="ddtoggle_{{ item.link_page.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.text }}</button>
+                        {% if item.has_children_in_menu %}
+                            {% sub_menu item template="menus/module_submenu.html" %}
+                        {% endif %}
+                    </li>
                 {% endif %}
-            </li>
+            {% else %}
+                <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                    <button class="btn btn-sm btn-pink btn-rounded" type="button " id="ddtoggle_{{ item.link_page.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.text }}</button>
+                    {% if item.has_children_in_menu %}
+                        {% sub_menu item template="menus/module_submenu.html" %}
+                    {% endif %}
+                </li>
+            {% endif %}
         {% endfor %}
     </nav>
 </div>
