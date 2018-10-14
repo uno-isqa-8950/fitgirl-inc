@@ -60,19 +60,20 @@ class Profile(models.Model):
     eve_phone = models.IntegerField(blank=True, null=True)
     age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
     school = models.CharField(max_length=50, blank=True, null=True)
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
 
 
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
-        instance.profile.save()
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
+    # @receiver(post_save, sender=User)
+    # def create_user_profile(sender, instance, created, **kwargs):
+    #     if created:
+    #         Profile.objects.create(user=instance)
+    #     instance.profile.save()
+    #
+    # @receiver(post_save, sender=User)
+    # def save_user_profile(sender, instance, **kwargs):
+    #     instance.profile.save()
 
 
