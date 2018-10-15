@@ -11,7 +11,7 @@ from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, FieldRowPanel, MultiFieldPanel
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractForm, AbstractFormSubmission
-
+from account.forms import User
 
 class ProgramIndexPage(Page):
     description = models.CharField(max_length=255, blank=True, )
@@ -63,10 +63,12 @@ class QuestionFormField(AbstractFormField):
 class QuestionPage(AbstractForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
+    points_for_this_activity = models.IntegerField(blank=True, default=0)
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro', classname="full"),
         InlinePanel('form_fields', label="Create your question"),
+        FieldPanel('points_for_this_activity', classname="title"),
         FieldPanel('thank_you_text', classname="full"),
     ]
 
@@ -86,8 +88,14 @@ class QuestionPage(AbstractForm):
     def process_form_submission(self, form):
         self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
-            page=self, user=form.user
-        )
+            page=self, user=form.user)
+        user1=User.objects.get(username=form.user.username)
+        print(user1.profile.points)
+        user1.profile.points += self.points_for_this_activity
+        user1.profile.save()
+        #print(form.user.username)
+        print(user1.profile.points)
+
 
 class CustomFormSubmission(AbstractFormSubmission):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='question_form')

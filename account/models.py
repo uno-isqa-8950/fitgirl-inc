@@ -60,6 +60,7 @@ class Profile(models.Model):
     eve_phone = models.IntegerField(blank=True, null=True)
     age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
     school = models.CharField(max_length=50, blank=True, null=True)
+    points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
 
 
