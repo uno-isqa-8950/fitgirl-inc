@@ -1,76 +1,21 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
-<html>
-<body>
-
 {% block content %}
-<div class= "container">
-  <h1> {{ page.title }}</h1>
-<h3> TRY IT!</h3>
-
-
-{{ page.body|richtext }}
-
-<div class="row">
-    <span class="col-sm-3" id="countdown">
-        <button id="startClock">Start 30 Mintues Timer</button>
-    </span>
-    <span class="col-sm-1"></span>
-    <button class="col-sm-2" id="done">Completed!</button>
-</div>
-
-<!--<form action="{% pageurl page %}" method="POST">-->
- <!--{% csrf_token %}-->
-<!--{{form.as_p}}-->
-  <!--<input type="submit">-->
-<!--</form>-->
-{{ page.strength|richtext}}
-{{ page.agility|richtext}}
-{{ page.flexibility|richtext}}
-
-
-{% for post in page.get_children %}
-<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
-    {% endfor %}
-
-<p><a href="{{ page.get_parent.url }}">Return</a></p>
-</div>
-{#<script src="start.js"></script>#}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-$('#done').hide();
-
-jQuery(function($){
-   $('#startClock').on('click', doCount);
-});
-
-function doCount(){
-    var timer2 = "0:03";
-    var interval = setInterval(function() {
-
-
-  var timer = timer2.split(':');
-  //by parsing integer, I avoid all extra string processing
-  var minutes = parseInt(timer[0], 10);
-  var seconds = parseInt(timer[1], 10);
-  --seconds;
-  minutes = (seconds < 0) ? --minutes : minutes;
-  seconds = (seconds < 0) ? 59 : seconds;
-  seconds = (seconds < 10) ? '0' + seconds : seconds;
-  //minutes = (minutes < 10) ?  minutes : minutes;
-  $('#countdown').html(minutes + ':' + seconds);
-  if (minutes < 0)
-      clearInterval(interval);
-  //check if both minutes and seconds are 0
-  if ((seconds <= 0) && (minutes <= 0)){
-      clearInterval(interval);
-      $('#done').show();
-  }
-
-  timer2 = minutes + ':' + seconds;
-   }, 1000);
-}
-</script>
+    <div class="container">
+        <h1> {{ page.title }}</h1>
+        <h3> TRY IT!</h3>
+        {{ page.body|richtext }}
+        <!--<form action="{% pageurl page %}" method="POST">-->
+        <!--{% csrf_token %}-->
+        <!--{{form.as_p}}-->
+        <!--<input type="submit">-->
+        <!--</form>-->
+        {{ page.strength|richtext }}
+        {{ page.agility|richtext }}
+        {{ page.flexibility|richtext }}
+        {% for post in page.get_children %}
+            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+        {% endfor %}
+        <p><a href="{{ page.get_parent.url }}">Return</a></p>
+    </div>
 {% endblock %}
-</body>
-</html>

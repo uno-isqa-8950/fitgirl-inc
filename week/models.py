@@ -116,3 +116,42 @@ class PhysicalPostPage(Page):
         FieldPanel('flexibility', classname="flexibility")
     ]
 
+#### Trying Timer
+
+class TimerFormField(AbstractFormField):
+    page = ParentalKey('TimerPage', on_delete=models.CASCADE, related_name='form_fields')
+
+class TimerPage(AbstractForm):
+    intro = RichTextField(blank=True)
+    strength = RichTextField(blank=True)
+    agility = RichTextField(blank=True)
+    flexibility = RichTextField(blank=True)
+
+    content_panels = AbstractEmailForm.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FormSubmissionsPanel(),
+        # InlinePanel('form_fields'),
+        FieldPanel('strength', classname="full"),
+        FieldPanel('agility', classname="full"),
+        FieldPanel('flexibility', classname="flexibility"),
+    ]
+
+    def serve(self, request, *args, **kwargs):
+        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+            return render(
+                request,
+                self.template,
+                self.get_context(request)
+            )
+
+        return super().serve(request, *args, **kwargs)
+
+    def get_submission_class(self):
+        return CustomFormSubmission
+
+    def process_form_submission(self, form):
+        self.get_submission_class().objects.create(
+            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            page=self, user=form.user
+        )
+
