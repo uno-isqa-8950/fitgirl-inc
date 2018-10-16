@@ -10,7 +10,7 @@
   <div class="table-responsive">
   <h1> All Users</h1>
   <table class="table table table-bordered table" class="target">
-      <thead class="thead black text-white z-depth-2">
+      <thead class="thead stylish-color text-white z-depth-2">
       <tr>
 			<th>First Name</th>
 			<th>Last Name</th>
@@ -29,10 +29,10 @@
         {% if registeredUser.is_active %}
           <td><button type="button" class=" btn btn-green" disabled>Active</button></td>
         {% else %}
-          <td><button type="button" class="btn btn-red" disabled>Inactive</button></td>
+          <td><button type="button" class="btn btn-danger" disabled>Inactive</button></td>
         {% endif %}
         {% if registeredUser.last_login is None %}
-           <td><button type="button" class="btn btn-red" disabled>No</button></td>
+           <td><button type="button" class="btn btn-danger" disabled>No</button></td>
         {% else %}
           <td><button type="button" class="btn btn-green"disabled>Yes</button></td>
         {% endif %}

@@ -6,6 +6,7 @@ from .models import Program
 from .models import Profile, RegisterUser
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
+from django.contrib import admin
 
 # Register your models here.
 
@@ -34,8 +35,6 @@ class CustomUserAdmin(UserAdmin):
         if not obj:
             return list()
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
-
-
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)

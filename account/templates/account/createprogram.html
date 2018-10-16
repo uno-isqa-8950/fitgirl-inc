@@ -67,8 +67,9 @@
     {% endfor %}
   </ul>
   {% endif %}
-  <table class="table table-striped table-bordered table-hover" class="target">
-    <thead class="thead default-color">
+   <div class="table-responsive">
+  <table class="table table table-bordered table" class="target">
+    <thead class="thead stylish-color text-white z-depth-2">
       <tr>
         <th>Program Name</th>
         <th>Start Date</th>
@@ -91,7 +92,7 @@
 
 <div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
 
-  <button class="accordion default-color-dark" id="accordioncheck">Add New Program</button>
+  <button class="accordion stylish-color">Add New Program</button>
   <div class="panel" id="divpanel">
 
     <form class="container" method="post" action="." id="form">{% csrf_token %}
@@ -177,7 +178,7 @@
 </div>
 </div>
 </div>
-
+</div>
 
 
 
