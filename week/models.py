@@ -11,6 +11,7 @@ from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, FieldRowPanel, MultiFieldPanel
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractForm, AbstractFormSubmission
+from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from account.forms import User
 
 class ProgramIndexPage(Page):
