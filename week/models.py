@@ -104,25 +104,10 @@ class CustomFormSubmission(AbstractFormSubmission):
     class Meta:
         unique_together = ('page', 'user')
 
+class PhysicalFormField(AbstractFormField):
+    page = ParentalKey('PhysicalPostPage', on_delete=models.CASCADE, related_name='form_fields')
 
-class PhysicalPostPage(Page):
-    body = RichTextField(blank=True)
-    strength = RichTextField(blank=True)
-    agility = RichTextField(blank=True)
-    flexibility = RichTextField(blank= True)
-    content_panels= Page.content_panels + [
-        FieldPanel('body', classname="full"),
-        FieldPanel('strength', classname="full"),
-        FieldPanel('agility', classname="full"),
-        FieldPanel('flexibility', classname="flexibility")
-    ]
-
-#### Trying Timer
-
-class TimerFormField(AbstractFormField):
-    page = ParentalKey('TimerPage', on_delete=models.CASCADE, related_name='form_fields')
-
-class TimerPage(AbstractForm):
+class PhysicalPostPage(AbstractForm):
     intro = RichTextField(blank=True)
     strength = RichTextField(blank=True)
     agility = RichTextField(blank=True)
@@ -155,4 +140,3 @@ class TimerPage(AbstractForm):
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user
         )
-
