@@ -13,22 +13,20 @@
                 <div>{{ page.intro|richtext }}</div>
                 <div class="row">
                 <span class="col-sm-4" id="countdown" style="display: block; font-size: 4.5rem;">
-                    <button class="btn-fitgirl" id="startClock" style="font-size: 30%">Start your 30 Minutes Timer</button>
+                    <button class="btn-fitgirl" id="startClock"
+                            style="font-size: 30%">Start your 30 Minutes Timer</button>
                 </span>
                 </div>
                 <div class="container">
-                <form action="{% pageurl page %}" method="POST">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-{#                    <span class="col-sm-1"></span>#}
-                    <button class="col-sm-4 btn-fitgirl btn-lg" id="done">Completed!</button>
-                    {{ page.strength|richtext }}
-                    {{ page.agility|richtext }}
-                    {{ page.flexibility|richtext }}
-
-{#                <div class="row">#}
-{#                    <button class="col-sm-2" id="done">Completed!</button>#}
-                </form>
+                    <form action="{% pageurl page %}" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        {#                    <span class="col-sm-1"></span>#}
+                        <button class="col-sm-4 btn-fitgirl btn-lg" id="done">Completed!</button>
+                        {{ page.strength|richtext }}
+                        {{ page.agility|richtext }}
+                        {{ page.flexibility|richtext }}
+                    </form>
                 </div>
             {% else %}
                 <div>You have already completed this exercise.</div>
