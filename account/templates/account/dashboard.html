@@ -9,12 +9,12 @@
             {% if request.user.is_superuser %}
 
             <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
-                    data-toggle="modal" data-target="#fullHeightModalRight"></i> Admin Dashboard</h4>
+                    data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4>
 
         </div>
         {% else %}
         <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
-            data-toggle="modal" data-target="#fullHeightModalRight"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>
+            data-toggle="modal" data-target="#fullHeightModalLeft"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>
         <!-- <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1> -->
 
         
@@ -49,15 +49,15 @@
    
     {% if request.path == "/" %}
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="/admin" allowfullscreen></iframe>
+            <iframe class="embed-responsive-item" src="/admin"nav allowfullscreen></iframe>
         </div>
     {% endif %}
   
-   <div class="modal fade left w-60" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal fade left " id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-full-height modal-left" role="document">
                 <!--Content-->
                
-                    <div class="modal-content" >
+                    <div class="modal-content w-75" >
                         <div class="modal-header stylish-color">
                             <h4 class="modal-title w-100" id="myModalLabel" style="color:white">Admin Dashboard</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -67,7 +67,7 @@
                         <div class="modal-body">
                             <div class="container">
                                 
-                                    <ul class="nav nav-justified ">
+                                    <ul class="nav flex-column ">
                                         <div>
                                             <li class="nav-item">
                                                 <a href="{% url 'createprogram' %}" id="createProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
@@ -98,6 +98,7 @@
                                                             <a class="nav-link" data-toggle="tab" href="#panel53" role="tab">Mental</a>
                                                     </div>
                                                     </li> -->
+                                                    <div>
                                     </ul>
                            
                             </div>
@@ -109,7 +110,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
 
 
 
@@ -128,21 +129,20 @@
     <!-- </div>
             </div> -->
     {% else %}
-    <div class="modal fade left" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-full-height modal-left" role="document"  style="padding-top:10%">
+    <div class="modal fade left" id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-full-height modal-left" role="document"  >
             <!--Content-->
-            
-                <div class="modal-content" >
+            <div class="modal-content w-75" >
                     <div class="modal-header stylish-color">
                         <h4 class="modal-title w-100" id="myModalLabel" style="color:white">{{user.get_short_name|capfirst }}'s Dashboard</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body w-60">
+                    <div class="modal-body">
                         <div class="container">
                             <div class="row">
-                                <ul class="nav nav-justified ">
+                                <ul class="nav flex-column ">
                                     <div>
                                         <li class="nav-item">
                                             <a href="{% url 'userdashboard' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action hoverable">Dashboard</a>
