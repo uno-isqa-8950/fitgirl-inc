@@ -27,10 +27,10 @@
 
     {% if request.path == "/" %}
         <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="/admin"nav allowfullscreen></iframe>
+            <iframe class="embed-responsive-item" src="/admin" allowfullscreen></iframe>
         </div>
     {% endif %}
-
+  
    <div class="modal fade left " id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-full-height modal-left" role="document">
                 <!--Content-->
@@ -45,7 +45,7 @@
                         <div class="modal-body">
                             <div class="container">
                                 
-                                    <ul class="nav flex-column ">
+                                    <ul class="nav nav-justified ">
                                         <div>
                                             <li class="nav-item">
                                                 <a href="{% url 'createprogram' %}" id="createProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
@@ -71,16 +71,13 @@
                                                         <a href="https://docs.google.com/forms/d/1eM7xEBLvySCWnQSW3etSFW1mhSf8R7dDvAajQp-IwEY/edit" target="_blank" id="pre-assessment" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                             <i class="fas fa-cog fa-fw"></i> Pre-Assessment </a>
                                                     </li>
-                                                            <div>
-
-
                                                     <!-- <div>
                                                         <li class="nav-item">
                                                             <a class="nav-link" data-toggle="tab" href="#panel53" role="tab">Mental</a>
                                                     </div>
                                                     </li> -->
                                     </ul>
-
+                           
                             </div>
                         </div>
                         <div class="modal-footer justify-content-center">
@@ -90,8 +87,6 @@
                 </div>
             </div>
         </div>
-</div>
-
 
 
 
@@ -112,7 +107,7 @@
                     <div class="modal-body">
                         <div class="container">
                             <div class="row">
-                                <ul class="nav flex-column ">
+                                <ul class="nav nav-justified ">
                                     <div>
                                         <li class="nav-item">
                                             <a href="{% url 'userdashboard' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action hoverable">Dashboard</a>
