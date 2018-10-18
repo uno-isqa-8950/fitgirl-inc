@@ -112,6 +112,8 @@ class PhysicalPostPage(AbstractForm):
     strength = RichTextField(blank=True)
     agility = RichTextField(blank=True)
     flexibility = RichTextField(blank=True)
+    points_for_this_activity = models.IntegerField(blank=True, default=0)
+    thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -120,6 +122,8 @@ class PhysicalPostPage(AbstractForm):
         FieldPanel('strength', classname="full"),
         FieldPanel('agility', classname="full"),
         FieldPanel('flexibility', classname="flexibility"),
+        FieldPanel('points_for_this_activity', classname="title"),
+        FieldPanel('thank_you_text', classname="full"),
     ]
 
     def serve(self, request, *args, **kwargs):
@@ -140,3 +144,9 @@ class PhysicalPostPage(AbstractForm):
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user
         )
+        user1 = User.objects.get(username=form.user.username)
+        print(user1.profile.points)
+        user1.profile.points += self.points_for_this_activity
+        user1.profile.save()
+        # print(form.user.username)
+        print(user1.profile.points)

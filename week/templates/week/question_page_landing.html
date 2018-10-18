@@ -8,7 +8,7 @@
 <h2> Thank You for answering this </h2>
     {{page.thank_you_text|richtext}}
     {% if page.points_for_this_activity %}
-    <p>Congratulations. You have scored {{page.points_for_this_activity}} to answer this </p>
+    <p>Congratulations. You have scored {{page.points_for_this_activity}} points to answer this </p>
  {% endif %}
 <p><a href="{{ page.get_parent.url }}"> Return </a></p>
 {% endblock %}
