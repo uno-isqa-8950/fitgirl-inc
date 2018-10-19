@@ -14,6 +14,7 @@ from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
+from django.forms import ValidationError
 
 
 def user_login(request):
@@ -83,7 +84,9 @@ def handle_uploaded_file(request, name):
           reader = csv.reader(csvf, delimiter=',')
           reader.__next__();
           count = 0
+          failcount = 0
           for row in reader:
+              try:
                 vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
                 current_site = get_current_site(request)
                 alphabet = string.ascii_letters + string.digits
@@ -91,8 +94,6 @@ def handle_uploaded_file(request, name):
                 theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
                 theUser.set_password('fitgirl1')
                 theUser.save()
-                profile = Profile.objects.create(user=theUser, program=Program.objects.all().filter(program_name=name)[0])
-                profile.save()
                 form = PasswordResetForm({'email': theUser.email})
                 if form.is_valid():
                     request = HttpRequest()
@@ -106,7 +107,9 @@ def handle_uploaded_file(request, name):
                 if vu is not None:
                     vu.save()
                     count = count + 1
-          return count
+              except:
+                  failcount+=1
+          return (count,failcount)
 
 
 def get_short_name(self):
@@ -121,10 +124,17 @@ def registerusers(request):
         if form.is_valid():
             file_name = request.FILES['file']
             validate_csv(file_name)
-            value = handle_uploaded_file(request,form.cleaned_data['programs'])
-            if value > 0:
+            value,fail = handle_uploaded_file(request,form.cleaned_data['programs'])
+
+            if value ==0 and fail ==0:
                 form = request.POST
-                messages.success(request, str(value)+' users added successfully')
+                messages.success(request, 'your upload file is possible empty')
+            else:
+                form = request.POST
+                messages.success(request, f'{value} users added successfully and {fail} users added failed')
+
+
+
     else:
         form = UploadFileForm()
     return render(request,
