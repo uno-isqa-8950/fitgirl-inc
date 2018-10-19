@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+account/migrations/0001_initial.py
 
 # C extensions
 *.so
