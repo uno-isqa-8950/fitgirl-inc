@@ -25,34 +25,12 @@
     {% if request.user.is_superuser %}
 
 
-  <!--<div id="image3" class="row">-->
-           <!---->
-        <!--<div id="image2" class="col-sm-3">-->
-  <!---->
-        <!--</div>  -->
-  <!---->
-  <!---->
-   <!--<div id="image1" class ="col-sm-9">-->
-  <!---->
-      <!--<img src="../../../media/images/fitgirl1.jpg" style="-->
-      <!--width: 400px;-->
-      <!--height: 433px;">-->
-        <!--<img src="../../../media/images/fitgirl2.jpg" style="-->
-        <!--width: 400px;-->
-        <!--height: 433px;">-->
-  <!---->
-  <!--</div>-->
-  <!---->
-  <!---->
-  <!---->
-  <!--</div>-->
-   
     {% if request.path == "/" %}
         <div class="embed-responsive embed-responsive-16by9">
             <iframe class="embed-responsive-item" src="/admin"nav allowfullscreen></iframe>
         </div>
     {% endif %}
-  
+
    <div class="modal fade left " id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-full-height modal-left" role="document">
                 <!--Content-->
@@ -93,14 +71,16 @@
                                                         <a href="https://docs.google.com/forms/d/1eM7xEBLvySCWnQSW3etSFW1mhSf8R7dDvAajQp-IwEY/edit" target="_blank" id="pre-assessment" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                             <i class="fas fa-cog fa-fw"></i> Pre-Assessment </a>
                                                     </li>
+                                                            <div>
+
+
                                                     <!-- <div>
                                                         <li class="nav-item">
                                                             <a class="nav-link" data-toggle="tab" href="#panel53" role="tab">Mental</a>
                                                     </div>
                                                     </li> -->
-                                                    <div>
                                     </ul>
-                           
+
                             </div>
                         </div>
                         <div class="modal-footer justify-content-center">
@@ -110,29 +90,19 @@
                 </div>
             </div>
         </div>
-    </div>
+</div>
 
 
 
 
-    <!--we might use it later hence commenting out-->
-    <!-- <div class="list-group">
-                    <a href="{% url 'userdashboard' %}" id="dashboard" class="list-group-item list-group-item-action example hoverable btn-pink">Dashboard</a>
-                    <a href="{% url 'createprogram' %}" id="createProgram" class="list-group-item list-group-item-action example  hoverable"><i
-                            class="fas fa-edit fa-fw"></i> Program </a>
-                    <a href="{% url 'registerusers' %}" id="registerUsers" class="list-group-item list-group-item-action example hoverable"><i
-                            class="fas fa-plus-circle fa-fw"></i> Register Users </a>
-                    <a href="{% url 'users' %}" id="users" class="list-group-item list-group-item-action example hoverable">
-                        <i class="fas fa-female fa-fw"></i> Users </a>
-                    <a href="#" id="Settings" class="list-group-item list-group-item-action"><i class="fas fa-cog"></i>  Settings </a>-->
-    <!--<a href="{% url "password_change" %}" id="changePassword" class="list-group-item list-group-item-action">Change Password</a>-->
-    <!-- </div>
-            </div> -->
+
+
     {% else %}
     <div class="modal fade left" id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-full-height modal-left" role="document"  >
             <!--Content-->
-            <div class="modal-content w-75" >
+
+                <div class="modal-content w-75" >
                     <div class="modal-header stylish-color">
                         <h4 class="modal-title w-100" id="myModalLabel" style="color:white">{{user.get_short_name|capfirst }}'s Dashboard</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -175,23 +145,7 @@
 
 
 
-    <!-- <div>
-        <div class="list-group">
-            <a href="{% url 'userdashboard' %}" class="list-group-item list-group-item-action  main-color-bg">Dashboard</a>
-            <a href="{% url 'myprogram' %}" class="list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>
-                My Program</a>
-            <a href="{% url "password_change" %}" class="list-group-item list-group-item-action">Change Password</a>-->
-            <!-- <a href="{% url 'edit' %}" class="list-group-item list-group-item-action"><i class="fas fa-cog fa-fw"></i>
-                Edit Profile</a>
-        </div> --> 
-        <!--<div class="card" style="width: 18rem;">-->
-        <!--<div class="card-body">-->
-        <!--<h5 class="card-title">Points Earned</h5>-->
-        <!--<div class="progress">-->
-        <!--<div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
+
     </div>
     <div id="userLandingContent1">
             <div id="userLandingContent2">
