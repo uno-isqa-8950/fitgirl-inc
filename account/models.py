@@ -62,6 +62,8 @@ class Profile(models.Model):
     school = models.CharField(max_length=50, blank=True, null=True)
     points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    pre_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
+    post_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
 
 
     def __str__(self):

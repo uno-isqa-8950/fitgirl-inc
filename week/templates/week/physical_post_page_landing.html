@@ -1,4 +1,4 @@
-{% extends "week_page.html" %}
+{% extends "base.html" %}
 {% load wagtailcore_tags %}
 
 {% block content %}
@@ -6,8 +6,11 @@
     <br>
     <br>
 <h2> Thank You for doing this Exercise. Wait for tomorrow for the next physical Challenge!!! </h2>
-{#    {{page.thank_you_text|richtext}}#}
+    {{page.thank_you_text|richtext}}
+    {% if page.points_for_this_activity %}
+    <h4>Congratulations. You have scored {{page.points_for_this_activity}} points to answer this </h4>
+ {% endif %}
 
-<p><a href="{{ page.get_parent.url }}"> Return </a></p>
+<p><a href="{{ page.get_parent.url }}"> Back to Module </a></p>
 {% endblock %}
 </div>

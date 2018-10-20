@@ -1,4 +1,4 @@
-{% extends "week_page.html" %}
+{% extends "base_page.html" %}
 {% load wagtailcore_tags %}
 
 {% block content %}
@@ -11,7 +11,7 @@
     {% endfor %}
 
 
-<p><a href="{{ page.get_parent.url }}">Return</a></p>
+<p><a href="{{ page.get_parent.url }}"> Back to module </a></p>
 
 {% endblock %}
 </div>

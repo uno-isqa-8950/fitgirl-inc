@@ -7,13 +7,14 @@ from .forms import Profile,User, Program
 from .models import RegisterUser
 from io import TextIOWrapper, StringIO
 
-
+from django.shortcuts import redirect
 import csv, string, random
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
+from django.forms import ValidationError
 
 
 def user_login(request):
@@ -59,10 +60,10 @@ def createprogram(request):
             program= form.save(commit=False)
             #program.created_date = timezone.now()
             program.save()
-            messages.success(request,' Program added successfully')
-            #return HttpResponse('Program added successfully!')
+            messages.success(request,'Program added successfully')
+            return redirect('createprogram')
         else:
-            messages.error(request, ('Error updating program'))
+            messages.error(request, 'Error creating Program. Retry!')
             #return HttpResponse('Error updating your profile!')
     else:
         form = ProgramForm()
@@ -83,7 +84,9 @@ def handle_uploaded_file(request, name):
           reader = csv.reader(csvf, delimiter=',')
           reader.__next__();
           count = 0
+          failcount = 0
           for row in reader:
+              try:
                 vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
                 current_site = get_current_site(request)
                 alphabet = string.ascii_letters + string.digits
@@ -91,12 +94,10 @@ def handle_uploaded_file(request, name):
                 theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
                 theUser.set_password('fitgirl1')
                 theUser.save()
-                profile = Profile.objects.create(user=theUser, program=Program.objects.all().filter(program_name=name)[0])
-                profile.save()
                 form = PasswordResetForm({'email': theUser.email})
                 if form.is_valid():
                     request = HttpRequest()
-                    request.META['SERVER_NAME'] = 'empoweru.herokuapp.com'
+                    request.META['SERVER_NAME'] = '127.0.0.1'
                     request.META['SERVER_PORT'] = '80'
                     form.save(
                         request=request,
@@ -106,7 +107,9 @@ def handle_uploaded_file(request, name):
                 if vu is not None:
                     vu.save()
                     count = count + 1
-          return count
+              except:
+                  failcount+=1
+          return (count,failcount)
 
 
 def get_short_name(self):
@@ -121,10 +124,18 @@ def registerusers(request):
         if form.is_valid():
             file_name = request.FILES['file']
             validate_csv(file_name)
-            value = handle_uploaded_file(request,form.cleaned_data['programs'])
-            if value > 0:
+            value,fail = handle_uploaded_file(request,form.cleaned_data['programs'])
+
+            if value ==0 and fail ==0:
                 form = request.POST
-                messages.success(request, str(value)+' users added successfully')
+                messages.success(request, 'your upload file is possible empty')
+            else:
+                form = request.POST
+                messages.success(request, f'{value} users added successfully')
+                messages.error(request, f'{fail} account already exists')
+
+
+
     else:
         form = UploadFileForm()
     return render(request,
@@ -164,8 +175,9 @@ def edit(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Profile updated successfully!')
+            return redirect('edit')
         else:
-            messages.success(request, 'Error updating your profile!')
+            messages.warning(request, 'Please correct the errors below!')
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)

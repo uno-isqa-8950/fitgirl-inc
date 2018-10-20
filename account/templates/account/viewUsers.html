@@ -1,12 +1,12 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
-
+{% if request.user.is_superuser %}
 <div class="container">
   <div class="row">
 
 
 <div class="col-12 col-sm-2 col-md-4 col-lg-10  offset-lg-1  ">
- 
+
   <div class="table-responsive">
   <h1> All Users</h1>
   <table class="table table table-bordered table" class="target">
@@ -17,6 +17,7 @@
 			<th>Email</th>
             <th>Active</th>
             <th>User Logged-In</th>
+            <th>Pre-assessment</th>
             <th>Points</th>
       </tr>
       </thead>
@@ -36,7 +37,16 @@
         {% else %}
           <td><button type="button" class="btn btn-green"disabled>Yes</button></td>
         {% endif %}
-            <td>{{ registeredUser.profile.points }}</td>
+            {% if registeredUser.profile.pre_assessment == "No" %}
+           <td><button type="button" class="btn btn-danger" disabled>No</button></td>
+        {% else %}
+          <td><button type="button" class="btn btn-green"disabled>Yes</button></td>
+        {% endif %}
+            {% if registeredUser.profile.points < 10 %}
+           <td><button type="button" class="btn btn-info" disabled>{{ registeredUser.profile.points }}</button></td>
+        {% else %}
+          <td><button type="button" class="btn btn-primary"disabled>{{ registeredUser.profile.points }}</button></td>
+        {% endif %}
         {% endfor %}
         </tr>
         </tbody>
@@ -45,6 +55,7 @@
 </div>
 </div>
 </div>
+  {% endif %}
 
 <script>
 

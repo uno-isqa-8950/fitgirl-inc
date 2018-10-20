@@ -4,6 +4,13 @@
 
 {% block dash_content %}
 <div class="container">
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
 <div class="col-sm-9">
   <h2>Edit your account</h2>
   <h3>You can edit your account using the following form:</h3>
@@ -25,6 +32,10 @@
       </p>
     </form>
 </div>
+    {% if user.profile.pre_assessment == "No" %}
+    <a href="/" class="btn btn-fitgirl">Previous Step</a>
+    <a href="/pages/pre-assessment/" class="btn btn-fitgirl">Next Step</a>
+    {% endif %}
 </div>
 
 <script>

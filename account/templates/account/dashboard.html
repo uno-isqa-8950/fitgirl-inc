@@ -5,7 +5,56 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-10">
-            {% block content %}
+
+
+
+{% block content %}
+   {% if user.profile.pre_assessment == "No" %}
+            {% load staticfiles %}
+        <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <div id="steps">
+            <div class="step done" data-desc="How It Works">1</div>
+            {% if request.path == "/edit/" %}
+                <div class="step active" data-desc="Update Profile">2</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Update Profile">2</div>
+            {% else %}
+                <div class="step" data-desc="Update Profile">2</div>
+            {% endif %}
+            {% if request.path == "/pages/pre-assessment/" %}
+                <div class="step active" data-desc="Take Pre-Assessment">3</div>
+            {% else %}
+                <div class="step" data-desc="Take Pre-Assessment">3</div>
+            {% endif %}
+            <div class="step" data-desc="Complete">3</div>
+        </div>
+        {% if request.path == "/" %}
+        <div class="container offset-lg-2 justify-content-between">
+          <div class="col-sm-9 ">
+
+            <h1>FITGirl, Inc.</h1>
+
+            <p>The mission of FITGirl, Inc is to empower young girls as they develop
+            and mature by demonstrating positive lifestyle choices: mental, physical,
+                nutritional, relational.</p>
+
+            <p>FITGirl, Inc.  was developed in direct response to the decline in physical
+            activity among young girls, lack of opportunity for participation in physical
+            activity outside of select sports and the increase in low self-esteem. Seven in ten
+            girls believe they are not good enough or do not measure up in some way, including their
+            looks, performance in school and relationships with family and friends.</p>
+
+            <p>Programs and summer camps provide empowerment workshops focusing on relationships, body image,
+            self-esteem, goal setting and self worth in tandem with various physical fitness
+            and nutritional activities.
+            </p>
+            <a href="{% url 'edit' %}"  class="btn btn-fitgirl">Next Step</a>
+          </div>
+        </div>
+        {% endif %}
+
+   {% else %}
             {% if request.user.is_superuser %}
 
             <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
@@ -183,7 +232,7 @@
     {% endif %}
 
 </div>
-
+{% endif %}
 <div class="container">
     <div class="row">
 
@@ -200,5 +249,7 @@
 </div>
 
 <script>
+    $('.success').css('background-color','#3eb34b')
+    $('.success').css('margin-left','-98px')
 </script>
 {% endblock %}
