@@ -7,7 +7,7 @@ from .forms import Profile,User, Program
 from .models import RegisterUser
 from io import TextIOWrapper, StringIO
 
-
+from django.shortcuts import redirect
 import csv, string, random
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -60,10 +60,10 @@ def createprogram(request):
             program= form.save(commit=False)
             #program.created_date = timezone.now()
             program.save()
-            messages.success(request,' Program added successfully')
-            #return HttpResponse('Program added successfully!')
+            messages.success(request,'Program added successfully')
+            return redirect('createprogram')
         else:
-            messages.error(request, ('Error updating program'))
+            messages.error(request, 'Error creating Program. Retry!')
             #return HttpResponse('Error updating your profile!')
     else:
         form = ProgramForm()
@@ -175,8 +175,9 @@ def edit(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Profile updated successfully!')
+            return redirect('edit')
         else:
-            messages.success(request, 'Error updating your profile!')
+            messages.warning(request, 'Please correct the errors below!')
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)
