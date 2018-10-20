@@ -5,11 +5,11 @@
 <div class ="container">
     <br>
     <br>
-<h2> Thank You for answering this </h2>
+<h2> You're now ready to get started with the EmpowerU Program! </h2>
     {{page.thank_you_text|richtext}}
     {% if page.points_for_this_activity %}
     <p>Congratulations. You have scored {{page.points_for_this_activity}} points to answer this </p>
  {% endif %}
-<p><a href="{{ page.get_parent.url }}"> Return </a></p>
+<p><a href="/"  type="submit" class="btn btn-fitgirl" style="margin: 0px; display:block;">Get Started!</a></p>
 {% endblock %}
 </div>

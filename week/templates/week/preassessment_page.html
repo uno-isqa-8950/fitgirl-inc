@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends "account/dashboard.html" %}
 {% load wagtailcore_tags %}
 
-{% block content %}
+{% block dash_content %}
 <div class ="container">
     <br>
     <br>
@@ -22,6 +22,6 @@
             <div>To fill in the form, you should log in.</div>
         {% endif %}
 
-<p><a href="{{ page.get_parent.url }}"> Return </a></p>
+<!--<p><a href="{{ page.get_parent.url }}"> Return </a></p>-->
 {% endblock %}
 </div>

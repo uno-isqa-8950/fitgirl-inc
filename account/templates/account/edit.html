@@ -25,6 +25,10 @@
       </p>
     </form>
 </div>
+    {% if user.profile.pre_assessment == "No" %}
+    <a href="/" class="btn btn-fitgirl">Previous Step</a>
+    <a href="/pages/pre-assessment/" class="btn btn-fitgirl">Next Step</a>
+    {% endif %}
 </div>
 
 <script>
