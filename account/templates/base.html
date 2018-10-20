@@ -42,20 +42,18 @@
             <li class="nav-item ">
             <a class="nav-link hoverable" href= "{%url 'aboutus'%}">About Us</a>
           </li>
-          {% endif %}
+
         </ul>
         <ul class="navbar-nav navbar-centre">
             <li class="nav-item" class="navbar-nav navbar-centre">
-              <a class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }},<span class="sr-only">(current)</span></a>
+              <a class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" class="navbar-nav navbar-centre">
-              <a class="nav-link  " href="#">Points: {{ user.profile.points }},<span class="sr-only">(current)</span></a>
+              <a class="nav-link  " href="#">Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item" class="navbar-nav navbar-centre">
-              <a class="nav-link  " href="#">Assessment Done: {{ user.profile.pre_assessment }},<span class="sr-only">(current)</span></a>
-            </li>
+            {% endif %}
         </ul>
-            <ul class="navbar-nav navbar-right">
+          <ul class="navbar-nav navbar-right">
             <li class="nav-item">
               <a class="nav-link  " href="#">Welcome {{ user.get_short_name|capfirst }}<span class="sr-only">(current)</span></a>
             </li>
