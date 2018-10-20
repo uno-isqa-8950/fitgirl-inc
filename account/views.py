@@ -133,7 +133,7 @@ def registerusers(request):
                 messages.success(request, 'your upload file is possible empty')
             else:
                 form = request.POST
-                messages.success(request, f'{value} users added successfully, {fail} accounts already exists')
+                messages.success(request, f'{value} users added successfully')
                 # messages.error(request, f'{fail} account already exists')
 
 
