@@ -132,7 +132,7 @@ def registerusers(request):
             else:
                 form = request.POST
                 messages.success(request, f'{value} users added successfully')
-                messages.error(request, f'{fail} usesrs are already existed')
+                messages.error(request, f'{fail} account already exists')
 
 
 
