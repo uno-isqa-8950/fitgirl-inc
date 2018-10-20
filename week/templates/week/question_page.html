@@ -13,7 +13,7 @@
                 <form action="{% pageurl page %}" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <input type="submit">
+                    <input class="btn-md btn-primary"  type="submit">
                 </form>
             {% else %}
                 <div>You have already answered this. Go to the next question.</div>
