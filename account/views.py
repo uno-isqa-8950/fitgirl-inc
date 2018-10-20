@@ -94,6 +94,8 @@ def handle_uploaded_file(request, name):
                 theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
                 theUser.set_password('fitgirl1')
                 theUser.save()
+                profile = Profile.objects.create(user=theUser, program=Program.objects.all().filter(program_name=name)[0])
+                profile.save()
                 form = PasswordResetForm({'email': theUser.email})
                 if form.is_valid():
                     request = HttpRequest()
