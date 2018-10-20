@@ -1,12 +1,16 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile, Program
+from django.utils.translation import gettext as _
 
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
 class UserEditForm(forms.ModelForm):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your First name'}), max_length=50)
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Last name'}), max_length=50)
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':' Enter your email address'}))
     class Meta:
         model = User
         fields = ('first_name','last_name', 'email')
@@ -29,12 +33,25 @@ class UploadFileForm(forms.Form):
         super(UploadFileForm, self).__init__(*args, **kwargs)
         self.fields['programs'] = forms.ChoiceField(
             choices=my_choices())
-
+EVENT = (
+    (1, _("8-10")),
+    (2, _("11-13")),
+)
 class ProfileEditForm(forms.ModelForm):
-    date_of_birth = forms.DateField(help_text='Required Format: YYYY-MM-DD')
+    photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}))
+    bio  = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
+    date_of_birth = forms.DateInput(attrs={'class': 'datepicker','class':'form-control'})
+    address = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Enter your Address'}))
+    zip = forms.IntegerField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Zip-Code'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
+    state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
+    day_phone = forms.IntegerField(widget=forms.NumberInput(attrs={'class':'form-control'}))
+    eve_phone = forms.IntegerField(widget=forms.NumberInput(attrs={'class':'form-control'}))
+    age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
+    school = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'School Name'}))
     class Meta:
         model = Profile
-        fields = ('bio', 'date_of_birth', 'age', 'address', 'zip', 'city', 'state', 'day_phone', 'eve_phone', 'age_group', 'school', 'photo')
+        fields = ('photo', 'bio', 'date_of_birth', 'address', 'zip', 'city', 'state', 'day_phone', 'eve_phone', 'age_group', 'school')
 
 class ProgramForm(forms.ModelForm):
     class Meta:

@@ -17,10 +17,104 @@
   <br>
   <br>
       <form action="." method="post" enctype="multipart/form-data">
+          {% csrf_token %}
       <fieldset class="from-group">
-        {{ user_form.as_p }}
-        {{ profile_form.as_p }}
-        {% csrf_token %}
+
+        <div class="form-row">
+            <label for="first_name" class="col-sm-2 control-label">First Name:</label>
+            <div class="col-sm-4">
+
+                {{ user_form.first_name }}
+
+            </div>
+            <label for="last_name" class="col-sm-2 control-label">Last Name:</label>
+            <div class="col-sm-4">
+
+                {{ user_form.last_name }}
+
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="email" class="col-sm-2 control-label">Email address:</label>
+            <div class="col-sm-4">
+
+                 {{ user_form.email }}
+            </div>
+            <label for="date_of_birth" class="col-sm-2 control-label">Date of birth:</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="date_of_birth">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="bio" class="col-sm-2 control-label">About me:</label>
+            <div class="col-sm-10">
+                {{ profile_form.bio }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="age_group" class="col-sm-2 control-label">Age group:</label>
+            <div class="col-sm-4">
+
+                  {{ profile_form.age_group }}
+
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="address" class="col-sm-2 control-label">Address:</label>
+            <div class="col-sm-10">
+              {{ profile_form.address }}
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <label for="city" class="col-sm-2 control-label">City:</label>
+            <div class="col-sm-4">
+
+                {{ profile_form.city}}
+
+            </div>
+            <label for="state" class="col-sm-2 control-label">State:</label>
+            <div class="col-sm-4">
+
+                {{ profile_form.state }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="zip" class="col-sm-2 control-label">Zip:</label>
+            <div class="col-sm-4">
+
+                  {{ profile_form.zip }}
+
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <label for="day_phone" class="col-sm-2 control-label">Day/Phone:</label>
+            <div class="col-sm-4">
+
+                {{ profile_form.day_phone }}
+            </div>
+            <label for="eve_phone" class="col-sm-2 control-label">Eve/Phone:</label>
+            <div class="col-sm-4">
+
+                {{ profile_form.eve_phone }}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label for="school" class="col-sm-2 control-label">School:</label>
+            <div class="col-sm-10">
+                {{ profile_form.school }}
+
+            </div>
+        </div>
 	    </fieldset>
       <div class='media'>
           <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" height="100" width="100">
@@ -28,13 +122,13 @@
       <br>
       <br>
       <p>
-        <input class="btn-md btn-primary"  type="submit" value="Save changes">
+        <input type="submit" value="Save changes">
       </p>
     </form>
 </div>
     {% if user.profile.pre_assessment == "No" %}
-    <a href="/" class="btn btn-secondary"><i class="fas fa-angle-double-left"></i>Previous Step</a>
-    <a href="/pages/pre-assessment/" class="btn btn-secondary">Next Step<i class="fas fa-angle-double-right"></i></a>
+    <a href="/" class="btn btn-fitgirl">Previous Step</a>
+    <a href="/pages/pre-assessment/" class="btn btn-fitgirl">Next Step</a>
     {% endif %}
 </div>
 
