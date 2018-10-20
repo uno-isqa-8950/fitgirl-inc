@@ -1,6 +1,6 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
-
+  {% if request.user.is_superuser %}
 <div class="col-sm-9">
     <h1> Register Users by Adding the csv file</h1>
     <p> Choose the program from drop-down below: </p>
@@ -17,7 +17,7 @@
     {% endfor %}
 </ul>
 {% endif %}
-
+  {% endif %}
 <script>
 
 $(document).ready(function(){

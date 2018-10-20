@@ -1,12 +1,12 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
-
+{% if request.user.is_superuser %}
 <div class="container">
   <div class="row">
 
 
 <div class="col-12 col-sm-2 col-md-4 col-lg-10  offset-lg-1  ">
- 
+
   <div class="table-responsive">
   <h1> All Users</h1>
   <table class="table table table-bordered table" class="target">
@@ -55,6 +55,7 @@
 </div>
 </div>
 </div>
+  {% endif %}
 
 <script>
 
