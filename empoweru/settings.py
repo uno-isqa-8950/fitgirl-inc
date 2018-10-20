@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'week',
     'widget_tweaks',
     'wagtailmenus',
-    'reset_migrations'
 ]
 
 MIDDLEWARE = [
