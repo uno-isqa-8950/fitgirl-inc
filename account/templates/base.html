@@ -30,9 +30,12 @@
                 <a class="nav-link hoverable" href="/cms/"> Create Pages <span class="sr-only">(current)</span></a>
               </li>
             {% else %}
-              <li class="nav-item ">
-                <a class="nav-link hoverable" data-toggle="collapse" href="#collapseExample">My Program</a>
-              </li>
+                {% if user.profile.pre_assessment == "No" %}
+                {% else %}
+                  <li class="nav-item ">
+                    <a class="nav-link hoverable" data-toggle="collapse" href="#collapseExample">My Program</a>
+                  </li>
+                {% endif %}
             {% endif %}
            {% if request.user.is_superuser %}
           <li class="nav-item ">
