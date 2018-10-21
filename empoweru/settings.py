@@ -108,6 +108,17 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 #     }
 # }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd4br3qegmoba7s',
+        'USER': 'vlpfizeviactfl',
+        'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
+        'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -120,17 +131,17 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 # }
 
 
-# Local Setting
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'empoweru3',
-        'USER': 'postgres',
-        'PASSWORD': 'instructor1a',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# # Local Setting
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'empoweru3',
+#         'USER': 'postgres',
+#         'PASSWORD': 'instructor1a',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
