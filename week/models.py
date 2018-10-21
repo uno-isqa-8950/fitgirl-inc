@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
+import datetime
 
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
@@ -116,6 +117,7 @@ class PhysicalPostPage(AbstractForm):
     agility = RichTextField(blank=True)
     flexibility = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
+    timer_for_this_activity = models.TimeField(blank=True, default=datetime.time(00, 11))
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
@@ -126,6 +128,7 @@ class PhysicalPostPage(AbstractForm):
         FieldPanel('agility', classname="full"),
         FieldPanel('flexibility', classname="flexibility"),
         FieldPanel('points_for_this_activity', classname="title"),
+        FieldPanel('timer_for_this_activity', classname="timer"),
         FieldPanel('thank_you_text', classname="full"),
     ]
 
