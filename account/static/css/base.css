@@ -19,6 +19,13 @@ body {
     border-radius: 50%;
 }
 
+canvas {
+  display: block;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
 p {
     line-height: 1.8;
 }

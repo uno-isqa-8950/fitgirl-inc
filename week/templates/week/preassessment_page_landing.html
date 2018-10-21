@@ -1,15 +1,26 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
-
+{% load staticfiles %}
 {% block content %}
-<div class ="container">
-    <br>
-    <br>
-<h2> You're now ready to get started with the EmpowerU Program! </h2>
-    {{page.thank_you_text|richtext}}
-    {% if page.points_for_this_activity %}
-    <p>Congratulations. You have scored {{page.points_for_this_activity}} points to answer this </p>
- {% endif %}
-<p><a href="/"  type="submit" class="btn btn-fitgirl" style="margin: 0px; display:block;">Get Started!</a></p>
-{% endblock %}
+        <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<div class ="container-fluid" align="center" style="position: absolute">
+        <div id="steps">
+                <div class="step done" data-desc="How It Works">1</div>
+                <div class="step done" data-desc="Update Profile">2</div>
+                <div class="step done" data-desc="Take Pre-Assessment">3</div>
+                <div class="step active" data-desc="Complete">3</div>
+            </div>
+        <br>
+        <br>
+        <h2 align="center"> You're now ready to get started with the EmpowerU Program! </h2>
+        {{page.thank_you_text|richtext}}
+        {% if page.points_for_this_activity %}
+            <h4 align="center">Congratulations! You have scored {{page.points_for_this_activity}} points! </h4>
+        {% endif %}
+        <p>
+            <a href="/"  class="btn btn-primary" style="text-align: center">Get Started!</a>
+        </p>
 </div>
+<canvas id="canvas"></canvas>
+{% endblock %}
