@@ -108,40 +108,30 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd4br3qegmoba7s',
+#         'USER': 'vlpfizeviactfl',
+#         'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
+#         'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
+
+
+
+# Local Setting
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd4br3qegmoba7s',
-        'USER': 'vlpfizeviactfl',
-        'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
-        'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
+        'NAME': 'empoweru3',
+        'USER': 'postgres',
+        'PASSWORD': 'instructor1a',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'd69kctd20oe7pc',
-#         'USER': 'mesvstlvldxyxa',
-#         'PASSWORD': 'd2c8a0b3973258e6bd9994dd3a6520906fc69e82ffd3995f4de25e8250704712',
-#         'HOST': 'ec2-23-21-171-249.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
-
-
-# # Local Setting
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'empoweru3',
-#         'USER': 'postgres',
-#         'PASSWORD': 'instructor1a',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

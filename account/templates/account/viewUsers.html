@@ -5,22 +5,24 @@
   <div class="row">
 
 
-<div class="col-12 col-sm-2 col-md-4 col-lg-10  offset-lg-1  ">
+<div class="col-12 col-lg-2 col-md-4 col-lg-12 offset-lg-0 ">
 
-  <div class="table-responsive">
+  
   <h1> All Users</h1>
-  <table class="table table table-bordered table" class="target">
-      <thead class="thead stylish-color text-white z-depth-2">
+  
+
+  <table id="dtDynamicVerticalScroll" class="table table-hover" class="target">
+      <thead class="thead stylish-color text-white ">
       <tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Email</th>
-            <th>Active</th>
-            <th>User Logged-In</th>
-            <th>Pre-assessment</th>
-            <th>Points</th>
+			<th class="th-lg">First Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+			<th class="th-lg">Last Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+			<th class="th-lg">Email <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg">Active<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg">User Logged-In <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg">Pre-assessment <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
       </tr>
-      </thead>
+      </thead >
         <tbody  >
         {% for registeredUser in registeredUsers %}
         <tr class="hoverable">
@@ -37,7 +39,7 @@
         {% else %}
           <td><button type="button" class="btn btn-green"disabled>Yes</button></td>
         {% endif %}
-            {% if registeredUser.profile.pre_assessment == "No" %}
+            {% if registeredUser.profile.pre_asseslgent == "No" %}
            <td><button type="button" class="btn btn-danger" disabled>No</button></td>
         {% else %}
           <td><button type="button" class="btn btn-green"disabled>Yes</button></td>
@@ -51,17 +53,33 @@
         </tr>
         </tbody>
     </table>
+  </div>
+
 </div>
 </div>
 </div>
-</div>
+
   {% endif %}
 
 <script>
 
+  $(document).ready(function () {
+  $('#dtDynamicVerticalScroll').DataTable({
+    "scrollY": "80vh",
+    "scrollCollapse": true,
+  });
+  $('#dtBasicExample').DataTable({"order": [[ 3, "desc" ]]});
+  $('.dataTables_length').addClass('bs-select');
+});
+
+
+  
+//   $(document).ready(function () {
+//   $('#dtBasicExample').DataTable({"order": [[ 3, "desc" ]]});
+//   $('.dataTables_length').addClass('bs-select');
+// });
+
 $(document).ready(function(){
-
-
     $("#image1").remove()
     $("#image2").remove()
     $("#image3").remove()

@@ -44,15 +44,7 @@
 
 
 </style>
-<!--<div class="col-sm-9">-->
-<!--<h1>Create Program</h1>-->
-<!--<p>Fill in the following form to create program:</p>-->
-<!--<form method="POST" class="program-form">-->
-<!--{{ form.as_p }}-->
-<!--{% csrf_token %}-->
-<!--<p><input type="submit" value="Save changes"></p>-->
-<!--</form>-->
-<!--</div>-->
+
   {% if request.user.is_superuser %}
 <div class="container">
   <div class="row">
@@ -67,20 +59,20 @@
     {% endfor %}
   </ul>
   {% endif %}
-   <div class="table-responsive">
-  <table class="table table table-bordered table" class="target">
+
+  <table id="dtDynamicVerticalScroll" class="table table table-bordered table" class="target">
     <thead class="thead stylish-color text-white z-depth-2">
       <tr>
-        <th>Program Name</th>
-        <th>Start Date</th>
-        <th>End Date</th>
+        <th class="th-lg">Program Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+        <th class="th-lg">Start Date<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+        <th class="th-lg">End Date<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
 
       </tr>
     </thead>
     <tbody>
       {% for registeredPrograms in registeredPrograms %}
       <tr>
-        <td>{{ registeredPrograms.program_name }}</td>
+        <td >{{ registeredPrograms.program_name }}</td>
         <td>{{ registeredPrograms.program_start_date }}</td>
         <td>{{ registeredPrograms.program_end_date }}</td>
 
@@ -189,6 +181,16 @@
 
 
 <script>
+  $(document).ready(function () {
+  $('#dtDynamicVerticalScroll').DataTable({
+    "scrollY": "80vh",
+    "scrollCollapse": true,
+    "order": [[ 0, "desc" ]],
+  });
+  
+  $('.dataTables_length').addClass('bs-select');
+});
+
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1; //January is 0!
