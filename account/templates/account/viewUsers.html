@@ -62,20 +62,14 @@
   {% endif %}
 
 <script>
-
   $(document).ready(function () {
   $('#dtDynamicVerticalScroll').DataTable({
     "scrollY": "80vh",
     "scrollCollapse": true,
-  
-    
   });
-	   
-$('#dtDynamicVerticalScroll').DataTable({
+//   $('#dtBasicExample').DataTable({"order": [[ 4, "NO" ]]});
   $('.dataTables_length').addClass('bs-select');
 });
-
-
 $(document).ready(function(){
     $("#image1").remove()
     $("#image2").remove()
@@ -85,7 +79,6 @@ $(document).ready(function(){
     $("#users").css("color","#ffffff")
     $("#users").css("border-color","black")
 });
-
 </script>
 
 {% endblock %}
