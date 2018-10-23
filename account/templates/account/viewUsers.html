@@ -67,14 +67,19 @@
   $('#dtDynamicVerticalScroll').DataTable({
     "scrollY": "80vh",
     "scrollCollapse": true,
-    "order": [[ 4, 5, "YES", "YES" ]],
+    "order": [[ 4, "YES"]],
     
   });
+	   
 $('#dtDynamicVerticalScroll').DataTable({
   $('.dataTables_length').addClass('bs-select');
 });
 
-
+$(document).ready(function () {
+  $('#dtDynamicVerticalScroll').DataTable({
+	   "order": [[ 5, "YES"]],
+    
+  });
 
 
 $(document).ready(function(){
