@@ -5,6 +5,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from PIL import Image
 
 # Create your models here.
 
@@ -46,7 +47,8 @@ class RegisterUser(models.Model):
 class Profile(models.Model):
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image', blank=True)
+    photo = models.ImageField(default='media/profile_image/default.jpg', upload_to='profile_image', blank=True)
+    photo = models.ImageField(default='media/profile_image/default.jpg', upload_to='profile_image', blank=True)
     # first_name = models.CharField(max_length=50, default=None)
     # last_name = models.CharField(max_length=50, default=None)
     bio = models.CharField(max_length=255, blank=False, null=True)
@@ -56,8 +58,8 @@ class Profile(models.Model):
     zip = models.IntegerField(blank=True, null=True)
     city = models.CharField(max_length=25, blank=True, null=True)
     state = models.CharField(max_length=25, blank=True, null=True)
-    day_phone = models.IntegerField(blank=True, null=True)
-    eve_phone = models.IntegerField(blank=True, null=True)
+    day_phone = models.CharField(blank=True, null=True, max_length=13)
+    eve_phone = models.CharField(blank=True, null=True, max_length=13)
     age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
     school = models.CharField(max_length=50, blank=True, null=True)
     points = models.IntegerField(default=0,blank=True, null=True)
@@ -68,6 +70,19 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+    def save(self):
+            super().save()
+
+            photo = Image.open(self.photo.path)
+
+            if photo.height > 300 or photo.width > 300:
+                output_size = (100, 100)
+                photo.thumbnail(output_size)
+                photo.save(self.photo.path)
+
+
+
 
     # @receiver(post_save, sender=User)
     # def create_user_profile(sender, instance, created, **kwargs):
