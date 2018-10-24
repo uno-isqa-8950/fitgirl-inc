@@ -16,7 +16,7 @@ Written in Python/Django
 6. pip install django-avatar
 7.  pip install django-widget-tweaks
 8. pip install django_heroku
-9. pip install crispy forms
+9. pip install django-crispy-forms
 ## Database Migration:
 navigate to the folder containing manage.py and run the following commands in order.
 1. python manage.py makemigrations
