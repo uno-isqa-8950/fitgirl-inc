@@ -7,7 +7,7 @@ from .forms import Profile,User, Program
 from .models import RegisterUser
 from io import TextIOWrapper, StringIO
 
-from django.shortcuts import redirect
+
 import csv, string, random
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -60,10 +60,10 @@ def createprogram(request):
             program= form.save(commit=False)
             #program.created_date = timezone.now()
             program.save()
-            messages.success(request,'Program added successfully')
-            return redirect('createprogram')
+            messages.success(request,' Program added successfully')
+            #return HttpResponse('Program added successfully!')
         else:
-            messages.error(request, 'Error creating Program. Retry!')
+            messages.error(request, ('Error updating program'))
             #return HttpResponse('Error updating your profile!')
     else:
         form = ProgramForm()
@@ -87,29 +87,33 @@ def handle_uploaded_file(request, name):
           failcount = 0
           for row in reader:
               try:
-                vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
-                current_site = get_current_site(request)
-                alphabet = string.ascii_letters + string.digits
-                # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
-                theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
-                theUser.set_password('fitgirl1')
-                theUser.save()
-                profile = Profile.objects.create(user=theUser, program=Program.objects.all().filter(program_name=name)[0])
-                profile.save()
-                form = PasswordResetForm({'email': theUser.email})
-                if form.is_valid():
-                    request = HttpRequest()
-                    request.META['SERVER_NAME'] = '127.0.0.1'
-                    request.META['SERVER_PORT'] = '80'
-                    form.save(
-                        request=request,
-                        from_email=settings.EMAIL_HOST_USER,
-                        subject_template_name='registration/new_user_subject.txt',
-                        email_template_name='registration/password_reset_newuser_email.html')
-                if vu is not None:
-                    vu.save()
-                    count = count + 1
-              except:
+                  if row[1]:
+                    vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
+                    current_site = get_current_site(request)
+                    alphabet = string.ascii_letters + string.digits
+                    # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
+                    theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
+                    theUser.set_password('fitgirl1')
+                    theUser.save()
+                    profile = Profile.objects.create(user=theUser, program=Program.objects.all().filter(program_name=name)[0])
+                    profile.save()
+                    form = PasswordResetForm({'email': theUser.email})
+                    if form.is_valid():
+                        request = HttpRequest()
+                        request.META['SERVER_NAME'] = 'empoweru.herokuapp.com'
+                        request.META['SERVER_PORT'] = '80'
+                        form.save(
+                            request=request,
+                            from_email=settings.EMAIL_HOST_USER,
+                            subject_template_name='registration/new_user_subject.txt',
+                            email_template_name='registration/password_reset_newuser_email.html')
+                    if vu is not None:
+                        vu.save()
+                        count = count + 1
+                  else:
+                      failcount+=1
+              except Exception as e:
+                  print(e)
                   failcount+=1
           return (count,failcount)
 
@@ -130,11 +134,22 @@ def registerusers(request):
 
             if value ==0 and fail ==0:
                 form = request.POST
-                messages.success(request, 'your upload file is possible empty')
-            else:
+                messages.success(request, 'your upload file is empty')
+            elif value ==0 and fail>0:
+                form = request.POST
+                messages.warning(request, f'{fail} accounts already exist')
+
+            elif value>0 and fail ==0:
                 form = request.POST
                 messages.success(request, f'{value} users added successfully')
-                # messages.error(request, f'{fail} account already exists')
+
+            else:
+
+                form = request.POST
+                messages.success(request, f'{value} users added successfully')
+                messages.info(request, f'{fail} accounts already exist')
+
+
 
 
 
@@ -177,9 +192,8 @@ def edit(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('edit')
         else:
-            messages.warning(request, 'Please correct the errors below!')
+            messages.success(request, 'Error updating your profile!')
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile)

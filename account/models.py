@@ -47,8 +47,7 @@ class RegisterUser(models.Model):
 class Profile(models.Model):
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(default='media/profile_image/default.jpg', upload_to='profile_image', blank=True)
-    photo = models.ImageField(default='media/profile_image/default.jpg', upload_to='profile_image', blank=True)
+    photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image', blank=True)
     # first_name = models.CharField(max_length=50, default=None)
     # last_name = models.CharField(max_length=50, default=None)
     bio = models.CharField(max_length=255, blank=False, null=True)
