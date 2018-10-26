@@ -17,7 +17,7 @@ EVENT = (
 
 class Program(models.Model):
     #program_id = models.AutoField(null=False, primary_key=True)
-    program_name = models.CharField(max_length=20, null=False)
+    program_name = models.CharField(max_length=20, null=False, unique=True)
     program_start_date = models.DateField(null=False, blank=False)
     program_end_date = models.DateField(null=False, blank=False)
     created_date = models.DateTimeField(default=timezone.now, blank=True)
@@ -48,7 +48,6 @@ class Profile(models.Model):
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image', blank=True)
-
     # first_name = models.CharField(max_length=50, default=None)
     # last_name = models.CharField(max_length=50, default=None)
     bio = models.CharField(max_length=255, blank=False, null=True)
