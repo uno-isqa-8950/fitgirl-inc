@@ -5,53 +5,53 @@
   <div class="row">
 
 
-<div>
+<div class=" col-md-10 offset-md- col-lg-12 offset-lg-0 " >
 
   
   <h1> All Users</h1>
   
 
-  <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-responsive-lg" class="target">
-      <thead class="thead stylish-color text-white ">
+  <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-responsive-lg table-bordered" class="target">
+      <thead class="thead stylish-color text-white">
       <tr>
-			<th class="th-lg">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-          <th class="th-lg">First Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-			<th class="th-lg">Last Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-			<th class="th-lg">Email <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+          <th class="th-lg text-center">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+          <th class="th-lg text-center">First Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+			<th class="th-lg text-center">Last Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+			<th class="th-lg text-center">Email <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
 
-          <th class="th-lg">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg">Active<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg">User Logged-In <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg">Pre-assessment <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+          <th class="th-lg text-center">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center">Active<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center">User Logged-In <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center ">Pre-assessment <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
       </tr>
       </thead >
         <tbody  >
         {% for registeredUser in registeredUsers %}
         <tr class="hoverable">
-        <td>{{ registeredUser.profile.program.program_name  }}</td>
+        <td align="center">{{ registeredUser.profile.program.program_name  }}</td>
 
 
-        <td>{{ registeredUser.first_name }}</td>
-				<td>{{ registeredUser.last_name }}</td>
-				<td>{{ registeredUser.email }}</td>
-             <td>{{ registeredUser.profile.age}}</td>
+        <td align="center" >{{ registeredUser.first_name }}</td>
+				<td  align="center">{{ registeredUser.last_name }}</td>
+				<td align="center" >{{ registeredUser.email }}</td>
+             <td align="center">{{ registeredUser.profile.age}}</td>
         {% if registeredUser.is_active %}
-          <td><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
+          <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
         {% else %}
-         <td><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+         <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% endif %}
         {% if registeredUser.last_login is None %}
-           <td><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+           <td align="center" ><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% else %}
-          <td><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+          <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
           {% if registeredUser.profile.pre_assessment == "No" %}
-          <td><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+          <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% else %}
-          <td><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
-           <td>{{ registeredUser.profile.points }}</td>
+           <td align="center">{{ registeredUser.profile.points }}</td>
 
 
         {% endfor %}
@@ -69,10 +69,14 @@
 <script>
 
   $(document).ready(function () {
-  $('#dtDynamicVerticalScroll').DataTable({
-      "order": [[ 4, "YES" ]],
-    "scrollY": "80vh",
-    "scrollCollapse": true,
+      $('#dtDynamicVerticalScroll').DataTable({
+              "order": [[4, "YES"]],
+              "scrollY": "80vh",
+              "scrollCollapse": true,
+              language: {
+                  searchPlaceholder: "Search",
+                  search: "",
+              }
   });
 //   $('#dtBasicExample').DataTable({"order": [[ 4, "NO" ]]});
   $('.dataTables_length').addClass('bs-select');
