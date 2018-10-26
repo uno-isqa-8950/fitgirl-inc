@@ -5,50 +5,55 @@
   <div class="row">
 
 
-<div class="col-12 col-lg-2 col-md-4 col-lg-12 offset-lg-0 ">
+<div>
 
   
   <h1> All Users</h1>
   
 
-  <table id="dtDynamicVerticalScroll" class="table table-hover" class="target">
-      <thead class="thead stylish-color text-white ">
+  <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-responsive-lg table-bordered" class="target">
+      <thead class="thead stylish-color text-white">
       <tr>
-			<th class="th-lg">First Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-			<th class="th-lg">Last Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-			<th class="th-lg">Email <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg">Active<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg">User Logged-In <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg">Pre-assessment <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+          <th class="th-lg text-center">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+          <th class="th-lg text-center">First Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+			<th class="th-lg text-center">Last Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+			<th class="th-lg text-center">Email <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+
+          <th class="th-lg text-center">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center">Active<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center">User Logged-In <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center ">Pre-assessment <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
       </tr>
       </thead >
         <tbody  >
         {% for registeredUser in registeredUsers %}
         <tr class="hoverable">
-        <td>{{ registeredUser.first_name }}</td>
-				<td>{{ registeredUser.last_name }}</td>
-				<td>{{ registeredUser.email }}</td>
+        <td align="center">{{ registeredUser.profile.program.program_name  }}</td>
+
+
+        <td align="center" >{{ registeredUser.first_name }}</td>
+				<td  align="center">{{ registeredUser.last_name }}</td>
+				<td align="center" >{{ registeredUser.email }}</td>
+             <td align="center">{{ registeredUser.profile.age}}</td>
         {% if registeredUser.is_active %}
-          <td><button type="button" class=" btn btn-green" disabled>Active</button></td>
+          <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
         {% else %}
-          <td><button type="button" class="btn btn-danger" disabled>Inactive</button></td>
+         <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% endif %}
         {% if registeredUser.last_login is None %}
-           <td><button type="button" class="btn btn-danger" disabled>No</button></td>
+           <td align="center" ><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% else %}
-          <td><button type="button" class="btn btn-green"disabled>Yes</button></td>
+          <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
           {% if registeredUser.profile.pre_assessment == "No" %}
-           <td><button type="button" class="btn btn-danger" disabled>No</button></td>
+          <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% else %}
-          <td><button type="button" class="btn btn-green"disabled>Yes</button></td>
+          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
-            {% if registeredUser.profile.points < 10 %}
-           <td><button type="button" class="btn btn-info" disabled>{{ registeredUser.profile.points }}</button></td>
-        {% else %}
-          <td><button type="button" class="btn btn-primary"disabled>{{ registeredUser.profile.points }}</button></td>
-        {% endif %}
+           <td align="center">{{ registeredUser.profile.points }}</td>
+
+
         {% endfor %}
         </tr>
         </tbody>
@@ -62,15 +67,21 @@
   {% endif %}
 
 <script>
+
   $(document).ready(function () {
-  $('#dtDynamicVerticalScroll').DataTable({
-	  "order": [[ 4, "YES" ]],
-    "scrollY": "80vh",
-    "scrollCollapse": true,
+      $('#dtDynamicVerticalScroll').DataTable({
+              "order": [[4, "YES"]],
+              "scrollY": "80vh",
+              "scrollCollapse": true,
+              language: {
+                  searchPlaceholder: "Search",
+                  search: "",
+              }
   });
 //   $('#dtBasicExample').DataTable({"order": [[ 4, "NO" ]]});
   $('.dataTables_length').addClass('bs-select');
 });
+
 $(document).ready(function(){
     $("#image1").remove()
     $("#image2").remove()
@@ -80,6 +91,8 @@ $(document).ready(function(){
     $("#users").css("color","#ffffff")
     $("#users").css("border-color","black")
 });
+
+
 </script>
 
 {% endblock %}
