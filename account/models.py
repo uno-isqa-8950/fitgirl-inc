@@ -70,15 +70,15 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    def save(self):
-            super().save()
-
-            photo = Image.open(self.photo.path)
-
-            if photo.height > 300 or photo.width > 300:
-                output_size = (100, 100)
-                photo.thumbnail(output_size)
-                photo.save(self.photo.path)
+    # def save(self):
+    #     super().save()
+    #
+    #     photo = Image.open(self.photo.path)
+    #
+    #     if photo.height > 300 or photo.width > 300:
+    #         output_size = (100, 100)
+    #         photo.thumbnail(output_size)
+    #         photo.save(self.photo.path)
 
 
 
