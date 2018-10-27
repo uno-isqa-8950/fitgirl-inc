@@ -9,7 +9,14 @@
 
   
   <h1> All Users</h1>
-  
+
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}  
 
   <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-responsive-lg table-bordered" class="target">
       <thead class="thead stylish-color text-white">
