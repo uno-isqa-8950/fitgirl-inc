@@ -72,14 +72,6 @@
     <!-- <div class="row">
         <div class="col-sm-3"> -->
     {% if request.user.is_superuser %}
-
-
-    {% if request.path == "/" %}
-        <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="/admin" allowfullscreen></iframe>
-        </div>
-    {% endif %}
-  
    <div class="modal fade left " id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-full-height modal-left" role="document">
                 <!--Content-->
@@ -117,8 +109,8 @@
                                                     </li>
                                                         <div>
                                                     <li class="nav-item">
-                                                        <a href="https://docs.google.com/forms/d/1eM7xEBLvySCWnQSW3etSFW1mhSf8R7dDvAajQp-IwEY/edit" target="_blank" id="pre-assessment" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                            <i class="fas fa-cog fa-fw"></i> Pre-Assessment </a>
+                                                        <a href="{% url 'django_frame' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-edit fa-fw"></i> Manage Site </a>
                                                     </li>
                                                     <!-- <div>
                                                         <li class="nav-item">
