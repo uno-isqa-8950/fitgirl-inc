@@ -40,6 +40,9 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
+    if request.user.is_staff:
+        registeredUsers = User.objects.filter(is_superuser=False)
+        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     return render(request,
                   'account/dashboard.html',
                   {'section': 'dashboard'})
@@ -201,4 +204,8 @@ def cms_frame(request):
     return render(request,
                   'account/cms_frame.html',
                   {'section': 'cms_frame'})
-
+@login_required
+def django_frame(request):
+    return render(request,
+                  'account/django_frame.html',
+                  {'section': 'django_frame'})
