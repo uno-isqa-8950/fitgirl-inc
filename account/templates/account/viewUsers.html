@@ -1,26 +1,25 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
 {% if request.user.is_superuser %}
-<div class="container">
+<div class="container-fluid">
   <div class="row">
 
 
 <div>
 
   
-  <h1> All Users</h1>
+  <h1 class="text-center"> All Users</h1>
   
 
   <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-responsive-lg table-bordered" class="target">
       <thead class="thead stylish-color text-white">
       <tr>
-          <th class="th-lg text-center">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-          <th class="th-lg text-center">First Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-			<th class="th-lg text-center">Last Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-			<th class="th-lg text-center">Email <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-
+          <th class="th-lg">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+          <th class="th-lg">First Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+			<th class="th-lg">Last Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+			<th class="th-lg">Email <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
           <th class="th-lg text-center">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg text-center">Active<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center">Registered<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
       <th class="th-lg text-center">User Logged-In <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
       <th class="th-lg text-center ">Pre-assessment <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
       <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
@@ -29,27 +28,24 @@
         <tbody  >
         {% for registeredUser in registeredUsers %}
         <tr class="hoverable">
-        <td align="center">{{ registeredUser.profile.program.program_name  }}</td>
-
-
-        <td align="center" >{{ registeredUser.first_name }}</td>
-				<td  align="center">{{ registeredUser.last_name }}</td>
-				<td align="center" >{{ registeredUser.email }}</td>
+        <td>{{ registeredUser.profile.program.program_name  }}</td>
+        <td >{{ registeredUser.first_name }}</td>
+            <td>{{ registeredUser.last_name }}</td>
+			<td>{{ registeredUser.email }}</td>
              <td align="center">{{ registeredUser.profile.age}}</td>
-        {% if registeredUser.is_active %}
-          <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
+        {% if registeredUser.is_active %}             <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"><span>Yes</span></i></td>
         {% else %}
-         <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+         <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i><span>No</span></td>
         {% endif %}
         {% if registeredUser.last_login is None %}
-           <td align="center" ><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+           <td align="center" ><i class="fas fa-times fa-lg" style="color:#FF0000"><span>No</span></i></td>
         {% else %}
-          <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+          <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"></i><span>Yes</span></td>
         {% endif %}
           {% if registeredUser.profile.pre_assessment == "No" %}
-          <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+          <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"><span>No</span></i></td>
         {% else %}
-          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"><span>Yes</span></i></td>
         {% endif %}
            <td align="center">{{ registeredUser.profile.points }}</td>
 
@@ -78,7 +74,6 @@
                   search: "",
               }
   });
-//   $('#dtBasicExample').DataTable({"order": [[ 4, "NO" ]]});
   $('.dataTables_length').addClass('bs-select');
 });
 
@@ -90,9 +85,18 @@ $(document).ready(function(){
     $("#users").css("background-color","#ed217c")
     $("#users").css("color","#ffffff")
     $("#users").css("border-color","black")
-});
+ });
 
 
 </script>
+<style>
+    .dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: right;
+}
 
+</style>
 {% endblock %}

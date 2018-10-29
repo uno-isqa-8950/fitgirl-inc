@@ -2,7 +2,13 @@
 
 {% block dash_content %}
 <style>
-
+    .dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: right;
+}
   .accordion {
     ;
     color: #ffffff;
@@ -186,8 +192,12 @@
     "scrollY": "80vh",
     "scrollCollapse": true,
     "order": [[ 0, "desc" ]],
+      language: {
+                  searchPlaceholder: "Search",
+                  search: "",
+          }
   });
-  
+
   $('.dataTables_length').addClass('bs-select');
 });
 
