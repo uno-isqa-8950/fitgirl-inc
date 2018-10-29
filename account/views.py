@@ -279,6 +279,15 @@ def programs(request):
                   {'section': 'programs'})
 @login_required
 def edit(request):
+
+    activated = False
+    print(request.user.profile.profile_filled)
+    if(request.user.profile.profile_filled):
+        activated = True
+    else:
+        activated = False
+
+
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user,
                                  data=request.POST)
@@ -288,6 +297,9 @@ def edit(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+            theProfile = request.user.profile
+            theProfile.profile_filled = True
+            theProfile.save()
             messages.success(request, 'Profile updated successfully!')
             return redirect('edit')
         else:
@@ -298,7 +310,8 @@ def edit(request):
     return render(request,
                   'account/edit.html',
                   {'user_form': user_form,
-                   'profile_form': profile_form})
+                   'profile_form': profile_form,
+                   'activated':activated})
 
 
 
