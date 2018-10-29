@@ -316,10 +316,11 @@ def edit(request):
 
 
 @login_required
-def profile(request):
+def profile(request,pk):
+    pro = Profile.objects.get(user_id=pk)
     return render(request,
                   'account/profile.html',
-                  {'section': 'profile'})
+                  {'user': pro})
 
 @login_required
 def cms_frame(request):

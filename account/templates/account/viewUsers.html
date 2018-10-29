@@ -39,7 +39,7 @@
 
         <td align="center" >{{ registeredUser.first_name }}</td>
 				<td  align="center">{{ registeredUser.last_name }}</td>
-				<td align="center" >{{ registeredUser.email }}</td>
+				<td align="center" ><a href="{% url 'profile' registeredUser.id %}">{{ registeredUser.email }}</a></td>
              <td align="center">{{ registeredUser.profile.age}}</td>
         {% if registeredUser.is_active %}
           <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
