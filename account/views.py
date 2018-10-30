@@ -88,33 +88,38 @@ def handle_uploaded_file(request, name):
           reader.__next__();
           count = 0
           failcount = 0
+          existcount = 0
           for row in reader:
               try:
-                vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
-                current_site = get_current_site(request)
-                alphabet = string.ascii_letters + string.digits
-                # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
-                theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
-                theUser.set_password('fitgirl1')
-                theUser.save()
-                profile = Profile.objects.create(user=theUser, program=Program.objects.all().filter(program_name=name)[0])
-                profile.save()
-                form = PasswordResetForm({'email': theUser.email})
-                if form.is_valid():
-                    request = HttpRequest()
-                    request.META['SERVER_NAME'] = '127.0.0.1'
-                    request.META['SERVER_PORT'] = '80'
-                    form.save(
-                        request=request,
-                        from_email=settings.EMAIL_HOST_USER,
-                        subject_template_name='registration/new_user_subject.txt',
-                        email_template_name='registration/password_reset_newuser_email.html')
-                if vu is not None:
-                    vu.save()
-                    count = count + 1
-              except:
-                  failcount+=1
-          return (count,failcount)
+                  if row[1]:
+                    vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
+                    current_site = get_current_site(request)
+                    alphabet = string.ascii_letters + string.digits
+                    # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
+                    theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
+                    theUser.set_password('fitgirl1')
+                    theUser.save()
+                    profile = Profile.objects.create(user=theUser, program=Program.objects.all().filter(program_name=name)[0])
+                    profile.save()
+                    form = PasswordResetForm({'email': theUser.email})
+                    if form.is_valid():
+                        request = HttpRequest()
+                        request.META['SERVER_NAME'] = '127.0.0.1:8000'
+                        request.META['SERVER_PORT'] = '80'
+                        form.save(
+                            request=request,
+                            from_email=settings.EMAIL_HOST_USER,
+                            subject_template_name='registration/new_user_subject.txt',
+                            email_template_name='registration/password_reset_newuser_email.html')
+                    if vu is not None:
+                        vu.save()
+                        count = count + 1
+                  else:
+                      failcount+=1
+              except Exception as e:
+                  print(e)
+                  existcount+=1
+          return (count,failcount,existcount)
 
 
 def get_short_name(self):
@@ -129,15 +134,119 @@ def registerusers(request):
         if form.is_valid():
             file_name = request.FILES['file']
             validate_csv(file_name)
-            value,fail = handle_uploaded_file(request,form.cleaned_data['programs'])
+            value,fail,existing = handle_uploaded_file(request,form.cleaned_data['programs'])
 
-            if value ==0 and fail ==0:
+            if value==0 and fail==0 and existing==0:
                 form = request.POST
-                messages.success(request, 'your upload file is possible empty')
+                messages.error(request, 'Your upload file is empty')
+            elif value==0 and fail==0 and existing==1:
+                form = request.POST
+                messages.info(request, f'{existing} account already exist')
+                return redirect('users')
+            elif value==0 and fail==0 and existing>1:
+                form = request.POST
+                messages.info(request, f'{existing} accounts already exist')
+                return redirect('users')
+            
+            elif value==0 and fail==1 and existing==0:
+                form = request.POST
+                messages.error(request, f'{fail} account is not added')
+            elif value==0 and fail==1 and existing==1:
+                form = request.POST
+                messages.warning(request, f'{fail} account is not added, {existing} account already exist')
+            elif value==0 and fail==1 and existing>1:
+                form = request.POST
+                messages.warning(request, f'{fail} account is not added, {existing} accounts already exist')
+
+            elif value==0 and fail>1 and existing==0:
+                form = request.POST
+                messages.error(request, f'{fail} accounts are not added')
+            elif value==0 and fail>1 and existing==1:
+                form = request.POST
+                messages.warning(request, f'{fail} accounts are not added, {existing} account already exist')
+            elif value==0 and fail>1 and existing>1:
+                form = request.POST
+                messages.warning(request, f'{fail} accounts are not added, {existing} accounts already exist')
+
+            
+            elif value==1 and fail==0 and existing==0:
+                form = request.POST
+                messages.success(request, f'{value} user is added successfully')
+                return redirect('users')
+            elif value==1 and fail==0 and existing==1:
+                form = request.POST
+                messages.info(request, f'{value} user is added successfully, {existing} account already exist')
+                return redirect('users')
+            elif value==1 and fail==0 and existing>1:
+                form = request.POST
+                messages.info(request, f'{value} user is added successfully, {existing} accounts already exist')
+                return redirect('users')
+            
+            elif value==1 and fail==1 and existing==0:
+                form = request.POST
+                messages.info(request, f'{value} user is added successfully, {fail} account is not added')
+                return redirect('users')
+            elif value==1 and fail==1 and existing==1:
+                form = request.POST
+                messages.info(request, f'{value} user is added successfully, {fail} account is not added, {existing} account already exist')
+                return redirect('users')
+            elif value==1 and fail==1 and existing>1:
+                form = request.POST
+                messages.info(request, f'{value} user is added successfully, {fail} account is not added, {existing} accounts already exist')
+                return redirect('users')
+
+            elif value==1 and fail>1 and existing==0:
+                form = request.POST
+                messages.info(request, f'{value} user is added successfully, {fail} accounts are not added')
+                return redirect('users')
+            elif value==1 and fail>1 and existing==1:
+                form = request.POST
+                messages.info(request, f'{value} user is added successfully, {fail} accounts are not added, {existing} account already exist')
+                return redirect('users')
+            elif value==1 and fail>1 and existing>1:
+                form = request.POST
+                messages.info(request, f'{value} user is added successfully, {fail} accounts are not added, {existing} accounts already exist')
+                return redirect('users')
+
+
+            elif value>1 and fail==0 and existing==0:
+                form = request.POST
+                messages.success(request, f'{value} users are added successfully')
+                return redirect('users')
+            elif value>1 and fail==0 and existing==1:
+                form = request.POST
+                messages.info(request, f'{value} users are added successfully, {existing} account already exist')
+                return redirect('users')
+            elif value>1 and fail==0 and existing>1:
+                form = request.POST
+                messages.info(request, f'{value} users are added successfully, {existing} accounts already exist')
+                return redirect('users')
+            
+            elif value>1 and fail==1 and existing==0:
+                form = request.POST
+                messages.info(request, f'{value} users are added successfully, {fail} account is not added')
+                return redirect('users')
+            elif value>1 and fail==1 and existing==1:
+                form = request.POST
+                messages.info(request, f'{value} users are added successfully, {fail} account is not added, {existing} account already exist')
+                return redirect('users')
+            elif value>1 and fail==1 and existing>1:
+                form = request.POST
+                messages.info(request, f'{value} users are added successfully, {fail} account is not added, {existing} accounts already exist')
+                return redirect('users')
+
+            elif value>1 and fail>1 and existing==0:
+                form = request.POST
+                messages.info(request, f'{value} users are added successfully, {fail} accounts are not added')
+                return redirect('users')
+            elif value>1 and fail>1 and existing==1:
+                form = request.POST
+                messages.info(request, f'{value} users are added successfully, {fail} accounts are not added, {existing} account already exist')
+                return redirect('users')
             else:
                 form = request.POST
-                messages.success(request, f'{value} users added successfully')
-                # messages.error(request, f'{fail} account already exists')
+                messages.info(request, f'{value} users are added successfully, {fail} accounts are not added, {existing} accounts already exist')
+                return redirect('users')
 
 
 
@@ -170,6 +279,15 @@ def programs(request):
                   {'section': 'programs'})
 @login_required
 def edit(request):
+
+    activated = False
+    print(request.user.profile.profile_filled)
+    if(request.user.profile.profile_filled):
+        activated = True
+    else:
+        activated = False
+
+
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user,
                                  data=request.POST)
@@ -179,6 +297,9 @@ def edit(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
+            theProfile = request.user.profile
+            theProfile.profile_filled = True
+            theProfile.save()
             messages.success(request, 'Profile updated successfully!')
             return redirect('edit')
         else:
@@ -189,7 +310,8 @@ def edit(request):
     return render(request,
                   'account/edit.html',
                   {'user_form': user_form,
-                   'profile_form': profile_form})
+                   'profile_form': profile_form,
+                   'activated':activated})
 
 
 

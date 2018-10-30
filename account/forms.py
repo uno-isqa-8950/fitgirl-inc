@@ -45,8 +45,8 @@ class ProfileEditForm(forms.ModelForm):
     zip = forms.IntegerField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Zip-Code'}))
     city = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
     state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
-    day_phone = forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
-    eve_phone = forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
+    day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
+    eve_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
     school = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'School Name'}))
     class Meta:

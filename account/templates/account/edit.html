@@ -13,12 +13,12 @@
   {% endif %}
 <div class="col-sm-9">
   <h2>Edit your Profile</h2>
-  <h5>/*Fill out all the mandatory fields*/</h5>
+  <h5>Fill out all the mandatory fields and save your profile to proceed</h5>
   <br>
   <br>
     <div class="content-section">
       <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" style="height: 100px;width: 100px">
+        <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" height="100" width="100" style="height: 100px;width: 100px">
         <div class="media-body">
           <h2 class="account-heading">{{ user.first_name }}</h2>
           <p class="text-secondary">{{ user.email }}</p>
@@ -42,9 +42,12 @@
 </div>
     {% if user.profile.pre_assessment == "No" %}
     <a href="/" class="btn btn-secondary"><i class="fa fa-arrow-circle-left"></i>&nbsp; PREV</a>
+    {% if activated %}
     <a href="/pages/pre-assessment/" class="btn btn-secondary pull-right">NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+    {% else %}
+    <a href="/pages/pre-assessment/" class="btn btn-secondary disabled pull-right" >NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
     {% endif %}
-</div>
+    {% endif %}
 
 <script>
 $(document).ready(function(){
