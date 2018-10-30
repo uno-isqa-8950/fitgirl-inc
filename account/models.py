@@ -17,7 +17,7 @@ EVENT = (
 
 class Program(models.Model):
     #program_id = models.AutoField(null=False, primary_key=True)
-    program_name = models.CharField(max_length=20, null=False)
+    program_name = models.CharField(max_length=20, null=False, unique=True)
     program_start_date = models.DateField(null=False, blank=False)
     program_end_date = models.DateField(null=False, blank=False)
     created_date = models.DateTimeField(default=timezone.now, blank=True)
@@ -48,7 +48,6 @@ class Profile(models.Model):
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image', blank=True)
-
     # first_name = models.CharField(max_length=50, default=None)
     # last_name = models.CharField(max_length=50, default=None)
     bio = models.CharField(max_length=255, blank=False, null=True)
@@ -64,6 +63,7 @@ class Profile(models.Model):
     school = models.CharField(max_length=50, blank=True, null=True)
     points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    profile_filled = models.BooleanField(default=False)
     pre_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
     post_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
 
@@ -72,14 +72,15 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
     # def save(self):
-    #         super().save()
+
+    #     super().save()
     #
-    #         photo = Image.open(self.photo.path)
+    #     photo = Image.open(self.photo.path)
     #
-    #         if photo.height > 300 or photo.width > 300:
-    #             output_size = (100, 100)
-    #             photo.thumbnail(output_size)
-    #             photo.save(self.photo.path)
+    #     if photo.height > 300 or photo.width > 300:
+    #         output_size = (100, 100)
+    #         photo.thumbnail(output_size)
+    #         photo.save(self.photo.path)
 
 
 

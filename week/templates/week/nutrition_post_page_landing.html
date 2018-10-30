@@ -2,16 +2,18 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-<div class ="container">
+<div class ="container-fluid" align="center" style="position: absolute">
     <br>
     <br>
-<p> Thankyou for submission. Please go to other modules and finish your weekly activity.</p>
-{% for post in page.get_children %}
-<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
-    {% endfor %}
+    <h2 align="center"> Thank you for your submission! Please go to other modules and finish your weekly activity. </h2>
+        {{page.thank_you_text|richtext}}
+        {% if page.points_for_this_activity %}
+            <h4 align="center">Congratulations! You have scored {{page.points_for_this_activity}} points! </h4>
+        {% endif %}
+        <p>
+            <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl" style="text-align: center">Back to Module</a>
+        </p>
 
-
-<p><a href="{{ page.get_parent.url }}"> Back to module </a></p>
-
-{% endblock %}
 </div>
+<canvas id="canvas"></canvas>
+{% endblock %}

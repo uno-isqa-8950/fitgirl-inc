@@ -117,7 +117,8 @@ class PhysicalPostPage(AbstractForm):
     agility = RichTextField(blank=True)
     flexibility = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
-    timer_for_this_activity = models.TimeField(blank=True, default=datetime.time(00, 11))
+    timer_for_this_activity = models.CharField(max_length=20, blank=True, default=datetime.time(00, 11),
+                                               help_text='Time format should be in MM:SS')
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
