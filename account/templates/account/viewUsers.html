@@ -6,7 +6,6 @@
 
 
 <div>
-
   
   <h1 class="text-center"> All Users</h1>
   
@@ -19,11 +18,12 @@
 			<th class="th-lg">Last Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
 			<th class="th-lg">Email <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
           <th class="th-lg text-center">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg text-center">Registered<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg text-center">User Logged-In <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg text-center ">Pre-assessment <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center">Registered</th>
+      <th class="th-lg text-center">User Logged-In</th>
+      <th class="th-lg text-center ">Pre-Assessment </th>
+          <th class="th-lg text-center ">Post-Assessment</th>
       <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      </tr>
+
       </thead >
         <tbody  >
         {% for registeredUser in registeredUsers %}
@@ -31,24 +31,35 @@
         <td>{{ registeredUser.profile.program.program_name  }}</td>
         <td >{{ registeredUser.first_name }}</td>
             <td>{{ registeredUser.last_name }}</td>
-			<td>{{ registeredUser.email }}</td>
+			<td align="center" > <i class="fas fa-envelope fa-lg" style="color: darkblue" ></i></td>
+            {% if registeredUser.profile.age is None %}
+             <td align="center"></td>
+            {% else %}
              <td align="center">{{ registeredUser.profile.age}}</td>
-        {% if registeredUser.is_active %}             <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"><span>Yes</span></i></td>
+            {% endif %}
+
+        {% if registeredUser.is_active %}
+            <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
         {% else %}
-         <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i><span>No</span></td>
+         <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% endif %}
         {% if registeredUser.last_login is None %}
-           <td align="center" ><i class="fas fa-times fa-lg" style="color:#FF0000"><span>No</span></i></td>
+           <td align="center" ><i class="fas fa-times fa-lg" style="color:#FF0000"></i></td>
         {% else %}
-          <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"><span>Yes</span></i></td>
+          <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
           {% if registeredUser.profile.pre_assessment == "No" %}
-          <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"><span>No</span></i></td>
+          <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"></i></td>
         {% else %}
-          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"><span>Yes</span></i></td>
+          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
-           <td align="center">{{ registeredUser.profile.points }}</td>
+            <td></td>
+            {% if registeredUser.profile.points  == 0 %}
+                <td></td>
+            {% else %}
 
+           <td align="center">{{ registeredUser.profile.points }}</td>
+            {% endif %}
 
         {% endfor %}
         </tr>
@@ -67,7 +78,7 @@
   $(document).ready(function () {
       $('#dtDynamicVerticalScroll').DataTable({
               "order": [[4, "YES"]],
-              "scrollY": "80vh",
+              "responsive": true, "scrollY": "80vh",
               "scrollCollapse": true,
               language: {
                   searchPlaceholder: "Search",
@@ -97,6 +108,8 @@ float: left;
 float: right;
 text-align: right;
 }
-
 </style>
+
+
+
 {% endblock %}
