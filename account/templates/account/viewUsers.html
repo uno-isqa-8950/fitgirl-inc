@@ -36,7 +36,7 @@
         <td>{{ registeredUser.profile.program.program_name  }}</td>
         <td >{{ registeredUser.first_name }}</td>
             <td>{{ registeredUser.last_name }}</td>
-			<td align="center" > <i class="fas fa-envelope fa-lg" style="color: darkblue" ></i></td>
+			<td align="center" ><a href="{% url 'profile' registeredUser.id %}"><i class="fas fa-envelope fa-lg" style="color: darkblue" ></i></a></td>
             {% if registeredUser.profile.age is None %}
              <td align="center"></td>
             {% else %}

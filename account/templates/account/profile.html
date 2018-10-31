@@ -6,10 +6,10 @@
 <div class="container">
     <h1>Profile</h1>
 
-    <p>First name: {{ user.first_name }}</p>
-    <p>Last name: {{ user.last_name }}</p>
+    <p>First name: {{ user.user.first_name }}</p>
+    <p>Last name: {{ user.user.last_name }}</p>
     <p>Bio: {{ user.bio }}</p>
-    <p>Email: {{ user.email }}</p>
+    <p>Email: {{ user.user.email }}</p>
     <p>Birthday: {{ user.date_of_birth}}</p>
     {% if user.userprofile.image %}
     <img src="{{ user.userprofile.image.url }}" width="240">

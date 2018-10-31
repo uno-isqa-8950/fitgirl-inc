@@ -107,8 +107,10 @@
   </div>
 
 </header>
-  <div id="container-fluid">
+  <div id="container">
     {% block content %}
+    {% endblock %}
+    {% block body %}
     {% endblock %}
   </div>
 {% if request.user.is_superuser %}
