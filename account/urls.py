@@ -27,5 +27,6 @@ urlpatterns = [
     path('userdashboard/', views.userdashboard, name='userdashboard'),
     path('cms_frame/', views.cms_frame, name='cms_frame'),
     path('django_frame/', views.django_frame, name='django_frame'),
+    path('profile/<int:pk>/', views.profile, name='profile'),
 
 ]
