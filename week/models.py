@@ -208,3 +208,15 @@ class PreassessmentPage(AbstractForm):
 #
 #     class Meta:
 #         unique_together = ('page', 'user')
+
+class Print(Page):
+    body = RichTextField(blank=True)
+    content_panels= Page.content_panels + [
+        FieldPanel('body', classname="full"),
+    ]
+
+class MentalPostPage(Page):
+    body = RichTextField(blank=True)
+    content_panels= Page.content_panels + [
+        FieldPanel('body', classname="full"),
+    ]
