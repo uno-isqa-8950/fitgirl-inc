@@ -42,6 +42,12 @@ class RegisterUser(models.Model):
     is_active = models.BooleanField(_('active'), default =True)
     program = models.CharField(max_length=50, default='Test')
 
+class InspirationalQuotes(models.Model):
+    quote = models.CharField(max_length=500, blank=True, null=True)
+
+class Affirmations(models.Model):
+    affirmation = models.CharField(max_length=500, blank=True, null=True)
+
 
 
 class Profile(models.Model):
