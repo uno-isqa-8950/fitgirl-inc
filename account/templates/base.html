@@ -110,7 +110,36 @@
   <div id="container">
     {% block content %}
     {% endblock %}
+    {% block body %}
+    {% endblock %}
   </div>
+{% if request.user.is_superuser %}
+{% else %}
+        {% if request.user.is_authenticated %}
+            <div style="height:100px;">
+            </div>
+            <div class="footer">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="height: 100px;">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <h2 align="center" style="font-family: Brush Script MT, Brush Script Std, cursive; margin-top:50px;">“No one can make you feel inferior without your consent.” –Eleanor Roosevelt</h2>
+                    </div>
+                    <div class="carousel-item">
+                        <h2 align="center" class="align-bottom" style="font-family: Brush Script MT, Brush Script Std, cursive; margin-top:50px;">“If you are always trying to be normal, you’ll never know how amazing you can be.” – Maya Angelou</h2>
+                    </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+            </div>
+        {% endif %}
+{% endif %}
             <!-- SCRIPTS -->
             <!-- JQuery -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

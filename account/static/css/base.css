@@ -134,7 +134,15 @@ form p {
     -webkit-box-shadow: 3px 12px 58px 7px rgba(0,0,0,0.7);
 	-moz-box-shadow: 3px 12px 58px 7px rgba(0,0,0,0.7);
 	box-shadow: 3px 12px 58px 7px rgba(0,0,0,0.7);}
-
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+    color: black;
+    text-align: center;
+}
 label {
     float:left;
     clear:both;

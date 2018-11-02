@@ -42,6 +42,12 @@ class RegisterUser(models.Model):
     is_active = models.BooleanField(_('active'), default =True)
     program = models.CharField(max_length=50, default='Test')
 
+class InspirationalQuotes(models.Model):
+    quote = models.CharField(max_length=500, blank=True, null=True)
+
+class Affirmations(models.Model):
+    affirmation = models.CharField(max_length=500, blank=True, null=True)
+
 
 
 class Profile(models.Model):
@@ -63,6 +69,7 @@ class Profile(models.Model):
     school = models.CharField(max_length=50, blank=True, null=True)
     points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    profile_filled = models.BooleanField(default=False)
     pre_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
     post_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
 
@@ -70,15 +77,16 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    def save(self):
-            super().save()
+    # def save(self):
 
-            photo = Image.open(self.photo.path)
-
-            if photo.height > 300 or photo.width > 300:
-                output_size = (100, 100)
-                photo.thumbnail(output_size)
-                photo.save(self.photo.path)
+    #     super().save()
+    #
+    #     photo = Image.open(self.photo.path)
+    #
+    #     if photo.height > 300 or photo.width > 300:
+    #         output_size = (100, 100)
+    #         photo.thumbnail(output_size)
+    #         photo.save(self.photo.path)
 
 
 
