@@ -247,6 +247,7 @@ def registerusers(request):
                 form = request.POST
                 messages.info(request, f'{value} accounts are added successfully, {fail} accounts are not added, {existing} accounts already exist')
                 return redirect('users')
+                
         # else:
         #     form = request.POST
         #     messages.error(request,'Your are not using the correct file')
