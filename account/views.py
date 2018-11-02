@@ -91,7 +91,7 @@ def handle_uploaded_file(request, name):
           existcount = 0
           for row in reader:
               try:
-                  if row[1]:
+                  if row[1] and row[2] and row[3]:
                     vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
                     current_site = get_current_site(request)
                     alphabet = string.ascii_letters + string.digits
@@ -247,8 +247,9 @@ def registerusers(request):
                 form = request.POST
                 messages.info(request, f'{value} users are added successfully, {fail} accounts are not added, {existing} accounts already exist')
                 return redirect('users')
-
-
+        # else:
+        #     form = request.POST
+        #     messages.error(request,'Your are not using the correct file')
 
     else:
         form = UploadFileForm()
