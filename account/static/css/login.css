@@ -25,9 +25,6 @@ header,
   }
 }
 
-.top-nav-collapse {
-  background-color: #39448c !important;
-}
 
 .navbar:not(.top-nav-collapse) {
   background: transparent !important;
@@ -35,7 +32,7 @@ header,
 
 @media (max-width: 991px) {
   .navbar:not(.top-nav-collapse) {
-    background: #39448c !important;
+
   }
 }
 

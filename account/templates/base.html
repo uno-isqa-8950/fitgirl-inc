@@ -21,7 +21,7 @@
 </head>
 <body>
 
-		<nav class="navbar navbar-expand-lg grey darken-2">
+		<nav class="navbar navbar-expand-lg grey darken-2 scrolling-navbar">
       <a class="navbar-brand" href="/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
       {% if request.user.is_authenticated %}
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
                 <ul class="dropdown-menu dropdown-menu-right" >
                     {% if request.user.is_superuser %}
                     {% else %}
-                    <li class="card mx-2" style="width: 18rem;">
+                    <li class="card mx-3" style="width: 18rem;">
                         <!-- <div class="card-body">
                             <h5 class="card-title">Points Earned</h5>
                             <div class="progress">
@@ -97,7 +97,7 @@
       </div>
       {% endif %}
     </nav>
-                <header id="sub-header">
+ <header id="sub-header">
   <div class="container-fluid">
         <div class="row">
             {% main_menu template="menus/program_menu.html" %}
