@@ -10,7 +10,7 @@ float: right;
 text-align: right;
 }
   .accordion {
-    ;
+    
     color: #ffffff;
     cursor: pointer;
     padding: 18px;
@@ -42,6 +42,7 @@ text-align: right;
 
 .panel {
     padding: 0 18px;
+    margin-bottom: 5%;
     background-color: white;
     max-height: 0;
     overflow: hidden;
@@ -55,9 +56,97 @@ text-align: right;
 <div class="container">
   <div class="row">
 
+    
+<div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
+    <h1 class="text-center"> All Programs</h1>
+    <button class="accordion stylish-color">Add New Program</button>
+    <div class="panel" id="divpanel" >
+  
+      <form class="container" method="post" action="." id="form">{% csrf_token %}
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+            </div>
+          </div>
+        </div>
+  
+  
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="ProgramName">Program Name</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <input type="text" class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="StartDate">Start Date</label>
+              <input type="date" class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date"
+                onchange="EndDate()">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="EndDate">End Date</label>
+              <input type="date" class="form-control" name="program_end_date" id="InputEndDate" placeholder="Enter End Date">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-sm-4">
+  
+  
+              <button type="submit" class="btn btn-primary">Save Program</button>
+              <!-- <input type="submit" value="Save Program"> -->
+  
+          </div>
+        <!-- <div class="col-sm-3">
+        </div> -->
+  
+          <div class="col-sm-4">
+  
+  
+              <button type="button" id="resetButton" class="btn btn-warning" style="
+      width: 172;">Reset</button>
+              <!-- <input type="submit" value="Save Program"> -->
+  
+          </div>
+          <div class="col-sm-4">
+  
+              <button type="button" id="cancelButton" class="btn btn-danger" style="
+      width: 172;
+  ">Cancel</button>
+              <!-- <button type="cancel" value="Reset" id="cancelButton">Cancel</button> -->
+  
+          </div>
+        </div>
+      </form>
+  
+    </div>
+  
+  </div>
+
 
 <div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
-  <h1> All Programs</h1>
+  
   {% if messages %}
   <ul class="messages">
     {% for message in messages %}
@@ -88,91 +177,8 @@ text-align: right;
   </table>
 </div>
 
-<div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
-  <button class="accordion stylish-color">Add New Program</button>
-  <div class="panel" id="divpanel">
+<!--here the table ends-->
 
-    <form class="container" method="post" action="." id="form">{% csrf_token %}
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-          </div>
-        </div>
-      </div>
-
-
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-            <label for="ProgramName">Program Name</label>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <input type="text" class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-            <label for="StartDate">Start Date</label>
-            <input type="date" class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date"
-              onchange="EndDate()">
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label for="EndDate">End Date</label>
-            <input type="date" class="form-control" name="program_end_date" id="InputEndDate" placeholder="Enter End Date">
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-sm-4">
-
-
-            <button type="submit" class="btn btn-primary">Save Program</button>
-            <!-- <input type="submit" value="Save Program"> -->
-
-        </div>
-      <!-- <div class="col-sm-3">
-      </div> -->
-
-        <div class="col-sm-4">
-
-
-            <button type="button" id="resetButton" class="btn btn-warning" style="
-    width: 172;">Reset</button>
-            <!-- <input type="submit" value="Save Program"> -->
-
-        </div>
-        <div class="col-sm-4">
-
-            <button type="button" id="cancelButton" class="btn btn-danger" style="
-    width: 172;
-">Cancel</button>
-            <!-- <button type="cancel" value="Reset" id="cancelButton">Cancel</button> -->
-
-        </div>
-      </div>
-    </form>
-
-  </div>
-
-</div>
 </div>
 </div>
 </div>

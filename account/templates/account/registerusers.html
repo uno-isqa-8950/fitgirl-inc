@@ -1,7 +1,7 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
   {% if request.user.is_superuser %}
-<div class="col-sm-9">
+  <div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
     <h1> Register Users by Adding the csv file</h1>
     <p> Choose the program from drop-down below: </p>
     <form action="." method="post" enctype="multipart/form-data">
