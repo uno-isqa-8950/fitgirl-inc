@@ -1,6 +1,8 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
 {% if request.user.is_superuser %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <div class="container-fluid">
   <div class="row">
 
@@ -26,11 +28,16 @@
       <th class="th-lg text-center">Registered</th>
       <th class="th-lg text-center">User Logged-In</th>
       <th class="th-lg text-center ">Pre-Assessment </th>
-          <th class="th-lg text-center ">Post-Assessment</th>
+      <th class="th-lg text-center ">Post-Assessment</th>
       <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+       <td id="addQuestionContent">? </td>
 
-      </thead >
-        <tbody  >
+
+ 
+          </thead>
+ 
+        
+          <tbody >
         {% for registeredUser in registeredUsers %}
         <tr class="hoverable">
         <td>{{ registeredUser.profile.program.program_name  }}</td>
@@ -68,6 +75,7 @@
 
         {% endfor %}
         </tr>
+        {% endif %}
         </tbody>
     </table>
   </div>
@@ -76,7 +84,6 @@
 </div>
 </div>
 
-  {% endif %}
 
 <script>
 
@@ -93,7 +100,23 @@
   $('.dataTables_length').addClass('bs-select');
 });
 
+ var text="Active - User has been registered for the program"+"\n"+
+ 
+ "User Logged in -User has created their profile on EMpoweru and changed their password "+"\n"
+
+ +"Pre-assessment- User has completed their Pre-assessment"+ "\n"+
+
+ "Points- User has accured these points ti date"
+ 
+ 
+ ;
+   
+
 $(document).ready(function(){
+
+   
+    $("#addQuestionContent").attr("title",text)
+    
     $("#image1").remove()
     $("#image2").remove()
     $("#image3").remove()
