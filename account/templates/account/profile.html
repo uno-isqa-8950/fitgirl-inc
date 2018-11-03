@@ -14,10 +14,10 @@
         </div>
             <!--Card content-->
             <div class="card-body px-lg-5 pt-5">
-        
+
                 <!-- Form -->
                 <form class="text-center">
-        
+
                     <div class="form-row">
                         <div class="col">
                             <!-- First name -->
@@ -28,93 +28,93 @@
                         <div class="col">
                             <!-- Last name -->
                             <div class="">
-                                
+
                                 <label for="materialRegisterFormLastName">Last name:{{ user.user.last_name }}</label>
                             </div>
                         </div>
                     </div>
-                    <br> 
+                    <br>
                     <!-- E-mail -->
                     <div class="form-row">
                     <div class="col">
                     <div class="">
-                       
+
                         <label for="materialRegisterFormEmail">Bio: {{user.bio}}</label>
                     </div>
                 </div>
-        
+
                     <!-- Password -->
                     <div class="col">
                     <div class="">
                          <label  >E-mail: {{ user.user.email }} </label>
-                       
+
                     </div>
                     </div>
                     </div>
-                    <br> 
+                    <br>
                     <!-- Phone number -->
                     <div class="form-row">
                     <div class="col">
                     <div >
                             <label >Birthday: {{  user.date_of_birth }}</label>
-                        
+
                     </div>
                     </div>
-            
+
                     <!-- Newsletter -->
                     <div class="col">
                     <div >
                             <label for="materialRegisterFormPhone">Age: {{ user.age }}</label>
-                        
+
                     </div>
                     </div>
                     </div>
-                    <br> 
+                    <br>
                     <!--  Address  -->
                     <div class="form-row">
                     <div class="col" >
                             <label for="materialRegisterFormPhone">Address: {{ user.address }}</label>
-                        
+
                     </div>
 
                     <div class="col">
                             <div >
                                     <label for="materialRegisterFormPhone">Zip: {{ user.zip }}</label>
-                                
+
                             </div>
                             </div>
                     </div>
-                    <br> 
+                    <br>
                     <div class="form-row">
-                
+
                             <div class="col">
                             <div >
                                     <label for="materialRegisterFormPhone">City: {{ user.city }}</label>
-                                
+
                             </div>
                             </div>
                             <div class="col">
                                     <div >
                                             <label for="materialRegisterFormPhone">State: {{ user.state }}</label>
-                                        
+
                                     </div>
                                     </div>
                             </div>
-     <br>               
+     <br>
                             <!--   Phone   -->
                             <div class="form-row">
                                     <div class="col">
                                     <div >
                                             <label for="materialRegisterFormPhone">Day Phone: {{  user.day_phone }}</label>
-                                        
+
                                     </div>
                                     </div>
-                            
-                              
+
+
                                     <div class="col">
                                     <div >
                                             <label for="materialRegisterFormPhone">Eve Phone: {{ user.eve_phone }}</label>
-                                        
+
                                     </div>
                                     </div>
                                     </div>
@@ -123,40 +123,42 @@
                                             <div class="col">
                                             <div >
                                                     <label for="materialRegisterFormPhone">Age Group: {{ user.age_group }}</label>
-                                                
+
                                             </div>
                                             </div>
-                                    
+
                                             <!-- Newsletter -->
                                             <div class="col">
                                             <div >
                                                     <label for="materialRegisterFormPhone">School:{{ user.school }}</label>
-                                                
+
                                             </div>
                                             </div>
                                             </div>
-        
+
                     <!-- Sign up button -->
                     <button class="btn btn-outline-pink btn-rounded btn-block  my-4 waves-effect z-depth-1" type="submit">Archive</button>
-        
+                    <button class="btn btn-outline-pink btn-rounded btn-block  my-4 waves-effect z-depth-1"><a href="{% url 'users' %}">Cancel</a></button>
+
+
                     <!-- Social register -->
-                 
-        
+
+
                     <hr>
-        
-            
-        
+
+
+
                 </form>
                 <!-- Form -->
-        
+
             </div>
-        
+
         </div>
         <!-- Material form register -->
 
     <!-- <div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
-  <div class="table-responsive">      
-      <tr></tr>                                                                                                      
+  <div class="table-responsive">
+      <tr></tr>
     <table  class="table table table-bordered table" class="target">
     <thead class="thead stylish-color text-white z-depth-2">
             <th class="th-lg">First name: </th>
@@ -195,11 +197,9 @@
                     <td>{{ user.age_group }}</td>
                     <td>{{ user.school }}</td>
 
-                    
-            
+
                   </tr>
     </tbody>
-
     <!-- <p>First name: {{ user.user.first_name }}</p>
     <p>Last name: {{ user.user.last_name }}</p>
     <p>Bio: {{ user.bio }}</p>
@@ -219,7 +219,7 @@
     <p>School: {{ user.school }}</p> -->
 
 
-<!-- </table> --> 
+<!-- </table> -->
 </div>
 </div>
 {% endblock %}
