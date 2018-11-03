@@ -23,7 +23,7 @@ text-align: right;
 }
 
 .active, .accordion:hover {
-    ;
+  
     color: #ffffff;
 }
 
@@ -79,7 +79,7 @@ text-align: right;
           </div>
           <div class="col">
             <div class="form-group">
-              <input type="text" class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
+              <input type="text" required class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
             </div>
           </div>
         </div>
@@ -93,14 +93,14 @@ text-align: right;
           <div class="col">
             <div class="form-group">
               <label for="StartDate">Start Date</label>
-              <input type="date" class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date"
+              <input type="date" required class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date"
                 onchange="EndDate()">
             </div>
           </div>
           <div class="col">
             <div class="form-group">
               <label for="EndDate">End Date</label>
-              <input type="date" class="form-control" name="program_end_date" id="InputEndDate" placeholder="Enter End Date">
+              <input type="date" required class="form-control" name="program_end_date" id="InputEndDate" placeholder="Enter End Date">
             </div>
           </div>
         </div>
