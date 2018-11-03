@@ -29,7 +29,9 @@
       <th class="th-lg text-center ">Pre-Assessment </th>
           <th class="th-lg text-center ">Post-Assessment</th>
       <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      </tr>
+    <td id="question" style="background-color: lightgray">? </td>  
+    
+    </tr>
       </thead >
         <tbody  >
         {% for registeredUser in registeredUsers %}
@@ -82,7 +84,13 @@
 
 <script>
 
+var txt="Active: User has been registered for the program" + "\n"+
+"User logged In : User has created their profile on EMpoweru and changed their password"+ "\n" +
+"Pre-assesment: User has completed their Pre-assessment"+"\n"+
+"Points: User has accured these points to date"
+
   $(document).ready(function () {
+      $("#question").attr("title",txt)
       $('#dtDynamicVerticalScroll').DataTable({
               "order": [[4, "YES"]],
               "responsive": true, "scrollY": "80vh",
