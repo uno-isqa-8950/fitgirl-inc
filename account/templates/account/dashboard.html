@@ -4,7 +4,7 @@
 {% block title %}Dashboard{% endblock %}
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-10">
+      
 
 
 
@@ -57,12 +57,14 @@
    {% else %}
             {% if request.user.is_superuser %}
 
-            <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
-                    data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4>
+       <br><br><br>
+           
+             <h4 class="pink lighten-1 my-0" style="padding-top:0px"><i class=" btn btn-elegant fa fa-bars" type="button "
+                    data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4> 
 
         </div>
         {% else %}
-        <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
+        <h4 class="pink lighten-1" style="padding-top:0px"><i class=" btn btn-elegant fa fa-bars" type="button "
             data-toggle="modal" data-target="#fullHeightModalLeft"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>
         <!-- <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1> -->
 
@@ -183,7 +185,7 @@
 
 
     </div>
-<div id="fadeout">
+
     <div id="userLandingContent1">
             <div id="userLandingContent2">
 
@@ -262,7 +264,6 @@
 <div class="container-fluid">
     <div class="row">
 
-
         {% block dash_content %}
         {% endblock %}
     </div>
@@ -275,13 +276,13 @@
 </div>
 
 <script>
-window.onload = function() {
-  window.setTimeout(fadeout, 8000); //8 seconds
-}
+// window.onload = function() {
+//   window.setTimeout(fadeout, 8000); //8 seconds
+// }
 
-function fadeout() {
-  document.getElementById('fadeout').style.opacity = '0';
-}
+// function fadeout() {
+//   document.getElementById('fadeout').style.opacity = '0';
+// }
 
     $('.success').css('background-color','#3eb34b')
     $('.success').css('margin-left','-98px')
@@ -289,12 +290,12 @@ function fadeout() {
 {% endblock %}
 
 <style>
- #fadeout {
+ /* #fadeout {
   opacity: 1;
   transition: 1s opacity;
   text-align: center;
   font-size:32px;
-}
+} */
 
 p {
   text-align: center;

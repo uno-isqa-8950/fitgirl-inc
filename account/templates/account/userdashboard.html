@@ -31,6 +31,7 @@
     <iframe class="embed-responsive-item" src="/admin" allowfullscreen></iframe>
 </div>
 {% else %}
+<div class="container">
 <div class="col-sm-9">
     <h1>Welcome to EmpowerU Program by FirGirls Inc.</h1>
     <p> The goals of the curriculum are for girls to :
@@ -61,16 +62,17 @@
     <br>
     </p>
 </div>
+</div>
 {% endif %}
 <!--Pre-Assessment Check-->
 {% if request.user.is_superuser %}
 {% else %}
     {% if request.user.program_status != "complete" %}
-        <script>
+        <!-- <script>
             $(window).load(function(){
             $('#pre_assess').modal('show');
             });
-        </script>
+        </script> -->
     {% endif %}
 {% endif %}
 

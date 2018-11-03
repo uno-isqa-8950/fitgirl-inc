@@ -21,11 +21,11 @@
 </head>
 <body>
 
-		<nav class="navbar navbar-expand-lg grey darken-2 scrolling-navbar">
+		<nav class="navbar navbar-expand-lg navbar-dark dargen-grey fixed-top scrolling-navbar">
       <a class="navbar-brand" href="/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
       {% if request.user.is_authenticated %}
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon "></span>
 		</button>
       <div class="collapse navbar-collapse" id="navbarsDefault">
         <ul class="navbar-nav mr-auto">
@@ -33,7 +33,7 @@
               <li class="nav-item">
                 <a class="nav-link hoverable" style="
                 background-color: rgba(255,255,255,.1);
-            " href="/cms/"> Create Pages <span class="sr-only">(current)</span></a>
+            " href="/cms/"> <i class="fas fa-book"></i> Create Pages <span class="sr-only">(current)</span></a>
               </li>
             {% else %}
                 {% if user.profile.pre_assessment == "No" %}
@@ -41,14 +41,16 @@
                   <li class="nav-item ">
                     <a class="nav-link hoverable" style="
                     background-color: rgba(255,255,255,.1);
-                " data-toggle="collapse" href="#collapseExample">My Program</a>
+                " data-toggle="collapse" href="# ">My Program</a>
                   </li>
                 {% endif %}
             {% endif %}
            {% if request.user.is_superuser %}
           <li class="nav-item ">
             <a class="nav-link hoverable " style="
-            background-color: rgba(255,255,255,.1);" href="/users/">Users</a>
+            background-color: rgba(255,255,255,.1);" href="/users/"> 
+<i class="fa fa-female" aria-hidden="true"></i>
+ Users</a>
           </li>
          {% else %}
             <li class="nav-item ">
@@ -79,7 +81,7 @@
                 <ul class="dropdown-menu dropdown-menu-right" >
                     {% if request.user.is_superuser %}
                     {% else %}
-                    <li class="card mx-3" style="width: 18rem;">
+                    <li class="card mx-3" >
                         <!-- <div class="card-body">
                             <h5 class="card-title">Points Earned</h5>
                             <div class="progress">
@@ -107,7 +109,7 @@
   </div>
 
 </header>
-  <div id="container">
+  <div id="container-fluid">
     {% block content %}
     {% endblock %}
     {% block body %}
