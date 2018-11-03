@@ -171,82 +171,83 @@ def registerusers(request):
             
             elif value==1 and fail==0 and existing==0:
                 form = request.POST
-                messages.success(request, f'{value} user is added successfully')
+                messages.success(request, f'{value} account is added successfully')
                 return redirect('users')
             elif value==1 and fail==0 and existing==1:
                 form = request.POST
-                messages.info(request, f'{value} user is added successfully, {existing} account already exist')
+                messages.info(request, f'{value} account is added successfully, {existing} account already exist')
                 return redirect('users')
             elif value==1 and fail==0 and existing>1:
                 form = request.POST
-                messages.info(request, f'{value} user is added successfully, {existing} accounts already exist')
+                messages.info(request, f'{value} account is added successfully, {existing} accounts already exist')
                 return redirect('users')
             
             elif value==1 and fail==1 and existing==0:
                 form = request.POST
-                messages.info(request, f'{value} user is added successfully, {fail} account is not added')
+                messages.info(request, f'{value} account is added successfully, {fail} account is not added')
                 return redirect('users')
             elif value==1 and fail==1 and existing==1:
                 form = request.POST
-                messages.info(request, f'{value} user is added successfully, {fail} account is not added, {existing} account already exist')
+                messages.info(request, f'{value} account is added successfully, {fail} account is not added, {existing} account already exist')
                 return redirect('users')
             elif value==1 and fail==1 and existing>1:
                 form = request.POST
-                messages.info(request, f'{value} user is added successfully, {fail} account is not added, {existing} accounts already exist')
+                messages.info(request, f'{value} account is added successfully, {fail} account is not added, {existing} accounts already exist')
                 return redirect('users')
 
             elif value==1 and fail>1 and existing==0:
                 form = request.POST
-                messages.info(request, f'{value} user is added successfully, {fail} accounts are not added')
+                messages.info(request, f'{value} account is added successfully, {fail} accounts are not added')
                 return redirect('users')
             elif value==1 and fail>1 and existing==1:
                 form = request.POST
-                messages.info(request, f'{value} user is added successfully, {fail} accounts are not added, {existing} account already exist')
+                messages.info(request, f'{value} account is added successfully, {fail} accounts are not added, {existing} account already exist')
                 return redirect('users')
             elif value==1 and fail>1 and existing>1:
                 form = request.POST
-                messages.info(request, f'{value} user is added successfully, {fail} accounts are not added, {existing} accounts already exist')
+                messages.info(request, f'{value} account is added successfully, {fail} accounts are not added, {existing} accounts already exist')
                 return redirect('users')
 
 
             elif value>1 and fail==0 and existing==0:
                 form = request.POST
-                messages.success(request, f'{value} users are added successfully')
+                messages.success(request, f'{value} accounts are added successfully')
                 return redirect('users')
             elif value>1 and fail==0 and existing==1:
                 form = request.POST
-                messages.info(request, f'{value} users are added successfully, {existing} account already exist')
+                messages.info(request, f'{value} accounts are added successfully, {existing} account already exist')
                 return redirect('users')
             elif value>1 and fail==0 and existing>1:
                 form = request.POST
-                messages.info(request, f'{value} users are added successfully, {existing} accounts already exist')
+                messages.info(request, f'{value} accounts are added successfully, {existing} accounts already exist')
                 return redirect('users')
             
             elif value>1 and fail==1 and existing==0:
                 form = request.POST
-                messages.info(request, f'{value} users are added successfully, {fail} account is not added')
+                messages.info(request, f'{value} accounts are added successfully, {fail} account is not added')
                 return redirect('users')
             elif value>1 and fail==1 and existing==1:
                 form = request.POST
-                messages.info(request, f'{value} users are added successfully, {fail} account is not added, {existing} account already exist')
+                messages.info(request, f'{value} accounts are added successfully, {fail} account is not added, {existing} account already exist')
                 return redirect('users')
             elif value>1 and fail==1 and existing>1:
                 form = request.POST
-                messages.info(request, f'{value} users are added successfully, {fail} account is not added, {existing} accounts already exist')
+                messages.info(request, f'{value} accounts are added successfully, {fail} account is not added, {existing} accounts already exist')
                 return redirect('users')
 
             elif value>1 and fail>1 and existing==0:
                 form = request.POST
-                messages.info(request, f'{value} users are added successfully, {fail} accounts are not added')
+                messages.info(request, f'{value} accounts are added successfully, {fail} accounts are not added')
                 return redirect('users')
             elif value>1 and fail>1 and existing==1:
                 form = request.POST
-                messages.info(request, f'{value} users are added successfully, {fail} accounts are not added, {existing} account already exist')
+                messages.info(request, f'{value} accounts are added successfully, {fail} accounts are not added, {existing} account already exist')
                 return redirect('users')
             else:
                 form = request.POST
-                messages.info(request, f'{value} users are added successfully, {fail} accounts are not added, {existing} accounts already exist')
+                messages.info(request, f'{value} accounts are added successfully, {fail} accounts are not added, {existing} accounts already exist')
                 return redirect('users')
+                
         # else:
         #     form = request.POST
         #     messages.error(request,'Your are not using the correct file')

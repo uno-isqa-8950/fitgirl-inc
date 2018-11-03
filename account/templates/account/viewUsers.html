@@ -7,19 +7,20 @@
   <div class="row">
 
 
-<div class="col-12 col-sm-2 col-md-4 col-lg-12 offset-lg-0">
-  
+<div>
+
   <h1 class="text-center"> All Users</h1>
-  
+
   <ul class="messages">
     {% for message in messages %}
     <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
   </ul>
-<div>
-  <table  id="dtDynamicVerticalScroll" class="table table-hover table-striped  table-bordered w-auto" class="target">
+
+  <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-responsive-lg table-bordered" class="target">
       <thead class="thead stylish-color text-white">
       <tr>
+
           <th class="th-lg"  style="
           font-weight: bold;
       " >Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
@@ -54,6 +55,19 @@
        font-weight: bold;
    ">? </td>
 
+          <th class="th-lg">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+          <th class="th-lg">First Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+			<th class="th-lg">Last Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+			<th class="th-lg text-center">Profile <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+          <th class="th-lg text-center">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center">Registered</th>
+      <th class="th-lg text-center">User Logged-In</th>
+      <th class="th-lg text-center ">Pre-Assessment </th>
+      <th class="th-lg text-center ">Post-Assessment</th>
+      <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+       <td id="addQuestionContent">? </td>
+
+
 
  
           </thead>
@@ -65,7 +79,7 @@
         <td>{{ registeredUser.profile.program.program_name  }}</td>
         <td >{{ registeredUser.first_name }}</td>
             <td>{{ registeredUser.last_name }}</td>
-			<td align="center" ><a href="{% url 'profile' registeredUser.id %}"><i class="fas fa-envelope fa-lg" style="color: darkblue" ></i></a></td>
+			<td align="center" ><a href="{% url 'profile' registeredUser.id %}"><i class="far fa-user-circle fa-lg" style="color: darkblue" ></i></a></td>
             {% if registeredUser.profile.age is None %}
              <td align="center"></td>
             {% else %}
@@ -100,7 +114,6 @@
         {% endif %}
         </tbody>
     </table>
-</div>
   </div>
 
 </div>
@@ -113,7 +126,7 @@
   $(document).ready(function () {
       $('#dtDynamicVerticalScroll').DataTable({
               "order": [[4, "YES"]],
-               "scrollY": "80vh",
+              "responsive": true, "scrollY": "80vh",
               "scrollCollapse": true,
               language: {
                   searchPlaceholder: "Search",
