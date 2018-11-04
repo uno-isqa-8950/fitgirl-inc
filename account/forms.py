@@ -40,7 +40,7 @@ EVENT = (
 class ProfileEditForm(forms.ModelForm):
     photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}))
     bio  = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
-    date_of_birth = forms.DateInput(attrs={'class': 'datepicker','class':'form-control'})
+    date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'class':'form-control','type':'date','placeholder':'mm/dd/yyyy format'}))
     address = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Enter your Address'}))
     zip = forms.IntegerField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Zip-Code'}))
     city = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
