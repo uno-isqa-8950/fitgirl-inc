@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from PIL import Image
-
+from datetime import datetime
 # Create your models here.
 
 EVENT = (
@@ -58,7 +58,6 @@ class Profile(models.Model):
     # last_name = models.CharField(max_length=50, default=None)
     bio = models.CharField(max_length=255, blank=False, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
-    age = models.IntegerField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
     zip = models.IntegerField(blank=True, null=True)
     city = models.CharField(max_length=25, blank=True, null=True)
@@ -77,17 +76,9 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    # def save(self):
-
-    #     super().save()
-    #
-    #     photo = Image.open(self.photo.path)
-    #
-    #     if photo.height > 300 or photo.width > 300:
-    #         output_size = (100, 100)
-    #         photo.thumbnail(output_size)
-    #         photo.save(self.photo.path)
-
+    @property
+    def age(self):
+        return int((datetime.now().date() - self.date_of_birth).days / 365.25)
 
 
 

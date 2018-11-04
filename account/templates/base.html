@@ -21,7 +21,7 @@
 </head>
 <body>
 
-		<nav class="navbar navbar-expand-lg navbar-dark dargen-grey fixed-top scrolling-navbar">
+		<nav class="navbar navbar-expand-lg navbar-dark grey darken-1  scrolling-navbar">
       <a class="navbar-brand" href="/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
       {% if request.user.is_authenticated %}
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,10 +78,10 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
                   <img class="rounded-circle account-img" alt="My-image" src="{{ user.profile.photo.url }}" height="30" width="30">
                 </a>
-                <ul class="dropdown-menu dropdown-menu-right" >
+                <ul class="dropdown-menu dropdown-menu-right stylish-color" >
                     {% if request.user.is_superuser %}
                     {% else %}
-                    <li class="card mx-3" >
+                    <li class="card mx-2" style="width: 18rem;">
                         <!-- <div class="card-body">
                             <h5 class="card-title">Points Earned</h5>
                             <div class="progress">

@@ -29,7 +29,9 @@
       <th class="th-lg text-center ">Pre-Assessment </th>
           <th class="th-lg text-center ">Post-Assessment</th>
       <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      </tr>
+    <td id="question" style="background-color: lightgray">? </td>  
+    
+    </tr>
       </thead >
         <tbody  >
         {% for registeredUser in registeredUsers %}
@@ -45,27 +47,27 @@
             {% endif %}
 
         {% if registeredUser.is_active %}
-            <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
+          <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
         {% else %}
          <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% endif %}
         {% if registeredUser.last_login is None %}
-           <td align="center" ><i class="fas fa-times fa-lg" style="color:#FF0000"></i></td>
+           <td align="center" ><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% else %}
           <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
-          {% if registeredUser.profile.pre_assessment == "No" %}
-          <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"></i></td>
+        {% if registeredUser.profile.pre_assessment == "No" %}
+          <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% else %}
           <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
-            <td></td>
-            {% if registeredUser.profile.points  == 0 %}
-                <td></td>
-            {% else %}
+        {% if registeredUser.profile.post_assessment == "No" %}
+          <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+        {% else %}
+          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+        {% endif %}
+            <td align="center">{{ registeredUser.profile.points }}</td>
 
-           <td align="center">{{ registeredUser.profile.points }}</td>
-            {% endif %}
 
         {% endfor %}
         </tr>
@@ -82,7 +84,13 @@
 
 <script>
 
+var txt="Active: User has been registered for the program" + "\n"+
+"User logged In : User has created their profile on Empoweru and changed their password"+ "\n" +
+"Pre-assesment: User has completed their Pre-assessment"+"\n"+
+"Points: Total points acquired bu user to date"
+
   $(document).ready(function () {
+      $("#question").attr("title",txt)
       $('#dtDynamicVerticalScroll').DataTable({
               "order": [[4, "YES"]],
               "responsive": true, "scrollY": "80vh",
