@@ -57,14 +57,14 @@
    {% else %}
             {% if request.user.is_superuser %}
 
-       <br><br><br>
+ 
            
-             <h4 class="pink lighten-1 my-0" style="padding-top:0px"><i class=" btn btn-elegant fa fa-bars" type="button "
+             <h4 class="pink lighten-1 my-0" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
                     data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4> 
 
         </div>
         {% else %}
-        <h4 class="pink lighten-1" style="padding-top:0px"><i class=" btn btn-elegant fa fa-bars" type="button "
+        <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
             data-toggle="modal" data-target="#fullHeightModalLeft"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>
         <!-- <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1> -->
 
@@ -196,7 +196,7 @@
           <div class="row wow fadeIn">
             <!--Grid column-->
             <div class="col-md-12 mb-4 white-dark text-center wow fadeIn">
-              <h3 class="display-7 font-weight-bold white-dark mb-0 pt-md-1 pt-0">Welcome to <span class="animated fadeIn slower"> EmpowerU!</span></h3>
+              <h3 class="display-7 font-weight-bold white-dark mb-0 pt-md-1 pt-3">Welcome to <span class="animated fadeIn slower"> EmpowerU!</span></h3>
               <hr class="hr-dark my-1 w-75">
               <h6 class="subtext-header animated fadeIn slower delay-1s mt-1 mb-0">
         
