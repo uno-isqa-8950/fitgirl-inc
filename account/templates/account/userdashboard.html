@@ -68,11 +68,11 @@
 {% if request.user.is_superuser %}
 {% else %}
     {% if request.user.program_status != "complete" %}
-        <!-- <script>
+        <script>
             $(window).load(function(){
             $('#pre_assess').modal('show');
             });
-        </script> -->
+        </script>
     {% endif %}
 {% endif %}
 
