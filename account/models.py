@@ -78,7 +78,10 @@ class Profile(models.Model):
 
     @property
     def age(self):
-        return int((datetime.now().date() - self.date_of_birth).days / 365.25)
+        if self.date_of_birth is None:
+            return "None";
+        else:
+            return int((datetime.now().date() - self.date_of_birth).days / 365.25)
 
 
 
