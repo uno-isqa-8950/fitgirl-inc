@@ -1,4 +1,4 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {% extends "base.html" %}
 
 {% block title %}Dashboard{% endblock %}
@@ -153,7 +153,7 @@
                                  <ul class="nav flex-column ">
                                     <div>
                                         <li class="nav-item">
-                                            <a href="{% url 'userdashboard' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action hoverable">Dashboard</a>
+                                            <a href="{% url 'userdashboard' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action hoverable"><i class="fas fa-cog fa-fw"></i>Dashboard</a>
                                         </li>
                                         <div>
                                             <li class="nav-item">
@@ -161,13 +161,19 @@
                                             </li>
                                             <div>
                                                 <li class="nav-item">
-                                                    <a href="{% url "password_change" %}" class=" btn btn-block btn-pink list-group-item list-group-item-action">Change Password</a>
+                                                    <a href="{% url "password_change" %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-lock"></i>Change Password</a>
                                                 </li>
                                                 <div>
                                                 <li class="nav-item">
-                                                    <a href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-cog fa-fw"></i>
+                                                    <a href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>
                                                         Edit Profile</a>
                                                 </li>
+                                                    <div>
+                                                        <li class="nav-item">
+                                                    <a href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-thumbs-up"></i>
+                                                        Rewards</a>
+                                                        </li>
+
                                                
                                 </ul>
                             </div>
