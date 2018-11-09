@@ -74,8 +74,6 @@ class QuestionPage(AbstractForm):
         FieldPanel('thank_you_text', classname="full"),
     ]
 
-    def get_form_fields(self):
-        return self.form_fields.all()
 
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
