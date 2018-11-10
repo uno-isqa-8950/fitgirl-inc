@@ -14,6 +14,7 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, FieldRowPanel, 
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractForm, AbstractFormSubmission
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from account.forms import User
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 class ProgramIndexPage(Page):
     description = models.CharField(max_length=255, blank=True, )
@@ -62,7 +63,7 @@ class QuestionFormField(AbstractFormField):
     page = ParentalKey('QuestionPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
-class QuestionPage(AbstractEmailForm):
+class QuestionPage(AbstractForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
@@ -124,7 +125,7 @@ class PhysicalPostPage(AbstractForm):
                                                help_text='Time format should be in MM:SS')
     thank_you_text = RichTextField(blank=True)
 
-    content_panels = AbstractEmailForm.content_panels + [
+    content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
         FormSubmissionsPanel(),
         # InlinePanel('form_fields'),
@@ -171,7 +172,7 @@ class PreassessmentPage(AbstractForm):
     thank_you_text = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
 
-    content_panels = AbstractEmailForm.content_panels + [
+    content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
         InlinePanel('form_fields', label="Create your question"),
         FieldPanel('points_for_this_activity', classname="title"),
@@ -222,4 +223,15 @@ class MentalPostPage(Page):
     body = RichTextField(blank=True)
     content_panels= Page.content_panels + [
         FieldPanel('body', classname="full"),
+    ]
+
+class RewardsPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+    feed_image =models.ForeignKey('wagtailimages.Image', null= True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+        ImageChooserPanel('feed_image')
     ]
