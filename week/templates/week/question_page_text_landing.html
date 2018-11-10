@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class ="container-fluid" align="center" style="position: absolute">
+    <br>
+    <br>
+    <h2 align="center"> Thank You for answering this! </h2>
+    {{page.thank_you_text|richtext}}
+    {% if page.points_for_this_activity %}
+        <h4 align="center">Congratulations! You have scored {{page.points_for_this_activity}} points! </h4>
+    {% endif %}
+    <p>
+        <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl" style="text-align: center">Back to Module</a>
+    </p>
+</div>
+<canvas id="canvas"></canvas>
+{% endblock %}
