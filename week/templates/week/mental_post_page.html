@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
+{% load staticfiles %}
 
 
 {% block content %}
@@ -9,33 +10,45 @@
     <br>
   <h1>{{ page.title }}</h1>
 {{ page.body|richtext }}
+<div class="content container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="links">
+                            <!-- Example row of columns -->
+                            <div class="row">
+                                 {% for post in page.get_children %}
+                                <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <img src="/media/images/admin.png" alt="customer"/>
+                                        <div class="caption">
+                                            <h2>Customer</h2>
+                                            <p>We see our success in our customers success, it gives us an immense
+                                                pleasure when our
+                                                advises
+                                                turn out to be fruitful. </p>
+                                            <p>
+                                                <a class="btn btn-primary" href="{% pageurl post %}" role="button">{{post.title}}</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                    {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
- <!--{% for post in page.get_children %}-->
-    <!--<div class="card-group" >-->
-        <!--<div class="card bg-primary" href="{% pageurl post %}">-->
-    <!--<div class="card-body text-center">-->
-<!--&lt;!&ndash;<p class="card-text" >&ndash;&gt;-->
-<!--<a href="{% pageurl post %}" class = "card-text" role="button">{{post.title}}</a>-->
-       <!--&lt;!&ndash;<button type="button" class="btn btn-primary btn-lg btn-block" href="{% pageurl post %}">{{post.title}}</button>&ndash;&gt;-->
-<!--&lt;!&ndash;</p>&ndash;&gt;-->
-    <!--</div>-->
-
-        <!--</div>-->
-    <!--</div>-->
-
-<!--{% endfor %}-->
-
-<!--{% for post in page.get_children %}-->
-<!--<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>-->
-<!--{% endfor %}-->
-
-    {% for post in page.get_children %}
-    <a href="{% pageurl post %}" class = "btn btn-primary btn-lg btn-block" role="button">{{post.title}}</a>
-    <br>
-    <br>
-    {% endfor %}
+    <!--{% for post in page.get_children %}-->
+    <!--<a href="{% pageurl post %}" class = "btn btn-primary btn-lg btn-block" role="button">{{post.title}}</a>-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--{% endfor %}-->
 
 <p><a href="{{ page.get_parent.url }}">Back</a></p>
-
+<a href="{% slugurl self.mental %}" class = "btn btn-primary btn-lg btn-block" role="button">{{post.title}}</a>
 {% endblock %}
 </div>
