@@ -67,6 +67,7 @@
             <li class="nav-item" class="navbar-nav navbar-centre">
               <a class="nav-link" href="#">Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
             </li>
+
             {% endif %}
         </ul>
           <ul class="navbar-nav navbar-right">
@@ -121,7 +122,9 @@
     {% block body %}
     {% endblock %}
   </div>
-{% if request.user.is_superuser %}
+<br>
+<br>
+        {% if request.user.is_superuser %}
 {% else %}
         {% if request.user.is_authenticated %}
             <div style="height:100px;">

@@ -68,15 +68,13 @@ class QuestionPage(AbstractForm):
     thank_you_text = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
 
-    content_panels = AbstractForm.content_panels + [
+    content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro', classname="full"),
         InlinePanel('form_fields', label="Form Fields"),
         FieldPanel('points_for_this_activity', classname="title"),
         FieldPanel('thank_you_text', classname="full"),
     ]
 
-    def get_form_fields(self):
-        return self.form_fields.all()
 
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
@@ -235,3 +233,34 @@ class RewardsPage(Page):
         FieldPanel('description', classname="full"),
         ImageChooserPanel('feed_image')
     ]
+
+class QuestionTextFormField(AbstractFormField):
+    page = ParentalKey('QuestionPageText', on_delete=models.CASCADE, related_name='form_field')
+
+
+class QuestionPageText(AbstractForm):
+    intro = RichTextField(blank=True)
+    thank_you_text = RichTextField(blank=True)
+
+    content_panels = AbstractEmailForm.content_panels + [
+        FieldPanel('intro', classname="full"),
+        InlinePanel('form_field', label="Form Fields"),
+        FieldPanel('thank_you_text', classname="full"),
+    ]
+
+    def get_form_fields(self):
+        return self.form_field.all()
+
+    def serve(self, request, *args, **kwargs):
+        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+            return render(
+                request,
+                self.template,
+                self.get_context(request)
+            )
+        return super().serve(request, *args, **kwargs)
+
+    def get_submission_class(self):
+        return CustomFormSubmission
+
+
