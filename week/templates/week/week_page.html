@@ -33,7 +33,18 @@
                           <!--<img class="card-img-top" src="{{ post.specific.intro|richtext}}" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">-->
                           <img class="card-img-top" src="/media/images/mental.png" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
                           <div class="card-body">
-                              <h5 class="card-title"> <b> Mental </b>></h5>
+                              <h5 class="card-title"> <b> Mental </b></h5>
+                      <p class="card-text">{{ mental.specific.description|richtext }}</p>
+                    </div>
+                      </a>
+                  </div>
+        <div class="card">
+                      <a href ="/pages/relational/">
+                        <!--<img class="card-img-top" src="{% image post.image fill-320x240 %}" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">-->
+                          <!--<img class="card-img-top" src="{{ post.specific.intro|richtext}}" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">-->
+                          <img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
+                          <div class="card-body">
+                              <h5 class="card-title"> <b> Relational </b></h5>
                       <p class="card-text">{{ mental.specific.description|richtext }}</p>
                     </div>
                       </a>
@@ -42,6 +53,6 @@
     <br>
     <br>
 
-<p><a href="{{ page.get_parent.url }}">Return</a></p>
+<!--<p><a href="{{ page.get_parent.url }}">Return</a></p>-->
 {% endblock %}
   </div>

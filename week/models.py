@@ -25,9 +25,12 @@ class ProgramIndexPage(Page):
     ]
 class WeekPage(Page):
     description = models.CharField(max_length=255, blank=True,)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                   related_name='+')
 
     content_panels = Page.content_panels + [
-        FieldPanel('description', classname="full")
+        FieldPanel('description', classname="full"),
+        ImageChooserPanel('display_image')
     ]
 
 class ModelIndexPage(Page):
