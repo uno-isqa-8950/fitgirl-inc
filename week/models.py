@@ -228,16 +228,26 @@ class MentalPostPage(Page):
         FieldPanel('body', classname="full"),
     ]
 
-class RewardsPage(Page):
+class RewardsIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
-    feed_image =models.ForeignKey('wagtailimages.Image', null= True, blank=True, on_delete=models.SET_NULL, related_name='+')
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         FieldPanel('description', classname="full"),
-        ImageChooserPanel('feed_image')
     ]
+
+class RewardsPostPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+    display_image =models.ForeignKey('wagtailimages.Image', null= True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+        ImageChooserPanel('display_image')
+    ]
+
 
 class QuestionTextFormField(AbstractFormField):
     page = ParentalKey('QuestionPageText', on_delete=models.CASCADE, related_name='form_field')
