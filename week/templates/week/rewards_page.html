@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+<div class ="container">
+    <br>
+    <br>
+  <h1>{{ page.title }}</h1>
+{{ page.body|richtext }}
+    {{ page.description|richtext }}
+    <div class="card-deck ">
+        {% for post in page.get_children %}
+    <div class="card">
+                      <a href ="{% pageurl post %}">
+                        <!--<img class="card-img-top" src="{% image post.image fill-320x240 %}" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">-->
+                          <!--<img class="card-img-top" src="{{ post.specific.intro|richtext}}" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">-->
+                          <img class="card-img-top" src="/media/images/Physical.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
+                          <div class="card-body">
+                      <h5 class="card-title">{{ post.title|richtext }}</h5>
+                      <p class="card-text">{{ post.specific.description|richtext }}</p>
+                    </div>
+                      </a>
+                  </div>
+        {% endfor %}
+    </div>
+{% image item.image fill-320x240 %}
+<!--<div class="content container">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                        <!--<div class="links">-->
+                            <!--&lt;!&ndash; Example row of columns &ndash;&gt;-->
+                            <!--<div class="row">-->
+                                 <!--{% for post in page.get_children %}-->
+                                <!--<div class="col-md-3">-->
+                                    <!--<div class="thumbnail">-->
+
+                                        <!--<div class="caption">-->
+                                            <!--<h2>{{page.title}}</h2>-->
+                                            <!--<p>We see our success in our customers success, it gives us an immense-->
+                                                <!--pleasure when our-->
+                                                <!--advises-->
+                                                <!--turn out to be fruitful. </p>-->
+                                            <!--<p>-->
+                                                <!--<a class="btn btn-primary" href="{% pageurl post %}" role="button">{{page.title}}</a>-->
+                                            <!--</p>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                    <!--{% endfor %}-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+    <!--{% for post in page.get_children %}-->
+    <!--<a href="{% pageurl post %}" class = "btn btn-primary btn-lg btn-block" role="button">{{post.title}}</a>-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--{% endfor %}-->
+
+
+</br>
+</br>
+<p><a href="{{ page.get_parent.url }}">Back</a></p>
+</div>
+{% endblock %}
+</div>
