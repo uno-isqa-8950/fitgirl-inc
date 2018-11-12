@@ -34,12 +34,18 @@ class WeekPage(Page):
 
 class ModelIndexPage(Page):
     description = models.CharField(max_length=255, blank=True, )
+    intro = models.CharField(max_length=255, blank=True, )
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    ad_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
 
     content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
         FieldPanel('description', classname="full"),
-        ImageChooserPanel('display_image')
+        ImageChooserPanel('ad_image'),
+
     ]
 
 class FormField(AbstractFormField):
@@ -59,9 +65,16 @@ class NutritionPostPage(AbstractForm):
         return self.custom_form_fields.all()
 
 class Fact(Page):
+    intro = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+
     body = RichTextField(blank=True)
     content_panels= Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
         FieldPanel('body', classname="full"),
+
     ]
 
 class QuestionFormField(AbstractFormField):
@@ -224,8 +237,11 @@ class Print(Page):
 
 class MentalPostPage(Page):
     body = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
     content_panels= Page.content_panels + [
         FieldPanel('body', classname="full"),
+        ImageChooserPanel('display_image')
     ]
 
 class RewardsIndexPage(Page):
@@ -235,6 +251,7 @@ class RewardsIndexPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         FieldPanel('description', classname="full"),
+
     ]
 
 class RewardsPostPage(Page):
