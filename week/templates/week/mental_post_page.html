@@ -17,9 +17,9 @@
             {% image post.specific.display_image original as reward_image %}
                 <div class="card">
                       <a href ="{% pageurl post %}">
-                          {% if post.reward_image %}
+
                           <img class="card-img-top" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;"/>
-                            {% endif %}
+
                           <div class="card-body">
                               <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
                       <p class="card-text">{{ post.specific.intro|richtext}}{{ post.specific.description|richtext }}</p>

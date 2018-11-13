@@ -273,10 +273,15 @@ class QuestionTextFormField(AbstractFormField):
 
 class QuestionPageText(AbstractForm):
     intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
+        FieldPanel('description', classname="full"),
         InlinePanel('form_field', label="Form Fields"),
         FieldPanel('thank_you_text', classname="full"),
     ]

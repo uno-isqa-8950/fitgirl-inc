@@ -6,12 +6,14 @@
     <div class ="container">
     <br>
     <br>
+        <div id="printableArea" class=intro">
     <h1>{{ page.title }}</h1>
 
     {% if user.is_authenticated and user.is_active or request.is_preview %}
         {% if form %}
             <div>{{ page.intro|richtext }}</div>
             <form action="{% pageurl page %}" method="POST">
+
                 {% csrf_token %}
                 {% for field in form.visible_fields %}
                     <div class="col-sm-8 form-group">
@@ -19,6 +21,19 @@
                         {% render_field field class+="form-control" %}
                     </div>
                 {% endfor %}
+        </div>
+                                 <script>
+                        function printDiv(divName){
+                            var printContents = document.getElementById(divName).innerHTML;
+                            var originalContents = document.body.innerHTML;
+                            document.body.innerHTML = printContents;
+                            window.print();
+                            document.body.innerHTML = originalContents;
+                            }
+                    </script>
+                <form>
+                <input type="button" value="Print me!" onClick="printDiv('printableArea')"/>
+                </form>
                 <input class="btn-md btn-primary"  type="submit">
             </form>
         {% else %}
