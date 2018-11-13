@@ -27,12 +27,15 @@ def my_choices():
 
 class UploadFileForm(forms.Form):
 
-    file = forms.FileField(label=" Choose the CSV file")
 
     def __init__(self, *args,**kwargs):
         super(UploadFileForm, self).__init__(*args, **kwargs)
         self.fields['programs'] = forms.ChoiceField(
             choices=my_choices())
+
+    file = forms.FileField(label=" Choose the CSV file")
+
+
 EVENT = (
     (1, _("8-10")),
     (2, _("11-13")),

@@ -6,40 +6,41 @@
 
 
 
-  <h3> All Users</h3>
-  
+<div>
 
-  <div class="col-lg-12  ">
+<div class="col-12 offset-lg-0">
+
+
+
+
+
+      <h1 class="text-center"> All Users</h1>
   <ul class="messages">
     {% for message in messages %}
     <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
   </ul>
 
-  <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-responsive-lg table-bordered" class="target">
+  <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered" class="target">
       <thead class="thead stylish-color text-white">
       <tr>
-          <th class="th-lg">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-          <th class="th-lg">First Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-			<th class="th-lg">Last Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-			<th class="th-lg text-center">Profile <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+          <th class="th-lg">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th></div>
+          <th class="th-lg">Profile <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+
           <th class="th-lg text-center">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
       <th class="th-lg text-center">Registered</th>
       <th class="th-lg text-center">User Logged-In</th>
-      <th class="th-lg text-center ">Pre-Assessment </th>
+      <th class="th-lg text-center "id="question"  >Pre-Assessment</th>
           <th class="th-lg text-center ">Post-Assessment</th>
       <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-    <td id="question" style="background-color: lightgray">? </td>  
-    
-    </tr>
+      </tr>
       </thead >
         <tbody  >
         {% for registeredUser in registeredUsers %}
         <tr class="hoverable">
         <td>{{ registeredUser.profile.program.program_name  }}</td>
-        <td >{{ registeredUser.first_name }}</td>
-            <td>{{ registeredUser.last_name }}</td>
-			<td align="center" ><a href="{% url 'profile' registeredUser.id %}"><i class="far fa-user-circle fa-lg" style="color: darkblue" ></i></a></td>
+            <td ><a href="{% url 'profile' registeredUser.id %}"><img  src="{{ registeredUser.profile.photo.url }}" alt="Profile pic" style="width:30px;height:30px;border:1px;" class="img-fluid rounded-circle"></a>&nbsp;&nbsp;<span>{{ registeredUser.first_name }}</span>&nbsp;<span>{{ registeredUser.last_name }}</span></td>
+
             {% if registeredUser.profile.age is None %}
              <td align="center"></td>
             {% else %}
@@ -47,27 +48,31 @@
             {% endif %}
 
         {% if registeredUser.is_active %}
-          <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
+            <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
         {% else %}
          <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
         {% endif %}
         {% if registeredUser.last_login is None %}
-           <td align="center" ><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+           <td align="center" ><i class="fas fa-times fa-lg" style="color:#FF0000"></i></td>
         {% else %}
           <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
-        {% if registeredUser.profile.pre_assessment == "No" %}
-          <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+          {% if registeredUser.profile.pre_assessment == "No" %}
+          <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"></i></td>
         {% else %}
           <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
-        {% if registeredUser.profile.post_assessment == "No" %}
-          <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+             {% if registeredUser.profile.post_assessment == "No" %}
+          <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"></i></td>
         {% else %}
           <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
         {% endif %}
-            <td align="center">{{ registeredUser.profile.points }}</td>
+            {% if registeredUser.profile.points  == 0 %}
+                <td></td>
+            {% else %}
 
+           <td align="center">{{ registeredUser.profile.points }}</td>
+            {% endif %}
 
         {% endfor %}
         </tr>
@@ -75,14 +80,19 @@
         </tbody>
     </table>
   </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-</div>
-</div>
-</div>
 
   {% endif %}
 
 <script>
+
+
 
 var txt="Active: User has been registered for the program" + "\n"+
 "User logged In : User has created their profile on Empoweru and changed their password"+ "\n" +
@@ -90,18 +100,19 @@ var txt="Active: User has been registered for the program" + "\n"+
 "Points: Total points acquired bu user to date"
 
   $(document).ready(function () {
-      $("#question").attr("title",txt)
+
       $('#dtDynamicVerticalScroll').DataTable({
-              "order": [[4, "YES"]],
-              "responsive": true, "scrollY": "80vh",
-              "scrollCollapse": true,
-              language: {
-                  searchPlaceholder: "Search",
-                  search: "",
-              }
-  });
+          "order": [[4, "YES"]],
+          "responsive": true, "scrollY": "80vh",
+          "scrollCollapse": true,
+          language: {
+              searchPlaceholder: "Search",
+              search: "",
+          }
+      });
   $('.dataTables_length').addClass('bs-select');
 });
+
 
 $(document).ready(function(){
     $("#image1").remove()
@@ -120,9 +131,60 @@ $(document).ready(function(){
 float: left;
 }
 .dataTables_wrapper .dataTables_filter {
-float: right;
-text-align: right;
+    float: right;
+    text-align: right;
 }
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+  background-color:deeppink;
+  border-color:black;
+  cursor:pointer;
+  z-index:2;
+}.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
 </style>
 
 
