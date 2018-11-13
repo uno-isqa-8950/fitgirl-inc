@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-<title>Profile</title>
+<title xmlns="http://www.w3.org/1999/html">Profile</title>
 {% endblock %}
 {% block body %}
 <div class="container">
@@ -8,12 +8,12 @@
     <br>
     <div class="card">
 <div class="col-10 offset-1">
-            <h5 class="card-header stylish-color white-text text-center py-2 z-depth-4">
+            <h5 class="text-center">
                 <strong>Profile</strong>
             </h5>
         </div>
             <!--Card content-->
-            <div class="card-body px-lg-5 pt-5">
+            <div class="card-body px-md-5 pt-5">
 
                 <!-- Form -->
                 <form class="text-center">
@@ -22,14 +22,14 @@
                         <div class="col">
                             <!-- First name -->
                             <div class="">
-                                <label >First name:  {{ user.user.first_name }}</label>
+                                <label ><strong>First Name:  </strong>{{ user.user.first_name }}</label>
                             </div>
                         </div>
                         <div class="col">
                             <!-- Last name -->
                             <div class="">
 
-                                <label for="materialRegisterFormLastName">Last name:{{ user.user.last_name }}</label>
+                                <label for="materialRegisterFormLastName"><strong>Last Name: </strong>{{ user.user.last_name }}</label>
                             </div>
                         </div>
                     </div>
@@ -38,16 +38,18 @@
                     <div class="form-row">
                     <div class="col">
                     <div class="">
+                        <label  ><strong>E-mail: </strong>{{ user.user.email }} </label>
 
-                        <label for="materialRegisterFormEmail">Bio: {{user.bio}}</label>
                     </div>
-                </div>
+                    </div>
 
                     <!-- Password -->
-                    <div class="col">
-                    <div class="">
-                         <label  >E-mail: {{ user.user.email }} </label>
 
+
+                    <div class="col">
+                    <div class="text-justify">
+
+                        <label for="materialRegisterFormEmail"><strong>Bio: </strong>{{user.bio}}</label>
                     </div>
                     </div>
                     </div>
@@ -56,7 +58,7 @@
                     <div class="form-row">
                     <div class="col">
                     <div >
-                            <label >Birthday: {{  user.date_of_birth }}</label>
+                        <label ><strong>Birthday: </strong>{{  user.date_of_birth }}</label>
 
                     </div>
                     </div>
@@ -64,7 +66,7 @@
                     <!-- Newsletter -->
                     <div class="col">
                     <div >
-                            <label for="materialRegisterFormPhone">Age: {{ user.age }}</label>
+                        <label for="materialRegisterFormPhone"><strong>Age: </strong>{{ user.age }}</label>
 
                     </div>
                     </div>
@@ -73,13 +75,13 @@
                     <!--  Address  -->
                     <div class="form-row">
                     <div class="col" >
-                            <label for="materialRegisterFormPhone">Address: {{ user.address }}</label>
+                        <label for="materialRegisterFormPhone"><strong>Address: </strong>{{ user.address }}</label>
 
                     </div>
 
                     <div class="col">
                             <div >
-                                    <label for="materialRegisterFormPhone">Zip: {{ user.zip }}</label>
+                                <label for="materialRegisterFormPhone"><strong>Zip: </strong>{{ user.zip }}</label>
 
                             </div>
                             </div>
@@ -89,13 +91,13 @@
 
                             <div class="col">
                             <div >
-                                    <label for="materialRegisterFormPhone">City: {{ user.city }}</label>
+                                <label for="materialRegisterFormPhone"><strong>City: </strong>{{ user.city }}</label>
 
                             </div>
                             </div>
                             <div class="col">
                                     <div >
-                                            <label for="materialRegisterFormPhone">State: {{ user.state }}</label>
+                                        <label for="materialRegisterFormPhone"><strong>State: </strong>{{ user.state }}</label>
 
                                     </div>
                                     </div>
@@ -105,7 +107,7 @@
                             <div class="form-row">
                                     <div class="col">
                                     <div >
-                                            <label for="materialRegisterFormPhone">Day Phone: {{  user.day_phone }}</label>
+                                        <label for="materialRegisterFormPhone"><strong>Day Phone: </strong>{{  user.day_phone }}</label>
 
                                     </div>
                                     </div>
@@ -113,7 +115,7 @@
 
                                     <div class="col">
                                     <div >
-                                            <label for="materialRegisterFormPhone">Eve Phone: {{ user.eve_phone }}</label>
+                                        <label for="materialRegisterFormPhone"><strong>Eve Phone: </strong>{{ user.eve_phone }}</label>
 
                                     </div>
                                     </div>
@@ -122,7 +124,14 @@
                                     <div class="form-row">
                                             <div class="col">
                                             <div >
-                                                    <label for="materialRegisterFormPhone">Age Group: {{ user.age_group }}</label>
+                                                 {% if user.age_group  == 1 %}
+                                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>8-10</label>
+                                                 {% elif user.age_group  == 2 %}
+                                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>11-13</label>
+                                                {% else %}
+                                                 <label for="materialRegisterFormPhone"><strong>Age Group: </strong>{{ user.age_group }}</label>
+
+                                                    {% endif %}
 
                                             </div>
                                             </div>
@@ -130,16 +139,33 @@
                                             <!-- Newsletter -->
                                             <div class="col">
                                             <div >
-                                                    <label for="materialRegisterFormPhone">School:{{ user.school }}</label>
+                                                    <label for="materialRegisterFormPhone"><strong>School: </strong>{{ user.school }}</label>
 
                                             </div>
                                             </div>
                                             </div>
 
                     <!-- Sign up button -->
-                    <button class="btn btn-outline-pink btn-rounded btn-block  my-4 waves-effect z-depth-1" type="submit">Archive</button>
-                    <button class="btn btn-outline-pink btn-rounded btn-block  my-4 waves-effect z-depth-1"><a href="{% url 'users' %}">Cancel</a></button>
 
+
+                                    <div class="form-row">
+                                            <div class="col">
+                                            <div >
+                                                     <button class="btn btn-pink btn-rounded my-4 waves-effect z-depth-1" type="submit">Archive</button>
+
+
+                                            </div>
+                                            </div>
+
+                                            <!-- Newsletter -->
+                                            <div class="col">
+                                            <div >
+                                                      <button class="btn btn-gray btn-rounded my-4 waves-effect z-depth-1"><a href="{% url 'users' %}">Cancel</a></button>
+
+
+                                            </div>
+                                            </div>
+                                            </div>
 
                     <!-- Social register -->
 
