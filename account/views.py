@@ -6,6 +6,7 @@ from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, Upload
 from .forms import Profile,User, Program
 from .models import RegisterUser
 from io import TextIOWrapper, StringIO
+import re
 
 from django.shortcuts import redirect
 import csv, string, random
@@ -77,9 +78,9 @@ def createprogram(request):
                   {'section': 'createprogram','form':form,'registeredPrograms':registeredPrograms})
 
 
-def validate_csv(value):
-    if not value.name.endswith('.csv'):
-        raise ValidationError('Invalid file type')
+# def validate_csv(value):
+#     if not value.name.endswith('.csv'):
+#         raise ValidationError('Invalid file type')
 
 
 def handle_uploaded_file(request, name):
@@ -92,28 +93,31 @@ def handle_uploaded_file(request, name):
           for row in reader:
               try:
                   if row[1] and row[2] and row[3]:
-                    vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
-                    current_site = get_current_site(request)
-                    alphabet = string.ascii_letters + string.digits
-                    # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
-                    theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
-                    theUser.set_password('fitgirl1')
-                    theUser.save()
-                    profile = Profile.objects.create(user=theUser, program=Program.objects.all().filter(program_name=name)[0])
-                    profile.save()
-                    form = PasswordResetForm({'email': theUser.email})
-                    if form.is_valid():
-                        request = HttpRequest()
-                        request.META['SERVER_NAME'] = '127.0.0.1:8000'
-                        request.META['SERVER_PORT'] = '80'
-                        form.save(
-                            request=request,
-                            from_email=settings.EMAIL_HOST_USER,
-                            subject_template_name='registration/new_user_subject.txt',
-                            email_template_name='registration/password_reset_newuser_email.html')
-                    if vu is not None:
-                        vu.save()
-                        count = count + 1
+                    if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$',row[1]):
+                        vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
+                        current_site = get_current_site(request)
+                        alphabet = string.ascii_letters + string.digits
+                        # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
+                        theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
+                        theUser.set_password('fitgirl1')
+                        theUser.save()
+                        profile = Profile.objects.create(user=theUser, program=Program.objects.all().filter(program_name=name)[0])
+                        profile.save()
+                        form = PasswordResetForm({'email': theUser.email})
+                        if form.is_valid():
+                            request = HttpRequest()
+                            request.META['SERVER_NAME'] = '127.0.0.1:8000'
+                            request.META['SERVER_PORT'] = '80'
+                            form.save(
+                                request=request,
+                                from_email=settings.EMAIL_HOST_USER,
+                                subject_template_name='registration/new_user_subject.txt',
+                                email_template_name='registration/password_reset_newuser_email.html')
+                        if vu is not None:
+                            vu.save()
+                            count = count + 1
+                    else:
+                        failcount += 1
                   else:
                       failcount+=1
               except Exception as e:
@@ -133,46 +137,51 @@ def registerusers(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             file_name = request.FILES['file']
-            validate_csv(file_name)
-            value,fail,existing = handle_uploaded_file(request,form.cleaned_data['programs'])
+            if not file_name.name.endswith('.csv'):
+                messages.info(request, f'You need to upload a CSV file.')
+                return redirect('registerusers')
 
-            if value==0 and fail==0 and existing==0:
-                form = request.POST
-                messages.error(request, 'Your upload file is empty')
-                return redirect('registerusers')
-            elif value==0 and fail==0 and existing>0:
-                form = request.POST
-                messages.info(request, f'Number of user-account already exist: {existing}')
-                return redirect('registerusers')
-            elif value==0 and fail>0 and existing==0:
-                form = request.POST
-                messages.info(request, f'Number of user-account not added: {fail}')
-                return redirect('registerusers')
-            elif value==0 and fail>0 and existing>0:
-                form = request.POST
-                messages.info(request, f'Number of user-account not added: {fail}')
-                messages.info(request, f'Number of user-account already exist: {existing}')
-                return redirect('registerusers')
-            elif value>0 and fail==0 and existing>0:
-                form = request.POST
-                messages.info(request, f'Number of user-account added successfully: {value}')
-                messages.info(request, f'Number of user-account already exist: {existing}')
-                return redirect('registerusers')            
-            elif value>0 and fail>0 and existing==0:
-                form = request.POST
-                messages.info(request, f'Number of user-account added successfully: {value}')
-                messages.info(request, f'Number of user-account not added: {fail}')           
-                return redirect('registerusers') 
-            elif value>0 and fail>0 and existing>0:
-                form = request.POST
-                messages.info(request, f'Number of user-account added successfully: {value}')
-                messages.info(request, f'Number of user-account not added: {fail}')  
-                messages.info(request, f'Number of user-account already exist: {existing}')      
-                return redirect('registerusers')       
-            elif value>0 and fail==0 and existing==0:
-                form = request.POST
-                messages.success(request, f'Number of user-account added successfully: {value}')            
-                return redirect('users')
+            else:
+                value,fail,existing = handle_uploaded_file(request,form.cleaned_data['programs'])
+
+                if value==0 and fail==0 and existing==0:
+                    form = request.POST
+                    messages.error(request, 'Your upload file is empty')
+                    return redirect('registerusers')
+                elif value==0 and fail==0 and existing>0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    return redirect('registerusers')
+                elif value==0 and fail>0 and existing==0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account not added: {fail}')
+                    return redirect('registerusers')
+                elif value==0 and fail>0 and existing>0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    return redirect('registerusers')
+  
+                elif value>0 and fail==0 and existing>0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account added successfully: {value}')
+                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    return redirect('registerusers')
+                elif value>0 and fail>0 and existing==0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account added successfully: {value}')
+                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    return redirect('registerusers')
+                elif value>0 and fail>0 and existing>0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account added successfully: {value}')
+                    messages.info(request, f'Number of user-account not added: {fail}')  
+                    messages.info(request, f'Number of user-account already exist: {existing}')      
+                    return redirect('registerusers')
+                else:
+                    form = request.POST
+                    messages.success(request, f'Number of user-account added successfully: {value}')            
+                    return redirect('users')
     else:
         form = UploadFileForm()
     return render(request,

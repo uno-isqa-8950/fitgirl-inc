@@ -14,6 +14,7 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, FieldRowPanel, 
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractForm, AbstractFormSubmission
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from account.forms import User
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 class ProgramIndexPage(Page):
     description = models.CharField(max_length=255, blank=True, )
@@ -25,15 +26,26 @@ class ProgramIndexPage(Page):
 class WeekPage(Page):
     description = models.CharField(max_length=255, blank=True,)
 
+
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full")
+
     ]
 
 class ModelIndexPage(Page):
     description = models.CharField(max_length=255, blank=True, )
+    intro = models.CharField(max_length=255, blank=True, )
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    ad_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
 
     content_panels = Page.content_panels + [
-        FieldPanel('description', classname="full")
+        FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
+        FieldPanel('description', classname="full"),
+        ImageChooserPanel('ad_image'),
+
     ]
 
 class FormField(AbstractFormField):
@@ -53,29 +65,34 @@ class NutritionPostPage(AbstractForm):
         return self.custom_form_fields.all()
 
 class Fact(Page):
+    intro = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+
     body = RichTextField(blank=True)
     content_panels= Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
         FieldPanel('body', classname="full"),
+
     ]
 
 class QuestionFormField(AbstractFormField):
     page = ParentalKey('QuestionPage', on_delete=models.CASCADE, related_name='form_fields')
 
 
-class QuestionPage(AbstractEmailForm):
+class QuestionPage(AbstractForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
 
-    content_panels = AbstractForm.content_panels + [
+    content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro', classname="full"),
         InlinePanel('form_fields', label="Form Fields"),
         FieldPanel('points_for_this_activity', classname="title"),
         FieldPanel('thank_you_text', classname="full"),
     ]
 
-    def get_form_fields(self):
-        return self.form_fields.all()
 
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
@@ -124,7 +141,7 @@ class PhysicalPostPage(AbstractForm):
                                                help_text='Time format should be in MM:SS')
     thank_you_text = RichTextField(blank=True)
 
-    content_panels = AbstractEmailForm.content_panels + [
+    content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
         FormSubmissionsPanel(),
         # InlinePanel('form_fields'),
@@ -171,7 +188,7 @@ class PreassessmentPage(AbstractForm):
     thank_you_text = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
 
-    content_panels = AbstractEmailForm.content_panels + [
+    content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
         InlinePanel('form_fields', label="Create your question"),
         FieldPanel('points_for_this_activity', classname="title"),
@@ -220,6 +237,62 @@ class Print(Page):
 
 class MentalPostPage(Page):
     body = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
     content_panels= Page.content_panels + [
         FieldPanel('body', classname="full"),
+        ImageChooserPanel('display_image')
     ]
+
+class RewardsIndexPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+
+    ]
+
+class RewardsPostPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+    display_image =models.ForeignKey('wagtailimages.Image', null= True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+        ImageChooserPanel('display_image')
+    ]
+
+
+class QuestionTextFormField(AbstractFormField):
+    page = ParentalKey('QuestionPageText', on_delete=models.CASCADE, related_name='form_field')
+
+
+class QuestionPageText(AbstractForm):
+    intro = RichTextField(blank=True)
+    thank_you_text = RichTextField(blank=True)
+
+    content_panels = AbstractEmailForm.content_panels + [
+        FieldPanel('intro', classname="full"),
+        InlinePanel('form_field', label="Form Fields"),
+        FieldPanel('thank_you_text', classname="full"),
+    ]
+
+    def get_form_fields(self):
+        return self.form_field.all()
+
+    def serve(self, request, *args, **kwargs):
+        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+            return render(
+                request,
+                self.template,
+                self.get_context(request)
+            )
+        return super().serve(request, *args, **kwargs)
+
+    def get_submission_class(self):
+        return CustomFormSubmission
+
+

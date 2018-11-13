@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-
-
+{% load staticfiles %}
 
 
 {% block content %}
@@ -12,7 +11,8 @@
     <br>
   <h1>{{ page.title }}</h1>
 {{ page.body|richtext }}
-<div class="card-deck ">
+    {{ page.description|richtext }}
+    <div class="card-deck ">
         {% for post in page.get_children %}
             {% image post.specific.display_image original as reward_image %}
                 <div class="card">
@@ -23,18 +23,16 @@
 
                           <div class="card-body">
                               <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
-                      <p class="card-text">{{ post.specific.intro|richtext}}{{ post.specific.description|richtext }}</p>
+                      <p class="card-text">{{ post.specific.description|richtext }}</p>
                     </div>
                       </a>
                   </div>
         {% endfor %}
     </div>
 
-
-<p><a href="{{ page.get_parent.url }}">Return </a></p>
-    <div>
-    {% image page.get_parent.specific.ad_image min-1110x20 %}
+</br>
+</br>
+<!--<p><a href="{{ page.get_parent.url }}">Back</a></p>-->
 </div>
-<!--<a href="{% slugurl self.mental %}" class = "btn btn-primary btn-lg btn-block" role="button">{{post.title}}</a>-->
 {% endblock %}
 </div>
