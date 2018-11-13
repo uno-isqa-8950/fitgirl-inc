@@ -21,6 +21,7 @@
                         {% render_field field class+="form-control" %}
                     </div>
                 {% endfor %}
+            </form>
         </div>
                                  <script>
                         function printDiv(divName){
@@ -31,9 +32,9 @@
                             document.body.innerHTML = originalContents;
                             }
                     </script>
-                <form>
+<form>
                 <input type="button" value="Print me!" onClick="printDiv('printableArea')"/>
-                </form>
+
                 <input class="btn-md btn-primary"  type="submit">
             </form>
         {% else %}
