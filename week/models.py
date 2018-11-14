@@ -39,12 +39,15 @@ class ModelIndexPage(Page):
                                       related_name='+')
     ad_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
+    ad_url = models.URLField(blank=True)
+
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         ImageChooserPanel('display_image'),
         FieldPanel('description', classname="full"),
         ImageChooserPanel('ad_image'),
+        FieldPanel('ad_url'),
 
     ]
 
@@ -54,11 +57,16 @@ class FormField(AbstractFormField):
 class NutritionPostPage(AbstractForm):
     body = RichTextField(blank=True)
     morecontent = models.CharField(max_length=255, blank=True, )
-    #fact = models.CharField(max_length=255, blank=True, )
+    facts = models.CharField(max_length=255, blank=True, )
+    intro = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
     content_panels = AbstractForm.content_panels + [
+        FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
         FieldPanel('body',classname="title"),
         FieldPanel('morecontent',classname='full'),
-        #FieldPanel('fact', classname="title" ),
+        FieldPanel('facts', classname="full" ),
     ]
 
     def get_form_fields(self):
@@ -140,9 +148,12 @@ class PhysicalPostPage(AbstractForm):
     timer_for_this_activity = models.CharField(max_length=20, blank=True, default=datetime.time(00, 11),
                                                help_text='Time format should be in MM:SS')
     thank_you_text = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
 
     content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
         FormSubmissionsPanel(),
         # InlinePanel('form_fields'),
         FieldPanel('strength', classname="full"),
@@ -272,10 +283,15 @@ class QuestionTextFormField(AbstractFormField):
 
 class QuestionPageText(AbstractForm):
     intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
+        FieldPanel('description', classname="full"),
         InlinePanel('form_field', label="Form Fields"),
         FieldPanel('thank_you_text', classname="full"),
     ]
