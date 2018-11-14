@@ -42,7 +42,7 @@ def user_login(request):
 @login_required
 def dashboard(request):
     if request.user.is_staff:
-        registeredUsers = User.objects.filter(is_superuser=False)
+        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     return render(request,
                   'account/dashboard.html',

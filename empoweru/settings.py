@@ -91,6 +91,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'wagtailmenus.context_processors.wagtailmenus',
+                'account.context_processors.get_quotes',
+                'account.context_processors.get_affirmations'
             ],
         },
     },
