@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     'week',
     'widget_tweaks',
     'wagtailmenus',
-    'crispy_forms'
+    'crispy_forms',
+    'reset_migrations',
 ]
 
 MIDDLEWARE = [
@@ -128,7 +129,7 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'empoweru3',
+        'NAME': 'empowerutest3',
         'USER': 'postgres',
         'PASSWORD': 'instructor1a',
         'HOST': 'localhost',

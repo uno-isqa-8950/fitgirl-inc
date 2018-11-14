@@ -57,11 +57,16 @@ class FormField(AbstractFormField):
 class NutritionPostPage(AbstractForm):
     body = RichTextField(blank=True)
     morecontent = models.CharField(max_length=255, blank=True, )
-    #fact = models.CharField(max_length=255, blank=True, )
+    facts = models.CharField(max_length=255, blank=True, )
+    intro = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
     content_panels = AbstractForm.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('display_image'),
         FieldPanel('body',classname="title"),
         FieldPanel('morecontent',classname='full'),
-        #FieldPanel('fact', classname="title" ),
+        FieldPanel('facts', classname="title" ),
     ]
 
     def get_form_fields(self):
@@ -143,9 +148,12 @@ class PhysicalPostPage(AbstractForm):
     timer_for_this_activity = models.CharField(max_length=20, blank=True, default=datetime.time(00, 11),
                                                help_text='Time format should be in MM:SS')
     thank_you_text = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
 
     content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
         FormSubmissionsPanel(),
         # InlinePanel('form_fields'),
         FieldPanel('strength', classname="full"),
@@ -279,16 +287,13 @@ class QuestionPageText(AbstractForm):
     thank_you_text = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
-    points_for_this_activity = models.IntegerField(blank=True, default=0)
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro', classname="full"),
         ImageChooserPanel('display_image'),
         FieldPanel('description', classname="full"),
         InlinePanel('form_field', label="Form Fields"),
-        FieldPanel('points_for_this_activity', classname="title"),
         FieldPanel('thank_you_text', classname="full"),
-
     ]
 
     def get_form_fields(self):
@@ -305,14 +310,5 @@ class QuestionPageText(AbstractForm):
 
     def get_submission_class(self):
         return CustomFormSubmission
-
-    def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
-            page=self, user=form.user)
-        user1=User.objects.get(username=form.user.username)
-        print(user1.profile.points)
-        user1.profile.points += self.points_for_this_activity
-        user1.profile.save()
 
 
