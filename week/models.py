@@ -63,10 +63,10 @@ class NutritionPostPage(AbstractForm):
                                       related_name='+')
     content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
-        FieldPanel('display_image'),
+        ImageChooserPanel('display_image'),
         FieldPanel('body',classname="title"),
         FieldPanel('morecontent',classname='full'),
-        FieldPanel('facts', classname="title" ),
+        FieldPanel('facts', classname="full" ),
     ]
 
     def get_form_fields(self):
