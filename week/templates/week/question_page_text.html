@@ -21,22 +21,10 @@
                         {% render_field field class+="form-control" %}
                     </div>
                 {% endfor %}
+            <input type="button" value="Print me!" onClick="printDiv('printableArea')"/>
+            <input class="btn-md btn-primary"  type="submit">
             </form>
         </div>
-                                 <script>
-                        function printDiv(divName){
-                            var printContents = document.getElementById(divName).innerHTML;
-                            var originalContents = document.body.innerHTML;
-                            document.body.innerHTML = printContents;
-                            window.print();
-                            document.body.innerHTML = originalContents;
-                            }
-                    </script>
-<form>
-                <input type="button" value="Print me!" onClick="printDiv('printableArea')"/>
-
-                <input class="btn-md btn-primary"  type="submit">
-            </form>
         {% else %}
             <div>You have already answered this. Go to the next question.</div>
         {% endif %}
@@ -45,5 +33,14 @@
     {% endif %}
 
     <p><a href="{{ page.get_parent.url }}"> Return </a></p>
+    <script>
+        function printDiv(divName){
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
 {% endblock %}
 </div>
