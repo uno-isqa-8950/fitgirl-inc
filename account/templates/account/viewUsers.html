@@ -12,9 +12,10 @@
 
 
 
+<br>
+    <br>
 
-
-      <h1 class="text-center"> All Users</h1>
+      <h1 class="text-left"> All Users</h1>
   <ul class="messages">
     {% for message in messages %}
     <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
@@ -41,7 +42,7 @@
         <td>{{ registeredUser.profile.program.program_name  }}</td>
             <td ><a href="{% url 'profile' registeredUser.id %}"><img  src="{{ registeredUser.profile.photo.url }}" alt="Profile pic" style="width:30px;height:30px;border:1px;" class="img-fluid rounded-circle"></a>&nbsp;&nbsp;<span>{{ registeredUser.first_name }}</span>&nbsp;<span>{{ registeredUser.last_name }}</span></td>
 
-            {% if registeredUser.profile.age == "None" %}
+            {% if registeredUser.profile.age  == "None" %}
              <td align="center"></td>
             {% else %}
              <td align="center">{{ registeredUser.profile.age}}</td>
@@ -91,16 +92,11 @@
   {% endif %}
 
 <script>
-
-
-
 var txt="Active: User has been registered for the program" + "\n"+
 "User logged In : User has created their profile on Empoweru and changed their password"+ "\n" +
 "Pre-assesment: User has completed their Pre-assessment"+"\n"+
 "Points: Total points acquired bu user to date"
-
   $(document).ready(function () {
-
       $('#dtDynamicVerticalScroll').DataTable({
           "order": [[4, "YES"]],
           "responsive": true, "scrollY": "80vh",
@@ -112,8 +108,6 @@ var txt="Active: User has been registered for the program" + "\n"+
       });
   $('.dataTables_length').addClass('bs-select');
 });
-
-
 $(document).ready(function(){
     $("#image1").remove()
     $("#image2").remove()
@@ -123,8 +117,6 @@ $(document).ready(function(){
     $("#users").css("color","#ffffff")
     $("#users").css("border-color","black")
  });
-
-
 </script>
 <style>
     .dataTables_wrapper .dataTables_length {
@@ -144,7 +136,6 @@ float: left;
     display: inline-block;
     border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
-
 /* Tooltip text */
 .tooltip .tooltiptext {
     visibility: hidden;
@@ -154,19 +145,16 @@ float: left;
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
-
     /* Position the tooltip text */
     position: absolute;
     z-index: 1;
     bottom: 125%;
     left: 50%;
     margin-left: -60px;
-
     /* Fade in tooltip */
     opacity: 0;
     transition: opacity 0.3s;
 }
-
 /* Tooltip arrow */
 .tooltip .tooltiptext::after {
     content: "";
@@ -178,13 +166,11 @@ float: left;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
 }
-
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
 }
-
 </style>
 
 
