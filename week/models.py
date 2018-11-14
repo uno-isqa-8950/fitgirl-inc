@@ -39,6 +39,7 @@ class ModelIndexPage(Page):
                                       related_name='+')
     ad_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
+    ad_url = models.URLField(blank=True)
 
 
     content_panels = Page.content_panels + [
@@ -46,6 +47,7 @@ class ModelIndexPage(Page):
         ImageChooserPanel('display_image'),
         FieldPanel('description', classname="full"),
         ImageChooserPanel('ad_image'),
+        FieldPanel('ad_url'),
 
     ]
 
