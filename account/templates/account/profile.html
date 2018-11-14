@@ -13,7 +13,7 @@
             </h5>
         </div>
             <!--Card content-->
-            <div class="card-body px-lg-5 pt-5">
+            <div class="card-body px-md-5 pt-5">
 
                 <!-- Form -->
                 <form class="text-center">
@@ -124,7 +124,14 @@
                                     <div class="form-row">
                                             <div class="col">
                                             <div >
-                                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>{{ user.age_group }}</label>
+                                                 {% if user.age_group  == 1 %}
+                                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>8-10</label>
+                                                 {% elif user.age_group  == 2 %}
+                                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>11-13</label>
+                                                {% else %}
+                                                 <label for="materialRegisterFormPhone"><strong>Age Group: </strong>{{ user.age_group }}</label>
+
+                                                    {% endif %}
 
                                             </div>
                                             </div>
@@ -144,7 +151,8 @@
                                     <div class="form-row">
                                             <div class="col">
                                             <div >
-                                                    <button class="btn btn-outline-yellow btn-rounded my-4 waves-effect z-depth-1" type="submit">Archive</button>
+                                                     <button class="btn btn-pink btn-rounded my-4 waves-effect z-depth-1" type="submit">Archive</button>
+
 
                                             </div>
                                             </div>
@@ -152,7 +160,7 @@
                                             <!-- Newsletter -->
                                             <div class="col">
                                             <div >
-                                                    <button class="btn btn-outline-red btn-rounded my-4 waves-effect z-depth-1"><a href="{% url 'users' %}">Cancel</a></button>
+                                                      <button class="btn btn-gray btn-rounded my-4 waves-effect z-depth-1"><a href="{% url 'users' %}">Cancel</a></button>
 
 
                                             </div>
