@@ -29,11 +29,16 @@
         {% endfor %}
     </div>
 
-<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return to Weeks</a>
 
-    <div>
-    {% image page.get_parent.specific.ad_image min-1110x20 %}
-</div>
+    <!--Advertisement-->
+    <div class="img-responsive" style="text-align: center;">
+        <a href="{{ page.get_parent.specific.ad_url }}">
+            {% image page.get_parent.specific.ad_image max-1110x80 %}
+        </a>
+    </div>
+    <!--End Advertisement-->
+
 <!--<a href="{% slugurl self.mental %}" class = "btn btn-primary btn-lg btn-block" role="button">{{post.title}}</a>-->
 {% endblock %}
 </div>
