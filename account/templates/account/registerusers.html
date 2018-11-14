@@ -1,14 +1,18 @@
 {% extends 'account/dashboard.html' %}
 {% block dash_content %}
   {% if request.user.is_superuser %}
-<div class="container">
-  <div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
-    <h1 class="text-center"> Register Users</h1>
+<div >
+  <div class="col-12 offset-lg-4">
+      <br>
+      <br>
+    <h1 class="text-left">Register Users</h1>
     <p> Choose the program from drop-down below: </p>
     <form action="." method="post" enctype="multipart/form-data">
         <!--{{ form.as_p }}-->
         {% csrf_token %}
-        &nbsp &nbsp{{ form.programs}}
+        &nbsp &nbsp
+
+        {{ form.programs}}
         <br>
         <br>
         <br>
