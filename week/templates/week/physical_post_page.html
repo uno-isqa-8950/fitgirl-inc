@@ -5,7 +5,7 @@
     <div class ="container">
     <br>
     <br>
-    <h1>{{ page.title }}</h1>
+    <h1 style="text-align: center;">{{ page.title }}</h1>
 
 
     {% if user.is_authenticated and user.is_active or request.is_preview %}
@@ -14,9 +14,29 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-9">
-                        {{ page.strength|richtext }}
-                        {{ page.agility|richtext }}
-                        {{ page.flexibility|richtext }}
+                        <ul class="nav nav-pills">
+                          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#strength">Strength</a></li>
+                          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#agility">Agility</a></li>
+                          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#flexibility">Flexibility</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div id="strength" class="tab-pane fade in active">
+                              <br>
+                              <h3>Strength</h3>
+                              {{ page.strength|richtext }}
+                          </div>
+                          <div id="agility" class="tab-pane fade in">
+                              <br>
+                              <h3>Agility</h3>
+                              {{ page.agility|richtext }}
+                          </div>
+                          <div id="flexibility" class="tab-pane fade in">
+                              <br>
+                              <h3>Flexibility</h3>
+                              {{ page.flexibility|richtext }}
+                          </div>
+                        </div>
                     </div>
 
                     <div class="col-sm-3">
@@ -41,7 +61,7 @@
         <div>To fill in the form, you should log in.</div>
     {% endif %}
 
-    <p><a href="{{ page.get_parent.url }}"> Return </a></p>
+    <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-home"></i>  Return</a>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $('#done').hide();
