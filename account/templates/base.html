@@ -33,7 +33,7 @@
               <li class="nav-item">
                 <a class="nav-link hoverable" style="
                 background-color: rgba(255,255,255,.1);
-            " href="/cms/"> <i class="fas fa-book"></i> Create Pages <span class="sr-only">(current)</span></a>
+            " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span class="sr-only">(current)</span></a>
               </li>
             {% else %}
                 {% if user.profile.pre_assessment == "No" %}
@@ -132,12 +132,14 @@
             <div class="footer">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="height: 100px;">
                   <div class="carousel-inner">
+{#                      <marquee> {{ b }}</marquee>#}
+                        {% for quote in quotes %}
                     <div class="carousel-item active">
-                        <h2 align="center" style="font-family: Arial, Helvetica, sans-serif; margin-top:50px;">“No one can make you feel inferior without your consent.” –Eleanor Roosevelt</h2>
+
+                        <h2 align="center" style="font-family: Brush Script MT, Brush Script Std, cursive; margin-top:50px;">{{ quote.quote}}</h2>
+
                     </div>
-                    <div class="carousel-item">
-                        <h2 align="center" class="align-bottom" style="font-family: Arial, Helvetica, sans-serif; margin-top:50px;">“If you are always trying to be normal, you’ll never know how amazing you can be.” – Maya Angelou</h2>
-                    </div>
+                      {% endfor %}
                   </div>
                   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
