@@ -129,17 +129,14 @@
         {% if request.user.is_authenticated %}
             <div style="height:100px;">
             </div>
-            <div class="footer">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="height: 100px;">
+            <div class="footer" style="position: fixed">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="1000" style="height: 100px;">
                   <div class="carousel-inner">
-{#                      <marquee> {{ b }}</marquee>#}
-                        {% for quote in quotes %}
                     <div class="carousel-item active">
-
-                        <h2 align="center" style="font-family: Brush Script MT, Brush Script Std, cursive; margin-top:50px;">{{ quote.quote}}</h2>
-
+                        <h2 align="center" style="font-family: Helvetica, cursive; margin-top:50px; margin-bottom:50px">“If you want something said, ask a man; if you want something done, ask a woman.”</h2>
+                        <h2 align="center" style="font-family: Helvetica, cursive; margin-top:50px;">“We can do no great things, only small things with great love.” – Mother Teresa</h2>
+                        <h2 align="center" style="font-family: Helvetica, cursive; margin-top:50px;">“The most effective way to do it, is to do it.” – Amelia Earhart</h2>
                     </div>
-                      {% endfor %}
                   </div>
                   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
