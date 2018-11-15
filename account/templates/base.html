@@ -48,7 +48,7 @@
            {% if request.user.is_superuser %}
           <li class="nav-item ">
             <a class="nav-link hoverable " style="
-            background-color: rgba(255,255,255,.1);" href="/users/"> 
+            background-color: rgba(255,255,255,.1);" href="/users/">
 <i class="fa fa-female" aria-hidden="true"></i>
  Users</a>
           </li>
@@ -135,7 +135,9 @@
 {#                      <marquee> {{ b }}</marquee>#}
                         {% for quote in quotes %}
                     <div class="carousel-item active">
+
                         <h2 align="center" style="font-family: Brush Script MT, Brush Script Std, cursive; margin-top:50px;">{{ quote.quote}}</h2>
+
                     </div>
                       {% endfor %}
                   </div>
@@ -162,8 +164,8 @@
         <script src="{% static 'js/confetti.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
-    
-  
-       
+
+
+
 </body>
 </html>
