@@ -22,7 +22,7 @@
                     </div>
                 {% endfor %}
             <input type="button" value="Print me!" onClick="printDiv('printableArea')"/>
-            <input class="btn-md btn-primary"  type="submit">
+            <input class="btn-md btn-fitgirl"  type="submit">
             </form>
         </div>
         {% else %}
@@ -32,7 +32,7 @@
         <div>To fill in the form, you should log in.</div>
     {% endif %}
 
-    <p><a href="{{ page.get_parent.url }}"> Return </a></p>
+    <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return </a>
     <script>
         function printDiv(divName){
             var printContents = document.getElementById(divName).innerHTML;
