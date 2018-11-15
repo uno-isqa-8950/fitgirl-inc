@@ -129,15 +129,21 @@
         {% if request.user.is_authenticated %}
             <div style="height:100px;">
             </div>
-            <div class="footer">
+            <div class="footer" style="position: fixed">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="height: 100px;">
                   <div class="carousel-inner">
-{#                      <marquee> {{ b }}</marquee>#}
-                        {% for quote in quotes %}
                     <div class="carousel-item active">
-                        <h2 align="center" style="font-family: Brush Script MT, Brush Script Std, cursive; margin-top:50px;">{{ quote.quote}}</h2>
+                        <h2 align="center" style="font-family: Helvetica, cursive; margin-top:50px;">“No one can make you feel inferior without your consent.” –Eleanor Roosevelt</h2>
                     </div>
-                      {% endfor %}
+                      <div class="carousel-item active">
+                        <h2 align="center" style="font-family: Helvetica, cursive; margin-top:50px;">“If you are always trying to be normal, you’ll never know how amazing you can be.” – Maya Angelou</h2>
+                    </div>
+                      <div class="carousel-item active">
+                        <h2 align="center" style="font-family: Helvetica, cursive; margin-top:50px;">“The most effective way to do it, is to do it.” – Amelia Earhart</h2>
+                    </div>
+                      <div class="carousel-item active">
+                        <h2 align="center" style="font-family: Helvetica, cursive; margin-top:50px;">“We can do no great things, only small things with great love.” – Mother Teresa</h2>
+                    </div>
                   </div>
                   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -163,7 +169,6 @@
         <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
     
-  
-       
+
 </body>
 </html>
