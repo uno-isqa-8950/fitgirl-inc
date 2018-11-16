@@ -7,21 +7,16 @@
                      <!--Content-->
                      <div class="modal-content text-center">
                          <!--Header-->
+                     {% for affirmation in affirmations %}
                          <div class="modal-header d-flex justify-content-center" style="background-color:#ed217c">
                             <p class="heading">Welcome to EmpowerU!</p>
                          </div>
                          <!--Body-->
                          <div class="modal-body">
                              <i class="fa fa-heart fa-4x animated rotateIn slow mb-4" style="color:#ed217c" ></i>
-                             <h2 ><p class="animated bounceIn slower ">Your Enrollment is Incomplete!</p></h2>
-                             {% if request.user.program_edit != "complete" %}
-                             <a href="{% url 'edit' %}" id="initial_settings" class="btn btn-fitgirl">Tell us About Yourself</a>
-                             {% endif %}
-                             <br>
-                             {% if request.user.program_status != "complete" %}
-                             <a href="{% url 'pre_assessment' %}" class="btn btn-fitgirl">Take Pre-Assessment</a>
-                             {% endif %}
+                             <h2 ><p class="animated bounceIn slower ">{{ affirmation.affirmation}}</p></h2>
                          </div>
+                     {% endfor %}
                      </div>
                      <!--/.Content-->
                  </div>

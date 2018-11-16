@@ -6,12 +6,14 @@
     <div class ="container">
     <br>
     <br>
+        <div id="printableArea" class=intro">
     <h1>{{ page.title }}</h1>
 
     {% if user.is_authenticated and user.is_active or request.is_preview %}
         {% if form %}
             <div>{{ page.intro|richtext }}</div>
             <form action="{% pageurl page %}" method="POST">
+
                 {% csrf_token %}
                 {% for field in form.visible_fields %}
                     <div class="col-sm-8 form-group">
@@ -19,8 +21,10 @@
                         {% render_field field class+="form-control" %}
                     </div>
                 {% endfor %}
-                <input class="btn-md btn-primary"  type="submit">
+            <input type="button" value="Print me!" onClick="printDiv('printableArea')"/>
+            <input class="btn-md btn-fitgirl"  type="submit">
             </form>
+        </div>
         {% else %}
             <div>You have already answered this. Go to the next question.</div>
         {% endif %}
@@ -28,6 +32,15 @@
         <div>To fill in the form, you should log in.</div>
     {% endif %}
 
-    <p><a href="{{ page.get_parent.url }}"> Return </a></p>
+    <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return </a>
+    <script>
+        function printDiv(divName){
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
 {% endblock %}
 </div>

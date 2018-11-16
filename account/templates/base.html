@@ -33,7 +33,7 @@
               <li class="nav-item">
                 <a class="nav-link hoverable" style="
                 background-color: rgba(255,255,255,.1);
-            " href="/cms/"> <i class="fas fa-book"></i> Create Pages <span class="sr-only">(current)</span></a>
+            " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span class="sr-only">(current)</span></a>
               </li>
             {% else %}
                 {% if user.profile.pre_assessment == "No" %}
@@ -48,7 +48,7 @@
            {% if request.user.is_superuser %}
           <li class="nav-item ">
             <a class="nav-link hoverable " style="
-            background-color: rgba(255,255,255,.1);" href="/users/"> 
+            background-color: rgba(255,255,255,.1);" href="/users/">
 <i class="fa fa-female" aria-hidden="true"></i>
  Users</a>
           </li>
@@ -83,14 +83,14 @@
                 <ul class="dropdown-menu dropdown-menu-right stylish-color" >
                     {% if request.user.is_superuser %}
                     {% else %}
-                    <li class="card mx-2" style="width: 18rem;">
+{#                    <li class="card mx-2" style="width: 18rem;">#}
                         <!-- <div class="card-body">
                             <h5 class="card-title">Points Earned</h5>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                               </div>
                           </div> -->
-                    </li>
+{#                    </li>#}
                     {% endif %}
                     <li><a class="nav-link" href="{% url "password_change" %}"><i class="fas fa-user-shield fa-fw"></i> Change Password</a></li>
                     <li class="divider"></li>
@@ -124,14 +124,13 @@
         {% if request.user.is_authenticated %}
             <div style="height:100px;">
             </div>
-            <div class="footer">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="height: 100px;">
+            <div class="footer" style="position: fixed">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="1000" style="height: 100px;">
                   <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <h2 align="center" style="font-family: Brush Script MT, Brush Script Std, cursive; margin-top:50px;">“No one can make you feel inferior without your consent.” –Eleanor Roosevelt</h2>
-                    </div>
-                    <div class="carousel-item">
-                        <h2 align="center" class="align-bottom" style="font-family: Brush Script MT, Brush Script Std, cursive; margin-top:50px;">“If you are always trying to be normal, you’ll never know how amazing you can be.” – Maya Angelou</h2>
+                        <h2 align="center" style="font-family: Helvetica, cursive; margin-top:50px; margin-bottom:50px">“If you want something said, ask a man; if you want something done, ask a woman.”</h2>
+                        <h2 align="center" style="font-family: Helvetica, cursive; margin-top:50px;">“We can do no great things, only small things with great love.” – Mother Teresa</h2>
+                        <h2 align="center" style="font-family: Helvetica, cursive; margin-top:50px;">“The most effective way to do it, is to do it.” – Amelia Earhart</h2>
                     </div>
                   </div>
                   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -157,8 +156,8 @@
         <script src="{% static 'js/confetti.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
-    
-  
-       
+
+
+
 </body>
 </html>

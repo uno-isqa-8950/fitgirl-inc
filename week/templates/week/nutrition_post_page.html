@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
-
+{% load wagtailimages_tags %}
 
 {% block content %}
 <div class ="container">
     <br>
     <br>
-  <h1> {{ page.title }}</h1>
-<h3> TRY IT!</h3>
+  <h1> {{ page.intro|richtext }}</h1>
+<h5> TRY IT!</h5>
 {{ page.body|richtext }}
 
 <!--<form action="{% pageurl page %}" method="POST">-->
@@ -16,14 +16,23 @@
   <!--<input type="submit">-->
 <!--</form>-->
 {{ page.morecontent|richtext}}
-{{ page.healthytip|richtext}}
+{{ page.facts|richtext}}
 
 {% for post in page.get_children %}
 <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
     {% endfor %}
 
+<br>
+ <br>
+<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return to Module</a>
 
-<p><a href="{{ page.get_parent.url }}">Return</a></p>
+<!--Advertisement-->
+    <div class="img-responsive" style="text-align: center;">
+        <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
+            {% image page.get_parent.specific.ad_image max-1110x80 %}
+        </a>
+    </div>
+    <!--End Advertisement-->
 
-{% endblock %}
+    {% endblock %}
 </div>
