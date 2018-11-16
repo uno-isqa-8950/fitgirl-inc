@@ -15,7 +15,7 @@
 <div class="card-deck ">
         {% for post in page.get_children %}
             {% image post.specific.display_image original as reward_image %}
-                <div class="card">
+                <div class="card hoverable">
                       <a href ="{% pageurl post %}">
 
                           <img class="card-img-top" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;"/>
