@@ -9,7 +9,7 @@ def get_quotes(request):
     #     b = b + "     " + "   " + a.quote
     #     print(b)
     return {
-        'quotes': InspirationalQuotes.objects.all()
+        'quotes': InspirationalQuotes.objects.order_by("?").all()
     }
 
 
