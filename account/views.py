@@ -117,13 +117,13 @@ def handle_uploaded_file(request, name):
                             vu.save()
                             count = count + 1
                     else:
-                        failcount += 1
+                        emailcount += 1
                   else:
                       failcount+=1
               except Exception as e:
                   print(e)
                   existcount+=1
-          return (count,failcount,existcount)
+          return (count,failcount,existcount,emailcount)
 
 
 def get_short_name(self):
@@ -142,41 +142,85 @@ def registerusers(request):
                 return redirect('registerusers')
 
             else:
-                value,fail,existing = handle_uploaded_file(request,form.cleaned_data['programs'])
+                value,fail,existing,bademail = handle_uploaded_file(request,form.cleaned_data['programs'])
 
-                if value==0 and fail==0 and existing==0:
+                if value==0 and fail==0 and existing==0 and bademail==0:
                     form = request.POST
-                    messages.error(request, 'Your upload file is empty')
+                    messages.error(request, 'Your upload file is empty!')
                     return redirect('registerusers')
-                elif value==0 and fail==0 and existing>0:
+                elif value==0 and fail==0 and existing==0 and bademail>0:
+                    form = request.POST
+                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    return redirect('registerusers')
+                elif value==0 and fail==0 and existing>0 and bademail==0:
                     form = request.POST
                     messages.info(request, f'Number of user-account already exist: {existing}')
                     return redirect('registerusers')
-                elif value==0 and fail>0 and existing==0:
+                elif value==0 and fail==0 and existing>0 and bademail>0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    return redirect('registerusers')
+                elif value==0 and fail>0 and existing==0 and bademail==0:
                     form = request.POST
                     messages.info(request, f'Number of user-account not added: {fail}')
                     return redirect('registerusers')
-                elif value==0 and fail>0 and existing>0:
+                elif value==0 and fail>0 and existing==0 and bademail>0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    return redirect('registerusers')
+                elif value==0 and fail>0 and existing>0 and bademail==0:
                     form = request.POST
                     messages.info(request, f'Number of user-account not added: {fail}')
                     messages.info(request, f'Number of user-account already exist: {existing}')
+                    return redirect('registerusers')
+                elif value==0 and fail>0 and existing>0 and bademail>0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of invalid email address: {bademail}')
                     return redirect('registerusers')
   
-                elif value>0 and fail==0 and existing>0:
+                elif value>0 and fail==0 and existing==0 and bademail>0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account added successfully: {value}')
+                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    return redirect('registerusers')
+                elif value>0 and fail==0 and existing>0 and bademail==0:
                     form = request.POST
                     messages.info(request, f'Number of user-account added successfully: {value}')
                     messages.info(request, f'Number of user-account already exist: {existing}')
                     return redirect('registerusers')
-                elif value>0 and fail>0 and existing==0:
+                elif value>0 and fail==0 and existing>0 and bademail>0:
                     form = request.POST
                     messages.info(request, f'Number of user-account added successfully: {value}')
                     messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of invalid email address: {bademail}')
                     return redirect('registerusers')
-                elif value>0 and fail>0 and existing>0:
+                elif value>0 and fail>0 and existing==0 and bademail==0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account added successfully: {value}')
+                    messages.info(request, f'Number of user-account already exist: {fail}')
+                    return redirect('registerusers')
+                elif value>0 and fail>0 and existing==0 and bademail>0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account added successfully: {value}')
+                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    return redirect('registerusers')
+                elif value>0 and fail>0 and existing>0 and bademail==0:
                     form = request.POST
                     messages.info(request, f'Number of user-account added successfully: {value}')
                     messages.info(request, f'Number of user-account not added: {fail}')  
                     messages.info(request, f'Number of user-account already exist: {existing}')      
+                    return redirect('registerusers')
+                elif value>0 and fail>0 and existing>0 and bademail>0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account added successfully: {value}')
+                    messages.info(request, f'Number of user-account not added: {fail}')  
+                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of invalid email address: {bademail}')      
                     return redirect('registerusers')
                 else:
                     form = request.POST
