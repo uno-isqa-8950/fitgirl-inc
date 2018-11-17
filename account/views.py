@@ -90,6 +90,7 @@ def handle_uploaded_file(request, name):
           count = 0
           failcount = 0
           existcount = 0
+          emailcount = 0
           for row in reader:
               try:
                   if row[1] and row[2] and row[3]:
