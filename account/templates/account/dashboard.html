@@ -4,12 +4,12 @@
 {% block title %}Dashboard{% endblock %}
 <div class="container">
     <div class="row">
-      
+
 
 
 
 {% block content %}
-   {% if user.profile.pre_assessment == "No" %}
+   {% if not user.is_staff and user.profile.pre_assessment == "No" %}
             {% load staticfiles %}
         <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -59,10 +59,10 @@
    {% else %}
             {% if request.user.is_superuser %}
 
- 
-           
+
+
              <h4 class="pink lighten-1 my-0" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
-                    data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4> 
+                    data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4>
 
         </div>
         {% else %}
@@ -70,7 +70,7 @@
             data-toggle="modal" data-target="#fullHeightModalLeft"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>
         <!-- <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1> -->
 
-        
+
         {% endif %}
     </div>
     <!-- <div class="row">
@@ -79,7 +79,7 @@
    <div class="modal fade left " id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-full-height modal-left" role="document">
                 <!--Content-->
-               
+
                     <div class="modal-content w-75" >
                         <div class="modal-header stylish-color">
                             <h4 class="modal-title w-100" id="myModalLabel" style="color:white">Admin Dashboard</h4>
@@ -89,7 +89,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="container">
-                                
+
                                      <ul class="nav flex-column ">
                                         <div>
                                             <li class="nav-item">
@@ -122,7 +122,7 @@
                                                     </div>
                                                     </li> -->
                                     </ul>
-                           
+
                             </div>
                         </div>
                         <div class="modal-footer justify-content-center">
@@ -159,7 +159,7 @@
                                         </li>
                                         <div>
                                             <li class="nav-item">
-                                                
+
                                             </li>
                                             <div>
                                                 <li class="nav-item">
@@ -176,7 +176,7 @@
                                                         Rewards</a>
                                                         </li>
 
-                                               
+
                                 </ul>
                             </div>
                         </div>
@@ -207,7 +207,7 @@
               <h3 class="display-7 font-weight-bold white-dark mb-0 pt-md-1 pt-3">Welcome to <span class="animated fadeIn slower"> EmpowerU online!</span></h3>
               <hr class="hr-dark my-1 w-75">
               <h6 class="subtext-header animated fadeIn slower delay-1s mt-1 mb-0">
-        
+
                   This interactive website will guide you, encourage you and reward you for exercising,
                   eating healthy and being kind. You will have different opportunities each week to participate in activities
                   from four different categories: physical, nutritional, relational and mental. These activities will help you build
@@ -266,7 +266,7 @@
 
 
 
-  
+
     {% endif %}
 
 </div>
@@ -289,11 +289,9 @@
 // window.onload = function() {
 //   window.setTimeout(fadeout, 8000); //8 seconds
 // }
-
 // function fadeout() {
 //   document.getElementById('fadeout').style.opacity = '0';
 // }
-
     $('.success').css('background-color','#3eb34b')
     $('.success').css('margin-left','-98px')
 </script>
@@ -306,12 +304,9 @@
   text-align: center;
   font-size:32px;
 } */
-
 p {
   text-align: center;
-
 }
-
 .card-deck {
   @include media-breakpoint-only(lg) {
     column-count: 4;
