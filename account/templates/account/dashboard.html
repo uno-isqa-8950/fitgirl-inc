@@ -1,15 +1,15 @@
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {% extends "base.html" %}
 
 {% block title %}Dashboard{% endblock %}
 <div class="container">
     <div class="row">
-      
+        <div class="col-sm-12 col-md-10">
 
 
 
 {% block content %}
-   {% if user.profile.pre_assessment == "No" %}
+   {% if not user.is_staff and user.profile.pre_assessment == "No" %}
             {% load staticfiles %}
         <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -49,9 +49,7 @@
             self-esteem, goal setting and self worth in tandem with various physical fitness
             and nutritional activities.
             </p>
-              <br>
-              <br>
-            <a href="{% url 'edit' %}"  class="btn btn-fitgirl pull-right">Next &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{% url 'edit' %}"  class="btn btn-primary pull-right">Next &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         {% endif %}
@@ -59,10 +57,8 @@
    {% else %}
             {% if request.user.is_superuser %}
 
- 
-           
-             <h4 class="pink lighten-1 my-0" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
-                    data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4> 
+            <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
+                    data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4>
 
         </div>
         {% else %}
@@ -76,6 +72,14 @@
     <!-- <div class="row">
         <div class="col-sm-3"> -->
     {% if request.user.is_superuser %}
+
+
+    {% if request.path == "/" %}
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="/admin" allowfullscreen></iframe>
+        </div>
+    {% endif %}
+  
    <div class="modal fade left " id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-full-height modal-left" role="document">
                 <!--Content-->
@@ -113,8 +117,8 @@
                                                     </li>
                                                         <div>
                                                     <li class="nav-item">
-                                                        <a href="{% url 'django_frame' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                            <i class="fas fa-edit fa-fw"></i> Manage Site </a>
+                                                        <a href="https://docs.google.com/forms/d/1eM7xEBLvySCWnQSW3etSFW1mhSf8R7dDvAajQp-IwEY/edit" target="_blank" id="pre-assessment" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Pre-Assessment </a>
                                                     </li>
                                                     <!-- <div>
                                                         <li class="nav-item">
@@ -155,7 +159,7 @@
                                  <ul class="nav flex-column ">
                                     <div>
                                         <li class="nav-item">
-                                            <a href="{% url 'userdashboard' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action hoverable"><i class="fas fa-cog fa-fw"></i>Dashboard</a>
+                                            <a href="{% url 'userdashboard' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action hoverable">Dashboard</a>
                                         </li>
                                         <div>
                                             <li class="nav-item">
@@ -163,19 +167,13 @@
                                             </li>
                                             <div>
                                                 <li class="nav-item">
-                                                    <a href="{% url "password_change" %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-lock"></i>Change Password</a>
+                                                    <a href="{% url "password_change" %}" class=" btn btn-block btn-pink list-group-item list-group-item-action">Change Password</a>
                                                 </li>
                                                 <div>
                                                 <li class="nav-item">
-                                                    <a href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>
+                                                    <a href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-cog fa-fw"></i>
                                                         Edit Profile</a>
                                                 </li>
-                                                    <div>
-                                                        <li class="nav-item">
-                                                    <a href="/pages/rewards/ " class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-thumbs-up"></i>
-                                                        Rewards</a>
-                                                        </li>
-
                                                
                                 </ul>
                             </div>
@@ -193,7 +191,6 @@
 
 
     </div>
-
     <div id="userLandingContent1">
             <div id="userLandingContent2">
 
@@ -204,51 +201,16 @@
           <div class="row wow fadeIn">
             <!--Grid column-->
             <div class="col-md-12 mb-4 white-dark text-center wow fadeIn">
-              <h3 class="display-7 font-weight-bold white-dark mb-0 pt-md-1 pt-3">Welcome to <span class="animated fadeIn slower"> EmpowerU online!</span></h3>
-              <hr class="hr-dark my-1 w-75">
-              <h6 class="subtext-header animated fadeIn slower delay-1s mt-1 mb-0">
+              <h3 class="display-3 font-weight-bold white-dark mb-0 pt-md-5 pt-5">Welcome to <span class="animated fadeIn slower"> EmpowerU!</span></h3>
+              <hr class="hr-dark my-4 w-75">
+              <h4 class="subtext-header animated fadeIn slower delay-1s mt-2 mb-4">
         
-                  This interactive website will guide you, encourage you and reward you for exercising,
-                  eating healthy and being kind. You will have different opportunities each week to participate in activities
-                  from four different categories: physical, nutritional, relational and mental. These activities will help you build
-                  confidence, create awesome friendships, keep you fit and active and provide tools that will empower you to be the strong,
-                  smart and confident girl you were meant to be!
-                  Jump in and have fun!
-</h4>
-                <br>
-                <div class="card-deck ">
-                  <div class="card">
-                    <img class="card-img-top" src="/media/images/Physical.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
-                    <div class="card-body">
-                      <h5 class="card-title">Physical</h5>
-                      <p class="card-text">Become more physically active and work your way up to getting 60 minutes of exercise a day and staying active for life!</p>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <img class="card-img-top" src="/media/images/nutritional.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
-                    <div class="card-body">
-                      <h5 class="card-title">Nutritional</h5>
-                      <p class="card-text">Gain developmentally appropriate knowledge of nutrition and the health benefits of physical activity.</p>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <img class="card-img-top" src="/media/images/mental.png" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
-                    <div class="card-body">
-                      <h5 class="card-title">Mental</h5>
-                      <p class="card-text">Beauty comes in all different types. There are many ways to be beautiful, both on the inside or on the outside.</p>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
-                    <div class="card-body">
-                      <h5 class="card-title">Relational</h5>
-                      <p class="card-text">Build positive relationships with adult facilitators and the peers in the group while learning to accept and respect others.</p>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-
+                We have four categories that we will work from: Physical, Nutritional, Mental and Relational.
+                
+                Every week we will have something new and fun for you to do. Recipes! Exercises! Affirmations!! And much more.
+                
+                Thank you for enrolling in EmpowerU.</h4>
+              
             </div>
             <!--Grid column-->
           </div>
@@ -261,7 +223,7 @@
 
 </div>
 </div>
-</div>
+
 
 
 
@@ -271,8 +233,9 @@
 
 </div>
 {% endif %}
-<div class="container-fluid">
+<div class="container">
     <div class="row">
+
 
         {% block dash_content %}
         {% endblock %}
@@ -286,38 +249,7 @@
 </div>
 
 <script>
-// window.onload = function() {
-//   window.setTimeout(fadeout, 8000); //8 seconds
-// }
-
-// function fadeout() {
-//   document.getElementById('fadeout').style.opacity = '0';
-// }
-
     $('.success').css('background-color','#3eb34b')
     $('.success').css('margin-left','-98px')
 </script>
 {% endblock %}
-
-<style>
- /* #fadeout {
-  opacity: 1;
-  transition: 1s opacity;
-  text-align: center;
-  font-size:32px;
-} */
-
-p {
-  text-align: center;
-
-}
-
-.card-deck {
-  @include media-breakpoint-only(lg) {
-    column-count: 4;
-  }
-  @include media-breakpoint-only(xl) {
-    column-count: 5;
-  }
-}
-</style>
