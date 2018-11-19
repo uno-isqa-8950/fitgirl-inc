@@ -34,9 +34,9 @@
             {% else %}
                 {% if user.profile.pre_assessment == "No" %}
                 {% else %}
-                  <!--<li class="nav-item ">-->
-                    <!--<a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="collapse" href="#collapseExample">Menu</a>-->
-                  <!--</li>-->
+                  <li class="nav-item ">
+                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>
+                  </li>
                 {% endif %}
             {% endif %}
            {% if request.user.is_superuser %}
@@ -114,13 +114,12 @@
     {% block body %}
     {% endblock %}
   </div>
-<br>
-<br>
-<footer>
-<nav class="navbar navbar-expand-lg navbar-dark grey darken-1" style="border-top: 4px solid #ed217c; border-bottom: 0px">
-          {% if request.user.is_superuser %}
-{% else %}
-        {% if request.user.is_authenticated %}
+<br><br><br><br><br><br><br>
+{% if request.user.is_superuser %}
+    {% else %}
+{% if request.user.is_authenticated %}
+    <footer style="bottom:0px; width:100%;">
+        <nav class="navbar navbar-expand-lg navbar-dark grey darken-1" style="border-top: 4px solid #ed217c; border-bottom: 0px">
             <!--<div>-->
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="width: 100%; text-align: center; display: inline-block; height: 55px;">
                   <div class="carousel-inner" style="width: 100%; text-align: center; display: inline-block;">
@@ -140,10 +139,10 @@
                   <!--</a>-->
                 </div>
             <!--</div>-->
-        {% endif %}
+        </nav>
+    </footer>
 {% endif %}
-</nav>
-</footer>
+{% endif %}
             <!-- SCRIPTS -->
             <!-- JQuery -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
