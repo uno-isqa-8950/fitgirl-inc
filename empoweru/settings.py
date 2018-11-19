@@ -124,7 +124,7 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 
 
 
-## Local Setting
+# ## Local Setting
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
