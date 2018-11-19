@@ -115,11 +115,11 @@
     {% endblock %}
   </div>
 <br><br><br><br><br><br><br>
-<footer style="bottom:0px; width:100%;">
-<nav class="navbar navbar-expand-lg navbar-dark grey darken-1" style="border-top: 4px solid #ed217c; border-bottom: 0px">
-          {% if request.user.is_superuser %}
-{% else %}
-        {% if request.user.is_authenticated %}
+{% if request.user.is_superuser %}
+    {% else %}
+{% if request.user.is_authenticated %}
+    <footer style="bottom:0px; width:100%;">
+        <nav class="navbar navbar-expand-lg navbar-dark grey darken-1" style="border-top: 4px solid #ed217c; border-bottom: 0px">
             <!--<div>-->
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="width: 100%; text-align: center; display: inline-block; height: 55px;">
                   <div class="carousel-inner" style="width: 100%; text-align: center; display: inline-block;">
@@ -139,10 +139,10 @@
                   <!--</a>-->
                 </div>
             <!--</div>-->
-        {% endif %}
+        </nav>
+    </footer>
 {% endif %}
-</nav>
-</footer>
+{% endif %}
             <!-- SCRIPTS -->
             <!-- JQuery -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
