@@ -10,10 +10,10 @@ class LoginForm(forms.Form):
 class UserEditForm(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your First name'}), max_length=50)
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Last name'}), max_length=50)
-    email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':' Enter your email address'}))
+    #email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':' Enter your email address'}))
     class Meta:
         model = User
-        fields = ('first_name','last_name', 'email')
+        fields = ('first_name','last_name')
 
 
 def my_choices():
