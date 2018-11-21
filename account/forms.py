@@ -10,10 +10,10 @@ class LoginForm(forms.Form):
 class UserEditForm(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your First name'}), max_length=50)
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Last name'}), max_length=50)
-    email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':' Enter your email address'}))
+    #email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':' Enter your email address'}))
     class Meta:
         model = User
-        fields = ('first_name','last_name', 'email')
+        fields = ('first_name','last_name')
 
 
 def my_choices():
@@ -42,7 +42,7 @@ EVENT = (
 )
 class ProfileEditForm(forms.ModelForm):
     photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}))
-    bio  = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
+    bio = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
     date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'class':'form-control','type':'date','placeholder':'mm/dd/yyyy format'}))
     address = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Enter your Address'}))
     zip = forms.IntegerField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Zip-Code'}))

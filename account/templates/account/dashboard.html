@@ -4,12 +4,12 @@
 {% block title %}Dashboard{% endblock %}
 <div class="container">
     <div class="row">
-      
+
 
 
 
 {% block content %}
-   {% if user.profile.pre_assessment == "No" %}
+   {% if not user.is_staff and user.profile.pre_assessment == "No" %}
             {% load staticfiles %}
         <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -36,8 +36,8 @@
             <h1>FITGirl, Inc.</h1>
 
             <p>The mission of FITGirl, Inc is to empower young girls as they develop
-            and mature by demonstrating positive lifestyle choices: mental, physical,
-                nutritional, relational.</p>
+            and mature by demonstrating positive lifestyle choices:
+                <b>  Physical, Nutritional, Mental and Relational.</b></p>
 
             <p>FITGirl, Inc.  was developed in direct response to the decline in physical
             activity among young girls, lack of opportunity for participation in physical
@@ -48,10 +48,13 @@
             <p>Programs and summer camps provide empowerment workshops focusing on relationships, body image,
             self-esteem, goal setting and self worth in tandem with various physical fitness
             and nutritional activities.
+                <br>
+
+                 <a href="{% url 'edit' %}"  class="btn btn-fitgirl pull-right">Next &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
             </p>
-              <br>
-              <br>
-            <a href="{% url 'edit' %}"  class="btn btn-fitgirl pull-right">Next &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+
+
+
           </div>
         </div>
         {% endif %}
@@ -59,10 +62,10 @@
    {% else %}
             {% if request.user.is_superuser %}
 
- 
-           
+
+
              <h4 class="pink lighten-1 my-0" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
-                    data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4> 
+                    data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4>
 
         </div>
         {% else %}
@@ -70,7 +73,7 @@
             data-toggle="modal" data-target="#fullHeightModalLeft"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>
         <!-- <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1> -->
 
-        
+
         {% endif %}
     </div>
     <!-- <div class="row">
@@ -79,7 +82,7 @@
    <div class="modal fade left " id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-full-height modal-left" role="document">
                 <!--Content-->
-               
+
                     <div class="modal-content w-75" >
                         <div class="modal-header stylish-color">
                             <h4 class="modal-title w-100" id="myModalLabel" style="color:white">Admin Dashboard</h4>
@@ -89,7 +92,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="container">
-                                
+
                                      <ul class="nav flex-column ">
                                         <div>
                                             <li class="nav-item">
@@ -122,7 +125,7 @@
                                                     </div>
                                                     </li> -->
                                     </ul>
-                           
+
                             </div>
                         </div>
                         <div class="modal-footer justify-content-center">
@@ -159,7 +162,7 @@
                                         </li>
                                         <div>
                                             <li class="nav-item">
-                                                
+
                                             </li>
                                             <div>
                                                 <li class="nav-item">
@@ -176,7 +179,7 @@
                                                         Rewards</a>
                                                         </li>
 
-                                               
+
                                 </ul>
                             </div>
                         </div>
@@ -207,42 +210,46 @@
               <h3 class="display-7 font-weight-bold white-dark mb-0 pt-md-1 pt-3">Welcome to <span class="animated fadeIn slower"> EmpowerU online!</span></h3>
               <hr class="hr-dark my-1 w-75">
               <h6 class="subtext-header animated fadeIn slower delay-1s mt-1 mb-0">
+
         
-                  This interactive website will guide you, encourage you and reward you for exercising,
-                  eating healthy and being kind. You will have different opportunities each week to participate in activities
-                  from four different categories: physical, nutritional, relational and mental. These activities will help you build
-                  confidence, create awesome friendships, keep you fit and active and provide tools that will empower you to be the strong,
-                  smart and confident girl you were meant to be!
-                  Jump in and have fun!
-</h4>
+                  <p>Doesn't it feel great to move! Whether it’s stretching out in yoga or shooting hoops in the gym,
+                      exercising just makes you feel awesome. However, you need to exercise your brain too - that's just as important!</p>
+
+                  <p>Every week you will get to choose an activity to try from four categories: <b>Physical, Nutritional, Mental and Relational.</b></p>
+
+                  <p><b>Earn rewards for exercising and eating the right foods!</b> Check out the prizes you can win just for taking care of yourself!
+                  <p><a href="/pages/rewards/ "><i class="fa fa-thumbs-up"></i> Rewards </a><i class="fa fa-thumbs-up" style="color:deeppink"></i></p>
+                  Each week we will give you something new to try - but you must complete the physical and nutritional activity each week - you can't go back if you and we
+                          want you to get as many points as possible and win amazing prizes for participating!</p></h4>
+
                 <br>
                 <div class="card-deck ">
                   <div class="card">
                     <img class="card-img-top" src="/media/images/Physical.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
-                    <div class="card-body">
-                      <h5 class="card-title">Physical</h5>
-                      <p class="card-text">Become more physically active and work your way up to getting 60 minutes of exercise a day and staying active for life!</p>
+                    <div class="card-body bg-dark">
+                        <h5 class="card-title text-white" ><b>Physical</b></h5>
+                      <p class="card-text" style="color:deeppink">Physical activity can lead to all kinds of benefits from better overall health to higher self-esteem to increased leadership skills.</p>
                     </div>
                   </div>
                   <div class="card">
                     <img class="card-img-top" src="/media/images/nutritional.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
-                    <div class="card-body">
-                      <h5 class="card-title">Nutritional</h5>
-                      <p class="card-text">Gain developmentally appropriate knowledge of nutrition and the health benefits of physical activity.</p>
+                    <div class="card-body bg-dark">
+                        <h5 class="card-title text-white"><b>Nutritional</b></h5>
+                      <p class="card-text"style="color:deeppink" >You have the right to feel good and be healthy. Choose food that fuels your body and boosts brain power!</p>
                     </div>
                   </div>
                   <div class="card">
-                    <img class="card-img-top" src="/media/images/mental.png" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
-                    <div class="card-body">
-                      <h5 class="card-title">Mental</h5>
-                      <p class="card-text">Beauty comes in all different types. There are many ways to be beautiful, both on the inside or on the outside.</p>
+                    <img class="card-img-top"src="../../../media/images/shutterstock_280067543 (1).jpg"   alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
+                      <div class="card-body bg-dark">
+                        <h5 class="card-title text-white"><b>Mental</b></h5>
+                      <p class="card-text" style="color:deeppink">Learn to love who you are and find ways to stay calm in tough situations, crush limiting beliefs and become the person you were meant to be!</p>
                     </div>
                   </div>
                   <div class="card">
                     <img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
-                    <div class="card-body">
-                      <h5 class="card-title">Relational</h5>
-                      <p class="card-text">Build positive relationships with adult facilitators and the peers in the group while learning to accept and respect others.</p>
+                    <div class="card-body bg-dark">
+                      <h5 class="card-title text-white"><b>Relational</b></h5>
+                      <p class="card-text" style="color:deeppink" >Learn how to embrace differences in others, develop amazing friendships and wotk through difficult feelings.</p>
                     </div>
                   </div>
                 </div>
@@ -266,7 +273,7 @@
 
 
 
-  
+
     {% endif %}
 
 </div>
@@ -289,11 +296,9 @@
 // window.onload = function() {
 //   window.setTimeout(fadeout, 8000); //8 seconds
 // }
-
 // function fadeout() {
 //   document.getElementById('fadeout').style.opacity = '0';
 // }
-
     $('.success').css('background-color','#3eb34b')
     $('.success').css('margin-left','-98px')
 </script>
@@ -306,12 +311,9 @@
   text-align: center;
   font-size:32px;
 } */
-
 p {
   text-align: center;
-
 }
-
 .card-deck {
   @include media-breakpoint-only(lg) {
     column-count: 4;
