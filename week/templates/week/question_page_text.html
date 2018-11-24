@@ -21,7 +21,7 @@
                         {% render_field field class+="form-control" %}
                     </div>
                 {% endfor %}
-            <input type="button" value="Print me!" onClick="printDiv('printableArea')"/>
+            <input class="btn-md btn-grey" type="button" value="Click here to print the form" onClick="window.print();"/>
             <input class="btn-md btn-fitgirl"  type="submit">
             </form>
         </div>
@@ -33,14 +33,14 @@
     {% endif %}
 
     <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return </a>
-    <script>
-        function printDiv(divName){
-            var printContents = document.getElementById(divName).innerHTML;
-            var originalContents = document.body.innerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-        }
-    </script>
+{#    <script>#}
+{#        function printDiv(divName){#}
+{#            var printContents = document.getElementById(divName).innerHTML;#}
+{#            var originalContents = document.body.innerHTML;#}
+{#            document.body.innerHTML = printContents;#}
+{#            window.print();#}
+{#            document.body.innerHTML = originalContents;#}
+{#        }#}
+{#    </script>#}
 {% endblock %}
 </div>
