@@ -26,6 +26,10 @@ canvas {
   pointer-events: none;
 }
 
+.container {
+    min-height: calc(100vh - 260px);
+}
+
 p {
     line-height: 1.8;
 }

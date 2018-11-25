@@ -25,10 +25,15 @@ class ProgramIndexPage(Page):
     ]
 class WeekPage(Page):
     description = models.CharField(max_length=255, blank=True,)
+    start_date = models.DateField("Start Date", null=True, blank=True)
+    end_date = models.DateField("End Date", null=True, blank=True)
+    Page.show_in_menus_default = True
 
 
     content_panels = Page.content_panels + [
-        FieldPanel('description', classname="full")
+        FieldPanel('description', classname="full"),
+        FieldPanel('start_date'),
+        FieldPanel('end_date'),
 
     ]
 
