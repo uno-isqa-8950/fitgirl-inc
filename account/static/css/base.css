@@ -162,6 +162,14 @@ input[type=submit], a.button {
     font-size:14px;
     text-transform:uppercase;
 }
+input[type="radio"]{
+  margin-top: 5px;
+  margin-right: 5px;
+}
+input[type="checkbox"]{
+  margin-top: 5px;
+  margin-right: 5px;
+}
 .errorlist {
     color:#cc0033;
     float:left;
