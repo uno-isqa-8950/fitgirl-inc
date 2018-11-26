@@ -21,25 +21,6 @@
     <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
   </ul>
-    <details>
-  <summary>Legend</summary>
-        <details>
-            <summary>Register</summary>
-            <p>User has registered for the program</p>
-        </details>
-        <details>
-            <summary>User logged-In </summary>
-            <p>User has edited their profile on EmpowerU and changed their password</p>
-        </details>
-        <details>
-            <summary>Pre/Post-Assessment</summary>
-            <p>User has completed their Assessment</p>
-        </details>
-        <details>
-            <summary>Points</summary>
-            <p>Total points acquired by user</p>
-        </details>
-</details>
 
 
 
@@ -109,10 +90,7 @@
   {% endif %}
 
 <script>
-var txt="Register: User has been registered for the program" + "\n"+
-"User logged In : User has edited their profile on Empoweru and changed their password"+ "\n" +
-"Pre/Post-Assesment: User has completed their Assessment"+"\n"+
-"Points: Total points acquired by user"
+
 
   $(document).ready(function () {
       $('#dtDynamicVerticalScroll').DataTable({

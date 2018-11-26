@@ -49,3 +49,5 @@ admin.site.register(Affirmations, AffirmationAdmin)
 class InspirationalAdmin(admin.ModelAdmin):
     InspirationalQuote = 'Inspirational Quotes'
 admin.site.register(InspirationalQuotes, InspirationalAdmin)
+
+
