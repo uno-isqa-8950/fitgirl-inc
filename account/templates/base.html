@@ -1,5 +1,7 @@
 {% load staticfiles %}
 {% load menu_tags %}
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,15 +44,11 @@
            {% if request.user.is_superuser %}
           <li class="nav-item ">
             <a class="nav-link hoverable " style="
-            background-color: rgba(255,255,255,.1);" href="/users/">
-<i class="fa fa-female" aria-hidden="true"></i>
- Users</a>
+            background-color: rgba(255,255,255,.1);" href="/users/"><i class="fa fa-female" aria-hidden="true"></i>Users</a>
           </li>
          {% else %}
             <li class="nav-item ">
-            <a class="nav-link hoverable" style="
-            background-color: rgba(255,255,255,.1);
-        " href= "{%url 'aboutus'%}">About Us</a>
+            <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "{%url 'aboutus'%}">About Us</a>
           </li>
 
         </ul>
@@ -58,8 +56,8 @@
             <li class="nav-item" class="navbar-nav navbar-centre">
               <a class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item" class="navbar-nav navbar-centre">
-              <a class="nav-link" href="#">Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
+            <li class="nav-item ">
+              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
             </li>
 
             {% endif %}
