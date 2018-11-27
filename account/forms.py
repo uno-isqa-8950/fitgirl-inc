@@ -63,7 +63,7 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('photo', 'bio', 'date_of_birth', 'address', 'zip', 'city', 'state', 'day_phone', 'eve_phone', 'age_group', 'school')
+        fields = ('bio', 'date_of_birth', 'address', 'zip', 'city', 'state', 'day_phone', 'eve_phone', 'age_group', 'school', 'photo')
 
 class ProgramForm(forms.ModelForm):
     class Meta:
