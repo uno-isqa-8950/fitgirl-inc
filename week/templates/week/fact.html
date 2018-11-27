@@ -13,6 +13,8 @@
   {% for post in page.get_children %}
 <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
 {% endfor %}
+    <br>
+    <br>
 <p><a href="{{ page.get_parent.url }}">Return</a></p>
     <style>
         .rich-text img {
