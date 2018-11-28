@@ -108,7 +108,7 @@
 
                         <div class="col">
                             <div >
-                                <label for="materialRegisterFormPhone"><strong>City: </strong>{{ user.id }}</label>
+                                <label for="materialRegisterFormPhone"><strong>City: </strong>{{ user.city }}</label>
 
                             </div>
                         </div>
@@ -169,22 +169,13 @@
 
 
                     <div style="float: left">
-                        <!--<div class="col">-->
-                            <!--<div>-->
-                                   <!--<br>-->
-                                   <!--<br>-->
-                                <!--<button class="btn btn-pink" type="submit" ><a href="{% url 'archive' user.id%}">Archive</a></button>-->
-
-
-                            <!--</div>-->
-                        <!--</div>-->
 
                         <!-- Newsletter -->
                         <div class="col">
                             <div >
                                 <br>
                                 <br>
-                                <button class="btn btn-purple"><a href="{% url 'users' %}">Back</a></button>
+                                <a class="btn btn-pink" href="{% url 'users' %}">Back</a>
 
 
                             </div>
