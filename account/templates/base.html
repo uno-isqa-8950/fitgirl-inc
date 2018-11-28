@@ -36,8 +36,11 @@
             {% else %}
                 {% if user.profile.pre_assessment == "No" %}
                 {% else %}
-                  <li class="nav-item ">
-                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>
+                  <!--<li class="nav-item ">-->
+                    <!--<a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>-->
+                  <!--</li>-->
+            <li class="nav-item ">
+                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" href="">What's Happening</a>
                   </li>
                 {% endif %}
             {% endif %}
@@ -54,17 +57,17 @@
         </ul>
         <ul class="navbar-nav navbar-centre">
             <li class="nav-item" class="navbar-nav navbar-centre">
-              <a class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></a>
+              <div class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></div>
             </li>
             <li class="nav-item ">
-              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
+              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">Reward Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
             </li>
 
             {% endif %}
         </ul>
           <ul class="navbar-nav navbar-right">
             <li class="nav-item">
-              <a class="nav-link  " href="#">Welcome {{ user.get_short_name|capfirst }}<span class="sr-only">(current)</span></a>
+              <div class="nav-link  " href="#">Welcome {{ user.get_short_name|capfirst }}<span class="sr-only">(current)</span></div>
             </li>
 
             <li class="dropdown ">
