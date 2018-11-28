@@ -91,11 +91,15 @@
                     <li><a class="nav-link" href="{% url "password_change" %}"><i class="fas fa-user-shield fa-fw"></i> Change Password</a></li>
                     <li class="divider"></li>
                     <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li>
+                    
                     {% else %}
-                    <li><a class="nav-link" href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>Edit Profile</a></li>
+                    <!-- <li><a class="nav-link" href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>Edit Profile</a></li>
                     <li><a class="nav-link" href="{% url "password_change" %}"><i class="fas fa-user-shield fa-fw"></i> Change Password</a></li>
                     <li class="divider"></li>
-                    <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li>
+                    <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li> -->
+                    <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-edit fa-fw"></i> Edit Profile</a>
+                    <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
                     {% endif %}
                 </ul>
             </li>
