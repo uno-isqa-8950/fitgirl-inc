@@ -6,42 +6,48 @@
     <div class ="container">
     <br>
     <br>
-        <div id="printableArea" class=intro">
-    <h1>{{ page.title }}</h1>
+    <div id="printableArea" class=intro">
+        <h1>{{ page.title }}</h1>
 
-    {% if user.is_authenticated and user.is_active or request.is_preview %}
-        {% if form %}
-            <div>{{ page.intro|richtext }}</div>
-            <form action="{% pageurl page %}" method="POST">
+        {% if user.is_authenticated and user.is_active or request.is_preview %}
+            {% if form %}
+                <div>{{ page.intro|richtext }}</div>
+                <form action="{% pageurl page %}" method="POST">
 
-                {% csrf_token %}
-                {% for field in form.visible_fields %}
-                    <div class="col-sm-8 form-group">
-                        {{ field.label_tag }}
-                        {% render_field field class+="form-control" %}
-                    </div>
-                {% endfor %}
-            <input class="btn-md btn-grey" type="button" value="Click here to print the form" onClick="window.print();"/>
-            <input class="btn-md btn-fitgirl"  type="submit">
-            </form>
-        </div>
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                        <div class="col-sm-8 form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class+="form-control" %}
+                        </div>
+                    {% endfor %}
+                <br>
+                <div class="col-sm-8">
+                    <br>
+                    <input class="btn-md btn-grey" type="button" value="Click here to print the form" onClick="window.print();"/>
+                    <br>
+                    <br>
+                    <br>
+                    <input class="btn-md btn-fitgirl"  type="submit">
+                </div>
+                </form>
+                </div>
+            {% else %}
+                <div>You have already answered this. Go to the next question.</div>
+            {% endif %}
         {% else %}
-            <div>You have already answered this. Go to the next question.</div>
+            <div>To fill in the form, you should log in.</div>
         {% endif %}
-    {% else %}
-        <div>To fill in the form, you should log in.</div>
-    {% endif %}
     <br>
-        <br>
     <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return </a>
-{#    <script>#}
-{#        function printDiv(divName){#}
-{#            var printContents = document.getElementById(divName).innerHTML;#}
-{#            var originalContents = document.body.innerHTML;#}
-{#            document.body.innerHTML = printContents;#}
-{#            window.print();#}
-{#            document.body.innerHTML = originalContents;#}
-{#        }#}
-{#    </script>#}
+    {#    <script>#}
+    {#        function printDiv(divName){#}
+    {#            var printContents = document.getElementById(divName).innerHTML;#}
+    {#            var originalContents = document.body.innerHTML;#}
+    {#            document.body.innerHTML = printContents;#}
+    {#            window.print();#}
+    {#            document.body.innerHTML = originalContents;#}
+    {#        }#}
+    {#    </script>#}
 {% endblock %}
 </div>
