@@ -56,13 +56,13 @@ class ModelIndexPage(Page):
 
     ]
 
-class FormField(AbstractFormField):
-    page = ParentalKey('NutritionPostPage', on_delete=models.CASCADE, related_name='custom_form_fields')
+# class FormField(AbstractFormField):
+#     page = ParentalKey('NutritionPostPage', on_delete=models.CASCADE, related_name='custom_form_fields')
 
-class NutritionPostPage(AbstractForm):
+class NutritionPostPage(Page):
     body = RichTextField(blank=True)
-    morecontent = models.CharField(max_length=255, blank=True, )
-    facts = models.CharField(max_length=255, blank=True, )
+    morecontent = RichTextField(blank=True)
+    facts = RichTextField(blank=True)
     intro = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
@@ -73,9 +73,9 @@ class NutritionPostPage(AbstractForm):
         FieldPanel('morecontent',classname='full'),
         FieldPanel('facts', classname="full" ),
     ]
-
-    def get_form_fields(self):
-        return self.custom_form_fields.all()
+    #
+    # def get_form_fields(self):
+    #     return self.custom_form_fields.all()
 
 class Fact(Page):
     intro = RichTextField(blank=True)

@@ -36,8 +36,11 @@
             {% else %}
                 {% if user.profile.pre_assessment == "No" %}
                 {% else %}
-                  <li class="nav-item ">
-                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>
+                  <!--<li class="nav-item ">-->
+                    <!--<a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>-->
+                  <!--</li>-->
+            <li class="nav-item ">
+                    <a class="nav-link hoverable"  href="/pages/resources/" style="background-color: rgba(255,255,255,.1);">What's Happening</a>
                   </li>
                 {% endif %}
             {% endif %}
@@ -54,17 +57,17 @@
         </ul>
         <ul class="navbar-nav navbar-centre">
             <li class="nav-item" class="navbar-nav navbar-centre">
-              <a class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></a>
+              <div class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></div>
             </li>
             <li class="nav-item ">
-              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
+              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">Reward Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
             </li>
 
             {% endif %}
         </ul>
           <ul class="navbar-nav navbar-right">
             <li class="nav-item">
-              <a class="nav-link  " href="#">Welcome {{ user.get_short_name|capfirst }}<span class="sr-only">(current)</span></a>
+              <div class="nav-link  " href="#">Welcome {{ user.get_short_name|capfirst }}<span class="sr-only">(current)</span></div>
             </li>
 
             <li class="dropdown ">
@@ -87,9 +90,19 @@
                           </div> -->
 {#                    </li>#}
                     {% endif %}
+                    {% if request.user.is_superuser %}
+                    <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
+                    
+                    {% else %}
+                    <!-- <li><a class="nav-link" href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>Edit Profile</a></li>
                     <li><a class="nav-link" href="{% url "password_change" %}"><i class="fas fa-user-shield fa-fw"></i> Change Password</a></li>
                     <li class="divider"></li>
-                    <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li>
+                    <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li> -->
+                    <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-edit fa-fw"></i> Edit Profile</a>
+                    <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
+                    {% endif %}
                 </ul>
             </li>
           </ul>
