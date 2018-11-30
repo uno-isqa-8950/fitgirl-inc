@@ -155,6 +155,8 @@ class PhysicalPostPage(AbstractForm):
     thank_you_text = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
+    start_date = models.DateField("Start Date", null=True, blank=True)
+    end_date = models.DateField("End Date", null=True, blank=True)
 
     content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -167,6 +169,8 @@ class PhysicalPostPage(AbstractForm):
         FieldPanel('points_for_this_activity', classname="title"),
         FieldPanel('timer_for_this_activity', classname="timer"),
         FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('start_date'),
+        FieldPanel('end_date'),
     ]
 
     def serve(self, request, *args, **kwargs):
