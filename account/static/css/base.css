@@ -145,9 +145,11 @@ label {
     color:#333;
     margin-bottom:4px;
 }
+label, output {
+    display: block;
+}
 input, textarea {
     clear:both;
-    float:left;
     margin:0 0 10px;
     background:#efefef;
     border:0;
