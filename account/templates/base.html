@@ -93,7 +93,7 @@
                     {% if request.user.is_superuser %}
                     <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
                     <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
-                    
+
                     {% else %}
                     <!-- <li><a class="nav-link" href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>Edit Profile</a></li>
                     <li><a class="nav-link" href="{% url "password_change" %}"><i class="fas fa-user-shield fa-fw"></i> Change Password</a></li>
@@ -171,6 +171,10 @@
   $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
 });
 </script>
-
+<style>
+    body {
+        background-color: #e3e3e3;
+    }
+</style>
 </body>
 </html>
