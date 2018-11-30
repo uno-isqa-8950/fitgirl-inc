@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'wagtailmenus',
     'crispy_forms',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -99,8 +100,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'empoweru.wsgi.application'
-
-
 
 
 # Database
@@ -174,8 +173,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+AWS_ACCESS_KEY_ID = 'AKIAILXVOKCUNQYIVZYA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'empoweru-static'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+AWS_DEFAULT_ACL = None
+
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  
+
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
@@ -200,9 +211,7 @@ EMAIL_USE_TLS = True
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # try:
 #     from local_settings import *
 # except ImportError:
