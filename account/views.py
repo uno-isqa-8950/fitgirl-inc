@@ -94,7 +94,7 @@ def handle_uploaded_file(request, name):
           for row in reader:
               try:
                   if row[1] and row[2] and row[3]:
-                    if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$',row[1]):
+                    if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,5}$',row[1]):
                         vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
                         current_site = get_current_site(request)
                         alphabet = string.ascii_letters + string.digits
