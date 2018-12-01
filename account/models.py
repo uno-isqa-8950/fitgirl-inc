@@ -35,7 +35,6 @@ class Program(models.Model):
         return str(self.program_name)
 
 class RegisterUser(models.Model):
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
     email = models.EmailField(blank=True, null=None)
     first_name = models.CharField(max_length=50, default=None)
     last_name = models.CharField(max_length=50, default=None)
@@ -44,6 +43,9 @@ class RegisterUser(models.Model):
 
 class InspirationalQuotes(models.Model):
     quote = models.CharField(max_length=500, blank=True, null=True)
+    
+    def __str__(self):
+        return str(self.quote)
 
 class Affirmations(models.Model):
     affirmation = models.CharField(max_length=500, blank=True, null=True)
@@ -51,11 +53,8 @@ class Affirmations(models.Model):
 
 
 class Profile(models.Model):
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image', blank=True)
-    # first_name = models.CharField(max_length=50, default=None)
-    # last_name = models.CharField(max_length=50, default=None)
     bio = models.CharField(max_length=255, blank=False, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
