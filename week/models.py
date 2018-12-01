@@ -340,12 +340,16 @@ class PostassessmentPage(AbstractForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
+    start_date = models.DateField("Start Date", null=True, blank=True)
+    end_date = models.DateField("End Date", null=True, blank=True)
 
     content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
         InlinePanel('form_fields', label="Create your question"),
         FieldPanel('points_for_this_activity', classname="title"),
         FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('start_date'),
+        FieldPanel('end_date'),
     ]
 
     def serve(self, request, *args, **kwargs):
