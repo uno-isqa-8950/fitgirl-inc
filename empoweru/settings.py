@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'wagtailmenus',
     'crispy_forms',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -101,8 +102,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'empoweru.wsgi.application'
 
 
-
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -113,30 +112,30 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'd4br3qegmoba7s',
-#         'USER': 'vlpfizeviactfl',
-#         'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
-#         'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd4br3qegmoba7s',
+        'USER': 'vlpfizeviactfl',
+        'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
+        'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 
 
 ## Local Setting
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'empoweru3',
-        'USER': 'postgres',
-        'PASSWORD': 'instructor1a',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'empoweru3',
+#         'USER': 'postgres',
+#         'PASSWORD': 'instructor1a',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -174,8 +173,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+AWS_ACCESS_KEY_ID = 'AKIAILXVOKCUNQYIVZYA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'fitgirl-inc'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+AWS_DEFAULT_ACL = None
+
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  
+
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
@@ -200,9 +211,7 @@ EMAIL_USE_TLS = True
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # try:
 #     from local_settings import *
 # except ImportError:
