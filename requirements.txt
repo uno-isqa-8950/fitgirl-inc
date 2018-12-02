@@ -42,3 +42,4 @@ Willow==1.1
 django-crispy-forms==1.7.2
 boto3==1.9.57
 django-storages==1.7.1
+python-decouple==3.1
