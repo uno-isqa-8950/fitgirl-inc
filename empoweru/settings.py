@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 #import django_heroku
 import os
-
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,8 +25,7 @@ SECRET_KEY = 'xz@m8r3&j2kh@t+9^rxmrbvg+-c4dv5$_&*ru2d1n1jf$3(l_-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
 # Application definition
 
@@ -117,7 +116,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'd4br3qegmoba7s',
         'USER': 'vlpfizeviactfl',
-        'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
+        # 'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
+        'pASSWORD':config('PASSWORD')
         'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
         'PORT': '5432',
     }
