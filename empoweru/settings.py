@@ -118,7 +118,7 @@ DATABASES = {
         'NAME': 'd4br3qegmoba7s',
         'USER': 'vlpfizeviactfl',
         # 'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
-        'PASSWORD':config('PASSWORD'),
+        # 'PASSWORD':config('PASSWORD'),
         'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
         'PORT': '5432',
     }
