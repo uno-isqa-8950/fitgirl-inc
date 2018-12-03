@@ -118,7 +118,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'd4br3qegmoba7s',
         'USER': 'vlpfizeviactfl',
-        # 'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
         'PASSWORD':os.environ.get('DB_PASSWORD'),
         'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
         'PORT': '5432',
@@ -179,10 +178,9 @@ USE_TZ = True
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
-AWS_ACCESS_KEY_ID = 'AKIAILXVOKCUNQYIVZYA'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'fitgirl-inc'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID'),
+AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY'),
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME'),
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 AWS_S3_OBJECT_PARAMETERS = {
