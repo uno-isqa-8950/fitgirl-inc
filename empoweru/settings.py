@@ -196,7 +196,7 @@ STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 DEFAULT_FILE_STORAGE = 'empoweru.storage_backends.MediaStorage'
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')  
 
 
 
