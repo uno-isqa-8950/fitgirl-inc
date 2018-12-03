@@ -194,17 +194,8 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 DEFAULT_FILE_STORAGE = 'empoweru.storage_backends.MediaStorage'
-# AWS_ACCESS_KEY_ID = 'AKIAILXVOKCUNQYIVZYA'
-# AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = 'empoweru-static'
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
-# AWS_LOCATION = 'static'
-# AWS_DEFAULT_ACL = None
 
-# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  
 
 
