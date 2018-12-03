@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 #import django_heroku
 import os
 from decouple import config
+import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -118,7 +119,7 @@ DATABASES = {
         'NAME': 'd4br3qegmoba7s',
         'USER': 'vlpfizeviactfl',
         # 'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
-        # 'PASSWORD':config('PASSWORD'),
+        'PASSWORD':os.environ.get('DB_PASSWORD'),
         'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
         'PORT': '5432',
     }
