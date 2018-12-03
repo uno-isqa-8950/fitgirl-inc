@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile, Program
 from django.utils.translation import gettext as _
+from datetime import date
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -10,7 +11,6 @@ class LoginForm(forms.Form):
 class UserEditForm(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your First name'}), max_length=50)
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Last name'}), max_length=50)
-    #email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':' Enter your email address'}))
     class Meta:
         model = User
         fields = ('first_name','last_name')
@@ -52,9 +52,18 @@ class ProfileEditForm(forms.ModelForm):
     eve_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
     school = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'School Name'}))
+
+
+    def clean_date_of_birth(self):
+        dob = self.cleaned_data['date_of_birth']
+        today = date.today()
+        if (dob.year + 7, dob.month, dob.day) > (today.year, today.month, today.day):
+            raise forms.ValidationError('You must be at least 7 years old to register')
+        return dob
+
     class Meta:
         model = Profile
-        fields = ('photo', 'bio', 'date_of_birth', 'address', 'zip', 'city', 'state', 'day_phone', 'eve_phone', 'age_group', 'school')
+        fields = ('bio', 'date_of_birth', 'address', 'zip', 'city', 'state', 'day_phone', 'eve_phone', 'age_group', 'school', 'photo')
 
 class ProgramForm(forms.ModelForm):
     class Meta:

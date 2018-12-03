@@ -26,6 +26,10 @@ canvas {
   pointer-events: none;
 }
 
+.container {
+    min-height: calc(100vh - 260px);
+}
+
 p {
     line-height: 1.8;
 }
@@ -141,9 +145,11 @@ label {
     color:#333;
     margin-bottom:4px;
 }
+label, output {
+    display: block;
+}
 input, textarea {
     clear:both;
-    float:left;
     margin:0 0 10px;
     background:#efefef;
     border:0;
@@ -157,6 +163,14 @@ input[type=submit], a.button {
     padding:10px 20px;
     font-size:14px;
     text-transform:uppercase;
+}
+input[type="radio"]{
+  margin-top: 5px;
+  margin-right: 5px;
+}
+input[type="checkbox"]{
+  margin-top: 5px;
+  margin-right: 5px;
 }
 .errorlist {
     color:#cc0033;

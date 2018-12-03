@@ -94,7 +94,7 @@ def handle_uploaded_file(request, name):
           for row in reader:
               try:
                   if row[1] and row[2] and row[3]:
-                    if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$',row[1]):
+                    if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,5}$',row[1]):
                         vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
                         current_site = get_current_site(request)
                         alphabet = string.ascii_letters + string.digits
@@ -310,3 +310,24 @@ def django_frame(request):
     return render(request,
                   'account/django_frame.html',
                   {'section': 'django_frame'})
+
+@login_required
+def archive(request):
+    # print(request)
+    # archive_user= get_object_or_404(User, pk=pk)
+    # archive_user = User.objects.filter(username= request.user.username)
+    # if request.method == 'POST':
+    # archive = Program.objects.filter("Spring 2019")
+    name="Spring 2019"
+    # archive = Program.objects.all().filter(program_name=name)[0]
+
+    archive = User.objects.all()
+    print(archive)
+    for archive in archive :
+        if(archive.is_superuser == False):
+            archive.is_active = False
+            archive.save()
+            print(archive)
+    return render(request,
+                  'account/archive.html',
+                  {'archive': 'archive'})

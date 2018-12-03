@@ -4,42 +4,83 @@
 
 {% block content %}
 
-<div class ="container">
-    <br>
-    <br>
-    <h1 style="text-align: center;">{{ page.title }}</h1>
-       <h3 style="text-align: center;"> {{ page.description|richtext }}</h3>
-    <!--Card Content-->
-    <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
-        {% for post in page.get_children %}
-            {% image post.specific.display_image original as reward_image %}
-            <div class="col-sm-4 mt-3">
-                <div class="card hoverable">
-                    <a href ="{% pageurl post %}">
-                        <img class="card-img-top" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;"/>
-                        <div class="card-body bg-dark">
-                            <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
-                            <!--<p class="card-text">{{ post.specific.intro|richtext}}</p>-->
-
+    <div class ="container">
+        <br>
+        <br>
+        <h1 style="text-align: center;">{{ page.title }}</h1>
+        <h3 style="text-align: center;"> {{ page.description|richtext }}</h3>
+        <!--Card Content-->
+        <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
+            {% now "Y-m-d" as current_date %}
+            {% for post in page.get_children %}
+                {% image post.specific.display_image original as reward_image %}
+                {% if post.specific.end_date and post.specific.start_date %}
+                    {% if current_date > post.specific.end_date|date:"Y-m-d" %}
+                        <div class="col-sm-4 mt-3">
+                            <div class="card hoverable disabled" style="opacity: 0.65;">
+                                <a href ="{% pageurl post %}">
+                                    <img class="card-img-top" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;"/>
+                                    <div class="card-body bg-dark">
+                                        <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
+                                        <!--<p class="card-text">{{ post.specific.intro|richtext}}</p>-->
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    </a>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    <!--End Card Content-->
+                    {% elif current_date < post.specific.start_date|date:"Y-m-d" %}
+                        <div class="col-sm-4 mt-3">
+                            <div class="card hoverable disabled" style="opacity: 0.65;">
+                                <a href ="{% pageurl post %}">
+                                    <img class="card-img-top" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;"/>
+                                    <div class="card-body bg-dark">
+                                        <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
+                                        <!--<p class="card-text">{{ post.specific.intro|richtext}}</p>-->
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-sm-4 mt-3">
+                            <div class="card hoverable">
+                                <a href ="{% pageurl post %}">
+                                    <img class="card-img-top" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;"/>
+                                    <div class="card-body bg-dark">
+                                        <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
+                                        <!--<p class="card-text">{{ post.specific.intro|richtext}}</p>-->
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="col-sm-4 mt-3">
+                        <div class="card hoverable">
+                            <a href ="{% pageurl post %}">
+                                <img class="card-img-top" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;"/>
+                                <div class="card-body bg-dark">
+                                    <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
+                                    <!--<p class="card-text">{{ post.specific.intro|richtext}}</p>-->
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <!--End Card Content-->
 
-    </br>
-    </br>
-    <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return to Weeks</a>
-    <hr style="color: black; background: #333;">
-    <!--Advertisement-->
-    <div class="img-responsive" style="text-align: center;">
-        <a target="_blank" href="{{ page.ad_url }}">
-            {% image page.ad_image max-1110x80 %}
-        </a>
-    </div>
-    <!--End Advertisement-->
+        </br>
+        </br>
 
-</div>
+        <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return to Weeks</a>
+        <hr style="color: black; background: #333;">
+        <!--Advertisement-->
+        <div class="img-responsive" style="text-align: center;">
+            <a target="_blank" href="{{ page.ad_url }}">
+                {% image page.ad_image max-1110x80 %}
+            </a>
+        </div>
+        <!--End Advertisement-->
+
+    </div>
 {% endblock %}

@@ -1,33 +1,26 @@
 {% load menu_tags %}
+{% load wagtailcore_tags %}
 <!--<div class="collapse" id="collapseExample">-->
 <div>
     <nav class="navbar navbar-light bg-light" style="border:0">
         {% now "Y-m-d" as current_date %}
         {% for item in menu_items %}
-            {% if item.expire_at and item.go_live_at %}
-                {% if current_date > item.expire_at|date:"Y-m-d" %}
+            {% if item.specific.end_date and item.specific.start_date %}
+                {% if current_date > item.specific.end_date|date:"Y-m-d" %}
                     <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                        <button class="btn btn-sm btn-pink btn-rounded" type="button " disabled id="ddtoggle_{{ item.link_page.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.text }}</button>
+                        <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>
                     </li>
-                {% elif current_date < item.go_live_at|date:"Y-m-d" %}
+                {% elif current_date < item.specific.start_date|date:"Y-m-d" %}
                     <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                        <button class="btn btn-sm btn-pink btn-rounded" type="button " disabled id="ddtoggle_{{ item.link_page.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.text }}</button>
+                        <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>
                     </li>
                 {% else %}
                     <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                        <!--<button class="btn btn-sm btn-pink btn-rounded" type="button " id="ddtoggle_{{ item.link_page.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.text }}</button>-->
-                        <!--{% if item.has_children_in_menu %}-->
-                            <!--{% sub_menu item template="menus/module_submenu.html" %}-->
-                        <!--{% endif %}-->
                         <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded">{{ item.text }}</a>
                     </li>
                 {% endif %}
             {% else %}
                 <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                    <!--<button class="btn btn-sm btn-pink btn-rounded" type="button " id="ddtoggle_{{ item.link_page.pk }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ item.text }}</button>-->
-                    <!--{% if item.has_children_in_menu %}-->
-                        <!--{% sub_menu item template="menus/module_submenu.html" %}-->
-                    <!--{% endif %}-->
                     <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded">{{ item.text }}</a>
                 </li>
             {% endif %}

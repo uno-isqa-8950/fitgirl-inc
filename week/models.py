@@ -25,10 +25,15 @@ class ProgramIndexPage(Page):
     ]
 class WeekPage(Page):
     description = models.CharField(max_length=255, blank=True,)
+    start_date = models.DateField("Start Date", null=True, blank=True)
+    end_date = models.DateField("End Date", null=True, blank=True)
+    Page.show_in_menus_default = True
 
 
     content_panels = Page.content_panels + [
-        FieldPanel('description', classname="full")
+        FieldPanel('description', classname="full"),
+        FieldPanel('start_date'),
+        FieldPanel('end_date'),
 
     ]
 
@@ -51,13 +56,13 @@ class ModelIndexPage(Page):
 
     ]
 
-class FormField(AbstractFormField):
-    page = ParentalKey('NutritionPostPage', on_delete=models.CASCADE, related_name='custom_form_fields')
+# class FormField(AbstractFormField):
+#     page = ParentalKey('NutritionPostPage', on_delete=models.CASCADE, related_name='custom_form_fields')
 
-class NutritionPostPage(AbstractForm):
+class NutritionPostPage(Page):
     body = RichTextField(blank=True)
-    morecontent = models.CharField(max_length=255, blank=True, )
-    facts = models.CharField(max_length=255, blank=True, )
+    morecontent = RichTextField(blank=True)
+    facts = RichTextField(blank=True)
     intro = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
@@ -68,9 +73,9 @@ class NutritionPostPage(AbstractForm):
         FieldPanel('morecontent',classname='full'),
         FieldPanel('facts', classname="full" ),
     ]
-
-    def get_form_fields(self):
-        return self.custom_form_fields.all()
+    #
+    # def get_form_fields(self):
+    #     return self.custom_form_fields.all()
 
 class Fact(Page):
     intro = RichTextField(blank=True)
@@ -150,6 +155,8 @@ class PhysicalPostPage(AbstractForm):
     thank_you_text = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
+    start_date = models.DateField("Start Date", null=True, blank=True)
+    end_date = models.DateField("End Date", null=True, blank=True)
 
     content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -162,6 +169,8 @@ class PhysicalPostPage(AbstractForm):
         FieldPanel('points_for_this_activity', classname="title"),
         FieldPanel('timer_for_this_activity', classname="timer"),
         FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('start_date'),
+        FieldPanel('end_date'),
     ]
 
     def serve(self, request, *args, **kwargs):
@@ -321,5 +330,54 @@ class QuestionPageText(AbstractForm):
         user1=User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
+
+
+class PostassessmentFormField(AbstractFormField):
+    page = ParentalKey('PostassessmentPage', on_delete=models.CASCADE, related_name='form_fields')
+
+
+class PostassessmentPage(AbstractForm):
+    intro = RichTextField(blank=True)
+    thank_you_text = RichTextField(blank=True)
+    points_for_this_activity = models.IntegerField(blank=True, default=0)
+    start_date = models.DateField("Start Date", null=True, blank=True)
+    end_date = models.DateField("End Date", null=True, blank=True)
+
+    content_panels = AbstractForm.content_panels + [
+        FieldPanel('intro', classname="full"),
+        InlinePanel('form_fields', label="Create your question"),
+        FieldPanel('points_for_this_activity', classname="title"),
+        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('start_date'),
+        FieldPanel('end_date'),
+    ]
+
+    def serve(self, request, *args, **kwargs):
+        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+            return render(
+                request,
+                self.template,
+                self.get_context(request)
+            )
+
+        return super().serve(request, *args, **kwargs)
+
+    def get_submission_class(self):
+        return CustomFormSubmission
+
+    def process_form_submission(self, form):
+        self.get_submission_class().objects.create(
+            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            page=self, user=form.user)
+        user1=User.objects.get(username=form.user.username)
+        print(user1.profile.points)
+        user1.profile.points += self.points_for_this_activity
+        #user1.profile.save()
+        #print(form.user.username)
+        #print(user1.profile.points)
+        user1.profile.post_assessment = "yes"
+        #print(user1.profile.bio)
+        user1.profile.save()
+
 
 

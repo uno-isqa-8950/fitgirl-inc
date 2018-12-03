@@ -41,7 +41,10 @@
                     </div>
 
                     <div class="col-sm-3">
+                    <br>
+                    <br>
                 <span id="countdown" style="display: block; font-size: 4.5rem; position: fixed">
+
                     <button class="btn-fitgirl" id="startClock"
                             style="font-size: 30%"><i class="fa fa-clock-o" aria-hidden="true"></i> Start your 30 Minutes Timer</button>
                 </span>
@@ -49,6 +52,8 @@
                         <form action="{% pageurl page %}" method="POST">
                             {% csrf_token %}
                             {{ form.as_p }}
+                            <br>
+                            <br>
                             <button class="btn-fitgirl btn-lg" id="done">Completed!</button>
                         </form>
                         </span>
@@ -108,6 +113,10 @@
                 timer2 = minutes + ':' + seconds;
             }, 1000);
         }
+
+        $(document).ready(function() {
+        $('.nav-item a[href="#strength"]').tab('show')
+    });
     </script>
 {% endblock %}
 </div>

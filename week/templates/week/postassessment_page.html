@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends "account/dashboard.html" %}
 {% load wagtailcore_tags %}
 
-{% block content %}
+{% block dash_content %}
 <div class ="container">
     <br>
     <br>
@@ -13,9 +13,12 @@
                 <form action="{% pageurl page %}" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <!--<input class="btn btn-primary" type="submit" value="'NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i>'">-->
                     <br>
                     <br>
-                    <input class="btn-md btn-fitgirl"  type="submit">
+                    <button type="submit" class="btn btn-pink pull-right">NEXT
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </button>
                 </form>
             {% else %}
                 <div>You have already answered this. Go to the next question.</div>
@@ -23,13 +26,14 @@
         {% else %}
             <div>To fill in the form, you should log in.</div>
         {% endif %}
-<br>
-<br>
-<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
-    <style>
-    body {
-        background-color: #e3e3e3;
-    }
-    </style>
+<script>
+    $(document).ready(function(){
+    $("#userLandingContent2").remove()
+    $("#userLandingContent1").remove()
+
+    });
+</script>
+
+<!--<p><a href="{{ page.get_parent.url }}"> Return </a></p>-->
 {% endblock %}
 </div>

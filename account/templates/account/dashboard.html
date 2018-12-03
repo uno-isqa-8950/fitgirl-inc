@@ -69,8 +69,8 @@
 
         </div>
         {% else %}
-        <h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
-            data-toggle="modal" data-target="#fullHeightModalLeft"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>
+        <!--<h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "-->
+            <!--data-toggle="modal" data-target="#fullHeightModalLeft"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>-->
         <!-- <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1> -->
 
 
@@ -110,6 +110,12 @@
                                                             <i class="fas fa-female fa-fw"></i> Users </a>
                                                     </li>
                                                     <div>
+                                                        <div>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'archive' %}" id="archive" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-female fa-fw"></i> Archive </a>
+                                                    </li>
+                                                    <div>
                                                     <li class="nav-item">
                                                         <a href="{% url 'cms_frame' %}" id="cms" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                             <i class="fas fa-cog fa-fw"></i> Manage Content </a>
@@ -147,7 +153,7 @@
 
                 <div class="modal-content w-75" >
                     <div class="modal-header stylish-color">
-                        <h4 class="modal-title w-100" id="myModalLabel" style="color:white">{{user.get_short_name|capfirst }}'s Dashboard</h4>
+                        <h4 class="modal-title w-100" id="myModalLabel" style="color:white"> Hello, {{user.get_short_name|capfirst }}</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -158,7 +164,7 @@
                                  <ul class="nav flex-column ">
                                     <div>
                                         <li class="nav-item">
-                                            <a href="{% url 'userdashboard' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action hoverable"><i class="fas fa-cog fa-fw"></i>Dashboard</a>
+                                            <a href="/" class=" btn btn-block btn-pink list-group-item list-group-item-action hoverable"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
                                         </li>
                                         <div>
                                             <li class="nav-item">
@@ -166,24 +172,17 @@
                                             </li>
                                             <div>
                                                 <li class="nav-item">
-                                                    <a href="{% url "password_change" %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-lock"></i>Change Password</a>
+                                                    <a href="{% url 'password_change' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-lock"></i> Change Password</a>
                                                 </li>
-                                                <div>
-                                                <li class="nav-item">
-                                                    <a href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>
-                                                        Edit Profile</a>
-                                                </li>
+
                                                     <div>
                                                         <li class="nav-item">
                                                     <a href="/pages/rewards/ " class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-thumbs-up"></i>
                                                         Rewards</a>
                                                         </li>
-
-
-                                </ul>
+                                 </ul>
                             </div>
                         </div>
-                    </div>
                     <div class="modal-footer justify-content-center">
 
                     </div>
@@ -197,7 +196,9 @@
 
     </div>
 
-    <div id="userLandingContent1">
+    <br>
+    <br>
+    <div id="userLandingContent1" style="min-height: calc(100vh - 260px);">
             <div id="userLandingContent2">
 
     <div class="mask rgba-gradient d-flex justify-content-center align-items-center">
@@ -219,37 +220,37 @@
 
                   <p><b>Earn rewards for exercising and eating the right foods!</b> Check out the prizes you can win just for taking care of yourself!
                   <p><a href="/pages/rewards/ "><i class="fa fa-thumbs-up"></i> Rewards </a><i class="fa fa-thumbs-up" style="color:deeppink"></i></p>
-                  Each week we will give you something new to try - but you must complete the physical and nutritional activity each week - you can't go back if you and we
-                          want you to get as many points as possible and win amazing prizes for participating!</p></h4>
+                  Each week we will give you something new to try - but you must complete the <b>Physical</b> and <b>Nutritional</b> activity each week because you can't go back to earn past points.
+                  So don't skip your exercises or healthy snacks - we want you to get as many points as possible and win amazing prizes for participating!</p></h4>
 
                 <br>
                 <div class="card-deck ">
                   <div class="card">
-                    <img class="card-img-top" src="/media/images/Physical.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
+                    <img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
                     <div class="card-body bg-dark">
-                        <h5 class="card-title text-white" ><b>Physical</b></h5>
-                      <p class="card-text" style="color:deeppink">Physical activity can lead to all kinds of benefits from better overall health to higher self-esteem to increased leadership skills.</p>
+                        <h5 class="card-title" style="color:deeppink" ><b>Physical</b></h5>
+                      <p class="card-text" style="color:white">Physical activity can lead to all kinds of benefits from better overall health to higher self-esteem to increased leadership skills.</p>
                     </div>
                   </div>
                   <div class="card">
                     <img class="card-img-top" src="/media/images/nutritional.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
                     <div class="card-body bg-dark">
-                        <h5 class="card-title text-white"><b>Nutritional</b></h5>
-                      <p class="card-text"style="color:deeppink" >You have the right to feel good and be healthy. Choose food that fuels your body and boosts brain power!</p>
+                        <h5 class="card-title"  style="color:deeppink"><b>Nutritional</b></h5>
+                      <p class="card-text"style="color:white" >You have the right to feel good and be healthy. Choose food that fuels your body and boosts brain power!</p>
                     </div>
                   </div>
                   <div class="card">
                     <img class="card-img-top"src="../../../media/images/shutterstock_280067543 (1).jpg"   alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
                       <div class="card-body bg-dark">
-                        <h5 class="card-title text-white"><b>Mental</b></h5>
-                      <p class="card-text" style="color:deeppink">Learn to love who you are and find ways to stay calm in tough situations, crush limiting beliefs and become the person you were meant to be!</p>
+                        <h5 class="card-title" style="color:deeppink"><b>Mental</b></h5>
+                      <p class="card-text" style="color:white">Learn to love who you are and find ways to stay calm in tough situations, crush limiting beliefs and become the person you were meant to be!</p>
                     </div>
                   </div>
                   <div class="card">
                     <img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;">
                     <div class="card-body bg-dark">
-                      <h5 class="card-title text-white"><b>Relational</b></h5>
-                      <p class="card-text" style="color:deeppink" >Learn how to embrace differences in others, develop amazing friendships and wotk through difficult feelings.</p>
+                      <h5 class="card-title" style="color:deeppink" ><b>Relational</b></h5>
+                      <p class="card-text" style="color:white" >Learn how to embrace differences in others, develop amazing friendships and work through difficult feelings.</p>
                     </div>
                   </div>
                 </div>
