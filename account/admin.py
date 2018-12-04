@@ -43,11 +43,11 @@ admin.site.register(RegisterUser)
 
 class AffirmationAdmin(admin.ModelAdmin):
     Quotes = 'Quotes'
-admin.site.register(Affirmations, AffirmationAdmin)
+admin.site.register(Affirmation, AffirmationAdmin)
 
 
 class InspirationalAdmin(admin.ModelAdmin):
     InspirationalQuote = 'Inspirational Quotes'
-admin.site.register(InspirationalQuotes, InspirationalAdmin)
+admin.site.register(InspirationalQuote, InspirationalAdmin)
 
 
