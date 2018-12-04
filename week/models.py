@@ -25,8 +25,8 @@ class ProgramIndexPage(Page):
     ]
 class WeekPage(Page):
     description = models.CharField(max_length=255, blank=True,)
-    start_date = models.DateField("Start Date", null=True, blank=True)
-    end_date = models.DateField("End Date", null=True, blank=True)
+    start_date = models.DateTimeField("Start Date", null=True, blank=True)
+    end_date = models.DateTimeField("End Date", null=True, blank=True)
     Page.show_in_menus_default = True
 
 
@@ -155,8 +155,8 @@ class PhysicalPostPage(AbstractForm):
     thank_you_text = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
-    start_date = models.DateField("Start Date", null=True, blank=True)
-    end_date = models.DateField("End Date", null=True, blank=True)
+    start_date = models.DateTimeField("Start Date", null=True, blank=True)
+    end_date = models.DateTimeField("End Date", null=True, blank=True)
 
     content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -340,8 +340,8 @@ class PostassessmentPage(AbstractForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
-    start_date = models.DateField("Start Date", null=True, blank=True)
-    end_date = models.DateField("End Date", null=True, blank=True)
+    start_date = models.DateTimeField("Start Date", null=True, blank=True)
+    end_date = models.DateTimeField("End Date", null=True, blank=True)
 
     content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),

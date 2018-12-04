@@ -25,6 +25,16 @@ def my_choices():
     return d.items()
 
 
+class programArchiveForm(forms.Form):
+
+    program =  forms.ChoiceField(widget=forms.Select, choices=my_choices())
+
+    def __init__(self, *args,**kwargs):
+        super(programArchiveForm, self).__init__(*args, **kwargs)
+        self.fields['program'] = forms.ChoiceField(
+            choices=my_choices())
+
+
 class UploadFileForm(forms.Form):
 
 
@@ -39,6 +49,7 @@ class UploadFileForm(forms.Form):
 EVENT = (
     (1, _("8-10")),
     (2, _("11-13")),
+    (3, _("14-16")),
 )
 class ProfileEditForm(forms.ModelForm):
     photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}))
@@ -48,8 +59,7 @@ class ProfileEditForm(forms.ModelForm):
     zip = forms.IntegerField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Zip-Code'}))
     city = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
     state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
-    day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
-    eve_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
+    contact_no = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
     school = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'School Name'}))
 
