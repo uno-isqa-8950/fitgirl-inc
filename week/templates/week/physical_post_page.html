@@ -68,7 +68,7 @@
     {% endif %}
     <br>
         <br>
-    <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return to Model</a>
+    <a href="{{ page.get_parent.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-home"></i> &nbsp Home</a>
 
         <!--Advertisement-->
     <div class="img-responsive" style="text-align: center;">
@@ -113,6 +113,10 @@
                 timer2 = minutes + ':' + seconds;
             }, 1000);
         }
+
+        $(document).ready(function() {
+        $('.nav-item a[href="#strength"]').tab('show')
+    });
     </script>
 {% endblock %}
 </div>

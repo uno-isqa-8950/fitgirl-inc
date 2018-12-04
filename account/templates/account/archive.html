@@ -5,28 +5,27 @@
   <div class="col-12 offset-lg-4">
       <br>
       <br>
-    <h1 class="text-left">Register Users</h1>
-    <p> Choose the program from drop-down below: </p>
+    <h1 class="text-left">Archive</h1>
+     <p>Choose the program from drop-down below: </p>
     <form action="." method="post" enctype="multipart/form-data">
+
         <!--{{ form.as_p }}-->
         {% csrf_token %}
-        &nbsp &nbsp
 
-        {{ form.programs}}
-        <br>
-        <br>
 
-        {{ form.file}}
+        {{ form }}
+
+        <br>
         <br>
         <br>
 
 
-        <button type="submit" class="btn btn-pink">Upload File</button>
+        <button type="submit" class="btn btn-pink">Archive Users</button>
         <!-- <input type="submit" class="btn-md btn-primary"  value="Upload File"></input> -->
     </form>
 </div>
 {% if messages %}
-<div class="col-12 offset-lg-4">
+<div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
 <h5>SUMMARY:</h5>
 <ul class="messages">
     {% for message in messages %}

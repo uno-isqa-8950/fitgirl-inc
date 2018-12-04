@@ -16,12 +16,13 @@
   <!--<input type="submit">-->
 <!--</form>-->
 {{ page.morecontent|richtext}}
-{{ page.facts|richtext}}
+
 
 {% for post in page.get_children %}
 <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
     {% endfor %}
-
+<br>
+    {{ page.facts|richtext}}
 <br>
  <br>
 <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return to Module</a>
