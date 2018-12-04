@@ -18,6 +18,8 @@ Written in Python/Django
 8. pip install django_heroku
 9. pip install django-crispy-forms
 10. pip install django-decouple
+11. pip install boto3
+12. pip install django-storages
 ## Database Migration:
 navigate to the folder containing manage.py and run the following commands in order.
 1. python manage.py makemigrations
