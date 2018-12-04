@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm
-from .forms import Profile,User, Program
+from .forms import Profile, User, Program, programArchiveForm
 from .models import RegisterUser
 from io import TextIOWrapper, StringIO
 import re
@@ -48,11 +48,13 @@ def dashboard(request):
                   'account/dashboard.html',
                   {'section': 'dashboard'})
 
+
 @login_required
 def userdashboard(request):
     return render(request,
                   'account/userdashboard.html',
                   {'section': 'userdashboard'})
+
 
 @login_required
 def createprogram(request):
@@ -60,22 +62,22 @@ def createprogram(request):
     if request.method == 'POST':
         form = ProgramForm(request.POST)
         if form.is_valid():
-            #print ("program_form")
-            program= form.save(commit=False)
-            #program.created_date = timezone.now()
+            # print ("program_form")
+            program = form.save(commit=False)
+            # program.created_date = timezone.now()
             program.save()
-            messages.success(request,'Program added successfully')
+            messages.success(request, 'Program added successfully')
             return redirect('createprogram')
         else:
             messages.error(request, 'Error creating Program. Retry!')
-            #return HttpResponse('Error updating your profile!')
+            # return HttpResponse('Error updating your profile!')
     else:
         form = ProgramForm()
-        #print("Else")
-        #profile_form = ProfileEditForm(instance=request.user.profile)
+        # print("Else")
+        # profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
                   'account/createprogram.html',
-                  {'section': 'createprogram','form':form,'registeredPrograms':registeredPrograms})
+                  {'section': 'createprogram', 'form': form, 'registeredPrograms': registeredPrograms})
 
 
 # def validate_csv(value):
@@ -84,25 +86,35 @@ def createprogram(request):
 
 
 def handle_uploaded_file(request, name):
-          csvf = StringIO(request.FILES['file'].read().decode())
-          reader = csv.reader(csvf, delimiter=',')
-          reader.__next__();
-          count = 0
-          failcount = 0
-          existcount = 0
-          emailcount = 0
-          for row in reader:
-              try:
-                  if row[1] and row[2] and row[3]:
-                    if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,5}$',row[1]):
-                        vu = RegisterUser(email = row[1],first_name = row[2],last_name = row[3],program=name)
+    csvf = StringIO(request.FILES['file'].read().decode())
+    reader = csv.reader(csvf, delimiter=',')
+    reader.__next__();
+    count = 0
+    failcount = 0
+    existcount = 0
+    emailcount = 0
+    for row in reader:
+        try:
+            if row[1] and row[2] and row[3]:
+                if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$', row[1]):
+                    if (len(User.objects.all().filter(email=row[1])) > 0):
+                        targetUser = User.objects.all().filter(email=row[1])[0]
+                        targetUser.is_active = True
+                        targetUser.save()
+                        targetProfile = targetUser.profile
+                        targetProfile.program = Program.objects.all().filter(program_name=name)[0]
+                        targetProfile.save()
+
+                    else:
+                        vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
                         current_site = get_current_site(request)
                         alphabet = string.ascii_letters + string.digits
                         # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
                         theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
                         theUser.set_password('fitgirl1')
                         theUser.save()
-                        profile = Profile.objects.create(user=theUser, program=Program.objects.all().filter(program_name=name)[0])
+                        profile = Profile.objects.create(user=theUser,
+                                                         program=Program.objects.all().filter(program_name=name)[0])
                         profile.save()
                         form = PasswordResetForm({'email': theUser.email})
                         if form.is_valid():
@@ -117,14 +129,14 @@ def handle_uploaded_file(request, name):
                         if vu is not None:
                             vu.save()
                             count = count + 1
-                    else:
-                        emailcount += 1
-                  else:
-                      failcount+=1
-              except Exception as e:
-                  print(e)
-                  existcount+=1
-          return (count,failcount,existcount,emailcount)
+                else:
+                    emailcount += 1
+            else:
+                failcount += 1
+        except Exception as e:
+            print(e)
+            existcount += 1
+    return (count, failcount, existcount, emailcount)
 
 
 def get_short_name(self):
@@ -143,95 +155,96 @@ def registerusers(request):
                 return redirect('registerusers')
 
             else:
-                value,fail,existing,bademail = handle_uploaded_file(request,form.cleaned_data['programs'])
+                value, fail, existing, bademail = handle_uploaded_file(request, form.cleaned_data['programs'])
 
-                if value==0 and fail==0 and existing==0 and bademail==0:
+                if value == 0 and fail == 0 and existing == 0 and bademail == 0:
                     form = request.POST
-                    messages.error(request, 'Your upload file is empty!')
+                    messages.error(request, 'Unarchived users to new program!')
                     return redirect('registerusers')
-                elif value==0 and fail==0 and existing==0 and bademail>0:
+                elif value == 0 and fail == 0 and existing == 0 and bademail > 0:
                     form = request.POST
                     messages.info(request, f'Number of invalid email address: {bademail}')
                     return redirect('registerusers')
-                elif value==0 and fail==0 and existing>0 and bademail==0:
+                elif value == 0 and fail == 0 and existing > 0 and bademail == 0:
                     form = request.POST
                     messages.info(request, f'Number of user-account already exist: {existing}')
                     return redirect('registerusers')
-                elif value==0 and fail==0 and existing>0 and bademail>0:
+                elif value == 0 and fail == 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account already exist: {existing}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
-                    return redirect('registerusers')
-                elif value==0 and fail>0 and existing==0 and bademail==0:
-                    form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    return redirect('registerusers')
-                elif value==0 and fail>0 and existing==0 and bademail>0:
-                    form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
-                    return redirect('registerusers')
-                elif value==0 and fail>0 and existing>0 and bademail==0:
-                    form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of user-account already exist: {existing}')
-                    return redirect('registerusers')
-                elif value==0 and fail>0 and existing>0 and bademail>0:
-                    form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
                     messages.info(request, f'Number of user-account already exist: {existing}')
                     messages.info(request, f'Number of invalid email address: {bademail}')
                     return redirect('registerusers')
-  
-                elif value>0 and fail==0 and existing==0 and bademail>0:
+                elif value == 0 and fail > 0 and existing == 0 and bademail == 0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account not added: {fail}')
+                    return redirect('registerusers')
+                elif value == 0 and fail > 0 and existing == 0 and bademail > 0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    return redirect('registerusers')
+                elif value == 0 and fail > 0 and existing > 0 and bademail == 0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    return redirect('registerusers')
+                elif value == 0 and fail > 0 and existing > 0 and bademail > 0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    return redirect('registerusers')
+
+                elif value > 0 and fail == 0 and existing == 0 and bademail > 0:
                     form = request.POST
                     messages.info(request, f'Number of user-account added successfully: {value}')
                     messages.info(request, f'Number of invalid email address: {bademail}')
                     return redirect('registerusers')
-                elif value>0 and fail==0 and existing>0 and bademail==0:
+                elif value > 0 and fail == 0 and existing > 0 and bademail == 0:
                     form = request.POST
                     messages.info(request, f'Number of user-account added successfully: {value}')
                     messages.info(request, f'Number of user-account already exist: {existing}')
                     return redirect('registerusers')
-                elif value>0 and fail==0 and existing>0 and bademail>0:
+                elif value > 0 and fail == 0 and existing > 0 and bademail > 0:
                     form = request.POST
                     messages.info(request, f'Number of user-account added successfully: {value}')
                     messages.info(request, f'Number of user-account already exist: {existing}')
                     messages.info(request, f'Number of invalid email address: {bademail}')
                     return redirect('registerusers')
-                elif value>0 and fail>0 and existing==0 and bademail==0:
+                elif value > 0 and fail > 0 and existing == 0 and bademail == 0:
                     form = request.POST
                     messages.info(request, f'Number of user-account added successfully: {value}')
                     messages.info(request, f'Number of user-account already exist: {fail}')
                     return redirect('registerusers')
-                elif value>0 and fail>0 and existing==0 and bademail>0:
+                elif value > 0 and fail > 0 and existing == 0 and bademail > 0:
                     form = request.POST
                     messages.info(request, f'Number of user-account added successfully: {value}')
                     messages.info(request, f'Number of user-account not added: {fail}')
                     messages.info(request, f'Number of invalid email address: {bademail}')
                     return redirect('registerusers')
-                elif value>0 and fail>0 and existing>0 and bademail==0:
+                elif value > 0 and fail > 0 and existing > 0 and bademail == 0:
                     form = request.POST
                     messages.info(request, f'Number of user-account added successfully: {value}')
-                    messages.info(request, f'Number of user-account not added: {fail}')  
-                    messages.info(request, f'Number of user-account already exist: {existing}')      
-                    return redirect('registerusers')
-                elif value>0 and fail>0 and existing>0 and bademail>0:
-                    form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
-                    messages.info(request, f'Number of user-account not added: {fail}')  
+                    messages.info(request, f'Number of user-account not added: {fail}')
                     messages.info(request, f'Number of user-account already exist: {existing}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')      
+                    return redirect('registerusers')
+                elif value > 0 and fail > 0 and existing > 0 and bademail > 0:
+                    form = request.POST
+                    messages.info(request, f'Number of user-account added successfully: {value}')
+                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of invalid email address: {bademail}')
                     return redirect('registerusers')
                 else:
                     form = request.POST
-                    messages.success(request, f'Number of user-account added successfully: {value}')            
+                    messages.success(request, f'Number of user-account added successfully: {value}')
                     return redirect('users')
     else:
         form = UploadFileForm()
     return render(request,
                   'account/registerusers.html',
-                  {'form' : form})
+                  {'form': form})
+
 
 @login_required
 def aboutus(request):
@@ -239,31 +252,35 @@ def aboutus(request):
                   'account/aboutus.html',
                   {'section': 'aboutus'})
 
+
 @login_required
 def users(request):
-    registeredUsers = User.objects.filter(is_superuser = False)
-    return render(request, 'account/viewUsers.html', {'registeredUsers' : registeredUsers})
+    registeredUsers = User.objects.filter(is_superuser=False)
+    return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
+
 
 @login_required
 def myprogram(request):
     return render(request,
                   'account/myprogram.html',
                   {'section': 'myprogram'})
+
+
 @login_required
 def programs(request):
     return render(request,
                   'account/programs.html',
                   {'section': 'programs'})
+
+
 @login_required
 def edit(request):
-
     activated = False
     print(request.user.profile.profile_filled)
-    if(request.user.profile.profile_filled):
+    if (request.user.profile.profile_filled):
         activated = True
     else:
         activated = False
-
 
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user,
@@ -288,46 +305,72 @@ def edit(request):
                   'account/edit.html',
                   {'user_form': user_form,
                    'profile_form': profile_form,
-                   'activated':activated})
-
-
+                   'activated': activated})
 
 
 @login_required
-def profile(request,pk):
+def profile(request, pk):
     pro = Profile.objects.get(user_id=pk)
     return render(request,
                   'account/profile.html',
                   {'user': pro})
+
 
 @login_required
 def cms_frame(request):
     return render(request,
                   'account/cms_frame.html',
                   {'section': 'cms_frame'})
+
+
 @login_required
 def django_frame(request):
     return render(request,
                   'account/django_frame.html',
                   {'section': 'django_frame'})
 
+
+'''
 @login_required
 def archive(request):
-    # print(request)
-    # archive_user= get_object_or_404(User, pk=pk)
-    # archive_user = User.objects.filter(username= request.user.username)
-    # if request.method == 'POST':
-    # archive = Program.objects.filter("Spring 2019")
-    name="Spring 2019"
+    form = UploadFileForm()
+    program = 'program_name'
     # archive = Program.objects.all().filter(program_name=name)[0]
 
     archive = User.objects.all()
+    #profilex = Profile.objects.get()
     print(archive)
     for archive in archive :
         if(archive.is_superuser == False):
             archive.is_active = False
             archive.save()
-            print(archive)
+            #messages.success(request, 'Users archived successfully')
+        else:
+            form = UploadFileForm()
     return render(request,
                   'account/archive.html',
-                  {'archive': 'archive'})
+                  {'section': 'archive', 'form': form})'''
+
+
+@login_required
+def archive(request):
+    if request.method == 'POST':
+        form = programArchiveForm(request.POST)
+        if form.is_valid():
+            theProgram = Program.objects.all().filter(program_name=form.cleaned_data['program'])[0]
+            profiles = Profile.objects.all().filter(program=theProgram)
+            for theProfile in profiles:
+                if (theProfile.user.is_superuser == False):
+                    theUser = theProfile.user
+                    theUser.is_active = False
+                    theUser.save()
+                    messages.success(request, 'Users archived successfully')
+            return redirect('archive')
+        else:
+            messages.error(request, 'Error creating Program. Retry!')
+            # messages.success(request, 'Users archived successfully')
+    else:
+        form = programArchiveForm()
+    return render(request,
+                  'account/archive.html',
+                  {'section': 'archive', 'form': form})

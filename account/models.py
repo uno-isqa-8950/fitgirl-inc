@@ -12,6 +12,7 @@ from datetime import datetime
 EVENT = (
     (1, _("8-10")),
     (2, _("11-13")),
+    (3, _("14-16")),
 )
 
 
@@ -41,13 +42,13 @@ class RegisterUser(models.Model):
     is_active = models.BooleanField(_('active'), default =True)
     program = models.CharField(max_length=50, default='Test')
 
-class InspirationalQuotes(models.Model):
+class InspirationalQuote(models.Model):
     quote = models.CharField(max_length=500, blank=True, null=True)
     
     def __str__(self):
         return str(self.quote)
 
-class Affirmations(models.Model):
+class Affirmation(models.Model):
     affirmation = models.CharField(max_length=500, blank=True, null=True)
 
 
@@ -61,8 +62,7 @@ class Profile(models.Model):
     zip = models.IntegerField(blank=True, null=True)
     city = models.CharField(max_length=25, blank=True, null=True)
     state = models.CharField(max_length=25, blank=True, null=True)
-    day_phone = models.CharField(blank=True, null=True, max_length=13)
-    eve_phone = models.CharField(blank=True, null=True, max_length=13)
+    contact_no = models.CharField(blank=True, null=True, max_length=13)
     age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
     school = models.CharField(max_length=50, blank=True, null=True)
     points = models.IntegerField(default=0,blank=True, null=True)
@@ -78,7 +78,7 @@ class Profile(models.Model):
     @property
     def age(self):
         if self.date_of_birth is None:
-            return "None";
+            return None;
         else:
             return int((datetime.now().date() - self.date_of_birth).days / 365.25)
 
