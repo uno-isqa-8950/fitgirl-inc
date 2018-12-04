@@ -189,9 +189,7 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 
-AWS_HEADERS= {
-    'Access-Control-Allow-Origin': '*'
-}
+
 
 AWS_LOCATION = 'static'
 
