@@ -37,7 +37,8 @@
     <!--Advertisement-->
     <div class="img-responsive" style="text-align: center;">
         <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
-            {% image page.get_parent.specific.ad_image max-1110x80 %}
+            {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
+                <img src="{{ ad_photo.url }}" class="img-fluid"/>
         </a>
     </div>
     <!--End Advertisement-->
