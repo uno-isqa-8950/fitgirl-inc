@@ -100,7 +100,11 @@ def handle_uploaded_file(request, name):
                         targetUser.save()
                         targetProfile = targetUser.profile
                         targetProfile.program = Program.objects.all().filter(program_name=name)[0]
+                        targetProfile.points = 0
+                        targetProfile.pre_assessment = 'No'
+                        targetProfile.post_assessment = 'No'
                         targetProfile.save()
+                        count += 1
 
                     else:
                         vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
@@ -156,7 +160,7 @@ def registerusers(request):
 
                 if value==0 and fail==0 and existing==0 and bademail==0:
                     form = request.POST
-                    messages.error(request, 'Your upload file is empty!')
+                    messages.error(request, 'Your upload file is empty.Try again!')
                     return redirect('registerusers')
                 elif value==0 and fail==0 and existing==0 and bademail>0:
                     form = request.POST
@@ -325,17 +329,17 @@ def archive(request):
     if request.method == 'POST':
         form = programArchiveForm(request.POST)
         if form.is_valid():
-            theProgram =  Program.objects.all().filter(program_name = form.cleaned_data['program'])[0]
+            theProgram =  Program.objects.all().filter(program_name = form.cleaned_data['programs'])[0]
             profiles =Profile.objects.all().filter(program = theProgram)
             for theProfile in profiles:
                 if(theProfile.user.is_superuser == False):
                     theUser = theProfile.user
                     theUser.is_active = False
                     theUser.save()
-                    messages.success(request, 'Users archived successfully')
+            messages.success(request, 'Users archived successfully')
             return redirect('archive')
         else:
-                    messages.error(request, 'Error creating Program. Retry!')
+                    messages.error(request, 'Error archiving users. Retry!')
                     #messages.success(request, 'Users archived successfully')
     else:
         form = programArchiveForm()

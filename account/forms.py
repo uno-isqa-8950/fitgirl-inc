@@ -27,11 +27,11 @@ def my_choices():
 
 class programArchiveForm(forms.Form):
 
-    program =  forms.ChoiceField(widget=forms.Select, choices=my_choices())
+
 
     def __init__(self, *args,**kwargs):
         super(programArchiveForm, self).__init__(*args, **kwargs)
-        self.fields['program'] = forms.ChoiceField(
+        self.fields['programs'] = forms.ChoiceField(
             choices=my_choices())
 
 
