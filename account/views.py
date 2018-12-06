@@ -100,6 +100,9 @@ def handle_uploaded_file(request, name):
                         targetUser.save()
                         targetProfile = targetUser.profile
                         targetProfile.program = Program.objects.all().filter(program_name=name)[0]
+                        targetProfile.points = 0
+                        targetProfile.pre_assessment = 'No'
+                        targetProfile.post_assessment = 'No'
                         targetProfile.save()
 
                     else:
