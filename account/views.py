@@ -160,7 +160,7 @@ def registerusers(request):
 
                 if value==0 and fail==0 and existing==0 and bademail==0:
                     form = request.POST
-                    messages.error(request, 'Your upload file is empty!')
+                    messages.error(request, 'Your upload file is empty.Try again!')
                     return redirect('registerusers')
                 elif value==0 and fail==0 and existing==0 and bademail>0:
                     form = request.POST
@@ -329,7 +329,7 @@ def archive(request):
     if request.method == 'POST':
         form = programArchiveForm(request.POST)
         if form.is_valid():
-            theProgram =  Program.objects.all().filter(program_name = form.cleaned_data['program'])[0]
+            theProgram =  Program.objects.all().filter(program_name = form.cleaned_data['programs'])[0]
             profiles =Profile.objects.all().filter(program = theProgram)
             for theProfile in profiles:
                 if(theProfile.user.is_superuser == False):
@@ -339,7 +339,7 @@ def archive(request):
             messages.success(request, 'Users archived successfully')
             return redirect('archive')
         else:
-                    messages.error(request, 'Error creating Program. Retry!')
+                    messages.error(request, 'Error archiving users. Retry!')
                     #messages.success(request, 'Users archived successfully')
     else:
         form = programArchiveForm()
