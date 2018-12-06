@@ -104,6 +104,7 @@ def handle_uploaded_file(request, name):
                         targetProfile.pre_assessment = 'No'
                         targetProfile.post_assessment = 'No'
                         targetProfile.save()
+                        count += 1
 
                     else:
                         vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
