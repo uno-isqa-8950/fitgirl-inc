@@ -332,7 +332,7 @@ def archive(request):
                     theUser = theProfile.user
                     theUser.is_active = False
                     theUser.save()
-                    messages.success(request, 'Users archived successfully')
+            messages.success(request, 'Users archived successfully')
             return redirect('archive')
         else:
                     messages.error(request, 'Error creating Program. Retry!')
