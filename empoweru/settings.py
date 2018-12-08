@@ -191,8 +191,8 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 # AWS_LOCATION = 'static'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_PRELOAD_METADATA = True
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
-MEDIA_URL = "https://%s/media/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
 
 
 COMPRESS_ROOT = ''
@@ -213,7 +213,7 @@ MEDIAFILES_DIRS = [
 AWS_HEADERS = {
     'Access-Control-Allow-Origin': '*'
 }
-
+AWS_DEFAULT_ACL = None
 
 
 
