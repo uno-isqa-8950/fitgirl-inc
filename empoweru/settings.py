@@ -193,9 +193,8 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_PRELOAD_METADATA = True
 STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN + '/'
-MEDIA_ROOT = ''
-
+MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 COMPRESS_ROOT = ''
 
 STATICFILES_FINDERS = [
