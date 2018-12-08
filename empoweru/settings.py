@@ -172,8 +172,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
-STATICFILES_STORAGE = 'storage_backends.StaticStorage'
-DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 COMPRESS_STORAGE = STATICFILES_STORAGE
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
