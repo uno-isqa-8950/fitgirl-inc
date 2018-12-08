@@ -173,8 +173,7 @@ USE_TZ = True
 STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-#DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 COMPRESS_STORAGE = STATICFILES_STORAGE
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
@@ -193,8 +192,8 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_PRELOAD_METADATA = True
 STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
-
+MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN + '/'
+MEDIA_ROOT = ''
 
 COMPRESS_ROOT = ''
 
