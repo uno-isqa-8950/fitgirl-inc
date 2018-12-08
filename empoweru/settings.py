@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.modeladmin',
@@ -60,7 +61,6 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'crispy_forms',
     'storages',
-    'compressor',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +85,6 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.media',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -171,49 +170,36 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATICFILES_LOCATION = 'static'
-MEDIAFILES_LOCATION = 'media'
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-COMPRESS_STORAGE = STATICFILES_STORAGE
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
 
-
-AWS_QUERYSTRING_AUTH = False
-AWS_STORAGE_BUCKET_NAME = 'fitgirl'
-AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-
-
-
-# AWS_LOCATION = 'static'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_PRELOAD_METADATA = True
-STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-COMPRESS_ROOT = ''
-
-STATICFILES_FINDERS = [
-  'django.contrib.staticfiles.finders.FileSystemFinder',
-  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-  'compressor.finders.CompressorFinder',
-]
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# MEDIAFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'media'),
-# ]
+
+AWS_STORAGE_BUCKET_NAME = 'fitgirl'
+AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+
+
+AWS_LOCATION = 'static'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+
+DEFAULT_FILE_STORAGE = 'empoweru.storage_backends.MediaStorage'
+
+
 AWS_HEADERS = {
     'Access-Control-Allow-Origin': '*'
 }
-AWS_DEFAULT_ACL = None
+
 
 
 
