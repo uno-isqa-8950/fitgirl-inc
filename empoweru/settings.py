@@ -176,6 +176,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+MEDIAFILES_DIRS = [
+    os.path.join(BASE_DIR, 'media'),
+]
 
 AWS_STORAGE_BUCKET_NAME = 'fitgirl-inc'
 AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')
