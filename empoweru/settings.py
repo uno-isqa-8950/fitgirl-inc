@@ -207,9 +207,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIAFILES_DIRS = [
-    os.path.join(BASE_DIR, 'media'),
-]
+# MEDIAFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'media'),
+# ]
 AWS_HEADERS = {
     'Access-Control-Allow-Origin': '*'
 }
