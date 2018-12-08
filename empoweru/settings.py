@@ -170,37 +170,45 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
+STATICFILES_LOCATION = 'static'
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_STORAGE = 'storage_backends.StaticStorage'
+DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'
+COMPRESS_STORAGE = STATICFILES_STORAGE
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIAFILES_DIRS = [
-    os.path.join(BASE_DIR, 'media'),
-]
+# MEDIAFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'media'),
+# ]
 
 AWS_STORAGE_BUCKET_NAME = 'fitgirl'
 AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-
 
 
 # AWS_LOCATION = 'static'
-STATICFILES_LOCATION = 'static'
-MEDIAFILES_LOCATION = 'media'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-STATICFILES_STORAGE = 'storage_backends.StaticStorage'
-DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'
 
+AWS_PRELOAD_METADATA = True
+COMPRESS_ROOT = ''
+
+STATICFILES_FINDERS = [
+  'django.contrib.staticfiles.finders.FileSystemFinder',
+  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+  'compressor.finders.CompressorFinder',
+]
 
 
 AWS_HEADERS = {
