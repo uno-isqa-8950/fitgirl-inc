@@ -55,12 +55,10 @@ class ProfileEditForm(forms.ModelForm):
     photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}))
     bio = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
     date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'class':'form-control','type':'date','placeholder':'mm/dd/yyyy format'}))
-    address = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':'Enter your Address'}))
     zip = forms.IntegerField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Zip-Code'}))
     city = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
     state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
     day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
-    eve_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
     school = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'School Name'}))
 
