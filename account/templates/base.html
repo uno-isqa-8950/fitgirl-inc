@@ -76,7 +76,7 @@
                   {% if request.user.is_staff %}
                       <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg" height="30" width="30">
                   {% else %}
-                      <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" height="30" width="30" style="height: 30px;width: 30px">
+                      <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30" width="30" style="height: 30px;width: 30px">
                   {% endif %}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right stylish-color" >
