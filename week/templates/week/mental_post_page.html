@@ -11,7 +11,7 @@
     <br>
     <br>
   <h1 style="text-align: center;">{{ page.title }}</h1>
-{{ page.body|richtext }}
+    <h3 style="text-align: center;">{{ page.body|richtext }}</h3>
 <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
         {% for post in page.get_children %}
             {% image post.specific.display_image original as reward_image %}
