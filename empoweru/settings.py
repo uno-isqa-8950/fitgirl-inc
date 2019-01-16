@@ -113,27 +113,17 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd4br3qegmoba7s',
-        'USER': 'vlpfizeviactfl',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
         'PASSWORD':os.environ.get('DB_PASSWORD'),
-        'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
 
 
-## Local Setting
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'empoweru3',
-#         'USER': 'postgres',
-#         'PASSWORD': 'instructor1a',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -177,7 +167,7 @@ STATICFILES_DIRS = [
 ]
 
 
-AWS_STORAGE_BUCKET_NAME = 'fitgirl'
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
@@ -213,11 +203,11 @@ LOGOUT_URL = 'logout'
 WAGTAIL_SITE_NAME = 'EmpowerU'
 
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'capstone18FA'
-EMAIL_HOST_PASSWORD = 'Isqa8950-002'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
