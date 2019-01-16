@@ -116,8 +116,8 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd4br3qegmoba7s',
-        'USER': 'vlpfizeviactfl',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
         'PASSWORD':os.environ.get('DB_PASSWORD'),
         'HOST': 'ec2-54-83-27-165.compute-1.amazonaws.com',
         'PORT': '5432',
