@@ -41,7 +41,7 @@
                     <!--<a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>-->
                   <!--</li>-->
             <li class="nav-item ">
-                    <a class="nav-link hoverable"  href="/pages/resources/" style="background-color: rgba(255,255,255,.1);">What's Happening</a>
+                    <a class="nav-link hoverable"  href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
                   </li>
                 {% endif %}
             {% endif %}
@@ -76,7 +76,7 @@
                   {% if request.user.is_staff %}
                       <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg" height="30" width="30">
                   {% else %}
-                      <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" height="30" width="30" style="height: 30px;width: 30px">
+                      <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30" width="30" style="height: 30px;width: 30px">
                   {% endif %}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right stylish-color" >
@@ -133,7 +133,7 @@
     <footer style="bottom:0px; width:100%;">
         <nav class="navbar navbar-expand-lg navbar-dark grey darken-1" style="border-top: 4px solid #ed217c; border-bottom: 0px">
             <!--<div>-->
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="width: 100%; text-align: center; display: inline-block; height: 55px;">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="width: 100%; text-align: center; display: inline-block; height: max-content;">
                   <div class="carousel-inner" style="width: 100%; text-align: center; display: inline-block;">
                       {% for quote in quotes %}
                         <div class="carousel-item">

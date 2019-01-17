@@ -10,21 +10,23 @@
 <div class ="container">
     <br>
     <br>
-  <h1>{{ page.title }}</h1>
-{{ page.body|richtext }}
-<div class="card-deck ">
+  <h1 style="text-align: center;">{{ page.title }}</h1>
+    <h3 style="text-align: center;">{{ page.body|richtext }}</h3>
+<div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
         {% for post in page.get_children %}
             {% image post.specific.display_image original as reward_image %}
+    <div class="col-sm-4 mt-3">
                 <div class="card hoverable">
                       <a href ="{% pageurl post %}">
 
-                          <img class="card-img-top" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 10vw; object-fit: cover;"/>
+                          <img class="card-img-top img-responsive" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: fill;"/>
 
-                          <div class="card-body">
+                          <div class="card-body bg-dark">
                               <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
                       <!--<p class="card-text">{{ post.specific.intro|richtext}}</p>-->
                     </div>
                       </a>
+     </div>
                   </div>
         {% endfor %}
     </div>
@@ -37,7 +39,8 @@
     <!--Advertisement-->
     <div class="img-responsive" style="text-align: center;">
         <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
-            {% image page.get_parent.specific.ad_image max-1110x80 %}
+            {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
+                <img src="{{ ad_photo.url }}" class="img-fluid"/>
         </a>
     </div>
     <!--End Advertisement-->

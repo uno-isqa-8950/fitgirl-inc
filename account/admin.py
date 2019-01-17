@@ -50,4 +50,3 @@ class InspirationalAdmin(admin.ModelAdmin):
     InspirationalQuote = 'Inspirational Quotes'
 admin.site.register(InspirationalQuote, InspirationalAdmin)
 
-

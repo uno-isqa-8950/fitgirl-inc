@@ -22,7 +22,7 @@
                 </h5>
 
 
-<div class="media"><img  src="{{ user.user.profile.photo.url }}" alt="Profile pic" style="width:80px;height:80px;border:1px;" class="img-fluid rounded-circle"></div>
+<div class="media"><img  src="{{ user.user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:80px;height:80px;border:1px;" class="img-fluid rounded-circle"></div>
             </div>
             <!--Card content-->
             <div>
@@ -91,11 +91,7 @@
                     <br>
                     <!--  Address  -->
                     <div class="form-row">
-                        <div class="col" >
-                            <label for="materialRegisterFormPhone"><strong>Address: </strong>{{ user.address }}</label>
-
-                        </div>
-
+           
                         <div class="col">
                             <div >
                                 <label for="materialRegisterFormPhone"><strong>Zip: </strong>{{ user.zip }}</label>
@@ -130,12 +126,7 @@
                         </div>
 
 
-                        <div class="col">
-                            <div >
-                                <label for="materialRegisterFormPhone"><strong>Eve Phone: </strong>{{ user.eve_phone }}</label>
-
-                            </div>
-                        </div>
+                      
                     </div>
                     <br>
                     <div class="form-row">
