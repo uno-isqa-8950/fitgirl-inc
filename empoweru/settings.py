@@ -11,6 +11,9 @@ import os
 from decouple import config
 import os
 
+
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -218,7 +221,9 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 # https://warehouse.python.org/project/whitenoise/
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-# try:
-#     from local_settings import *
-# except ImportError:
-#     pass
+
+try:
+    from empoweru.local_settings import *
+except ImportError:
+    raise Exception("A local_settings.py file is required to run this project")
+
