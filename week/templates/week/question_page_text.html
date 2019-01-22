@@ -12,6 +12,7 @@
         {% if user.is_authenticated and user.is_active or request.is_preview %}
             {% if form %}
                 <div>{{ page.intro|richtext }}</div>
+                <div>{{ page.description|richtext }}</div>
                 <form action="{% pageurl page %}" method="POST">
 
                     {% csrf_token %}

@@ -8,7 +8,8 @@
         <br>
         <br>
         <h1 style="text-align: center;">{{ page.title }}</h1>
-        <h3 style="text-align: center;"> {{ page.description|richtext }}</h3>
+        <h2 style="text-align: center;"> {{ page.intro|richtext }}</h2>
+        <h4 style="text-align: center;"> {{ page.description|richtext }}</h4>
         <!--Card Content-->
         <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
             {% now "Y-m-d" as current_date %}
