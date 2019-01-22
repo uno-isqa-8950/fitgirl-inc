@@ -1,5 +1,5 @@
 body{
-    background: #f4f4f4;  
+    background: #f4f4f4;
 }
 
 .btn-fitgirl {
@@ -36,7 +36,7 @@ body{
   }
   .navbar .navbar-text a:hover,
   .navbar .navbar-text a:focus {
-    color: #fcfbfe; 
+    color: #fcfbfe;
   }
   .navbar .navbar-nav .nav-link {
     color: #ecf0f1;
@@ -101,10 +101,10 @@ body{
     border: #ed217c !important;
     color: #ffffff;
     font-weight: bold;
-    
+
 
 }
-  
+
   @media (max-width: 575px) {
     .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -118,7 +118,7 @@ body{
       background-color: #e07dc4;
     }
   }
-  
+
   @media (max-width: 767px) {
     .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -132,7 +132,7 @@ body{
       background-color: #e07dc4;
     }
   }
-  
+
   @media (max-width: 991px) {
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -146,7 +146,7 @@ body{
       background-color: #e07dc4;
     }
   }
-  
+
    @media (max-width: 1199px) {
     .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -172,9 +172,9 @@ body{
     color: #fcfbfe;
     background-color: #e07dc4;
   }
-  
 
- 
+
+
 
 
 
@@ -194,8 +194,8 @@ body{
 }
 
 #header .create{
-    padding-top:    5px;  
-    padding-bottom: 0px;   
+    padding-top:    5px;
+    padding-bottom: 0px;
 }
 
 /*Breadcrumb*/
@@ -204,8 +204,8 @@ body{
     background: #cccccc;
     color: #333333;
     margin-bottom: 4px;
-   
-    
+
+
 }
 
 .breadcrumb a{
@@ -213,7 +213,7 @@ body{
 }
 
 
-  
+
 @media (max-width: 991px) {
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -227,22 +227,32 @@ body{
       background-color: #ff74af
     }
   }
-  
-  
-  
+
+
+
 /* CARD */
 
 #main.card{
     padding-bottom: 0px;
 }
 
-/* Changed color from blue to pink _Srishty */
-
- .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
- background-color: #e83e8c;
- }
-
-.horizontal-banner{        /*adding banner space_Srishty */
-    margin-top: 40px;
-    margin-bottom: -5px;
+.aboutus-container {
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
 }
+
+.aboutus-container-parent{
+        margin: 0 auto;
+}
+.aboutus-container h1{
+
+
+
+}
+
+.aboutus-container p{
+    line-height: 150%;
+
+}
+
