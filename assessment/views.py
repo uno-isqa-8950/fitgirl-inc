@@ -9,3 +9,8 @@ def post_assessment(request):
     return render(request,
                   'assessment/post_assessment.html',
                   {'section': 'post_assessment'})
+
+def coloring(request):
+    return render(request,
+                  'assessment/coloring.html',
+                  {})
