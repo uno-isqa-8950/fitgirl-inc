@@ -235,6 +235,16 @@ body{
 #main.card{
     padding-bottom: 0px;
 }
+/* Changed color from blue to pink _Srishty */
+
+ .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+ background-color: #e83e8c;
+ }
+
+.horizontal-banner{        /*adding banner space_Srishty */
+    margin-top: 40px;
+    margin-bottom: -5px;
+}
 
 .aboutus-container {
     width: 60%;
