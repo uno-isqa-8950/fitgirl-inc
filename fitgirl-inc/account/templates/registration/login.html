@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login</title>
+
+  <!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap core CSS -->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/css/mdb.min.css" rel="stylesheet">
+<link href="{% static 'css/login.css' %}" rel="stylesheet">
+</head>
+
+
+
+<body>
+ <!-- Main navigation -->
+<header>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark  grey darken-1 scrolling-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+         <img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">About Us
+                <li>
+                <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources  <!--adding Parent Resources tab_Srishty -->
+                <span class="sr-only">(current)</span>    <!--adding External Link Parent Resources_Srishty -->
+              </a>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+    <!-- Full Page Intro -->
+
+<!--     <div class="background-image" style="background: url({%  static 'images/lgo.jpg' %} ) no-repeat; background-size: 100%;"> -->
+      <!-- Mask & flexbox options-->
+      <div class=" d-flex justify-content-center align-items-center">
+        <!-- Content -->
+        <div class="container">
+          <!--Grid row-->
+          <div class="row pt-lg-5 mt-lg-5">
+            <!--Grid column-->
+            <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-center text-md-left wow fadeInLeft" data-wow-delay="0.3s">
+              <h1 class="display-4 font-weight-bold"><img src="{% static 'images/logologin.png' %}" alt="logo" height="100"/></h1>
+              <hr class="hr-dark">
+              <h6 class="mb-3 text-dark">The mission of FITGirl, Inc. is to empower young girls as they develop and mature by demonstrating positive lifestyle choices; physical, mental, relational and nutritional.
+              </h6>
+
+            </div>
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="col-md-6 col-xl-5 mb-4">
+              <!--Form-->
+              <form class="card wow fadeInRight" data-wow-delay="0.3s" method="POST" action="">{% csrf_token %}
+                <div class="card-body z-depth-2">
+                  <!--Header-->
+                  <div class="text-center">
+                    <h3 class="dark-grey-text">
+                      <strong>Login</strong>
+                      {% if form.errors %}
+                  		<div class="alert alert-danger">
+                		<strong><p>Incorrect username or password</p></strong>
+            			</div>
+                    {% endif%}
+                    </h3>
+                    <hr>
+                  </div>
+                  <!--Body-->
+                  <div class="md-form">
+                    <i class="fa fa-user prefix grey-text"></i>
+                    <input type="text" id="form3" name="username" class="form-control">
+                    <label for="form3">Username</label>
+                  </div>
+                  <div class="md-form">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" id="form2" name="password" class="form-control">
+                    <label for="form2">Enter Password</label>
+                  </div>
+
+                  <div class="text-center mt-3">
+                    <button class="btn btn-fitgirl" type="submit" value="login">Login</button>
+                    <hr>
+                      <p><a href="{% url 'password_reset' %}">Forgotten your password?</a></p>
+                  </div>
+                </div>
+              </form>
+              <!--/.Form-->
+            </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
+        </div>
+        <!-- Content -->
+      </div>
+      <!-- Mask & flexbox options-->
+    </div>
+    <!-- Full Page Intro -->
+  </header>
+  <!-- Main navigation -->
+
+
+
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/js/mdb.min.js"></script>
+
+<script> new WOW().init();
+</script>
+</body>
+
+</html>

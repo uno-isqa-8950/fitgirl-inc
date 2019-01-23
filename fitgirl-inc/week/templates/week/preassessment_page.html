@@ -1,0 +1,32 @@
+{% extends "account/dashboard.html" %}
+{% load wagtailcore_tags %}
+
+{% block dash_content %}
+<div class ="container">
+    <br>
+    <br>
+        <h1>{{ page.title }}</h1>
+
+        {% if user.is_authenticated and user.is_active or request.is_preview %}
+            {% if form %}
+                <div>{{ page.intro|richtext }}</div>
+                <form action="{% pageurl page %}" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <!--<input class="btn btn-primary" type="submit" value="'NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i>'">-->
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-pink pull-right">NEXT
+                        <i class="fa fa-arrow-circle-right"></i>
+                    </button>
+                </form>
+            {% else %}
+                <div>You have already answered this. Go to the next question.</div>
+            {% endif %}
+        {% else %}
+            <div>To fill in the form, you should log in.</div>
+        {% endif %}
+
+<!--<p><a href="{{ page.get_parent.url }}"> Return </a></p>-->
+{% endblock %}
+</div>
