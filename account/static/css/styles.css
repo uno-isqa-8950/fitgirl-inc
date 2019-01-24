@@ -16,7 +16,14 @@ body{
 }
 
 /* NAVBAR */
-
+/* fix for the top week section responsiveness - karthik */
+.navbar-parent{
+  width: 100%;
+}
+#example{
+  width: 100%;
+}
+/*  fix for the top week section responsiveness - karthik - ends here */
  .navbar {
     background-color: #757575;
     border-bottom:4px solid #ed217c;
@@ -235,4 +242,35 @@ body{
 #main.card{
     padding-bottom: 0px;
 }
- 
+/* styles for affirmations popup - karthik */
+.modal-title{
+  position: relative;
+  width: 100%;
+}
+.modal-title .navbar-brand{
+  position: relative;
+    top: -12px;
+    -webkit-animation: mymove 5s ; /* Safari 4.0 - 8.0 */
+    animation: mymove 5s ;
+}
+@-webkit-keyframes mymove {
+  from {left: 70%; opacity:0.2;}
+  to {left: 0;opacity:1;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+  from {left: 70%;opacity:0.2;}
+  to {left: 0;opacity:1;}
+}
+/* Safari 4.0 - 8.0 */
+.modal-title .navbar-brand {-webkit-animation-timing-function: linear;margin-top: 10px;
+  margin-bottom: -16px;}
+/* Standard syntax */
+.modal-title .navbar-brand {animation-timing-function: linear;margin-top: 10px;
+  margin-bottom: -16px;}
+
+.modal-footer button{
+  margin:0 auto;
+}
+/* styles for affirmations popup ends here - karthik */

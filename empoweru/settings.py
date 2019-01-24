@@ -213,9 +213,9 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 # https://warehouse.python.org/project/whitenoise/
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-'''
+
 try:
     from empoweru.local_settings import *
 except ImportError:
     raise Exception("A local_settings.py file is required to run this project")
-'''
+
