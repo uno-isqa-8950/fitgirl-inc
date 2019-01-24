@@ -219,3 +219,13 @@ try:
 except ImportError:
     raise Exception("A local_settings.py file is required to run this project")
 
+<<<<<<< HEAD
+=======
+# try:
+#     from local_settings import *
+# except ImportError:
+#     pass
+
+
+
+>>>>>>> adcec06e3065968d8b2f6d64068b1a0c4389894c
