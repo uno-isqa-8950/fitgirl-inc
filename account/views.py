@@ -246,7 +246,6 @@ def registerusers(request):
                   'account/registerusers.html',
                   {'form' : form})
 
-@login_required
 def aboutus(request):
     return render(request,
                   'account/aboutus.html',
