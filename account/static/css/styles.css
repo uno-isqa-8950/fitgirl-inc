@@ -7,6 +7,10 @@ body{
     color: #fff!important;
 }
 
+.btn-return{
+    margin-left:0;}
+
+ave
 .modal-dialog.modal-notify.modal-info .fa {
     color: #ed217c;
 }
@@ -91,7 +95,7 @@ body{
   }
   .navbar .navbar-link:hover {
     color: #fcfbfe;
-  } */
+  }
 
 
 
@@ -160,7 +164,7 @@ body{
       background-color: #e07dc4;
     }
   }
-   */
+
   /* .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
     color: #ecf0f1;
   }
