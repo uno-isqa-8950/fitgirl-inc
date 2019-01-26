@@ -49,6 +49,7 @@ class InspirationalQuotes(models.Model):
 
 class Affirmations(models.Model):
     affirmation = models.CharField(max_length=500, blank=True, null=True)
+    published_date = models.DateField(null=False, blank=False)
     
     def __str__(self):
         return str(self.affirmation)

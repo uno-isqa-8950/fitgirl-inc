@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
 from .forms import Profile,User, Program
-from .models import RegisterUser
+from .models import RegisterUser, Affirmations
 from io import TextIOWrapper, StringIO
 import re
 
@@ -16,6 +16,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from django.forms import ValidationError
+from datetime import datetime
+import datetime
 
 
 def user_login(request):
@@ -41,12 +43,17 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
+    today = datetime.date.today()
+
+    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+
+    affirmation = Affirmations.objects.filter(published_date__gte=today).filter(published_date__lt=tomorrow)
     if request.user.is_staff:
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard'})
+                  {'section': 'dashboard','affirmation':affirmation})
 
 @login_required
 def userdashboard(request):
