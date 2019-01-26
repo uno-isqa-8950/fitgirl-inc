@@ -8,7 +8,8 @@
         <br>
         <br>
         <h1 style="text-align: center;">{{ page.title }}</h1>
-        <h3 style="text-align: center;"> {{ page.description|richtext }}</h3>
+        <h2 style="text-align: center;"> {{ page.intro|richtext }}</h2>
+        <h4 style="text-align: center;"> {{ page.description|richtext }}</h4>
         <!--Card Content-->
         <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
             {% now "Y-m-d" as current_date %}
@@ -67,15 +68,22 @@
                 {% endif %}
             {% endfor %}
         </div>
+<<<<<<< HEAD
         <!--End Card Content-->
 
         </br>
         </br>
 
-        <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+        <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right btn-return"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+=======
+        <!--End Card Content-->  
+        <!--adding banner space_Srishty -->
+        <!--change wording on Return and align left side of buttons -->
+        <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right btn-return"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+>>>>>>> 6f797cd9b94a214c5c692bc6f9a237af613526a9
         <hr style="color: black; background: #333;">
         <!--Advertisement-->
-        <div class="img-responsive" style="text-align: center;">
+        <div class="img-responsive horizontal-banner" style="text-align: center;">
             <a target="_blank" href="{{ page.ad_url }}">
                 {% image page.ad_image width-800 as ad_photo %}
                 <img src="{{ ad_photo.url }}" class="img-fluid"/>

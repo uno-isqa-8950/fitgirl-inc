@@ -1,5 +1,5 @@
 body{
-    background: #f4f4f4;  
+    background: #f4f4f4;
 }
 
 .btn-fitgirl {
@@ -20,7 +20,14 @@ ave
 }
 
 /* NAVBAR */
-
+/* fix for the top week section responsiveness - karthik */
+.navbar-parent{
+  width: 100%;
+}
+#example{
+  width: 100%;
+}
+/*  fix for the top week section responsiveness - karthik - ends here */
  .navbar {
     background-color: #757575;
     border-bottom:4px solid #ed217c;
@@ -40,7 +47,7 @@ ave
   }
   .navbar .navbar-text a:hover,
   .navbar .navbar-text a:focus {
-    color: #fcfbfe; 
+    color: #fcfbfe;
   }
   .navbar .navbar-nav .nav-link {
     color: #ecf0f1;
@@ -105,10 +112,10 @@ ave
     border: #ed217c !important;
     color: #ffffff;
     font-weight: bold;
-    
+
 
 }
-  
+
   @media (max-width: 575px) {
     .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -122,7 +129,7 @@ ave
       background-color: #e07dc4;
     }
   }
-  
+
   @media (max-width: 767px) {
     .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -136,7 +143,7 @@ ave
       background-color: #e07dc4;
     }
   }
-  
+
   @media (max-width: 991px) {
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -150,7 +157,7 @@ ave
       background-color: #e07dc4;
     }
   }
-  
+
    @media (max-width: 1199px) {
     .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -176,9 +183,9 @@ ave
     color: #fcfbfe;
     background-color: #e07dc4;
   }
-  
 
- 
+
+
 
 
 
@@ -198,8 +205,8 @@ ave
 }
 
 #header .create{
-    padding-top:    5px;  
-    padding-bottom: 0px;   
+    padding-top:    5px;
+    padding-bottom: 0px;
 }
 
 /*Breadcrumb*/
@@ -208,8 +215,8 @@ ave
     background: #cccccc;
     color: #333333;
     margin-bottom: 4px;
-   
-    
+
+
 }
 
 .breadcrumb a{
@@ -217,7 +224,7 @@ ave
 }
 
 
-  
+
 @media (max-width: 991px) {
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -231,12 +238,76 @@ ave
       background-color: #ff74af
     }
   }
-  
-  
-  
+
+
+
 /* CARD */
 
 #main.card{
     padding-bottom: 0px;
 }
- 
+
+/* styles for affirmations popup - karthik */
+.modal-title{
+  position: relative;
+  width: 100%;
+}
+.modal-title .navbar-brand{
+  position: relative;
+    top: -12px;
+    -webkit-animation: mymove 5s ; /* Safari 4.0 - 8.0 */
+    animation: mymove 5s ;
+}
+@-webkit-keyframes mymove {
+  from {left: 70%; opacity:0.2;}
+  to {left: 0;opacity:1;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+  from {left: 70%;opacity:0.2;}
+  to {left: 0;opacity:1;}
+}
+/* Safari 4.0 - 8.0 */
+.modal-title .navbar-brand {-webkit-animation-timing-function: linear;margin-top: 10px;
+  margin-bottom: -16px;}
+/* Standard syntax */
+.modal-title .navbar-brand {animation-timing-function: linear;margin-top: 10px;
+  margin-bottom: -16px;}
+
+/* Changed color from blue to pink _Srishty */
+
+ .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+ background-color: #e83e8c;
+ }
+ .horizontal-banner{        /*adding banner space_Srishty */
+  margin-top: 40px;
+  margin-bottom: -5px;
+ }
+.modal-footer button{
+  margin:0 auto;
+}
+
+/* styles for affirmations popup ends here - karthik */
+
+
+.aboutus-container {
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.aboutus-container-parent{
+        margin: 0 auto;
+}
+.aboutus-container h1{
+
+
+
+}
+
+.aboutus-container p{
+    line-height: 150%;
+
+}
+

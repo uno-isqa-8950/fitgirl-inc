@@ -23,16 +23,17 @@
  <!-- Main navigation -->
 <header>
     <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-dark  grey darken-1 scrolling-navbar">
-      <div class="container">
-        <a class="navbar-brand" href="#">
+    <nav class="navbar navbar-expand-lg navbar-dark grey darken-1 scrolling-navbar">
+      <a class="navbar-brand" href="#">
          <img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/>
-        </a>
+      </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+      <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
           <ul class="navbar-nav mr-auto">
+
             <li class="nav-item active">
               <a class="nav-link" href="#">About Us
                 <span class="sr-only">(current)</span>
@@ -42,6 +43,15 @@
 
           </ul>
 
+              <li class="nav-item active">
+              <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href="{%url 'aboutus'%}">About Us</a>
+              </li>
+              <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources  <!--adding Parent Resources tab_Srishty -->
+                <span class="sr-only">(current)</span>    <!--adding External Link Parent Resources_Srishty -->
+              </a>
+
+
+          </ul>
         </div>
       </div>
     </nav>
@@ -127,6 +137,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/js/mdb.min.js"></script>
+
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 <script> new WOW().init();
 </script>

@@ -11,6 +11,7 @@
             {% if form %}
                 <div>{{ page.intro|richtext }}</div>
                 <form action="{% pageurl page %}" method="POST">
+
                     {% csrf_token %}
                     {{ form.as_p }}
                     <br>
