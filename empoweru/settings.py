@@ -195,15 +195,6 @@ EMAIL_USE_TLS = True
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-<<<<<<< HEAD
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-try:
-    from empoweru.local_settings import *
-except ImportError:
-    raise Exception("A local_settings.py file is required to run this project")
-
-=======
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -211,4 +202,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #     from local_settings import *
 # except ImportError:
 #     pass
->>>>>>> 6f797cd9b94a214c5c692bc6f9a237af613526a9
