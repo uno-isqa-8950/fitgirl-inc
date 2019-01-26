@@ -324,6 +324,15 @@ body{
   max-width: 500px;
   height: 100%;
 }
+.affirmations-text{
+display: block
+}
+.text-center{
+  text-align: center;
+}
+.text-center.affirmations-text{
+padding: 15px;
+}
 
 /* iphone X landscape orientation */
 @media only screen 
