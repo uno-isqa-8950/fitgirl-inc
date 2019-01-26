@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
 body{
     background: #f4f4f4;
 }
@@ -307,3 +309,58 @@ body{
 
 }
 
+  /* styling the affirmations popup - karthik*/
+#exampleModalCenter .modal-content {
+  background: url(../images/popup_bg.jpg);
+  background-repeat:repeat; 
+  opacity: 0.95;
+  font-family: 'Amatic SC', cursive;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+  /* fixing the different image sizea issue in the physical exercises - karthik*/
+.tab-pane .rich-text img{
+  max-width: 500px;
+  height: 100%;
+}
+
+/* iphone X landscape orientation */
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 812px) 
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : landscape) { /* STYLES GO HERE */}
+
+/* iphone X portrait orientation */
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 812px) 
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : portrait) {
+  /* making the physical exercise images responsive in the physical tabs - karthik*/
+  .tab-pane .rich-text img{
+    max-width: 315px !important;
+    height: 100% !important;
+  }
+}
+
+
+
+
+
+/* iPad in portrait & landscape */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)  { /* STYLES GO HERE */}
+
+/* iPad in landscape */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) { /* STYLES GO HERE */}
+/* iPad in portrait */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) { /* STYLES GO HERE */ }
