@@ -202,6 +202,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #     from local_settings import *
 # except ImportError:
 #     pass
-
-
-

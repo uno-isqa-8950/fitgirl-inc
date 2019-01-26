@@ -16,7 +16,11 @@
     <link href="{% static 'css/addons/datatables.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 	<title>{% block title %}{% endblock %}</title>
-	<link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+
+    <link href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.dataTables.css" rel="stylesheet"/> 
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet"/> 
 </head>
 <body>
 
@@ -53,10 +57,11 @@
          {% else %}
             <li class="nav-item ">
             <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "{%url 'aboutus'%}">About Us</a>
-
+          
                 <!--adding External Link Parent Resources_Srishty -->
-            </li>
-                <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
+              </li>
+              <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
+          
           </li>
 
         </ul>
@@ -106,7 +111,7 @@
                     <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li> -->
                     <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-edit fa-fw"></i> Edit Profile</a>
                     <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
-                    <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
+                    <a class="dropdown-item logout-button" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
                     {% endif %}
                 </ul>
             </li>
@@ -179,6 +184,7 @@
         <script src="{% static 'js/confetti.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 <script>
     $(document).ready(function () {
@@ -190,5 +196,31 @@
         background-color: #e3e3e3;
     }
 </style>
+<!-- <div id="JPO">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <button class="JPO_close">Close</button>
+      </div> -->
+      
+      <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                    <a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>
+              </h5>
+              <button type="button" class="close remove-popup" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer text-center">
+              <button type="button" class="btn btn-secondary btn-pink" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>    
 </body>
 </html>
