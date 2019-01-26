@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
 body{
     background: #f4f4f4;
 }
@@ -16,7 +18,14 @@ body{
 }
 
 /* NAVBAR */
-
+/* fix for the top week section responsiveness - karthik */
+.navbar-parent{
+  width: 100%;
+}
+#example{
+  width: 100%;
+}
+/*  fix for the top week section responsiveness - karthik - ends here */
  .navbar {
     background-color: #757575;
     border-bottom:4px solid #ed217c;
@@ -172,14 +181,6 @@ body{
     color: #fcfbfe;
     background-color: #e07dc4;
   }
-
-
-
-
-
-
-
-
 /* HEADER */
 
 #header{
@@ -235,16 +236,50 @@ body{
 #main.card{
     padding-bottom: 0px;
 }
+
+/* styles for affirmations popup - karthik */
+.modal-title{
+  position: relative;
+  width: 100%;
+}
+.modal-title .navbar-brand{
+  position: relative;
+    top: -12px;
+    -webkit-animation: mymove 5s ; /* Safari 4.0 - 8.0 */
+    animation: mymove 5s ;
+}
+@-webkit-keyframes mymove {
+  from {left: 70%; opacity:0.2;}
+  to {left: 0;opacity:1;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+  from {left: 70%;opacity:0.2;}
+  to {left: 0;opacity:1;}
+}
+/* Safari 4.0 - 8.0 */
+.modal-title .navbar-brand {-webkit-animation-timing-function: linear;margin-top: 10px;
+  margin-bottom: -16px;}
+/* Standard syntax */
+.modal-title .navbar-brand {animation-timing-function: linear;margin-top: 10px;
+  margin-bottom: -16px;}
+
 /* Changed color from blue to pink _Srishty */
 
  .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
  background-color: #e83e8c;
  }
-
-.horizontal-banner{        /*adding banner space_Srishty */
-    margin-top: 40px;
-    margin-bottom: -5px;
+ .horizontal-banner{        /*adding banner space_Srishty */
+  margin-top: 40px;
+  margin-bottom: -5px;
+ }
+.modal-footer button{
+  margin:0 auto;
 }
+
+/* styles for affirmations popup ends here - karthik */
+
 
 .aboutus-container {
     width: 60%;
@@ -266,3 +301,67 @@ body{
 
 }
 
+  /* styling the affirmations popup - karthik*/
+#exampleModalCenter .modal-content {
+  background: url(../images/popup_bg.jpg);
+  background-repeat:repeat;
+  opacity: 0.95;
+  font-family: 'Amatic SC', cursive;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+  /* fixing the different image sizea issue in the physical exercises - karthik*/
+.tab-pane .rich-text img{
+  max-width: 500px;
+  height: 100%;
+}
+.affirmations-text{
+display: block
+}
+.text-center{
+  text-align: center;
+}
+.text-center.affirmations-text{
+padding: 15px;
+}
+
+/* iphone X landscape orientation */
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 812px)
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : landscape) { /* STYLES GO HERE */}
+
+/* iphone X portrait orientation */
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 812px)
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : portrait) {
+  /* making the physical exercise images responsive in the physical tabs - karthik*/
+  .tab-pane .rich-text img{
+    max-width: 315px !important;
+    height: 100% !important;
+  }
+}
+
+
+
+
+
+/* iPad in portrait & landscape */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)  { /* STYLES GO HERE */}
+
+/* iPad in landscape */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) { /* STYLES GO HERE */}
+/* iPad in portrait */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) { /* STYLES GO HERE */ }
