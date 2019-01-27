@@ -44,6 +44,7 @@ class RegisterUser(models.Model):
 
 class InspirationalQuotes(models.Model):
     quote = models.CharField(max_length=500, blank=True, null=True)
+    quote_date = models.DateField(null=True, blank=False)
     
     def __str__(self):
         return str(self.quote)
