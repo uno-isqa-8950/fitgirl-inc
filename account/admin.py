@@ -49,8 +49,12 @@ class AffirmationAdmin(admin.ModelAdmin):
 
 admin.site.register(Affirmations, AffirmationAdmin)
 
+class DailyquoteAdmin(admin.ModelAdmin):
+    list_display = ('dailyquote', 'quote_date')
+    list_filter = ('dailyquote', 'quote_date')
+    search_fields = ('dailyquote', 'quote_date')
 
-admin.site.register(Dailyquote)
+admin.site.register(Dailyquote, DailyquoteAdmin)
 
 class InspirationalAdmin(admin.ModelAdmin):
     InspirationalQuote = 'Inspirational Quotes'
