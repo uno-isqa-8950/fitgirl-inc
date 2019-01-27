@@ -85,7 +85,7 @@ class Profile(models.Model):
         if self.date_of_birth is None:
             return "None";
         else:
-            return int((datetime.now().date() - self.date_of_birth).days / 365.25)
+            return int((datetime.date.today() - self.date_of_birth).days / 365.25)
 
 
 
