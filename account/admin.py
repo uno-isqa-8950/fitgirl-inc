@@ -43,9 +43,9 @@ admin.site.register(RegisterUser)
 
 class AffirmationAdmin(admin.ModelAdmin):
     Quotes = 'Quotes'
-    # list_display = ('affirmation', 'published_date')
-    # list_filter = ('affirmation', 'published_date')
-    # search_fields = ('affirmation', 'published_date')
+    list_display = ('affirmation', 'published_date')
+    list_filter = ('affirmation', 'published_date')
+    search_fields = ('affirmation', 'published_date')
 
 admin.site.register(Affirmations, AffirmationAdmin)
 
