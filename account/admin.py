@@ -3,7 +3,7 @@
 # Register your models here.
 from django.contrib import admin
 from .models import Program
-from .models import Profile, RegisterUser, Affirmations, InspirationalQuotes
+from .models import Profile, RegisterUser, Affirmations, InspirationalQuotes, Dailyquote
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
@@ -49,6 +49,8 @@ class AffirmationAdmin(admin.ModelAdmin):
 
 admin.site.register(Affirmations, AffirmationAdmin)
 
+
+admin.site.register(Dailyquote)
 
 class InspirationalAdmin(admin.ModelAdmin):
     InspirationalQuote = 'Inspirational Quotes'

@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
 from .forms import Profile,User, Program
-from .models import RegisterUser, Affirmations
+from .models import RegisterUser, Affirmations, Dailyquote
 from io import TextIOWrapper, StringIO
 import re
 
@@ -47,13 +47,13 @@ def dashboard(request):
 
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
-    affirmation = Affirmations.objects.filter(published_date__gte=today).filter(published_date__lt=tomorrow)
+    dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
     if request.user.is_staff:
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard', 'affirmation': affirmation})
+                  {'section': 'dashboard', 'dailyquote': dailyquote})
 
 @login_required
 def userdashboard(request):
