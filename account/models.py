@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from PIL import Image
 from datetime import datetime
+import datetime
 # Create your models here.
 
 EVENT = (
@@ -49,7 +50,7 @@ class InspirationalQuotes(models.Model):
 
 class Affirmations(models.Model):
     affirmation = models.CharField(max_length=500, blank=True, null=True)
-    published_date = models.DateField(null=False, blank=False)
+    published_date = models.DateField(null=True, blank=False)
     
     def __str__(self):
         return str(self.affirmation)

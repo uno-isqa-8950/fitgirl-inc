@@ -53,7 +53,7 @@ def dashboard(request):
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard','affirmation':affirmation})
+                  {'section': 'dashboard', 'affirmation': affirmation})
 
 @login_required
 def userdashboard(request):
