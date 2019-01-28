@@ -275,7 +275,7 @@ body{
  }
  .horizontal-banner{        /*adding banner space_Srishty */
   margin-top: 40px;
-  margin-bottom: -5px;
+  margin-bottom: -18px;
  }
 .modal-footer button{
   margin:0 auto;
@@ -305,16 +305,18 @@ body{
 }
 
   /* styling the affirmations popup - karthik*/
+#exampleModalCenter{
+  font-weight: bold;
+  }
 #exampleModalCenter .modal-content {
   background: url(../images/popup_bg.jpg);
   background-repeat:repeat;
   opacity: 0.95;
   font-family: 'Amatic SC', cursive;
   font-size: 40px;
-  font-weight: bold;
 }
 
-  /* fixing the different image sizea issue in the physical exercises - karthik*/
+  /* fixing the different image sizea issue in the physical exercises-starts here-karthik*/
 .tab-pane .rich-text img{
   max-width: 500px;
   height: 100%;
@@ -328,6 +330,25 @@ display: block
 .text-center.affirmations-text{
 padding: 15px;
 }
+/* fixing the different image sizea issue in the physical exercises - ends here - karthik*/
+
+/*fixing the footer spacing issues-starts here-karthik*/
+.fitgirlinc-footer-socialLinks{
+  text-align:center; 
+  margin:10px; 
+  height:100px;
+  font-size: 15px
+}
+.fitgirlinc-footer-socialLinks a{
+  padding:15px
+}
+.rewards-post-page .rewards-img{
+  width: 100% !important;
+  height: 100% !important;
+}
+/*fixing the footer spacing issues-ends here-karthik*/
+
+
 
 /* iphone X landscape orientation */
 @media only screen

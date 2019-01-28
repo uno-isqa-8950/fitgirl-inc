@@ -35,11 +35,9 @@
     <br>
 <!--banner spcae:hghanta-->
 <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
-        <hr style="color: black; background: #333;">
-        <br>
-        <br>
+<hr style="color: black; background: #333;">
     <!--Advertisement-->
-    <div class="img-responsive" style="text-align: center;">
+    <div class="img-responsive horizontal-banner" style="text-align: center;">
         <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
             {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
                 <img src="{{ ad_photo.url }}" class="img-fluid"/>
