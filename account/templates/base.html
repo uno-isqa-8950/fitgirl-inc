@@ -106,7 +106,7 @@
                     <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li> -->
                     <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-edit fa-fw"></i> Edit Profile</a>
                     <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
-                    <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
+                    <a class="dropdown-item logout-button" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
                     {% endif %}
                 </ul>
             </li>
