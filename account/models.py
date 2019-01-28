@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from PIL import Image
 from datetime import datetime
-from datetime import datetime as dt
+
 # Create your models here.
 
 EVENT = (
@@ -84,7 +84,7 @@ class Profile(models.Model):
         if self.date_of_birth is None:
             return "None";
         else:
-            return int((dt.now().date() - self.date_of_birth).days / 365.25)
+            return int((datetime.now().date() - self.date_of_birth).days / 365.25)
 
 
 
