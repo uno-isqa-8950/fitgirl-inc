@@ -5,7 +5,7 @@
 <div class ="container-fluid" align="center" style="position: absolute">
     <br>
     <br>
-    <h2 align="center"> Thank You for answering this! </h2>
+{#    <h2 align="center"> Thank You for answering this! </h2>#}
     <h4 align="center">{{page.thank_you_text|richtext}}</h4>
     {% if page.points_for_this_activity %}
         <h4 align="center">Congratulations! You have scored {{page.points_for_this_activity}} points! </h4>
@@ -13,7 +13,7 @@
     <br>
     <br>
     <p>
-        <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl" style="text-align: center">Return </a>
+        <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl fa fa-chevron-circle-left" style="text-align: center"> &nbsp Return </a>
     </p>
 </div>
 <canvas id="canvas"></canvas>

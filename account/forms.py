@@ -52,7 +52,7 @@ EVENT = (
     (2, _("11-13")),
 )
 class ProfileEditForm(forms.ModelForm):
-    photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}))
+    photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}),required=False)                            #Image field is optional --Shamrose
     bio = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
     date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'class':'form-control','type':'date','placeholder':'mm/dd/yyyy format'}))
     zip = forms.IntegerField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Zip-Code'}))
@@ -72,7 +72,7 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('bio', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school', 'photo')
+        fields = ('photo','bio', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school')           # Added Photo to the Start --Shamrose
 
 
 class ProgramForm(forms.ModelForm):
