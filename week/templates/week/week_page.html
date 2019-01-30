@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags week_tags %}
 {% load wagtailimages_tags %}
 
 {% block title %}Weeks{% endblock %}
@@ -7,6 +7,7 @@
 {% block content %}
 
 <div class ="container">
+    {% boilerplate %}
     <br>
     <br>
     <h1 style="text-align: center;">{{ page.title }}</h1>

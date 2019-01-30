@@ -10,11 +10,12 @@ from django.shortcuts import render
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, FieldRowPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, FieldRowPanel, MultiFieldPanel, RichTextFieldPanel
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractForm, AbstractFormSubmission
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from account.forms import User
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
 
 class ProgramIndexPage(Page):
     description = models.CharField(max_length=255, blank=True, )
@@ -381,3 +382,14 @@ class PostassessmentPage(AbstractForm):
 
 
 
+
+@register_snippet
+class BoilerPlate(models.Model):
+    text = models.CharField(max_length=255)
+
+    panels = [
+        FieldPanel('text'),
+    ]
+
+    def __str__(self):
+        return self.text
