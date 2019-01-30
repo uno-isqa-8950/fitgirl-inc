@@ -5,10 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-{% for advert in adverts %}
-    <p>
-            {{ advert.text }}
-    </p>
+<div class="container" >
+{% for boiler in boilerplates %}
+    <h1>{{ boiler.heading }}</h1>
+    <hr>
+    <p>{{ boiler.richtext }}</p>
+    <p> {{ boiler.text }}</p>
 {% endfor %}
+</div>
 </body>
 </html>

@@ -6,6 +6,7 @@ import datetime
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+from django.forms import forms
 from django.shortcuts import render
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page
@@ -385,10 +386,17 @@ class PostassessmentPage(AbstractForm):
 
 @register_snippet
 class BoilerPlate(models.Model):
+    weeks_to_display = models.ManyToManyField("self")
+    heading = models.CharField(max_length=100, default='')
+    richtext = RichTextField(default='')
     text = models.CharField(max_length=255)
 
     panels = [
+        FieldPanel('weeks_to_display'),
+        FieldPanel('heading'),
+        RichTextFieldPanel('richtext'),
         FieldPanel('text'),
+
     ]
 
     def __str__(self):

@@ -9,6 +9,6 @@ register = template.Library()
 @register.inclusion_tag('tags/boilerplate.html', takes_context=True)
 def boilerplate(context):
     return {
-        'adverts': BoilerPlate.objects.all(),
+        'boilerplates': BoilerPlate.objects.all(),
         'request': context['request'],
     }
