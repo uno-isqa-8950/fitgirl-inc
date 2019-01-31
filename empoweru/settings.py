@@ -190,9 +190,9 @@ AWS_HEADERS = {
 # STATIC_ROOT = os.path.join(BASE_DIR, 'stat
 
 
-
+MEDIA_LOCATION = 'media'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-MEDIA_URL = '/media/'
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIA_LOCATION)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = 'dashboard'
