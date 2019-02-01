@@ -173,16 +173,16 @@ AWS_S3_OBJECT_PARAMETERS = {
 
 
 
-STATIC_LOCATION = 'static'
+STATICFILES_LOCATION = 'static'
 
-STATICFILES_STORAGE = 'storage_backends.StaticStorage'
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATIC_LOCATION)
+STATICFILES_STORAGE = 'storages_backends.StaticStorage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 
-PUBLIC_MEDIA_LOCATION = 'media'
+MEDIAFILES_LOCATION = 'media'
 
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
-DEFAULT_FILE_STORAGE = 'storage_backends.PublicMediaStorage'
+DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'
 
 
 AWS_HEADERS = {
