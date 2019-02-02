@@ -8,6 +8,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.forms import forms
 from django.shortcuts import render
+from django.utils import timezone
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
@@ -17,6 +18,8 @@ from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from account.forms import User
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
+from account.models import Profile
+from datetime import date, datetime, timedelta
 
 class ProgramIndexPage(Page):
     description = models.CharField(max_length=255, blank=True, default="")
@@ -152,7 +155,7 @@ class PhysicalPostPage(AbstractForm):
     agility = RichTextField(blank=True)
     flexibility = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
-    timer_for_this_activity = models.CharField(max_length=20, blank=True, default=datetime.time(00, 11),
+    timer_for_this_activity = models.DateTimeField(max_length=20, blank=True, default=timedelta(minutes=30),
                                                help_text='Time format should be in MM:SS')
     thank_you_text = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
@@ -401,3 +404,16 @@ class BoilerPlate(models.Model):
 
     def __str__(self):
         return self.text
+
+class UserActivity(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activity = models.CharField(max_length=50, name='Activity')
+    week = models.IntegerField(name='Week')
+    points_available = models.IntegerField(name='Points Available')
+    points_earned = models.IntegerField(name='Points Earned')
+    creation_date = models.DateField()
+    updated_date = models.DateField()
+
+    def __str__(self):
+        return(activity, week, points_earned)
+
