@@ -161,7 +161,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-AWS_DEFAULT_ACL = 'public-read'
+
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY')
@@ -178,26 +178,19 @@ AWS_LOCATION = 'static'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-MEDIAFILES_LOCATION = 'media'
-
-MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
-
-
+DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'
 
 
 AWS_HEADERS = {
     'Access-Control-Allow-Origin': '*'
 }
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'stat
 
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
@@ -224,6 +217,5 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 try:
     from empoweru.local_settings import *
 except ImportError:
-    raise Exception("A local_settings.py file is required to run this project"
-    
- '''
+    raise Exception("A local_settings.py file is required to run this project")
+'''
