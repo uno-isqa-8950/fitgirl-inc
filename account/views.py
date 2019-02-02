@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, CloneProgramForm
 from .forms import Profile,User, Program
 from .models import RegisterUser, Affirmations, Dailyquote
-from week.models import WeekPage
 from io import TextIOWrapper, StringIO
 import re
 
@@ -41,17 +40,6 @@ def user_login(request):
         form = LoginForm()
     return render(request, 'account/login.html', {'form': form})
 
-@login_required
-def login_success(request):
-    today = datetime.date.today()
-    if request.user.is_staff:
-        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
-        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
-    elif request.user.is_active:
-        current_week = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
-        return render(request,
-                      'account/current_week.html',
-                      {'current_week': current_week})
 
 @login_required
 def dashboard(request):
@@ -131,7 +119,7 @@ def handle_uploaded_file(request, name):
                         alphabet = string.ascii_letters + string.digits
                         # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
                         theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
-                        theUser.set_password('fitgirl1')
+                        theUser.set_password('stayfit2019')
                         theUser.save()
                         profile = Profile.objects.create(user=theUser,
                                                          program=Program.objects.all().filter(program_name=name)[0])
@@ -139,7 +127,7 @@ def handle_uploaded_file(request, name):
                         form = PasswordResetForm({'email': theUser.email})
                         if form.is_valid():
                             request = HttpRequest()
-                            request.META['SERVER_NAME'] = 'empoweru.herokuapp.com'
+                            request.META['SERVER_NAME'] = 'www.empoweruomaha.com'
                             request.META['SERVER_PORT'] = '80'
                             form.save(
                                 request=request,
