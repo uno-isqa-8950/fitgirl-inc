@@ -342,10 +342,17 @@ padding: 15px;
 .fitgirlinc-footer-socialLinks a{
   padding:15px
 }
-.rewards-post-page .rewards-img{
+
+/* changes done for streched image- srishty */
+ .rewards-post-page .rewards-img{
   width: 100% !important;
   height: 100% !important;
 }
+.rewards-index-page .rewards-img{
+    width: 100%;
+    height: 200px;
+    object-fit: contain !important;
+    }
 /*fixing the footer spacing issues-ends here-karthik*/
 
 
@@ -369,7 +376,11 @@ and (orientation : portrait) {
     height: 100% !important;
   }
 }
-
+/* added space on logout, reset done, change done - hghanta*/
+.spacer-div-30{
+    width: 100%;
+    height: 30px;
+}
 
 
 
