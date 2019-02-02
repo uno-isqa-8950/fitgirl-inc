@@ -263,6 +263,15 @@ class MentalPostPage(Page):
         FieldPanel('body', classname="full"),
         ImageChooserPanel('display_image')
     ]
+#Added this for coloring app embedding_Kelley
+class MentalArtPostPage(Page):
+    body = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    content_panels= Page.content_panels + [
+        FieldPanel('body', classname="full"),
+        ImageChooserPanel('display_image')
+    ]
 
 class RewardsIndexPage(Page):
     intro = RichTextField(blank=True)
