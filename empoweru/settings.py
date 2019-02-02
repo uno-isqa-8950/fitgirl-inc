@@ -190,7 +190,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_HEADERS = {
     'Access-Control-Allow-Origin': '*'
 }
-# STATIC_ROOT = os.path.join(BASE_DIR, 'stat
+ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 
