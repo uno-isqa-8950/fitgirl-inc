@@ -182,7 +182,7 @@ STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 #MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
-DEFAULT_FILE_STORAGE = empoweru.storage_backends.MediaStorage
+DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'
 
 
 AWS_HEADERS = {
