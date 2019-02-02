@@ -80,5 +80,9 @@ class ProgramForm(forms.ModelForm):
         model = Program
         fields = ('program_name', 'program_start_date','program_end_date')
 
+class CloneProgramForm(forms.Form):
+    program_to_copy = forms.ChoiceField(choices=['A', 'B', 'C'])
+    new_program_name = forms.CharField(max_length=50)
+
 
 

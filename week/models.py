@@ -19,7 +19,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
 class ProgramIndexPage(Page):
-    description = models.CharField(max_length=255, blank=True, )
+    description = models.CharField(max_length=255, blank=True, default="")
 
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full")
