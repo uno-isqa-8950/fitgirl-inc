@@ -322,7 +322,8 @@ body{
   height: 100%;
 }
 .affirmations-text{
-display: block
+display: block;
+text-align:center;
 }
 .text-center{
   text-align: center;
