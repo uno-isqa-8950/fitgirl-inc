@@ -119,7 +119,7 @@ def handle_uploaded_file(request, name):
                         alphabet = string.ascii_letters + string.digits
                         # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
                         theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
-                        theUser.set_password('fitgirl1')
+                        theUser.set_password('stayfit2019')
                         theUser.save()
                         profile = Profile.objects.create(user=theUser,
                                                          program=Program.objects.all().filter(program_name=name)[0])
@@ -127,7 +127,7 @@ def handle_uploaded_file(request, name):
                         form = PasswordResetForm({'email': theUser.email})
                         if form.is_valid():
                             request = HttpRequest()
-                            request.META['SERVER_NAME'] = 'empoweru.herokuapp.com'
+                            request.META['SERVER_NAME'] = 'www.empoweruomaha.com'
                             request.META['SERVER_PORT'] = '80'
                             form.save(
                                 request=request,
