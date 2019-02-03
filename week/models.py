@@ -1,8 +1,6 @@
  # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
-import datetime
-
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
@@ -19,7 +17,7 @@ from account.forms import User
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from account.models import Profile
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, time
 
 class ProgramIndexPage(Page):
     description = models.CharField(max_length=255, blank=True, default="")
@@ -155,7 +153,7 @@ class PhysicalPostPage(AbstractForm):
     agility = RichTextField(blank=True)
     flexibility = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
-    timer_for_this_activity = models.DateTimeField(max_length=20, blank=True, default=timedelta(minutes=30),
+    timer_for_this_activity = models.CharField(max_length=20, blank=True, default=time(0, 11),
                                                help_text='Time format should be in MM:SS')
     thank_you_text = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
@@ -202,6 +200,14 @@ class PhysicalPostPage(AbstractForm):
         user1.profile.save()
         # print(form.user.username)
         print(user1.profile.points)
+
+        activity_log = UserActivity()
+        activity_log.user = user1
+        activity_log.activity = 'Physical'
+        activity_log.creation_date = date()
+        activity_log.updated_date = date()
+        activity_log.points_earned = self.points_for_this_activity
+        activity_log.points_available = self.points_for_this_activity
 
 
 class PreassessmentFormField(AbstractFormField):
