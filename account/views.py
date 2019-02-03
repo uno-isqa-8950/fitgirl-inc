@@ -19,7 +19,7 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
-
+from django.utils import timezone
 
 def user_login(request):
     if request.method == 'POST':
@@ -312,7 +312,7 @@ def edit(request):
             theProfile.profile_filled = True
             theProfile.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('edit')
+            return redirect('users')
         else:
             messages.warning(request, 'Please correct the errors below!')
     else:
@@ -324,7 +324,30 @@ def edit(request):
                    'profile_form': profile_form,
                    'activated':activated})
 
+#Added edit_user for admin
+@login_required
+def edit_user(request,pk):
+    user = get_object_or_404(Profile, pk=pk)
 
+    if request.method == "POST":
+        # update
+        form = ProfileEditForm(request.POST, instance=user)
+        user_form = UserEditForm(instance=request.user,
+                                 data=request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.updated_date = timezone.now()
+            user.save()
+            user = Profile.objects.filter(created_date__lte=timezone.now())
+            messages.success(request, 'Profile updated successfully')
+            return redirect('users')
+
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        # edit
+        form = ProfileEditForm(instance=user)
+    return render(request, 'account/edit_user.html', {'form': form})
 
 
 @login_required
