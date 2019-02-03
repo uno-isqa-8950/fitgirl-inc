@@ -17,4 +17,13 @@ $( document ).ready(function() {
                         window.sessionStorage.clear();
                     })
                     // Affirmations popup code starts here - Karthik
+
+
+    //Registration breadcrumb issue fix
+    if($(".registration-dashboard").length == 0){
+        $(".step.step-1").addClass( "done" );
+    }else{
+        $(".step.step-1").removeClass( "done" );
+        $(".step.step-1").addClass( "active" );
+    }
 });

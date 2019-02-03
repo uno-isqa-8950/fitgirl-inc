@@ -6,7 +6,8 @@
 
 {% block content %}
 
-<div class ="container">
+<!-- changes done for streched image- srishty -->
+    <div class ="container rewards-index-page">
     <br>
     <br>
   <h1 style="text-align: center;">{{ page.title }}</h1>
@@ -18,8 +19,9 @@
         <div class="col-sm-4 mt-3">
             <div class="card hoverable">
                 <a href ="{% pageurl post %}">
-                    <a  href ="#"> <!-- Reward Page Fix for Beta by Srishty-->
-                    <img class="card-img-top " src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: fill;"/>
+                <a  href ="#">
+                    <!-- changes done for streched image- srishty -->
+                    <img class="card-img-top rewards-img " src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: fill;"/>
                     <div class="card-body bg-dark">
                         <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
                         <p class="card-text">{{ post.specific.description|richtext }}</p>
