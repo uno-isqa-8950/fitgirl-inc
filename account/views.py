@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
 from .forms import Profile,User, Program
 from .models import RegisterUser, Affirmations, Dailyquote
+from week.models import WeekPage
 from io import TextIOWrapper, StringIO
 import re
 
@@ -54,6 +55,20 @@ def dashboard(request):
     return render(request,
                   'account/dashboard.html',
                   {'section': 'dashboard', 'dailyquote': dailyquote})
+
+@login_required
+def login_success(request):
+    today = datetime.date.today()
+    if request.user.is_staff:
+        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
+    elif request.user.is_active:
+        current_week = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+        print(current_week)
+        return render(request,
+                      'account/current_week.html',
+                      {'current_week': current_week})
+
 
 @login_required
 def userdashboard(request):
