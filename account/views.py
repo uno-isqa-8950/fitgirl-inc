@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm,AdminEditForm
 from .forms import Profile,User, Program
 from .models import RegisterUser, Affirmations, Dailyquote
 from week.models import WeekPage
@@ -331,8 +331,8 @@ def edit_user(request,pk):
 
     if request.method == "POST":
         # update
-        form = ProfileEditForm(request.POST, instance=user)
-        user_form = UserEditForm(instance=request.user,
+        form = AdminEditForm(request.POST, instance=user)
+        user_form = AdminEditForm(instance=request.user,
                                  data=request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -346,7 +346,7 @@ def edit_user(request,pk):
             messages.warning(request, 'Please correct the errors below!')
     else:
         # edit
-        form = ProfileEditForm(instance=user)
+        form = AdminEditForm(instance=user)
     return render(request, 'account/edit_user.html', {'form': form})
 
 
