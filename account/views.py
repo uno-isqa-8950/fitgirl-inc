@@ -19,7 +19,7 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
-from django.utils import timezone
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -115,7 +115,7 @@ def handle_uploaded_file(request, name):
     for row in reader:
         try:
             if row[1] and row[2] and row[3]:
-                if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$', row[1]):
+                if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
                     if (len(User.objects.all().filter(email=row[1])) > 0):
                         targetUser = User.objects.all().filter(email=row[1])[0]
                         targetUser.is_active = True
@@ -312,7 +312,7 @@ def edit(request):
             theProfile.profile_filled = True
             theProfile.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('users')
+            return redirect('edit')
         else:
             messages.warning(request, 'Please correct the errors below!')
     else:
