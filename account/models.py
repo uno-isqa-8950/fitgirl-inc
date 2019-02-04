@@ -81,16 +81,7 @@ class Profile(models.Model):
     profile_filled = models.BooleanField(default=False)
     pre_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
     post_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
-    created_date = models.DateTimeField(default=timezone.now)
-    updated_date = models.DateTimeField(auto_now_add=True)
 
-    def created(self):
-        self.created_date = timezone.now()
-        self.save()
-
-    def updated(self):
-        self.updated_date = timezone.now()
-        self.save()
 
     def __str__(self):
         return f'{self.user.username} Profile'
