@@ -405,8 +405,8 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 
 /* Customizing css styles for edit user form -Kim */
 
-.customer-form {
-    max-width: 900px;
+.user-form {
+    max-width: 739.075px;
     line-height: 1;
     margin-left: auto;
     margin-right: auto;
@@ -425,5 +425,13 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     background-color: #ec407a!important;
     color: #fff!important;
 }
+
+.btn-return {
+    background-color: #ec407a!important;
+    color: #fff!important;
+    margin-left: -20px;
+
+}
+
 
 /* Customizing css styles for edit user form ends here -Kim */

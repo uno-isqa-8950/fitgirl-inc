@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-    <form method="POST" class="customer-form">{% csrf_token %}
+    <form method="POST" class="user-form">{% csrf_token %}
     <h1>Edit Profile</h1>
         <legend class="border-bottom mb-4">Profile Info</legend>
         {{ form|crispy }}
