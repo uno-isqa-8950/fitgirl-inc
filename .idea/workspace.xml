@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a335fece-8503-4438-83c4-1490b745957a" name="Default Changelist" comment="">
+      
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/account/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/account/static/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/account/templates/account/current_week.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/current_week.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/account/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/base.html" afterDir="false" />
+
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,6 +15,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -37,6 +40,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+
         <entry file="file://$PROJECT_DIR$/account/static/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
@@ -79,11 +83,11 @@
         <option value="$PROJECT_DIR$/account/templates/registration/password_reset_done.html" />
         <option value="$PROJECT_DIR$/account/urls.py" />
         <option value="$PROJECT_DIR$/account/views.py" />
-        <option value="$PROJECT_DIR$/account/templates/account/dashboard.html" />
         <option value="$PROJECT_DIR$/empoweru/settings.py" />
         <option value="$PROJECT_DIR$/account/templates/base.html" />
         <option value="$PROJECT_DIR$/account/static/js/script.js" />
         <option value="$PROJECT_DIR$/account/templates/account/current_week.html" />
+
       </list>
     </option>
   </component>
@@ -93,6 +97,7 @@
     <option name="width" value="1156" />
     <option name="height" value="794" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -364,7 +369,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/account/templates/account/dashboard.html">
+    <entry file="file://$PROJECT_DIR$/account/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="629">
           <caret line="37" column="44" selection-start-line="37" selection-start-column="44" selection-end-line="37" selection-end-column="44" />
