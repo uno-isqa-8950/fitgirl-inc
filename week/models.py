@@ -16,7 +16,7 @@ from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from account.forms import User
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
-from account.models import Profile
+from account.models import Profile, Program
 from datetime import date, datetime, timedelta, time
 
 class ProgramIndexPage(Page):
@@ -202,13 +202,18 @@ class PhysicalPostPage(AbstractForm):
         print(user1.profile.points)
 
         activity_log = UserActivity()
+        print(user1)
         activity_log.user = user1
+        activity_log.week = 1   # Need to grab week
+        print(user1.profile.program)
+        activity_log.program = user1.profile.program
         activity_log.activity = 'Physical'
-        activity_log.creation_date = date()
-        activity_log.updated_date = date()
+        activity_log.creation_date = date.today()
+        activity_log.updated_date = date.today()
+        print(self.points_for_this_activity)
         activity_log.points_earned = self.points_for_this_activity
         activity_log.points_available = self.points_for_this_activity
-
+        activity_log.save()
 
 class PreassessmentFormField(AbstractFormField):
     page = ParentalKey('PreassessmentPage', on_delete=models.CASCADE, related_name='form_fields')
@@ -414,9 +419,10 @@ class BoilerPlate(models.Model):
 class UserActivity(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.CharField(max_length=50, name='Activity')
-    week = models.IntegerField(name='Week')
-    points_available = models.IntegerField(name='Points Available')
-    points_earned = models.IntegerField(name='Points Earned')
+    week = models.IntegerField(name='Week', null=True)
+    program = models.ForeignKey(Program, on_delete=models.CASCADE, default=1)
+    points_available = models.IntegerField(name='Points Available', default=0)
+    points_earned = models.IntegerField(name='Points Earned', default=0)
     creation_date = models.DateField()
     updated_date = models.DateField()
 
