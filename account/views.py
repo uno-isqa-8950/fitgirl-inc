@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm,AdminEditForm
 from .forms import Profile,User, Program
 from .models import RegisterUser, Affirmations, Dailyquote
 from week.models import WeekPage
@@ -115,7 +115,7 @@ def handle_uploaded_file(request, name):
     for row in reader:
         try:
             if row[1] and row[2] and row[3]:
-                if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$', row[1]):
+                if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
                     if (len(User.objects.all().filter(email=row[1])) > 0):
                         targetUser = User.objects.all().filter(email=row[1])[0]
                         targetUser.is_active = True
@@ -312,7 +312,7 @@ def edit(request):
             theProfile.profile_filled = True
             theProfile.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('users')
+            return redirect('edit')
         else:
             messages.warning(request, 'Please correct the errors below!')
     else:
@@ -331,8 +331,8 @@ def edit_user(request,pk):
 
     if request.method == "POST":
         # update
-        form = ProfileEditForm(request.POST, instance=user)
-        user_form = UserEditForm(instance=request.user,
+        form = AdminEditForm(request.POST, instance=user)
+        user_form = AdminEditForm(instance=request.user,
                                  data=request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -346,8 +346,9 @@ def edit_user(request,pk):
             messages.warning(request, 'Please correct the errors below!')
     else:
         # edit
-        form = ProfileEditForm(instance=user)
+        form = AdminEditForm(instance=user)
     return render(request, 'account/edit_user.html', {'form': form})
+
 
 
 @login_required
