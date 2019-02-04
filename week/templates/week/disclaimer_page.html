@@ -1,0 +1,28 @@
+{% extends "account/dashboard.html" %}
+
+{% load wagtailcore_tags %}
+
+
+{% block content %}
+
+<div class ="container disclaimer-container">
+
+
+    <br>
+    <br>
+  <h1>{{ page.title }}</h1>
+  <p>{{ page.disclaimer }}</p>
+  <p>{{ page.disclaimer2 }}</p>
+  <p>{{ page.disclaimer3 }}</p>
+  <p>{{ page.disclaimer4 }}</p>
+  <p>{{ page.disclaimer5 }}</p>
+
+  <div>
+      <a href="/"  class="btn btn-secondary" style="float: Left">Previous</a>
+      <a href="/edit/"  class="btn btn-secondary" style="float: Right">I Agree</a>
+  </div>
+
+
+
+{% endblock %}
+</div>
