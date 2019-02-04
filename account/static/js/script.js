@@ -26,4 +26,10 @@ $( document ).ready(function() {
         $(".step.step-1").removeClass( "done" );
         $(".step.step-1").addClass( "active" );
     }
+
+        
+//Wrapping the image in a div
+$( ".physical-post-page .rich-text img" ).wrapAll( "<div class='rich-text-images' />");
+$( ".physical-post-page .rich-text p" ).wrapAll( "<div class='rich-text-paragraphs' />");
+
 });

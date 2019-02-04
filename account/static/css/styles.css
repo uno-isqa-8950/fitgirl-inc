@@ -355,6 +355,22 @@ padding: 15px;
     }
 /*fixing the footer spacing issues-ends here-karthik*/
 
+.physical-post-page .rich-text{
+  width: 100%
+}
+.rich-text-images{
+  float: left;
+  width: 50%;
+}
+.rich-text-paragraphs{
+    float: right;
+    width: 45%;
+}
+.physical-post-page .rich-text img{
+  margin-bottom: 10px;
+  width: 100%;
+}
+
 
 
 /* iphone X landscape orientation */
