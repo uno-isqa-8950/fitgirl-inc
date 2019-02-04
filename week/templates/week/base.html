@@ -12,8 +12,10 @@
     <script src="http://cdn.ckeditor.com/4.6.1/standard/ckeditor.js"></script>
 	<title>{% block title %}{% endblock %}</title>
 	<link href="{% static 'css/base.css' %}" rel="stylesheet">
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
 <body>
+    <div class = "nav-wrapper  grey darken-1">
 		<nav class="navbar navbar-expand-md navbar-dark">
       <a class="navbar-brand" href="/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
       {% if request.user.is_authenticated %}
@@ -74,6 +76,7 @@
       </div>
       {% endif %}
     </nav>
+    </div>
   <div id="content">
     {% block content %}
     {% endblock %}

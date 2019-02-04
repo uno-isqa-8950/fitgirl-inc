@@ -19,7 +19,8 @@
 	<link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
 <body>
-
+    
+    <div class = "nav-wrapper  grey darken-1">
     <nav class="navbar navbar-expand-lg navbar-dark grey darken-1  scrolling-navbar">
         <!--hghanta: redirect to dashboard on click empoweu logo, home-->
       <a class="navbar-brand" href="{% url 'dashboard' %}"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
@@ -120,6 +121,7 @@
       </div>
       {% endif %}
     </nav>
+    </div>
  <header id="sub-header">
   <div class="container-fluid">
         <div class="row">
