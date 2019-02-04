@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm,AdminEditForm
 from .forms import Profile,User, Program
 from .models import RegisterUser, Affirmations, Dailyquote
 from week.models import WeekPage
@@ -19,7 +19,7 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
-
+from django.utils import timezone
 
 def user_login(request):
     if request.method == 'POST':
@@ -324,6 +324,30 @@ def edit(request):
                    'profile_form': profile_form,
                    'activated':activated})
 
+#Added edit_user for admin
+@login_required
+def edit_user(request,pk):
+    user = get_object_or_404(Profile, pk=pk)
+
+    if request.method == "POST":
+        # update
+        form = AdminEditForm(request.POST, instance=user)
+        user_form = AdminEditForm(instance=request.user,
+                                 data=request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.updated_date = timezone.now()
+            user.save()
+            user = Profile.objects.filter(created_date__lte=timezone.now())
+            messages.success(request, 'Profile updated successfully')
+            return redirect('users')
+
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        # edit
+        form = AdminEditForm(instance=user)
+    return render(request, 'account/edit_user.html', {'form': form})
 
 
 
