@@ -58,6 +58,22 @@ def dashboard(request):
 
 
 @login_required
+def login_success(request):
+    today = datetime.date.today()
+    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+    dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
+    if request.user.is_staff:
+        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
+    elif request.user.is_active:
+        current_week = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+        print(current_week)
+        return render(request,
+                      'account/current_week.html',
+                      {'current_week': current_week,
+                       'dailyquote': dailyquote})
+
+@login_required
 def userdashboard(request):
     return render(request,
                   'account/userdashboard.html',
