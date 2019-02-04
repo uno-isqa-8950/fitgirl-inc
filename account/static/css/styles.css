@@ -283,7 +283,7 @@ body{
 
 /* styles for affirmations popup ends here - karthik */
 
-
+/* alignment changes to about-us page - kim*/
 .aboutus-container {
     width: 60%;
     text-align: center;
@@ -303,6 +303,8 @@ body{
     line-height: 150%;
 
 }
+
+/* alignment changes to about-us page - kim*/
 
   /* styling the affirmations popup - karthik*/
 #exampleModalCenter{
@@ -400,3 +402,36 @@ and (orientation : landscape) { /* STYLES GO HERE */}
 and (min-device-width : 768px)
 and (max-device-width : 1024px)
 and (orientation : portrait) { /* STYLES GO HERE */ }
+
+/* Customizing css styles for edit user form -Kim */
+
+.user-form {
+    max-width: 739.075px;
+    line-height: 1;
+    margin-left: auto;
+    margin-right: auto;
+    background-clip: padding-box;
+    border-radius: 0.25rem;
+    width: 100%;
+    padding: 25px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.customer-form h1{
+    alignment: center;
+}
+
+.btn-edit {
+    background-color: #ec407a!important;
+    color: #fff!important;
+}
+
+.btn-return {
+    background-color: #ec407a!important;
+    color: #fff!important;
+    margin-left: -20px;
+
+}
+
+
+/* Customizing css styles for edit user form ends here -Kim */
