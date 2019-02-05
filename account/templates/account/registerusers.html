@@ -1,0 +1,63 @@
+{% extends 'account/dashboard.html' %}
+{% block dash_content %}
+  {% if request.user.is_superuser %}
+<div >
+  <div class="col-12 offset-lg-4">
+      <br>
+      <br>
+    <h1 class="text-left">Register Users</h1>
+    <p> Choose the program from drop-down below: </p>
+    <form action="." method="post" enctype="multipart/form-data">
+        <!--{{ form.as_p }}-->
+        {% csrf_token %}
+        &nbsp &nbsp
+
+        {{ form.programs}}
+        <br>
+        <br>
+
+        {{ form.file}}
+        <br>
+        <br>
+
+
+        <button type="submit" class="btn btn-pink">Upload File</button>
+        <!-- <input type="submit" class="btn-md btn-primary"  value="Upload File"></input> -->
+    </form>
+</div>
+{% if messages %}
+<div class="col-12 offset-lg-4">
+<h5>SUMMARY:</h5>
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+</div>
+</div>
+
+{% endif %}
+  {% endif %}
+<script>
+
+$(document).ready(function(){
+
+
+ $("#image1").remove()
+    $("#image2").remove()
+    $("#image3").remove()
+    $("#registerUsers").css("border","2px solid")
+    $("#registerUsers").css("background-color","#5eb8ad")
+    $("#registerUsers").css("color","#ffffff")
+    $("#registerUsers").css("border-color","black")
+    $('.info').css('margin-left','-98px')
+    $('.success').css('background-color','#3eb34b')
+    $('.error').css('margin-left','-98px')
+
+
+
+
+
+});
+</script>
+{% endblock %}

@@ -1,0 +1,227 @@
+{% load staticfiles %}
+{% load menu_tags %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap core CSS -->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/addons/datatables.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+	<title>{% block title %}{% endblock %}</title>
+	<link href="{% static 'css/base.css' %}" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark grey darken-1  scrolling-navbar">
+      <a class="navbar-brand" href="/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
+      {% if request.user.is_authenticated %}
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon "></span>
+		</button>
+      <div class="collapse navbar-collapse" id="navbarsDefault">
+        <ul class="navbar-nav mr-auto">
+            {% if request.user.is_superuser %}
+              <li class="nav-item">
+                <a class="nav-link hoverable" style="
+                background-color: rgba(255,255,255,.1);
+            " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span class="sr-only">(current)</span></a>
+              </li>
+            {% else %}
+                {% if user.profile.pre_assessment == "No" %}
+                {% else %}
+                  <!--<li class="nav-item ">-->
+                    <!--<a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>-->
+                  <!--</li>-->
+            <!-- Added home glyphicon to navbar_Kelley -->
+            <li class="nav-item ">
+                <a class="nav-link hoverable" href="/" style="background-color: rgba(255,255,255,.1);">
+                    <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
+            </li>
+            <li class="nav-item ">
+                    <a class="nav-link hoverable" target="_blank"  href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
+                  </li>
+                {% endif %}
+            {% endif %}
+           {% if request.user.is_superuser %}
+          <li class="nav-item ">
+            <a class="nav-link hoverable " style="
+            background-color: rgba(255,255,255,.1);" href="/users/"><i class="fa fa-female" aria-hidden="true"></i>Users</a>
+          </li>
+         {% else %}
+            <li class="nav-item ">
+            <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "{%url 'aboutus'%}">About Us</a>
+
+                <!--adding External Link Parent Resources_Srishty -->
+            </li>
+                <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
+          </li>
+
+        </ul>
+        <ul class="navbar-nav navbar-centre">
+            <li class="nav-item" class="navbar-nav navbar-centre">
+              <div class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></div>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">Reward Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
+            </li>
+
+            {% endif %}
+        </ul>
+          <ul class="navbar-nav navbar-right">
+            <li class="nav-item">
+              <div class="nav-link  " href="#">Welcome {{ user.get_short_name|capfirst }}<span class="sr-only">(current)</span></div>
+            </li>
+
+            <li class="dropdown ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                  {% if request.user.is_staff %}
+                      <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg" height="30" width="30">
+                  {% else %}
+                      <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30" width="30" style="height: 30px;width: 30px">
+                  {% endif %}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right stylish-color" >
+                    {% if request.user.is_superuser %}
+                    {% else %}
+{#                    <li class="card mx-2" style="width: 18rem;">#}
+                        <!-- <div class="card-body">
+                            <h5 class="card-title">Points Earned</h5>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                              </div>
+                          </div> -->
+{#                    </li>#}
+                    {% endif %}
+                    {% if request.user.is_superuser %}
+                    <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
+
+                    {% else %}
+                    <!-- <li><a class="nav-link" href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>Edit Profile</a></li>
+                    <li><a class="nav-link" href="{% url "password_change" %}"><i class="fas fa-user-shield fa-fw"></i> Change Password</a></li>
+                    <li class="divider"></li>
+                    <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li> -->
+                    <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-edit fa-fw"></i> Edit Profile</a>
+                    <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
+                    <a class="dropdown-item logout-button" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
+                    {% endif %}
+                </ul>
+            </li>
+          </ul>
+      </div>
+      {% endif %}
+    </nav>
+ <header id="sub-header">
+  <div class="container-fluid">
+        <div class="row">
+            {% main_menu template="menus/program_menu.html" %}
+        </div>
+    </div>
+    </div>
+  </div>
+
+</header>
+  <div id="container-fluid">
+    {% block content %}
+    {% endblock %}
+    {% block body %}
+    {% endblock %}
+  </div>
+<br><br>
+{% if request.user.is_superuser %}
+    {% else %}
+{% if request.user.is_authenticated %}
+    <!--hghanta: changes for social media icons above footer-->
+    <div id="container" class="fitgirlinc-footer-socialLinks">
+        <p style="font-size:15px">Follow us on social media</p>
+        <a href="https://www.facebook.com/fitgirlinc/"  target="_blank"><img class="facebook" src="{% static 'images/socialMedia_icons/facebook.png' %}" alt="facebook" height="40"/></a>
+        <a href="https://www.instagram.com/fitgirlomaha/" target="_blank"><img class="instagram" src="{% static 'images/socialMedia_icons/instagram.png' %}" alt="instagram" height="40"/></a>
+        <a href="https://www.pinterest.com/fitgirlinc2015/" target="_blank"><img class="pinterest" src="{% static 'images/socialMedia_icons/pinterest.png' %}" alt="pinterest" height="40"/></a>
+        <a href="https://www.snapchat.com/add/fitgirlomaha" target="_blank"><img class="snapchat" src="{% static 'images/socialMedia_icons/snapchat.png' %}" alt="snapchat" height="40"/></a>
+    </div>
+    <footer style="bottom:0px; width:100%;">
+        <nav class="navbar navbar-expand-lg navbar-dark grey darken-1" style="border-top: 4px solid #ed217c; border-bottom: 0px">
+            <!--<div>-->
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="width: 100%; text-align: center; display: inline-block; height: max-content;">
+                  <div class="carousel-inner" style="width: 100%; text-align: center; display: inline-block;">
+                      {% for quote in quotes %}
+                        <div class="carousel-item">
+                            <h2 align="center" style="font-size:15pt; color:#D3D3D3; font-family: Helvetica Neue,Helvetica,Arial,sans-serif; margin-top:5px;">{{ quote.quote }}</h2>
+                        </div>
+                      {% endfor %}
+                  </div>
+                  <h3 style="text-align:center"><a href="http://fitgirlinc.com/" target="_blank"><img src="{% static 'images/logologin.png' %}" alt="logo" height="40"/></a></h3>
+                  <!--<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">-->
+                    <!--<span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+                    <!--<span class="sr-only">Previous</span>-->
+                  <!--</a>-->
+                  <!--<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">-->
+                    <!--<span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+                    <!--<span class="sr-only">Next</span>-->
+                  <!--</a>-->
+                </div>
+            <!--</div>-->
+        </nav>
+    </footer>
+{% endif %}
+{% endif %}
+            <!-- SCRIPTS -->
+            <!-- JQuery -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script src="{% static 'js/confetti.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+  $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
+});
+</script>
+<style>
+    body {
+        background-color: #e3e3e3;
+    }
+</style>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                    <a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>
+              </h5>
+              <button type="button" class="close remove-popup" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                {% for dailyquote in affirmation %}
+              <span class="affirmations-text">Today your affirmation is,</span>
+              <span class="affirmations-text text-center">"{{ dailyquote.affirmation }}"</span>
+              <span class="affirmations-text">Repeat this affirmation to yourself throughout the day!</span>
+                {% endfor %}
+            </div>
+            <div class="modal-footer text-center">
+              <button type="button" class="btn btn-secondary btn-pink" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</body>
+</html>

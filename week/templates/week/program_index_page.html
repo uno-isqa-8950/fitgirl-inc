@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+
+{% block content %}
+
+<div class ="container">
+    <br>
+    <br>
+  <h1>{{ page.title }}</h1>
+{{ page.body|richtext }}
+
+{% for post in page.get_children %}
+<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
+    {% endfor %}
+
+
+<p><a href="{{ page.get_parent.url }}">Return</a></p>
+
+{% endblock %}
+</div>

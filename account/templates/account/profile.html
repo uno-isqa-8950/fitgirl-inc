@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<br>
+<br>
+
+
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div >
+        <br>
+        <div>
+        <br>
+            <div>
+                <h1 class="text-left">
+                    Profile</h1>
+                    <br>
+
+
+                </h5>
+
+
+<div class="media"><img  src="{{ user.user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:80px;height:80px;border:1px;" class="img-fluid rounded-circle"></div>
+            </div>
+            <!--Card content-->
+            <div>
+                <br>
+                <br>
+
+                <!-- Form -->
+                <form class="text-left"style="overflow-x: hidden" >
+
+                    <div class="form-row">
+                        <div class="col">
+
+                            <div></div>
+                            <!-- First name -->
+                            <div>
+                                <label  ><strong>First Name:  </strong>{{ user.user.first_name }}</label>
+                            </div>
+                        </div>
+                        <div class="col">
+
+                            <!-- Last name -->
+                            <div class="">
+
+                                <label for="materialRegisterFormLastName"><strong>Last Name: </strong>{{ user.user.last_name }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- E-mail -->
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="">
+                                <label  ><strong>E-mail: </strong>{{ user.user.email }} </label>
+
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+
+
+                        <div class="col">
+                            <div class="text-justify">
+
+                                <label for="materialRegisterFormEmail"><strong>Bio: </strong>{{user.bio}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- Phone number -->
+                    <div class="form-row">
+                        <div class="col">
+                            <div >
+                                <label ><strong>Birthday: </strong>{{  user.date_of_birth }}</label>
+
+                            </div>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="col">
+                            <div >
+                                <label for="materialRegisterFormPhone"><strong>Age: </strong>{{ user.age }}</label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!--  Address  -->
+                    <div class="form-row">
+           
+                        <div class="col">
+                            <div >
+                                <label for="materialRegisterFormPhone"><strong>Zip: </strong>{{ user.zip }}</label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-row">
+
+                        <div class="col">
+                            <div >
+                                <label for="materialRegisterFormPhone"><strong>City: </strong>{{ user.city }}</label>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div >
+                                <label for="materialRegisterFormPhone"><strong>State: </strong>{{ user.state }}</label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!--   Phone   -->
+                    <div class="form-row">
+                        <div class="col">
+                            <div >
+                                <label for="materialRegisterFormPhone"><strong>Day Phone: </strong>{{  user.day_phone }}</label>
+
+                            </div>
+                        </div>
+
+
+                      
+                    </div>
+                    <br>
+                    <div class="form-row">
+                        <div class="col">
+
+
+                            <div >
+
+                                {% if user.age_group  == 1 %}
+                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>8-10</label>
+                                {% elif user.age_group  == 2 %}
+                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>11-13</label>
+                                {% else %}
+                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>{{ user.age_group }}</label>
+
+                                {% endif %}
+
+                            </div>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="col">
+                            <div >
+                                <label for="materialRegisterFormPhone"><strong>School: </strong>{{ user.school }}</label>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sign up button -->
+
+
+                    <div style="float: left">
+
+                        <!-- Newsletter -->
+                        <div class="col">
+                            <div >
+                                <br>
+                                <br>
+                                <a class="btn btn-pink" href="{% url 'users' %}">Back</a>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social register -->
+
+
+                    <hr>
+
+
+
+                </form>
+                <!-- Form -->
+
+            </div>
+
+        </div>
+        <!-- Material form register -->
+
+        <!-- <div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
+      <div class="table-responsive">
+          <tr></tr>
+        <table  class="table table table-bordered table" class="target">
+        <thead class="thead stylish-color text-white z-depth-2">
+                <th class="th-lg">First name: </th>
+                <th class="th-lg">Last name: </th>
+                <th class="th-lg">Bio: </th>
+                <th class="th-lg">Email: </th>
+                <th class="th-lg">Birthday: </th>
+                {% if user.userprofile.image %}
+                <img src="{{ user.userprofile.image.url }}" width="240">
+                {% endif %}
+                <th class="th-lg">Age: </th>
+                <th class="th-lg">Address: </th>
+                <th class="th-lg">Zip: </th>
+                <th class="th-lg">City: </th>
+                <th class="th-lg">State: </th>
+                <th class="th-lg">Day Phone: </th>
+                <th class="th-lg">Eve Phone: </th>
+                <th class="th-lg">Age Group: </th>
+                <th class="th-lg">School: </th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                        <td >{{ user.user.first_name }}</td>
+                        <td>{{ user.user.last_name }}</td>
+                        <td>{{ user.bio }}</td>
+                        <td>{{ user.user.email }}</td>
+                        <td>{{  user.date_of_birth }}</td>
+                        <td>{{ user.age }}</td>
+                        <td>{{ user.address }}</td>
+                        <td>{{ user.zip }}</td>
+                        <td>{{ user.city}}</td>
+                        <td>{{ user.state }}</td>
+                        <td>{{  user.day_phone }}</td>
+                        <td>{{ user.eve_phone }}</td>
+                        <td>{{ user.age_group }}</td>
+                        <td>{{ user.school }}</td>
+                      </tr>
+        </tbody>
+        <!-- <p>First name: {{ user.user.first_name }}</p>
+        <p>Last name: {{ user.user.last_name }}</p>
+        <p>Bio: {{ user.bio }}</p>
+        <p>Email: {{ user.user.email }}</p>
+        <p>Birthday: {{ user.date_of_birth}}</p>
+        {% if user.userprofile.image %}
+        <img src="{{ user.userprofile.image.url }}" width="240">
+        {% endif %}
+        <p>Age: {{ user.age }}</p>
+        <p>Address: {{ user.address }}</p>
+        <p>Zip: {{ user.zip }}</p>
+        <p>City: {{ user.city }}</p>
+        <p>State: {{ user.state }}</p>
+        <p>Day Phone: {{ user.day_phone }}</p>
+        <p>Eve Phone: {{ user.eve_phone }}</p>
+        <p>Age Group:  {{ user.age_group }}</p>
+        <p>School: {{ user.school }}</p> -->
+
+
+        <!-- </table> -->
+    </div>
+</div>
+{% endblock %}

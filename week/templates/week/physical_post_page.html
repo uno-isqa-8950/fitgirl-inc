@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+    <div class ="container">
+    <br>
+    <br>
+    <h1 style="text-align: center;">{{ page.title }}</h1>
+
+
+    {% if user.is_authenticated and user.is_active or request.is_preview %}
+        {% if form %}
+            <div>{{ page.intro|richtext }}</div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <ul class="nav nav-pills">
+                          <li class="nav-item active"><a class="nav-link" data-toggle="tab" href="#strength">Strength</a></li>
+                          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#agility">Agility</a></li>
+                          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#flexibility">Flexibility</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div id="strength" class="tab-pane fade in active">
+                              <br>
+                              <h3>Strength</h3>
+                              {{ page.strength|richtext }}
+                          </div>
+                          <div id="agility" class="tab-pane fade in">
+                              <br>
+                              <h3>Agility</h3>
+                              {{ page.agility|richtext }}
+                          </div>
+                          <div id="flexibility" class="tab-pane fade in">
+                              <br>
+                              <h3>Flexibility</h3>
+                              {{ page.flexibility|richtext }}
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                    <br>
+                    <br>
+                <span id="countdown" style="display: block; font-size: 4.5rem; position: fixed">
+
+                    <button class="btn-fitgirl" id="startClock"
+                            style="font-size: 30%"><i class="fa fa-clock-o" aria-hidden="true"></i> Start your 30 Minutes Timer</button>
+                </span>
+                        <span style="position: fixed">
+                        <form action="{% pageurl page %}" method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <br>
+                            <br>
+                            <button class="btn-fitgirl btn-lg" id="done">Completed!</button>
+                        </form>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div>You have already completed this exercise.</div>
+        {% endif %}
+    {% else %}
+        <div>To fill in the form, you should log in.</div>
+    {% endif %}
+    <br>
+	       <br>
+<!--added banner space, return button modified:hghanta-->
+    <a href="{{ page.get_parent.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+    <hr style="color: black; background: #333;">
+        <!--Advertisement-->
+    <div class="img-responsive horizontal-banner" style="text-align: center;">
+        <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
+            {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
+                <img src="{{ ad_photo.url }}" class="img-fluid"/>
+        </a>
+    </div>
+    <!--End Advertisement-->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $('#done').hide();
+
+        jQuery(function($){
+            $('#startClock').on('click', doCount);
+        });
+
+        function doCount(){
+            var timer2 = "{{ page.timer_for_this_activity|safe }}";
+            var interval = setInterval(function() {
+
+
+                var timer = timer2.split(':');
+                //by parsing integer, I avoid all extra string processing
+                var minutes = parseInt(timer[0], 10);
+                var seconds = parseInt(timer[1], 10);
+                --seconds;
+                minutes = (seconds < 0) ? --minutes : minutes;
+                seconds = (seconds < 0) ? 59 : seconds;
+                seconds = (seconds < 10) ? '0' + seconds : seconds;
+                //minutes = (minutes < 10) ?  minutes : minutes;
+                $('#countdown').html(minutes + ':' + seconds);
+                if (minutes < 0)
+                    clearInterval(interval);
+                //check if both minutes and seconds are 0
+                if ((seconds <= 0) && (minutes <= 0)){
+                    clearInterval(interval);
+                    $('#done').show();
+                    $('#countdown').hide();
+                }
+
+                timer2 = minutes + ':' + seconds;
+            }, 1000);
+        }
+
+        $(document).ready(function() {
+        $('.nav-item a[href="#strength"]').tab('show')
+    });
+    </script>
+{% endblock %}
+</div>

@@ -1,0 +1,134 @@
+{% extends 'account/dashboard.html' %}
+{% block dash_content %}
+{% if request.user.is_superuser %}
+
+
+
+
+
+<div>
+
+<div class="col-12 offset-lg-2">
+
+
+
+<br>
+    <br>
+
+      <h1 class="text-left"> All Users</h1>
+  <ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+
+
+
+  <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered" class="target">
+      <thead class="thead stylish-color text-white">
+      <tr>
+          <th class="th-lg">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th></div>
+          <th class="th-lg">Profile <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+
+          <th class="th-lg text-center">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center">Registered</th>
+      <th class="th-lg text-center">User Logged-In</th>
+      <th class="th-lg text-center">Pre-Assessment</th>
+          <th class="th-lg text-center ">Post-Assessment</th>
+      <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      </tr>
+      </thead >
+        <tbody  >
+        {% for registeredUser in registeredUsers %}
+        <tr class="hoverable">
+        <td>{{ registeredUser.profile.program.program_name  }}</td>
+            <td ><a href="{% url 'profile' registeredUser.id %}"><img src="{{ registeredUser.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:30px;height:30px;border:1px;" class="img-fluid rounded-circle"></a>&nbsp;&nbsp;<span>{{ registeredUser.first_name }}</span>&nbsp;<span>{{ registeredUser.last_name }}</span></td>
+
+            {% if registeredUser.profile.age  == "None" %}
+             <td align="center"></td>
+            {% else %}
+             <td align="center">{{ registeredUser.profile.age}}</td>
+            {% endif %}
+
+        {% if registeredUser.is_active %}
+            <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
+        {% else %}
+         <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+        {% endif %}
+        {% if registeredUser.last_login is None %}
+           <td align="center" ><i class="fas fa-times fa-lg" style="color:#FF0000"></i></td>
+        {% else %}
+          <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+        {% endif %}
+          {% if registeredUser.profile.pre_assessment == "No" %}
+          <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"></i></td>
+        {% else %}
+          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+        {% endif %}
+             {% if registeredUser.profile.post_assessment == "No" %}
+          <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"></i></td>
+        {% else %}
+          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+        {% endif %}
+           <td align="center">{{ registeredUser.profile.points }}</td>
+
+
+        {% endfor %}
+        </tr>
+
+        </tbody>
+    </table>
+  </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+  {% endif %}
+
+<script>
+
+
+  $(document).ready(function () {
+      $('#dtDynamicVerticalScroll').DataTable({
+          "order": [[4, "YES"]],
+          "responsive": true, "scrollY": "80vh",
+          "scrollCollapse": true,
+          language: {
+              searchPlaceholder: "Search",
+              search: "",
+          }
+      });
+      $('.dataTables_length').addClass('bs-select');
+  });
+
+
+$(document).ready(function(){
+    $("#image1").remove()
+    $("#image2").remove()
+    $("#image3").remove()
+    $("#users").css("border","2px solid")
+    $("#users").css("background-color","#ed217c")
+    $("#users").css("color","#ffffff")
+    $("#users").css("border-color","black")
+ });
+</script>
+<style>
+    .dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+}
+
+
+
+</style>
+
+
+
+{% endblock %}

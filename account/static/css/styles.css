@@ -1,0 +1,391 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+body{
+    background: #f4f4f4;
+}
+
+.btn-fitgirl {
+    background-color: #ed217c!important;
+    color: #fff!important;
+}
+
+.btn-return{
+    margin-left:0;}
+
+.modal-dialog.modal-notify.modal-info .fa {
+    color: #ed217c;
+}
+
+.modal-dialog.modal-notify.modal-info .badge, .modal-dialog.modal-notify.modal-info .modal-header {
+    background-color: #ed217c;
+}
+
+/* NAVBAR */
+/* fix for the top week section responsiveness - karthik */
+.navbar-parent{
+  width: 100%;
+}
+#example{
+  width: 100%;
+}
+/*  fix for the top week section responsiveness - karthik - ends here */
+ .navbar {
+    background-color: #757575;
+    border-bottom:4px solid #ed217c;
+  }
+  .navbar .navbar-brand {
+    color: #ecf0f1;
+  }
+  .navbar .navbar-brand:hover,
+  .navbar .navbar-brand:focus {
+    color: #fcfbfe;
+  }
+  .navbar .navbar-text {
+    color: #ecf0f1;
+  }
+  .navbar .navbar-text a {
+    color: #fcfbfe;
+  }
+  .navbar .navbar-text a:hover,
+  .navbar .navbar-text a:focus {
+    color: #fcfbfe;
+  }
+  .navbar .navbar-nav .nav-link {
+    color: #ecf0f1;
+    border-radius: .25rem;
+    margin: 0 0.25em;
+  }
+  .navbar .navbar-nav .nav-link:not(.disabled):hover,
+  .navbar .navbar-nav .nav-link:not(.disabled):focus {
+    color: #fcfbfe;
+  }
+  .navbar .navbar-nav .dropdown-menu {
+    background-color: #757575;
+    border-color: #e07dc4;
+  }
+  .navbar .navbar-nav .dropdown-menu .dropdown-item {
+    color: #ecf0f1;
+  }
+  .navbar .navbar-nav .dropdown-menu .dropdown-item:hover,
+  .navbar .navbar-nav .dropdown-menu .dropdown-item:focus,
+  .navbar .navbar-nav .dropdown-menu .dropdown-item.active {
+    color: #fcfbfe;
+    background-color: #e07dc4;
+  }
+  .navbar .navbar-nav .dropdown-menu .dropdown-divider {
+    border-top-color: #e07dc4;
+  }
+  .navbar .navbar-nav .nav-item.active .nav-link,
+  .navbar .navbar-nav .nav-item.active .nav-link:hover,
+  .navbar .navbar-nav .nav-item.active .nav-link:focus,
+  .navbar .navbar-nav .nav-item.show .nav-link,
+  .navbar .navbar-nav .nav-item.show .nav-link:hover,
+  .navbar .navbar-nav .nav-item.show .nav-link:focus {
+    color: #fcfbfe;
+    background-color: #e07dc4;
+  }
+  .navbar .navbar-toggle {
+    border-color: #e07dc4;
+  }
+  .navbar .navbar-toggle:hover,
+  .navbar .navbar-toggle:focus {
+    background-color: #e07dc4;
+  }
+  .navbar .navbar-toggle .navbar-toggler-icon {
+    color: #ecf0f1;
+  }
+  .navbar .navbar-collapse,
+  .navbar .navbar-form {
+    border-color: #ecf0f1;
+  }
+  .navbar .navbar-link {
+    color: #ecf0f1;
+  }
+  .navbar .navbar-link:hover {
+    color: #fcfbfe;
+  }
+
+
+
+.main-color-bg{
+
+    background-color: #ed217c !important;
+    border: #ed217c !important;
+    color: #ffffff;
+    font-weight: bold;
+
+
+}
+
+  @media (max-width: 575px) {
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #ecf0f1;
+    }
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #fcfbfe;
+    }
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #fcfbfe;
+      background-color: #e07dc4;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #ecf0f1;
+    }
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #fcfbfe;
+    }
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #fcfbfe;
+      background-color: #e07dc4;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #ecf0f1;
+    }
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #fcfbfe;
+    }
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #fcfbfe;
+      background-color: #e07dc4;
+    }
+  }
+
+   @media (max-width: 1199px) {
+    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #ecf0f1;
+    }
+    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #fcfbfe;
+    }
+    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #fcfbfe;
+      background-color: #e07dc4;
+    }
+  }
+
+  /* .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
+    color: #ecf0f1;
+  }
+  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #fcfbfe;
+  }
+  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #fcfbfe;
+    background-color: #e07dc4;
+  }
+/* HEADER */
+
+#header{
+    background: #333333;
+    color:#ffffff;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+#header > h4{
+    padding-top:10px;
+}
+
+#header .create{
+    padding-top:    5px;
+    padding-bottom: 0px;
+}
+
+/*Breadcrumb*/
+
+.breadcrumb{
+    background: #cccccc;
+    color: #333333;
+    margin-bottom: 4px;
+
+
+}
+
+.breadcrumb a{
+    color: #333333;
+}
+
+
+
+@media (max-width: 991px) {
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #ecf0f1;
+    }
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #ecdbff;
+    }
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #ecdbff;
+      background-color: #ff74af
+    }
+  }
+
+
+
+/* CARD */
+
+#main.card{
+    padding-bottom: 0px;
+}
+
+/* styles for affirmations popup - karthik */
+.modal-title{
+  position: relative;
+  width: 100%;
+}
+.modal-title .navbar-brand{
+  position: relative;
+    top: -12px;
+    -webkit-animation: mymove 5s ; /* Safari 4.0 - 8.0 */
+    animation: mymove 5s ;
+}
+@-webkit-keyframes mymove {
+  from {left: 70%; opacity:0.2;}
+  to {left: 0;opacity:1;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+  from {left: 70%;opacity:0.2;}
+  to {left: 0;opacity:1;}
+}
+/* Safari 4.0 - 8.0 */
+.modal-title .navbar-brand {-webkit-animation-timing-function: linear;margin-top: 10px;
+  margin-bottom: -16px;}
+/* Standard syntax */
+.modal-title .navbar-brand {animation-timing-function: linear;margin-top: 10px;
+  margin-bottom: -16px;}
+
+/* Changed color from blue to pink _Srishty */
+
+ .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+ background-color: #e83e8c;
+ }
+ .horizontal-banner{        /*adding banner space_Srishty */
+  margin-top: 40px;
+  margin-bottom: -18px;
+ }
+.modal-footer button{
+  margin:0 auto;
+}
+
+/* styles for affirmations popup ends here - karthik */
+
+
+.aboutus-container {
+    width: 60%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.aboutus-container-parent{
+        margin: 0 auto;
+}
+.aboutus-container h1{
+
+
+
+}
+
+.aboutus-container p{
+    line-height: 150%;
+
+}
+
+  /* styling the affirmations popup - karthik*/
+#exampleModalCenter{
+  font-weight: bold;
+  }
+#exampleModalCenter .modal-content {
+  background: url(../images/popup_bg.jpg);
+  background-repeat:repeat;
+  opacity: 0.95;
+  font-family: 'Amatic SC', cursive;
+  font-size: 40px;
+}
+
+  /* fixing the different image sizea issue in the physical exercises-starts here-karthik*/
+.tab-pane .rich-text img{
+  max-width: 500px;
+  height: 100%;
+}
+.affirmation-text{
+display: block
+}
+.text-center{
+  text-align: center;
+}
+.text-center.affirmation-text{
+padding: 15px;
+}
+/* fixing the different image sizea issue in the physical exercises - ends here - karthik*/
+
+/*fixing the footer spacing issues-starts here-karthik*/
+.fitgirlinc-footer-socialLinks{
+  text-align:center; 
+  margin:10px; 
+  height:100px;
+  font-size: 15px
+}
+.fitgirlinc-footer-socialLinks a{
+  padding:15px
+}
+.rewards-post-page .rewards-img{
+  width: 100% !important;
+  height: 100% !important;
+}
+/*fixing the footer spacing issues-ends here-karthik*/
+
+
+
+/* iphone X landscape orientation */
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 812px)
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : landscape) { /* STYLES GO HERE */}
+
+/* iphone X portrait orientation */
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 812px)
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : portrait) {
+  /* making the physical exercise images responsive in the physical tabs - karthik*/
+  .tab-pane .rich-text img{
+    max-width: 315px !important;
+    height: 100% !important;
+  }
+}
+
+
+
+
+
+/* iPad in portrait & landscape */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)  { /* STYLES GO HERE */}
+
+/* iPad in landscape */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) { /* STYLES GO HERE */}
+/* iPad in portrait */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) { /* STYLES GO HERE */ }

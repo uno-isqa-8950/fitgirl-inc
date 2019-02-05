@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+<div class ="container">
+    <br>
+    <br>
+  <h1> {{ page.intro|richtext }}</h1>
+<h5> TRY IT!</h5>
+{{ page.body|richtext }}
+
+<!--<form action="{% pageurl page %}" method="POST">-->
+ <!--{% csrf_token %}-->
+<!--{{form.as_p}}-->
+  <!--<input type="submit">-->
+<!--</form>-->
+{{ page.morecontent|richtext}}
+
+
+{% for post in page.get_children %}
+<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
+    {% endfor %}
+<br>
+    {{ page.facts|richtext}}
+
+    <!--Added banner space:hghanta-->
+ <br>
+ <br>
+<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+<hr style="color: black; background: #333;">
+<!--Advertisement-->
+    <div class="img-responsive horizontal-banner" style="text-align: center;">
+        <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
+            {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
+                <img src="{{ ad_photo.url }}" class="img-fluid"/>
+        </a>
+    </div>
+    <!--End Advertisement-->
+
+    {% endblock %}
+</div>
