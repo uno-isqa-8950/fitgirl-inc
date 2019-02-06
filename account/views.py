@@ -56,12 +56,9 @@ def dashboard(request):
                   'account/dashboard.html',
                   {'section': 'dashboard', 'dailyquote': dailyquote})
 
-
 @login_required
 def login_success(request):
     today = datetime.date.today()
-    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-    dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
     if request.user.is_staff:
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
@@ -70,8 +67,8 @@ def login_success(request):
         print(current_week)
         return render(request,
                       'account/current_week.html',
-                      {'current_week': current_week,
-                       'dailyquote': dailyquote})
+                      {'current_week': current_week})
+
 
 @login_required
 def userdashboard(request):
@@ -118,7 +115,7 @@ def handle_uploaded_file(request, name):
     for row in reader:
         try:
             if row[1] and row[2] and row[3]:
-                if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
+                if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$', row[1]):
                     if (len(User.objects.all().filter(email=row[1])) > 0):
                         targetUser = User.objects.all().filter(email=row[1])[0]
                         targetUser.is_active = True
