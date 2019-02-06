@@ -56,7 +56,6 @@ def dashboard(request):
                   'account/dashboard.html',
                   {'section': 'dashboard', 'dailyquote': dailyquote})
 
-
 @login_required
 def login_success(request):
     today = datetime.date.today()
