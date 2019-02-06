@@ -1,6 +1,6 @@
  # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import json
+import json, re
 import datetime
 
 from django.conf import settings
@@ -18,8 +18,8 @@ from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from account.forms import User
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
-from account.models import Profile
-from datetime import date, datetime, timedelta
+from account.models import Profile, Program
+from datetime import time, timezone
 
 class ProgramIndexPage(Page):
     description = models.CharField(max_length=255, blank=True, default="")
@@ -133,6 +133,7 @@ class QuestionPage(AbstractForm):
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         user1.profile.save()
+        print(form.cleaned_data)
         #print(form.user.username)
         #print(user1.profile.points)
         #user1.profile.bio = "yes"
@@ -155,7 +156,7 @@ class PhysicalPostPage(AbstractForm):
     agility = RichTextField(blank=True)
     flexibility = RichTextField(blank=True)
     points_for_this_activity = models.IntegerField(blank=True, default=0)
-    timer_for_this_activity = models.DateTimeField(max_length=20, blank=True, default=timedelta(minutes=30),
+    timer_for_this_activity = models.CharField(max_length=20, blank=True, default=time(00, 30),
                                                help_text='Time format should be in MM:SS')
     thank_you_text = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
@@ -197,11 +198,12 @@ class PhysicalPostPage(AbstractForm):
             page=self, user=form.user
         )
         user1 = User.objects.get(username=form.user.username)
-        print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         user1.profile.save()
         # print(form.user.username)
-        print(user1.profile.points)
+        week = re.match('^.*week-(\d).*$', form.data['pageurl'])[1]
+        log_activity(form.user, self.points_for_this_activity, user1.profile.program, week, "Physical")
+
 
 
 class PreassessmentFormField(AbstractFormField):
@@ -406,10 +408,11 @@ class BoilerPlate(models.Model):
         return self.text
 
 class UserActivity(models.Model):
+    program = models.ForeignKey(Program, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.CharField(max_length=50, name='Activity')
     week = models.IntegerField(name='Week')
-    points_available = models.IntegerField(name='Points Available')
+    day = models.CharField(max_length=10, blank=True, default='', name='DayOfWeek')
     points_earned = models.IntegerField(name='Points Earned')
     creation_date = models.DateField()
     updated_date = models.DateField()
@@ -417,3 +420,18 @@ class UserActivity(models.Model):
     def __str__(self):
         return(activity, week, points_earned)
 
+def log_activity(user, points, program, week, activity):
+    print(user, points, program, week, activity)
+    activity_log = UserActivity()
+    activity_log.user = user
+    activity_log.points_earned = points
+    activity_log.creation_date = datetime.date.today()
+    activity_log.updated_date = datetime.date.today()
+    activity_log.program = program
+    activity_log.week = week
+    activity_log.day = datetime.date.today().strftime('%A')
+    activity_log.activity = activity
+    activity_log.save()
+
+
+# log_activity(form.user, self.points_for_this_activity, user1.profile.program.program_name, week, "Physical")

@@ -52,6 +52,7 @@
                         <form action="{% pageurl page %}" method="POST">
                             {% csrf_token %}
                             {{ form.as_p }}
+                            <input type="hidden" name="pageurl" value="{% pageurl page %}">
                             <br>
                             <br>
                             <button class="btn-fitgirl btn-lg" id="done">Completed!</button>
