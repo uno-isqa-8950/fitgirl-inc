@@ -63,7 +63,7 @@
         {% endif %}
 
     {% else %}
-        <div class ="container">
+        <div class ="container current-week">
         <br>
         <br>
         {% for current_week in current_week %}
@@ -87,6 +87,31 @@
             </div>
         {% endfor %}
             <!--End Card Content-->
+             <!-- Modal -->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+             <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                    <a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>
+              </h5>
+              <button type="button" class="close remove-popup" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+             </div>
+             <div class="modal-body">
+                {% for dailyquote in dailyquote %}
+              <span class="affirmations-text">Today your affirmation is,</span>
+              <span class="affirmations-text text-center">"{{ dailyquote.dailyquote }}"</span>
+              <span class="affirmations-text">Repeat this affirmation to yourself throughout the day!</span>
+                {% endfor %}
+             </div>
+             <div class="modal-footer text-center">
+              <button type="button" class="btn btn-secondary btn-pink" data-dismiss="modal">Close</button>
+             </div>
+            </div>
+           </div>
+          </div>
         </div>
     {% endif %}
 {% endblock %}
