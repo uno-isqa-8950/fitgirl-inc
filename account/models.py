@@ -17,8 +17,8 @@ EVENT = (
 
 
 class Program(models.Model):
-    #program_id = models.AutoField(null=False, primary_key=True)
-    program_name = models.CharField(max_length=20, null=False, unique=True, primary_key=True)
+    program_id = models.AutoField(null=False, primary_key=True)
+    program_name = models.CharField(max_length=20, null=False, unique=True)
     program_start_date = models.DateField(null=False, blank=False)
     program_end_date = models.DateField(null=False, blank=False)
     created_date = models.DateTimeField(default=timezone.now, blank=True)
