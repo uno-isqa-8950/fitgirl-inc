@@ -389,7 +389,31 @@ and (orientation : portrait) {
   text-align: center;
 }
 
+/*coloring app styles_Kelley*/
+#coloring-app {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
 
+#coloring-app iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#coloring-app-att{
+    text-align: center;
+    margin-bottom: 30px;
+}
+/*coloring app styles ends here_Kelley*/
 
 /* iPad in portrait & landscape */
 @media only screen
