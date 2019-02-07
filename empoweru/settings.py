@@ -122,7 +122,7 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 # }
 
 
-```
+"""
 # # ## Local Setting
 DATABASES = {
     'default': {
@@ -134,7 +134,8 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-```
+
+"""
 
 DATABASES = {
     'default': {
