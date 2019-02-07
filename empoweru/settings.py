@@ -9,9 +9,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 #import django_heroku
 import os
 from decouple import config
-import os
-
-
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,7 +24,7 @@ SECRET_KEY = 'xz@m8r3&j2kh@t+9^rxmrbvg+-c4dv5$_&*ru2d1n1jf$3(l_-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.localhost','.herokuapp.com','www.empoweruomaha.com','cat.empoweruomaha.com']
+ALLOWED_HOSTS = ['.localhost', '.herokuapp.com', 'www.empoweruomaha.com', 'cat.empoweruomaha.com']
 
 # Application definition
 
@@ -41,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
 
+    'storages',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.modeladmin',
@@ -63,7 +61,6 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'wagtailmenus',
     'crispy_forms',
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -106,6 +103,38 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd4br3qegmoba7s',
+#         'USER': 'vlpfizeviactfl',
+#         'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
+#         'HOST': 'ec2-23-21-171-249.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
+
+
+```
+# # ## Local Setting
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'empoweru3',
+        'USER': 'postgres',
+        'PASSWORD': 'instructor1a',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+```
 
 DATABASES = {
     'default': {
@@ -117,8 +146,6 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT'),
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -156,32 +183,38 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-
+#S3 settings
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'media/'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = 'static'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "") 
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
-AWS_QUERYSTRING_AUTH = False 
-AWS_S3_CUSTOM_DOMAIN = os.environ.get("AWS_S3_CUSTOM_DOMAIN", "")
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.environ.get("MEDIA_URL", "")
 
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-
-AWS_HEADERS = {
-    'Access-Control-Allow-Origin': '*'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
 }
-# STATIC_ROOT = os.path.join(BASE_DIR, 'stat
+
+AWS_LOCATION = 'media'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 
+# MEDIAFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'media/'),
+# ]
+# AWS_LOCATION = 'media'
+# MEDIAFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+
+# STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '/media/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-#MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = 'login_success'
@@ -203,11 +236,10 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-'''
-try:
-    from empoweru.local_settings import *
-except ImportError:
-    raise Exception("A local_settings.py file is required to run this project")
-'''
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# try:
+#     from local_settings import *
+# except ImportError:
+#     pass
