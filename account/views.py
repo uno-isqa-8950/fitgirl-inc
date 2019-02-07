@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, CloneProgramForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
 from .forms import Profile,User, Program
 from .models import RegisterUser, Affirmations, Dailyquote
 from io import TextIOWrapper, StringIO
@@ -369,20 +369,3 @@ def show_pages(request):
     return(HttpResponse(response))
 
 
-@login_required
-def cloneprogram(request):
-    registeredPrograms = Program.objects.all()
-    if request.method == 'POST':
-        form = CloneProgramForm(request.POST)
-        if form.is_valid():
-            # Get program and start date from form
-            # copy page (Page.copy
-            messages.success(request,'Program added successfully')
-            return redirect('cloneprogram')
-        else:
-            messages.error(request, 'Error cloning Program. Retry!')
-    else:
-        form = CloneProgramForm()
-    return render(request,
-                  'account/cloneprogram.html',
-                  {'section': 'cloneprogram','form':form,'registeredPrograms':registeredPrograms})

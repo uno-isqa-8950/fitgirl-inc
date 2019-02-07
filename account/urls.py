@@ -20,7 +20,6 @@ urlpatterns = [
     path('aboutus/', views.aboutus, name='aboutus'),
     path('users/', views.users, name='users'),
     path('createprogram/', views.createprogram, name='createprogram'),
-    path('cloneprogram/', views.cloneprogram, name='cloneprogram'),
     path('programs/', views.createprogram, name='programs'),
 
     path('myprogram/', views.myprogram, name='myprogram'),

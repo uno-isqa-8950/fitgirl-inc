@@ -69,10 +69,3 @@ def after_copy_page(request, page_class, new_page_class):
 
     return True
 
-@hooks.register('register_page_listing_more_buttons')
-def page_listing_more_buttons(page, page_perms, is_parent=False):
-    yield wagtailadmin_widgets.Button(
-        'Clone',
-        '/cloneprogram',
-        priority=60
-    )
