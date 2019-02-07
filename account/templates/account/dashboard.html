@@ -14,14 +14,14 @@
         <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
         <div id="steps">
-            {% if request.path == "/" %}
+            {% if request.path == "/dashboard/" %}
                 <div class="step active" data-desc="How It Works">1</div>
             {% else %}
                 <div class="step done" data-desc="How It Works">1</div>
             {% endif %}
             {% if request.path == "/pages/disclaimer/" %}
                 <div class="step active" data-desc="Disclaimer">2</div>  <!--Disclaimer added as step 2 - Tarun, hghanta-->
-            {% elif request.path == "/" %}
+            {% elif request.path == "/dashboard/" %}
                 <div class="step" data-desc="Disclaimer">2</div>
             {% elif request.path == "/edit/" %}
                 <div class="step done" data-desc="Disclaimer">2</div>
@@ -42,7 +42,7 @@
             {% endif %}
             <div class="step" data-desc="Complete">5</div>
         </div>
-        {% if request.path == "/" %}
+        {% if request.path == "/dashboard/" %}
         <div class="container offset-lg-2 justify-content-between">
           <div class="col-sm-9 ">
 

@@ -47,7 +47,7 @@
                     <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
             </li>
             <li class="nav-item ">
-                    <a class="nav-link hoverable" target="_blank"  href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
+                    <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
                   </li>
                 {% endif %}
             {% endif %}
@@ -59,11 +59,11 @@
          {% else %}
             <li class="nav-item ">
             <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "{%url 'aboutus'%}">About Us</a>
-
-                <!--adding External Link Parent Resources_Srishty -->
             </li>
+                <!--adding External Link Parent Resources_Srishty -->
+            <li class="nav-item ">
                 <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
-          </li>
+            </li>
 
         </ul>
         <ul class="navbar-nav navbar-centre">
@@ -123,7 +123,9 @@
  <header id="sub-header">
   <div class="container-fluid">
         <div class="row">
+            {% if user.profile.pre_assessment == "yes" %}
             {% main_menu template="menus/program_menu.html" %}
+            {% endif %}
         </div>
     </div>
     </div>
@@ -142,14 +144,15 @@
 {% if request.user.is_authenticated %}
     <!--hghanta: changes for social media icons above footer-->
     <div id="container" class="fitgirlinc-footer-socialLinks">
-        <p style="font-size:15px">Follow us on social media</p>
+        <p>Follow us on social media</p>
         <a href="https://www.facebook.com/fitgirlinc/"  target="_blank"><img class="facebook" src="{% static 'images/socialMedia_icons/facebook.png' %}" alt="facebook" height="40"/></a>
         <a href="https://www.instagram.com/fitgirlomaha/" target="_blank"><img class="instagram" src="{% static 'images/socialMedia_icons/instagram.png' %}" alt="instagram" height="40"/></a>
         <a href="https://www.pinterest.com/fitgirlinc2015/" target="_blank"><img class="pinterest" src="{% static 'images/socialMedia_icons/pinterest.png' %}" alt="pinterest" height="40"/></a>
         <a href="https://www.snapchat.com/add/fitgirlomaha" target="_blank"><img class="snapchat" src="{% static 'images/socialMedia_icons/snapchat.png' %}" alt="snapchat" height="40"/></a>
     </div>
-    <footer style="bottom:0px; width:100%;">
-        <nav class="navbar navbar-expand-lg navbar-dark grey darken-1" style="border-top: 4px solid #ed217c; border-bottom: 0px">
+    <div class="footer-wrapper grey darken-1">
+    <footer>
+        <nav class="navbar navbar-expand-lg navbar-dark grey darken-1">
             <!--<div>-->
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="width: 100%; text-align: center; display: inline-block; height: max-content;">
                   <div class="carousel-inner" style="width: 100%; text-align: center; display: inline-block;">
@@ -172,6 +175,7 @@
             <!--</div>-->
         </nav>
     </footer>
+  </div>
 {% endif %}
 {% endif %}
             <!-- SCRIPTS -->
