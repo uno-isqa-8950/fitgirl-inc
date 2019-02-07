@@ -64,6 +64,7 @@ class Profile(models.Model):
     photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image', blank=True)
     bio = models.CharField(max_length=255, blank=False, null=True)
     secondary_email = models.EmailField(blank=True,null=True)
+    other_email = models.EmailField(blank=True,null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
     zip = models.IntegerField(blank=True, null=True)

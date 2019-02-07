@@ -1,7 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
-
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
@@ -11,6 +7,7 @@ from .forms import Profile,User, Program
 from .models import RegisterUser, Affirmation
 from io import TextIOWrapper, StringIO
 import re
+
 
 from django.shortcuts import redirect
 import csv, string, random
@@ -58,6 +55,22 @@ def dashboard(request):
     return render(request,
                   'account/dashboard.html',
                   {'section': 'dashboard', 'affirmation': affirmation})
+
+@login_required
+def login_success(request):
+    today = datetime.date.today()
+    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+    affirmation = Affirmation.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
+    if request.user.is_staff:
+        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
+    elif request.user.is_active:
+        current_week = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+        print(current_week)
+        return render(request,
+                      'account/current_week.html',
+                      {'current_week': current_week,
+                       'affirmation': affirmation})
 
 @login_required
 def userdashboard(request):
