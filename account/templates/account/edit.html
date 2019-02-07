@@ -33,17 +33,13 @@
               {{ profile_form|crispy }}
           </fieldset>
           <div class="form-group">
-              <br>
-              <br>
               <input type="submit" value="Save changes">
-
           </div>
 
       </form>
     </div>
 </div>
-    <br>
-    <br>
+
     {% if user.profile.pre_assessment == "No" %}
     <a href="/pages/disclaimer/" class="btn btn-secondary"><i class="fa fa-arrow-circle-left"></i>&nbsp; PREV</a>
     {% if activated %}

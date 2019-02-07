@@ -123,7 +123,9 @@
  <header id="sub-header">
   <div class="container-fluid">
         <div class="row">
+            {% if user.profile.pre_assessment == "yes" %}
             {% main_menu template="menus/program_menu.html" %}
+            {% endif %}
         </div>
     </div>
     </div>
