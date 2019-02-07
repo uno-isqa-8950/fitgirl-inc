@@ -85,8 +85,8 @@ class ProgramForm(forms.ModelForm):
 class AdminEditForm(forms.ModelForm):
     bio = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
     date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'class':'form-control','type':'date','placeholder':'mm/dd/yyyy format'}))
-    secondary_email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your secondary email address'}))
-    other_email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter any Other email address'}))
+    secondary_email = forms.EmailField( widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ' Enter secondary email address'}),required=False)
+    other_email = forms.EmailField( widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ' Enter other email address'}), required=False)
     zip = forms.IntegerField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Zip-Code'}))
     city = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
     state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
