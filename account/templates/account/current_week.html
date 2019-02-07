@@ -13,20 +13,33 @@
         <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
         <div id="steps">
-            <div class="step done" data-desc="How It Works">1</div>
-            {% if request.path == "/edit/" %}
-                <div class="step active" data-desc="Update Profile">2</div>
-            {% elif request.path == "/pages/pre-assessment/" %}
-                <div class="step done" data-desc="Update Profile">2</div>
+            {% if request.path == "/" %}
+                <div class="step active" data-desc="How It Works">1</div>
             {% else %}
-                <div class="step" data-desc="Update Profile">2</div>
+                <div class="step done" data-desc="How It Works">1</div>
+            {% endif %}
+            {% if request.path == "/pages/disclaimer/" %}
+                <div class="step active" data-desc="Disclaimer">2</div>  <!--Disclaimer added as step 2 - Tarun, hghanta-->
+            {% elif request.path == "/" %}
+                <div class="step" data-desc="Disclaimer">2</div>
+            {% elif request.path == "/edit/" %}
+                <div class="step done" data-desc="Disclaimer">2</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Disclaimer">2</div>
+            {% endif %}
+            {% if request.path == "/edit/" %}
+                <div class="step active" data-desc="Update Profile">3</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Update Profile">3</div>
+            {% else %}
+                <div class="step" data-desc="Update Profile">3</div>
             {% endif %}
             {% if request.path == "/pages/pre-assessment/" %}
-                <div class="step active" data-desc="Take Pre-Assessment">3</div>
+                <div class="step active" data-desc="Take Pre-Assessment">4</div>
             {% else %}
-                <div class="step" data-desc="Take Pre-Assessment">3</div>
+                <div class="step" data-desc="Take Pre-Assessment">4</div>
             {% endif %}
-            <div class="step" data-desc="Complete">4</div>
+            <div class="step" data-desc="Complete">5</div>
         </div>
         {% if request.path == "/" %}
             <div class="container offset-lg-2 justify-content-between">
@@ -44,7 +57,7 @@
                     <iframe allowtransparency="true" width="780" height="630" src="//scratch.mit.edu/projects/embed/262218134/?autostart=false" frameborder="0" allowfullscreen></iframe>
                     <br>
                     <br>
-                 <a href="{% url 'edit' %}"  class="btn btn-fitgirl pull-right">Next &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="/pages/disclaimer/" class="btn btn-secondary pull-right">NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
         {% endif %}
@@ -74,7 +87,7 @@
             </div>
         {% endfor %}
             <!--End Card Content-->
-               <!-- Modal -->
+             <!-- Modal -->
           <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
            <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -99,7 +112,6 @@
             </div>
            </div>
           </div>
-
         </div>
     {% endif %}
 {% endblock %}
