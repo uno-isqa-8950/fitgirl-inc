@@ -202,7 +202,7 @@ class PhysicalPostPage(AbstractForm):
         user1.profile.save()
         # print(form.user.username)
         week = re.match('^.*week-(\d).*$', form.data['pageurl'])[1]
-        log_activity(form.user, self.points_for_this_activity, user1.profile.program, week, "Physical")
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, week, "Physical")
 
 
 
@@ -411,27 +411,24 @@ class UserActivity(models.Model):
     program = models.ForeignKey(Program, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.CharField(max_length=50, name='Activity')
-    week = models.IntegerField(name='Week')
-    day = models.CharField(max_length=10, blank=True, default='', name='DayOfWeek')
-    points_earned = models.IntegerField(name='Points Earned')
+    week = models.IntegerField(name='Week', null=True)
+    day = models.CharField(max_length=10, name='DayOfWeek')
+    points_earned = models.IntegerField(null=True)
     creation_date = models.DateField()
     updated_date = models.DateField()
 
     def __str__(self):
-        return(activity, week, points_earned)
+        return("User " + self.user + " performed " + self.activity)
 
 def log_activity(user, points, program, week, activity):
-    print(user, points, program, week, activity)
     activity_log = UserActivity()
     activity_log.user = user
     activity_log.points_earned = points
     activity_log.creation_date = datetime.date.today()
     activity_log.updated_date = datetime.date.today()
     activity_log.program = program
-    activity_log.week = week
-    activity_log.day = datetime.date.today().strftime('%A')
-    activity_log.activity = activity
+    activity_log.Week = int(week)
+    activity_log.DayOfWeek = datetime.date.today().strftime('%A')
+    activity_log.Activity = activity
+    #import pdb; pdb.set_trace()
     activity_log.save()
-
-
-# log_activity(form.user, self.points_for_this_activity, user1.profile.program.program_name, week, "Physical")
