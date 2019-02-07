@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
 from .forms import Profile,User, Program
 from .models import RegisterUser, Affirmations, Dailyquote
+from week.models import WeekPage
 from io import TextIOWrapper, StringIO
 import re
 
@@ -56,6 +57,22 @@ def dashboard(request):
                   {'section': 'dashboard', 'dailyquote': dailyquote})
 
 @login_required
+def login_success(request):
+    today = datetime.date.today()
+    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+    dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
+    if request.user.is_staff:
+        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
+    elif request.user.is_active:
+        current_week = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+        print(current_week)
+        return render(request,
+                      'account/current_week.html',
+                      {'current_week': current_week,
+                       'dailyquote': dailyquote})
+
+@login_required
 def userdashboard(request):
     return render(request,
                   'account/userdashboard.html',
@@ -100,7 +117,7 @@ def handle_uploaded_file(request, name):
     for row in reader:
         try:
             if row[1] and row[2] and row[3]:
-                if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$', row[1]):
+                if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
                     if (len(User.objects.all().filter(email=row[1])) > 0):
                         targetUser = User.objects.all().filter(email=row[1])[0]
                         targetUser.is_active = True
