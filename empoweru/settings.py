@@ -212,7 +212,7 @@ MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, '/media/')
+STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #MEDIA_URL = '/media/'
