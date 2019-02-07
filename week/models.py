@@ -1,5 +1,4 @@
 
-
 from __future__ import unicode_literals
 import json
 import datetime
@@ -264,6 +263,15 @@ class MentalPostPage(Page):
         FieldPanel('body', classname="full"),
         ImageChooserPanel('display_image')
     ]
+#Added this for coloring app embedding_Kelley
+class MentalArtPostPage(Page):
+    body = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    content_panels= Page.content_panels + [
+        FieldPanel('body', classname="full"),
+        ImageChooserPanel('display_image')
+    ]
 
 class RewardsIndexPage(Page):
     intro = RichTextField(blank=True)
@@ -353,6 +361,21 @@ class PostassessmentPage(AbstractForm):
         FieldPanel('end_date'),
     ]
 
+class DisclaimerPage(Page):
+    disclaimer = models.CharField(max_length=10000, blank=True, )
+    disclaimer2 = models.CharField(max_length=10000, blank=True, )
+    disclaimer3 = models.CharField(max_length=10000, blank=True, )
+    disclaimer4 = models.CharField(max_length=10000, blank=True, )
+    disclaimer5 = models.CharField(max_length=10000, blank=True, )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('disclaimer', classname="full"),
+        FieldPanel('disclaimer2', classname="full"),
+        FieldPanel('disclaimer3', classname="full"),
+        FieldPanel('disclaimer4', classname="full"),
+        FieldPanel('disclaimer5', classname="full"),
+        ]
+
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
             return render(
@@ -360,6 +383,7 @@ class PostassessmentPage(AbstractForm):
                 self.template,
                 self.get_context(request)
             )
+
 
         return super().serve(request, *args, **kwargs)
 

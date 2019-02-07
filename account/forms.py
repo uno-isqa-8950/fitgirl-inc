@@ -82,5 +82,26 @@ class ProgramForm(forms.ModelForm):
         model = Program
         fields = ('program_name', 'program_start_date','program_end_date')
 
+class AdminEditForm(forms.ModelForm):
+    bio = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
+    date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'class':'form-control','type':'date','placeholder':'mm/dd/yyyy format'}))
+    zip = forms.IntegerField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Zip-Code'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
+    state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
+    day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
+    age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
+    school = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'School Name'}))
+
+
+    def clean_date_of_birth(self):
+        dob = self.cleaned_data['date_of_birth']
+        today = date.today()
+        if (dob.year + 7, dob.month, dob.day) > (today.year, today.month, today.day):
+            raise forms.ValidationError('You must be at least 7 years old to register')
+        return dob
+
+    class Meta:
+        model = Profile
+        fields = ('bio', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school')           # Added Photo to the Start --Shamrose
 
 

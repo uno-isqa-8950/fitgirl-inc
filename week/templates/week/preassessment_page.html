@@ -2,7 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block dash_content %}
-<div class ="container">
+<div class ="container registration-pre-assessment">
     <br>
     <br>
         <h1>{{ page.title }}</h1>
@@ -15,8 +15,8 @@
                     {{ form.as_p }}
                     <!--<input class="btn btn-primary" type="submit" value="'NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i>'">-->
                     <br>
-                    <br>
-                    <button type="submit" class="btn btn-pink pull-right">NEXT
+                    <a href="/edit/" class="btn btn-secondary"><i class="fa fa-arrow-circle-left"></i>&nbsp; PREV</a>
+                    <button type="submit" class="btn btn-secondary pull-right">NEXT
                         <i class="fa fa-arrow-circle-right"></i>
                     </button>
                 </form>

@@ -35,14 +35,12 @@ class Program(models.Model):
     def __str__(self):
         return str(self.program_name)
 
-
 class RegisterUser(models.Model):
     email = models.EmailField(blank=True, null=None)
     first_name = models.CharField(max_length=50, default=None)
     last_name = models.CharField(max_length=50, default=None)
     is_active = models.BooleanField(_('active'), default=True)
     program = models.CharField(max_length=50, default='Test')
-
 
 class InspirationalQuotes(models.Model):
     quote = models.CharField(max_length=500, blank=True, null=True)
@@ -79,6 +77,16 @@ class Profile(models.Model):
     profile_filled = models.BooleanField(default=False)
     pre_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
     post_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
+    created_date = models.DateTimeField(default=timezone.now)
+    updated_date = models.DateTimeField(auto_now_add=True)
+
+    def created(self):
+        self.created_date = timezone.now()
+        self.save()
+
+    def updated(self):
+        self.updated_date = timezone.now()
+        self.save()
 
     def __str__(self):
         return f'{self.user.username} Profile'
