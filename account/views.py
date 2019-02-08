@@ -119,17 +119,18 @@ def handle_uploaded_file(request, name):
         try:
             if row[1] and row[2] and row[3]:
                 if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
+                    
                     if (len(User.objects.all().filter(email=row[1])) > 0):
-                        targetUser = User.objects.all().filter(email=row[1])[0]
-                        targetUser.is_active = True
-                        targetUser.save()
-                        targetProfile = targetUser.profile
-                        targetProfile.program = Program.objects.all().filter(program_name=name)[0]
-                        targetProfile.points = 0
-                        targetProfile.pre_assessment = 'No'
-                        targetProfile.post_assessment = 'No'
-                        targetProfile.save()
-                        count += 1
+#                         targetUser = User.objects.all().filter(email=row[1])[0]
+#                         targetUser.is_active = True
+#                         targetUser.save()
+#                         targetProfile = targetUser.profile
+#                         targetProfile.program = Program.objects.all().filter(program_name=name)[0]
+#                         targetProfile.points = 0
+#                         targetProfile.pre_assessment = 'No'
+#                         targetProfile.post_assessment = 'No'
+#                         targetProfile.save()
+                        existcount += 1        #hghanta:changes to registered user count
 
                     else:
                         vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
