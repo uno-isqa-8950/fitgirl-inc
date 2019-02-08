@@ -273,6 +273,7 @@ height: 100% !important;
   }
 /*fixing the footer spacing issues-ends here-karthik*/
 
+
 /* added space on logout, reset done, change done - hghanta*/
 .spacer-div-30{
 width: 100%;
@@ -553,6 +554,7 @@ and (orientation : portrait) {
     height: 100% !important;
   }
 }
+
 
 /* iPad in portrait & landscape */
 @media only screen and (min-width : 768px) and (max-width : 1024px)  { 

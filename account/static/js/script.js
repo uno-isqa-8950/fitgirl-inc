@@ -17,7 +17,8 @@ $(document).ready(function() {
     $('.logout-button').click(function() {
         window.sessionStorage.clear();
     })
-    // Affirmations popup code starts here - Karthik
+    // Affirmations popup code ends here - Karthik
+
 
 
     //Registration breadcrumb issue fix - karthik
