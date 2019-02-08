@@ -206,7 +206,7 @@ MEDIAFILES_DIRS = [
      os.path.join(BASE_DIR, 'media/'),
  ]
 MEDIA_LOCATION = 'media'
-DEFAULT_FILE_STORAGE = 'empoweru.storage_backends.PublicMediaStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, MEDIA_LOCATION)
 
 
