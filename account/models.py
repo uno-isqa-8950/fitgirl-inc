@@ -108,4 +108,4 @@ class Profile(models.Model):
 
 class Parameters(models.Model):
     physical_days_to_done = models.IntegerField(default=3)
-    nutrition_dayes_to_done = models.IntegerField(default=1)
+    nutrition_days_to_done = models.IntegerField(default=1)
