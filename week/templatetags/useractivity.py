@@ -1,6 +1,6 @@
 from django import template
 from week.models import UserActivity
-from account.models import Program
+from account.models import Program, Parameters
 import re
 from string import capwords
 
@@ -14,7 +14,8 @@ def is_week_done(user, item, page):
     week = re.match('Week (\d+)$', item.text)[1]
     physical_count = UserActivity.objects.filter(user_id=user.id, Activity='physical', Week=week, program_id=program.program_id).count()
     nutrition_count = UserActivity.objects.filter(Activity='nutrition', Week=week, program_id=program.program_id).count()
-    if nutrition_count > 0 and physical_count > 3:
+    parameters = Parameters.objects.all().first()
+    if nutrition_count >= parameters.nutrition_dayes_to_done and physical_count >= parameters.physical_days_to_done:
         return True
     else:
         return False

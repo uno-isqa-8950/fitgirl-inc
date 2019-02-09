@@ -106,3 +106,6 @@ class Profile(models.Model):
     #     instance.profile.save()
 
 
+class Parameters(models.Model):
+    physical_days_to_done = models.IntegerField(default=3)
+    nutrition_dayes_to_done = models.IntegerField(default=1)
