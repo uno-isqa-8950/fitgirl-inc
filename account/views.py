@@ -371,18 +371,6 @@ def archive(request):
                   {'section': 'archive','form':form})
 
 
-from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
-from wagtail.core.models import Page
-from week.models import WeekPage, PhysicalPostPage
 
-# Create your views here.
-def show_pages(request):
-    response = ""
-    objects = Page.objects.live().type(WeekPage)
-    for object in objects:
-        print(object)
-        response = response + str(object) + '<br>'
-    return(HttpResponse(response))
 
 
