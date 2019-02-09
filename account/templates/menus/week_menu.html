@@ -1,15 +1,25 @@
 {% load menu_tags %}
 {% load wagtailcore_tags %}
+{% load useractivity %}
+
 <!--<div class="collapse" id="collapseExample">-->
 <div class="navbar-parent">
     <nav class="navbar navbar-light bg-light" style="border:0">
         {% now "Y-m-d" as current_date %}
+        {% pageurl page as p%}
         {% for item in menu_items %}
             {% if item.specific.end_date and item.specific.start_date %}
                 {% if current_date > item.specific.end_date|date:"Y-m-d" %}
-                    <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                        <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>
-                    </li>
+                    {% is_week_done user item p as done %}
+                    {% if done %}
+                        <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-black btn-rounded disabled">{{ item.text }}</a>
+                        </li>
+                    {% else %}
+                        <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>
+                        </li>
+                    {% endif %}
                 {% elif current_date < item.specific.start_date|date:"Y-m-d" %}
                     <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
                         <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>

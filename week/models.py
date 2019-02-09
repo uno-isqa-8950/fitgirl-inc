@@ -130,15 +130,9 @@ class QuestionPage(AbstractForm):
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user)
         user1=User.objects.get(username=form.user.username)
-        print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         user1.profile.save()
-        print(form.cleaned_data)
-        #print(form.user.username)
-        #print(user1.profile.points)
-        #user1.profile.bio = "yes"
-        #print(user1.profile.bio)
-        #user1.profile.save()
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
 class CustomFormSubmission(AbstractFormSubmission):
@@ -201,8 +195,9 @@ class PhysicalPostPage(AbstractForm):
         user1.profile.points += self.points_for_this_activity
         user1.profile.save()
         # print(form.user.username)
-        week = re.match('^.*week-(\d).*$', form.data['pageurl'])[1]
-        log_activity(user1, self.points_for_this_activity, user1.profile.program, week, "Physical")
+        #my_activity = "Physical"
+        #week = re.match('^.*week-(\d).*$', form.data['pageurl'])[1]
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
 
@@ -240,14 +235,13 @@ class PreassessmentPage(AbstractForm):
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user)
         user1=User.objects.get(username=form.user.username)
-        print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
-        #user1.profile.save()
-        #print(form.user.username)
-        #print(user1.profile.points)
         user1.profile.pre_assessment = "yes"
         #print(user1.profile.bio)
         user1.profile.save()
+        #my_activity = "Pre-assessment"
+        #week = re.match('^.*week-(\d).*$', form.data['pageurl'])[1]
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
 # class CustomFormSubmission(AbstractFormSubmission):
@@ -344,8 +338,11 @@ class QuestionPageText(AbstractForm):
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user)
         user1=User.objects.get(username=form.user.username)
-        print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
+        user1.profile.save()
+        #my_activity = "QuestionPageText"
+        #week = re.match('^.*week-(\d).*$', form.data['pageurl'])[1]
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
 class PostassessmentFormField(AbstractFormField):
@@ -401,7 +398,6 @@ class DisclaimerPage(Page):
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user)
         user1=User.objects.get(username=form.user.username)
-        print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         #user1.profile.save()
         #print(form.user.username)
@@ -409,27 +405,12 @@ class DisclaimerPage(Page):
         user1.profile.post_assessment = "yes"
         #print(user1.profile.bio)
         user1.profile.save()
+        #my_activity = "Disclaimer"
+        #week = re.match('^.*week-(\d).*$', form.data['pageurl'])[1]
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
 
-
-@register_snippet
-class BoilerPlate(models.Model):
-    weeks_to_display = models.ManyToManyField("self")
-    heading = models.CharField(max_length=100, default='')
-    richtext = RichTextField(default='')
-    text = models.CharField(max_length=255)
-
-    panels = [
-        FieldPanel('weeks_to_display'),
-        FieldPanel('heading'),
-        RichTextFieldPanel('richtext'),
-        FieldPanel('text'),
-
-    ]
-
-    def __str__(self):
-        return self.text
 
 class UserActivity(models.Model):
     program = models.ForeignKey(Program, null=True, on_delete=models.CASCADE)
@@ -444,15 +425,29 @@ class UserActivity(models.Model):
     def __str__(self):
         return("User " + self.user + " performed " + self.activity)
 
-def log_activity(user, points, program, week, activity):
+def log_activity(user, points, program, page_url):
     activity_log = UserActivity()
     activity_log.user = user
     activity_log.points_earned = points
     activity_log.creation_date = datetime.date.today()
     activity_log.updated_date = datetime.date.today()
     activity_log.program = program
-    activity_log.Week = int(week)
+    page_components = re.match('^.*\/week-(\d+)\/([\w-]+)\/.*$', page_url)
+    week = 0
+    activity = "nothing"
+    if page_components:
+        if type(page_components[1]) is str:
+            week = page_components[1]
+        if type(page_components[2]) is str:
+            activity = page_components[2]
+    if week:
+        activity_log.Week = int(week)
+
     activity_log.DayOfWeek = datetime.date.today().strftime('%A')
-    activity_log.Activity = activity
-    #import pdb; pdb.set_trace()
+    if activity:
+        activity_log.Activity = activity
+
     activity_log.save()
+
+#https://www.empoweruomaha.com/pages/spring-2019/week-1/bonus/teamwork/teamwork-quiz/
+#https://www.empoweruomaha.com/pages/spring-2019/week-1/physical/thursday/
