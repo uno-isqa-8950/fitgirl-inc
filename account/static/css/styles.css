@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
-
+@import url(http://fonts.googleapis.com/css?family=Quicksand);
 body{
     background: #f4f4f4;
 }
@@ -301,11 +301,11 @@ h1{
 .physical-post-page .rich-text{
 width: 100%
 }
-.rich-text-images{
+.strength-images-array,.agility-images-array,.flexibility-images-array{
 float: left;
 width: 50%;
 }
-.rich-text-paragraphs{
+.strength-paragraphs,.agility-paragraphs,.flexibility-paragraphs{
   float: right;
   width: 45%;
 }
@@ -313,6 +313,15 @@ width: 50%;
 margin-bottom: 10px;
 width: 100%;
 }
+.inline-block{
+  display: inline-block;
+}
+.physical-body .navbar-parent{
+  max-width: 1253px;
+  margin: 0 auto;
+  margin-top: -4px;
+}
+/*Srishty*/
  footer{
    max-width: 1260px !important;
   margin: 0 auto;
@@ -330,8 +339,104 @@ width: 100%;
   -webkit-box-shadow:none;
   border-bottom:none;
  }
+ .physical-body{
+  /*   */
+background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
+/* background: url(../images/dark-mosaic.png),  linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+	background-size: 400% 400%;
+	-webkit-animation: Gradient 15s ease infinite;
+	-moz-animation: Gradient 15s ease infinite;
+	animation: Gradient 15s ease infinite; */
+ }
+ .mental-art-post-page .card .card-img-top{
+  object-fit: scale-down !important;
+ }
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
 
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
 
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+ .physical-body #container-fluid{
+  /* background: #bc4e9c;  
+  background: -webkit-linear-gradient(to top, #f80759, #bc4e9c); 
+  background: linear-gradient(to top, #f80759, #bc4e9c); */
+ }
+ .container.physical-post-page{
+  background:#e3e3e3;}
+ #sub-header .navbar{
+    background: #e2e2e2; /* Old browsers */
+background: -moz-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
+  }
+.container.physical-post-page h1{
+    margin-top: 0px;
+    padding-top: 11px;
+    margin-bottom: 9px;
+}
+.physical-body .fitgirlinc-footer-socialLinks,.physical-body br,.physical-body hr{
+  display:none;
+}
+  .vertical-ad-banner{
+
+  }
+.vertical-ad-banner .advertisement{
+  border:1px solid black;
+  width: 100%;
+  height:600px;
+}
+
+    #soon-glow {
+        font-family: 'Quicksand', sans-serif;
+         color:#fff;
+          background-color:#f13446;
+         background-image:linear-gradient(30deg, #F13B6F,#FC9E2C);
+         text-transform:lowercase;
+     }
+        #soon-glow .soon-label {
+           color:#fff;
+            text-shadow:0 0 .25rem rgba(255,255,255,.75);
+             }
+       #soon-glow .soon-ring-progress {
+             color:#fff;
+           background-color:rgba(255,255,255,.15);
+               }
+        #soon-glow>.soon-group {
+           margin-bottom:-.5em;
+             }
+/*Srishty*/
   @media (max-width: 575px) {
     .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
@@ -360,7 +465,7 @@ width: 100%;
     }
   }
 
-  @media (max-width: 991px) {
+  /* @media (max-width: 991px) {
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
     }
@@ -372,7 +477,7 @@ width: 100%;
       color: #fcfbfe;
       background-color: #e07dc4;
     }
-  }
+  } */
 
   @media (max-width: 991px) {
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
@@ -408,7 +513,15 @@ margin-top: 3rem!important;
       background-color: #e07dc4;
     }
   }
-
+  @media (min-width: 1200px){
+    .container.physical-post-page{
+      max-width: 1254px;
+    padding: 0 22px;
+    }
+    .container .physical-post-page{
+    max-width: 1220px;
+    }
+  }
   /* .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
     color: #ecf0f1;
   }
