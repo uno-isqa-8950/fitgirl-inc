@@ -80,5 +80,8 @@ class ProgramForm(forms.ModelForm):
         model = Program
         fields = ('program_name', 'program_start_date','program_end_date')
 
+class EmailForm(forms.Form):
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea)
 
 
