@@ -18,7 +18,11 @@ $(document).ready(function() {
         window.sessionStorage.clear();
     })
     // Affirmations popup code ends here - Karthik
-
+// if($(".footer-from-disclaimer").length == 0){
+// }else{
+//
+//     $("#userLandingContent1").css("display","none")
+// }
 
 
     //Registration breadcrumb issue fix - karthik
