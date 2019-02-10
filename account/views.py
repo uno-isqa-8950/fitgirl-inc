@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm
 from .forms import Profile,User, Program
 from .models import RegisterUser, Affirmations, Dailyquote
 from week.models import WeekPage
@@ -19,6 +19,7 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
+from django.core.mail import send_mass_mail, BadHeaderError
 
 
 def user_login(request):
@@ -369,3 +370,33 @@ def archive(request):
     return render(request,
                   'account/archive.html',
                   {'section': 'archive','form':form})
+
+
+def emails(request):
+    if request.method == 'GET':
+        form = EmailForm()
+    else:
+        registered_users = RegisterUser.objects.all()
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = 'capstone18FA@gmail.com'
+            message = form.cleaned_data['message']
+            registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+            recepient_list = []
+            for user in registeredUsers:
+                recepient_list.append(user.email)
+            try:
+                datatuple = (
+                    (subject, message, from_email, recepient_list),
+                    # (subject, message, from_email, ['hema.sunny.ghanta@gmail.com']),
+                )
+                send_mass_mail(datatuple)
+                # send_mail(subject, message, from_email, ['admin@example.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return render(request,'account/email_confirmation.html')
+    return render(request, "account/email.html", {'form': form})
+
+
+

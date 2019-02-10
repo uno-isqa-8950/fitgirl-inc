@@ -30,4 +30,5 @@ urlpatterns = [
     path('django_frame/', views.django_frame, name='django_frame'),
     path('profile/<int:pk>/', views.profile, name='profile'),
     path('archive/', views.archive, name='archive'),
+    path('send_email/', views.emails, name='send_email'),
 ]
