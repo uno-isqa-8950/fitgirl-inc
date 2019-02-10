@@ -187,27 +187,12 @@
 function activityDone(){
  $(".start-timer, .demo").hide(); 
 $('#done').show();
+$(".physical-form").submit();
 }
     </script>
   <section class="demo">
-    <div class="soon" id="my-soon-watch-red"
-         data-layout="group tight label-uppercase label-small"
-         data-format="m,s"
-         data-face="slot"
-         data-padding="false"
-         data-visual="ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0"
-         data-due="in 30 seconds"
-         data-event-complete="activityDone">
-    </div>
-      
+    <div id="my-soon-watch-red"></div>
       </section>
-  <!-- <section class="drawer"> 
-      <header class="clickme">Current Events</header>
-      <div class="drawer-content">
-      
-      </div>
-      </div>
-      </section> -->
 {% endif %}
 {% endif %}
             <!-- SCRIPTS -->
@@ -229,17 +214,63 @@ $('#done').show();
     $(document).ready(function () {
   $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
    // Code for toggling the timer
-var r = $("<input/>").attr({ type: "a", id: "field", class:" start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light",value:"start timer",href:"#"});
+var r = $("<input/>").attr({ type: "a", id: "field", class:"start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light",value:"start timer",href:"#"});
 $(".strength-paragraphs").append(r);
 $(".physical-post-page").on('click', '.start-timer', function(){
-//  $(".demo").slideToggle();
 $(".demo").css("visibility","visible");
-//$('#done').show();
-
+var options = {
+// data-since
+since:null,
+// data-due
+due:"2017",
+// data-now
+now:null,
+// data-layout
+layout:"group",
+// data-face
+face:"text",
+// data-visual
+visual:null,
+// data-format
+format:null,
+// data-singular
+singular:false,
+// data-reflect
+reflect:false,
+// data-scale-max
+scaleMax:"m",
+// data-scale-hide
+scaleHide:null,
+// data-separate-chars
+separateChars:true,
+// data-cascade
+cascade:true,
+// data-separator
+separator:"",
+// data-labels-*
+labelsYears:null,
+labelsDays:null,
+labelsHours:null,
+labelsMinutes:null,
+labelsSeconds:null,
+// data-padding
+padding:true,
+// data-padding-*
+paddingDays:null,
+paddingHours:null,
+paddingMinutes:null,
+paddingSeconds:null,
+// data-event-complete
+eventComplete:null,
+// data-event-tick
+eventTick:null,
+         
+};
+ // get the element
+ var element = document.getElementById('my-soon-watch-red');
+// turn it into a Soon counter
+Soon.create(element,{'due':'in 30 seconds','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0','eventComplete':'activityDone'});
 });
-// function activityDone(){
-//     alert("done");
-// }
 });
 </script>
 <style>

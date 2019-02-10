@@ -36,12 +36,22 @@ $(document).ready(function() {
 $( "#strength .rich-text img" ).wrapAll( "<div class='strength-images-array' />");
 $( "#agility .rich-text img" ).wrapAll( "<div class='agility-images-array' />");
 $( "#flexibility .rich-text img" ).wrapAll( "<div class='flexibility-images-array' />");
-$( "#strength .rich-text p" ).wrapAll( "<div class='strength-paragraphs' />");
-$( "#agility .rich-text p" ).wrapAll( "<div class='agility-paragraphs' />");
-$( "#flexibility .rich-text p" ).wrapAll( "<div class='flexibility-paragraphs' />");
-$(".strength-paragraphs").insertAfter(".strength-images-array");
-$(".agility-paragraphs").insertAfter(".agility-images-array");
-$(".flexibility-paragraphs").insertAfter(".flexibility-images-array");
+$("#strength .rich-text").children().not( ".strength-images-array" ).wrapAll( "<div class='strength-paragraphs' />");
+$("#agility .rich-text").children().not( ".agility-images-array" ).wrapAll( "<div class='agility-paragraphs' />");
+$("#flexibility .rich-text").children().not( ".flexibility-images-array" ).wrapAll( "<div class='flexibility-paragraphs' />");
+// $(".physical-form").appendTo( ".tab-pane" );
+// var content = $('#strength .rich-text').clone();
+// $('.strength-images-array', content).remove();
+// alert(content.html());
+// var strength_content =  content.html(); 
+// $(strength_content).wrapAll( "<div class='strength-paragraphs' />");
+// $(".strength-paragraphs").insertAfter(".strength-images-array");
+// $( "#strength .rich-text p" ).wrapAll( "<div class='strength-paragraphs' />");
+// $( "#agility .rich-text p" ).wrapAll( "<div class='agility-paragraphs' />");
+// $( "#flexibility .rich-text p" ).wrapAll( "<div class='flexibility-paragraphs' />");
+// $(".strength-paragraphs").insertAfter(".strength-images-array");
+// $(".agility-paragraphs").insertAfter(".agility-images-array");
+// $(".flexibility-paragraphs").insertAfter(".flexibility-images-array");
 
 
 $(".physical-post-page").closest("body").addClass("physical-body");
