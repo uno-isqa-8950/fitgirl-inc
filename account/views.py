@@ -375,6 +375,10 @@ def archive(request):
 def emails(request):
     if request.method == 'GET':
         form = EmailForm()
+        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        to_list = []
+        for user in registeredUsers:
+            to_list.append(user.email)
     else:
         registered_users = RegisterUser.objects.all()
         form = EmailForm(request.POST)
@@ -384,8 +388,11 @@ def emails(request):
             message = form.cleaned_data['message']
             registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
             recepient_list = []
+            name_list = []
             for user in registeredUsers:
                 recepient_list.append(user.email)
+                name = user.first_name + " " + user.last_name
+                name_list.append(name)
             try:
                 datatuple = (
                     (subject, message, from_email, recepient_list),
@@ -395,8 +402,8 @@ def emails(request):
                 # send_mail(subject, message, from_email, ['admin@example.com'])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            return render(request,'account/email_confirmation.html')
-    return render(request, "account/email.html", {'form': form})
+            return render(request,'account/email_confirmation.html', {'name_list': name_list})
+    return render(request, "account/email.html", {'to_list': to_list ,'form': form})
 
 
 
