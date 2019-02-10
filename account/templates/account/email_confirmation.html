@@ -6,9 +6,13 @@
 <div class="container">
     <div class="col-9 offset-lg-0">
         <div class="spacer-div-30">
-
         </div>
-<h1>Email Sent</h1>
+        <h1>Email confirmation</h1>
+        <p>Email sent to the following user's email accounts:</p>
+        {% for name in name_list %}
+            <p>{{ name }},</p>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 

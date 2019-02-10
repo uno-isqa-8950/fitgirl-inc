@@ -9,6 +9,8 @@
 
         </div>
         <h1 class="text-left">Email form</h1>
+        <h3>Recipients:</h3>
+        <p> {{ to_list }}</p>
         <form method="post">
             {% csrf_token %}
             {{ form|crispy }}
