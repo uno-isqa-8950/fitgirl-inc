@@ -13,6 +13,7 @@
                 <form action="{% pageurl page %}" method="POST">
 
                     {% csrf_token %}
+                    <input type="hidden" name="pageurl" value="{% pageurl page %}">
                     {{ form.as_p }}
                     <br>
                     <br>

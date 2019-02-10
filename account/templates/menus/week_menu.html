@@ -1,5 +1,7 @@
 {% load menu_tags %}
 {% load wagtailcore_tags %}
+{% load useractivity %}
+
 <!--<div class="collapse" id="collapseExample">-->
 <div class="navbar-parent">
     <nav class="navbar navbar-light bg-light" style="border:0">
@@ -7,9 +9,17 @@
         {% for item in menu_items %}
             {% if item.specific.end_date and item.specific.start_date %}
                 {% if current_date > item.specific.end_date|date:"Y-m-d" %}
-                    <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                        <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>
-                    </li>
+                    {# Check if week has been completed. Change button color to a diferent color to represent completed weeks #}
+                    {% is_week_done user item as done %}
+                    {% if done %}
+                        <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-grey btn-rounded disabled">{{ item.text }}</a>
+                        </li>
+                    {% else %}
+                        <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>
+                        </li>
+                    {% endif %}
                 {% elif current_date < item.specific.start_date|date:"Y-m-d" %}
                     <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
                         <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>

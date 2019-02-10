@@ -16,6 +16,7 @@
                 <form action="{% pageurl page %}" method="POST">
 
                     {% csrf_token %}
+                    <input type="hidden" name="pageurl" value="{% pageurl page %}">
                     {% for field in form.visible_fields %}
                         <div class="col-sm-8 form-group">
                             {{ field.label_tag }}

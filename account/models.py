@@ -105,4 +105,6 @@ class Profile(models.Model):
     # def save_user_profile(sender, instance, **kwargs):
     #     instance.profile.save()
 
-
+class Parameters(models.Model):
+    physical_days_to_done = models.IntegerField(default=3)
+    nutrition_days_to_done = models.IntegerField(default=1)
