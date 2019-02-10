@@ -32,14 +32,15 @@
                               <h3>Flexibility</h3>
                               {{ page.flexibility|richtext }}
                           </div>
-                        </div>
-                        <form action="{% pageurl page %}" method="POST">
+                          
+                        <form class="physical-form" action="{% pageurl page %}" method="POST">
                                 {% csrf_token %}
                                 {{ form.as_p }}
                                 <br>
                                 <br>
                                 <button class="btn-fitgirl btn-lg" id="done">Completed!</button>
                             </form>
+                        </div>
                     </div>
 
                     <div class="col-sm-2 vertical-ad-banner">
