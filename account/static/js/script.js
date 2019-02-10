@@ -44,6 +44,34 @@ $(".physical-post-page").closest("body").addClass("physical-body");
 $( ".physical-post-page br" ).remove();
 // $( "h2" ).appendTo( $( ".container" ) )
 
+//var timer_demo= $(".physical-post-page").children(".demo");
+// $(".demo").insertAfter( ".rich-text" )
 
 
+
+
+
+
+// var phyiscaltimer = function(){
+// $('.drawer').slideDrawer({
+// showDrawer: false, // The drawer is hidden by default.
+// slideTimeout: true, // Sets the drawer to slide down after set count if set to true.
+// slideSpeed: 600, // Slide drawer speed. 
+// slideTimeoutCount: 3000, // How long to wait before sliding drawer slides down.
+// });
+// };
+// Code for toggling the timer
+// var r = $("<input/>").attr({ type: "a", id: "field", class:" start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light",value:"start timer",href:"#"});
+// $(".strength-paragraphs").append(r);
+// $(".physical-post-page").on('click', '.start-timer', function(){
+// //  $(".demo").slideToggle();
+// $(".demo").css("visibility","visible");
+// //$('#done').show();
+
+// });
+// function activityDone(){
+//     alert("done");
+// }
 });
+
+  

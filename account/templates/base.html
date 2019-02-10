@@ -15,6 +15,7 @@
     <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/addons/datatables.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/soon.css' %}" rel="stylesheet">
 	<title>{% block title %}{% endblock %}</title>
 	<link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
@@ -176,6 +177,32 @@
         </nav>
     </footer>
   </div>
+    <script>
+    
+function activityDone(){
+ $(".start-timer, .demo").hide(); 
+$('#done').show();
+}
+    </script>
+  <section class="demo">
+    <div class="soon" id="my-soon-watch-red"
+         data-layout="group tight label-uppercase label-small"
+         data-format="m,s"
+         data-face="slot"
+         data-padding="false"
+         data-visual="ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0"
+         data-due="in 30 seconds"
+         data-event-complete="activityDone">
+    </div>
+      
+      </section>
+  <!-- <section class="drawer"> 
+      <header class="clickme">Current Events</header>
+      <div class="drawer-content">
+      
+      </div>
+      </div>
+      </section> -->
 {% endif %}
 {% endif %}
             <!-- SCRIPTS -->
@@ -189,12 +216,25 @@
         <script src="{% static 'js/confetti.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.slidedrawer.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/soon.js' %}" ></script>
         <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/soon.js' %}"></script>
 
 <script>
     $(document).ready(function () {
   $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
+   // Code for toggling the timer
+var r = $("<input/>").attr({ type: "a", id: "field", class:" start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light",value:"start timer",href:"#"});
+$(".strength-paragraphs").append(r);
+$(".physical-post-page").on('click', '.start-timer', function(){
+//  $(".demo").slideToggle();
+$(".demo").css("visibility","visible");
+//$('#done').show();
+
+});
+// function activityDone(){
+//     alert("done");
+// }
 });
 </script>
 <style>
