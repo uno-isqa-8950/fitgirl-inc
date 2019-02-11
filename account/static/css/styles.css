@@ -455,6 +455,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
     margin-top: 0px;
     padding-top: 11px;
     margin-bottom: 9px;
+    position: relative;
 }
 .physical-body .fitgirlinc-footer-socialLinks,.physical-body br,.physical-body hr{
   display:none;
@@ -463,11 +464,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   display: block;
 }
 
+.physical-post-page .horizontal-banner{
+  display: none;
+}
 .vertical-ad-banner .advertisement{
   width: 100%;
   height:600px;
-  margin-top: 80px;
+  margin-top: 103px;
 }
+.back-btn{
+  background-image: url(../images/back-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 22px;
+  padding: 20px;
+  position: absolute;
+  left: 0;}
 
     #soon-glow {
         font-family: 'Quicksand', sans-serif;
@@ -573,6 +585,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 .vertical-ad-banner{
   display: none;
 }
+.physical-post-page .horizontal-banner{
+  display: block;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
 .pt-lg-5, .py-lg-5 {
   padding-top: 3rem!important;
 }
@@ -618,7 +636,43 @@ margin-top: 3rem!important;
         margin: 0 auto;
         text-align: center;
     }
+ /* CSS for confetti buttons */
+ .confetti-button.animate:before {
+  display: block;
+  animation: topBubbles ease-in-out 0.75s forwards;
+}
 
+.confetti-button.animate:after {
+  display: block;
+  animation: bottomBubbles ease-in-out 0.75s forwards;
+}
+
+@keyframes 
+topBubbles {  0% {
+ background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+}
+ 50% {
+ background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;
+}
+ 100% {
+ background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+ background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+}
+}
+
+@keyframes 
+bottomBubbles {  0% {
+ background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+}
+ 50% {
+ background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;
+}
+ 100% {
+ background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+ background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+}
+}
+ /* Css for confetti buttons */
 
 /*coloring app styles ends here_Kelley*/
    @media (max-width: 1199px) {
@@ -638,6 +692,7 @@ margin-top: 3rem!important;
 .vertical-ad-banner{
   display: none;
 }
+
 .physical-content {
   width: 100%;
     flex: 100%;
@@ -665,6 +720,12 @@ margin-top: 3rem!important;
   display: none;
   flex: 0 0 16.666667%;
     max-width: 16.666667%;
+}
+
+.physical-post-page .horizontal-banner{
+  display: block;
+  margin-top: 20px;
+  padding-bottom: 20px;
 }
 .strength-images-array,.agility-images-array,.flexibility-images-array{
   float: left;
@@ -723,6 +784,12 @@ and (orientation : portrait) {
 .vertical-ad-banner{
   display: none;
 }
+
+.physical-post-page .horizontal-banner{
+  display: block;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
 .physical-content{
   max-width:100%;
   flex: 100%;
@@ -776,6 +843,12 @@ and (max-width : 1024px)  {
   .vertical-ad-banner{
     display: none;
   }
+  
+.physical-post-page .horizontal-banner{
+  display: block;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
 }
 
 /* iPad in landscape */

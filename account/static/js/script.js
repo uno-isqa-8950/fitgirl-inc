@@ -49,9 +49,9 @@ $("#flexibility .rich-text").children().not( ".flexibility-images-array" ).wrapA
 // $( "#strength .rich-text p" ).wrapAll( "<div class='strength-paragraphs' />");
 // $( "#agility .rich-text p" ).wrapAll( "<div class='agility-paragraphs' />");
 // $( "#flexibility .rich-text p" ).wrapAll( "<div class='flexibility-paragraphs' />");
-// $(".strength-paragraphs").insertAfter(".strength-images-array");
-// $(".agility-paragraphs").insertAfter(".agility-images-array");
-// $(".flexibility-paragraphs").insertAfter(".flexibility-images-array");
+$(".strength-paragraphs").insertAfter(".strength-images-array");
+$(".agility-paragraphs").insertAfter(".agility-images-array");
+$(".flexibility-paragraphs").insertAfter(".flexibility-images-array");
 
 
 $(".physical-post-page").closest("body").addClass("physical-body");
@@ -61,7 +61,25 @@ $( ".physical-post-page br" ).remove();
 //var timer_demo= $(".physical-post-page").children(".demo");
 // $(".demo").insertAfter( ".rich-text" )
 
+// Initiating the confetti button
+var animateButton = function(e) {
 
+    e.preventDefault;
+    //reset animation
+    e.target.classList.remove('animate');
+    
+    e.target.classList.add('animate');
+    setTimeout(function(){
+      e.target.classList.remove('animate');
+    },700);
+  };
+  
+  var classname = document.getElementsByClassName("bubbly-button");
+  
+  for (var i = 0; i < classname.length; i++) {
+    classname[i].addEventListener('click', animateButton, false);
+    
+  }
 
 
 
