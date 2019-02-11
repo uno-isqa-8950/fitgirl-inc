@@ -83,6 +83,7 @@ class ProgramForm(forms.ModelForm):
         fields = ('program_name', 'program_start_date','program_end_date')
 
 class AdminEditForm(forms.ModelForm):
+    photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}),required=False) 
     bio = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
     date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'class':'form-control','type':'date','placeholder':'mm/dd/yyyy format'}))
     secondary_email = forms.EmailField( widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': ' Enter secondary email address'}),required=False)
