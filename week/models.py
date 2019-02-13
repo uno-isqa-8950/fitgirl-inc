@@ -418,5 +418,15 @@ class Disclaimerlink(Page):
         #print(user1.profile.bio)
         user1.profile.save()
 
+class LandingIndexPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+
+    ]
+
 
 
