@@ -93,6 +93,7 @@ class AdminEditForm(forms.ModelForm):
     day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
     school = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'School Name'}))
+    photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}),required=False)  
 
 
     def clean_date_of_birth(self):
@@ -104,6 +105,6 @@ class AdminEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('bio', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school')           # Added Photo to the Start --Shamrose
+        fields = ('bio', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school', 'photo')           # Added Photo to the Start --Shamrose
 
 
