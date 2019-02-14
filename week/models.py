@@ -283,6 +283,18 @@ class RewardsIndexPage(Page):
 
     ]
 
+#Added this to convert HTML page into CMS - Brent
+class ExtrasIndexPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+
+    ]
+
+
 class RewardsPostPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
