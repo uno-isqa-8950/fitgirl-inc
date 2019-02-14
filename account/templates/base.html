@@ -21,7 +21,7 @@
 <!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 </head>
 <body>
-
+    <div class="nav-wrapper grey darken-1">
     <nav class="navbar navbar-expand-lg navbar-dark grey darken-1  scrolling-navbar">
         <!--hghanta: redirect to dashboard on click empoweu logo, home-->
       <a class="navbar-brand" href="{% url 'dashboard' %}"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
@@ -122,6 +122,7 @@
       </div>
       {% endif %}
     </nav>
+    </div>
  <header id="sub-header">
   <div class="container-fluid">
         <div class="row">
@@ -214,7 +215,7 @@ $(".physical-form").submit();
     $(document).ready(function () {
   $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
    // Code for toggling the timer
-var r = $("<input/>").attr({ type: "a", id: "field", class:"start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light",value:"start timer",href:"#"});
+var r = $("<input/>").attr({ type: "a", id: "field", class:"start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light confetti-button",value:"start timer",href:"#"});
 $(".strength-paragraphs").append(r);
 $(".physical-post-page").on('click', '.start-timer', function(){
 $(".demo").css("visibility","visible");
