@@ -39,16 +39,6 @@ $( "#flexibility .rich-text img" ).wrapAll( "<div class='flexibility-images-arra
 $("#strength .rich-text").children().not( ".strength-images-array" ).wrapAll( "<div class='strength-paragraphs' />");
 $("#agility .rich-text").children().not( ".agility-images-array" ).wrapAll( "<div class='agility-paragraphs' />");
 $("#flexibility .rich-text").children().not( ".flexibility-images-array" ).wrapAll( "<div class='flexibility-paragraphs' />");
-// $(".physical-form").appendTo( ".tab-pane" );
-// var content = $('#strength .rich-text').clone();
-// $('.strength-images-array', content).remove();
-// alert(content.html());
-// var strength_content =  content.html(); 
-// $(strength_content).wrapAll( "<div class='strength-paragraphs' />");
-// $(".strength-paragraphs").insertAfter(".strength-images-array");
-// $( "#strength .rich-text p" ).wrapAll( "<div class='strength-paragraphs' />");
-// $( "#agility .rich-text p" ).wrapAll( "<div class='agility-paragraphs' />");
-// $( "#flexibility .rich-text p" ).wrapAll( "<div class='flexibility-paragraphs' />");
 $(".strength-paragraphs").insertAfter(".strength-images-array");
 $(".agility-paragraphs").insertAfter(".agility-images-array");
 $(".flexibility-paragraphs").insertAfter(".flexibility-images-array");
@@ -56,30 +46,7 @@ $(".flexibility-paragraphs").insertAfter(".flexibility-images-array");
 
 $(".physical-post-page").closest("body").addClass("physical-body");
 $( ".physical-post-page br" ).remove();
-// $( "h2" ).appendTo( $( ".container" ) )
 
-//var timer_demo= $(".physical-post-page").children(".demo");
-// $(".demo").insertAfter( ".rich-text" )
-
-// Initiating the confetti button
-var animateButton = function(e) {
-
-    e.preventDefault;
-    //reset animation
-    e.target.classList.remove('animate');
-    
-    e.target.classList.add('animate');
-    setTimeout(function(){
-      e.target.classList.remove('animate');
-    },700);
-  };
-  
-  var classname = document.getElementsByClassName("bubbly-button");
-  
-  for (var i = 0; i < classname.length; i++) {
-    classname[i].addEventListener('click', animateButton, false);
-    
-  }
 
 
 
