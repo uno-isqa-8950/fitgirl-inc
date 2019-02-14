@@ -19,7 +19,7 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
-from django.core.mail import send_mass_mail, BadHeaderError
+from django.core.mail import send_mass_mail, BadHeaderError, send_mail
 
 
 def user_login(request):
@@ -119,6 +119,7 @@ def handle_uploaded_file(request, name):
         try:
             if row[1] and row[2] and row[3]:
                 if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
+                    num = len(User.objects.all().filter(email=row[1]))
                     if (len(User.objects.all().filter(email=row[1])) > 0):
                         # targetUser = User.objects.all().filter(email=row[1])[0]
                         # targetUser.is_active = True
@@ -390,18 +391,11 @@ def emails(request):
             recepient_list = []
             name_list = []
             for user in registeredUsers:
-                recepient_list.append(user.email)
+                # recepient_list.append(user.email)
+                email = user.email
+                send_mail(subject, message, from_email, [email])
                 name = user.first_name + " " + user.last_name
                 name_list.append(name)
-            try:
-                datatuple = (
-                    (subject, message, from_email, recepient_list),
-                    # (subject, message, from_email, ['hema.sunny.ghanta@gmail.com']),
-                )
-                send_mass_mail(datatuple)
-                # send_mail(subject, message, from_email, ['admin@example.com'])
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
             return render(request,'account/email_confirmation.html', {'name_list': name_list})
     return render(request, "account/email.html", {'to_list': to_list ,'form': form})
 
