@@ -349,6 +349,9 @@ width: 100%;
 .inline-block{
   display: inline-block;
 }
+.datatable-container{
+  margin: 0 auto;
+}
 .password-page label{
   display: inline-block !important;
 }
