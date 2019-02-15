@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'crispy_forms',
     'storages',
+    'letsencrypt',
 ]
 
 MIDDLEWARE = [
