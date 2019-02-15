@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-    'letsencrypt.models.AcmeChallenge',
+    'letsencrypt',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.modeladmin',
