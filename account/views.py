@@ -352,3 +352,6 @@ def archive(request):
     return render(request,
                   'account/archive.html',
                   {'section': 'archive','form':form})
+
+def ssl_validate(request):
+    return HttpResponse("CvHnBeuXkxiUJmNHz7trjEsj50l7C_jw5Vlp8qBHers.3DCalQjZjVirxnL-bXRdyNdvMBxQqYlGWPZIul4oxMw")
