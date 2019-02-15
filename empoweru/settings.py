@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-
+    'letsencrypt',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.modeladmin',
@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'crispy_forms',
     'storages',
-    'letsencrypt',
+    
 ]
 
 MIDDLEWARE = [
