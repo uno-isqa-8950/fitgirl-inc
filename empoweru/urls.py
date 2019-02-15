@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
     path('', include('account.urls')),
-    #path('.well-known/acme-challenge/CvHnBeuXkxiUJmNHz7trjEsj50l7C_jw5Vlp8qBHers/',ssl_validate, name='ssl_validate'),
+    path('.well-known/',include('letsencrypt.urls')),
     path('avatar/', include('avatar.urls')),
     path('assessment/', include('assessment.urls')),
     re_path(r'^cms/', include(wagtailadmin_urls)),
