@@ -31,4 +31,5 @@ urlpatterns = [
     path('profile/<int:pk>/', views.profile, name='profile'),
     path('archive/', views.archive, name='archive'),
     path('send_email/', views.emails, name='send_email'),
+    path('send_individual.email/', views.email_individual, name='send_individual.email'),
 ]
