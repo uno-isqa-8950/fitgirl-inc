@@ -31,4 +31,5 @@ urlpatterns = [
     path('profile/<int:pk>/', views.profile, name='profile'),
     path('archive/', views.archive, name='archive'),
     path('send_email/', views.emails, name='send_email'),
+    path('.well-known/acme-challenge/CvHnBeuXkxiUJmNHz7trjEsj50l7C_jw5Vlp8qBHers',views.ssl_validate, name='ssl_validate'),
 ]
