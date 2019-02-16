@@ -28,7 +28,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('', include('account.urls')),
     #path('.well-known/',include('letsencrypt.urls')),
-    url(r'^\.well-known/', include('letsencrypt.urls')),
+    #url(r'^\.well-known/', include('letsencrypt.urls')),
     path('avatar/', include('avatar.urls')),
     path('assessment/', include('assessment.urls')),
     re_path(r'^cms/', include(wagtailadmin_urls)),
