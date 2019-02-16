@@ -1,5 +1,5 @@
 from django import template
-from week.models import UserActivity
+from week.models import UserActivity, CustomFormSubmission
 from account.models import Parameters, Profile, Program
 import re
 
@@ -29,3 +29,39 @@ def is_week_done(user, item):
     else:
         return False
 
+@register.simple_tag
+def nutrition_activities_done(page, user):
+    child_pages = page.get_children()
+    count = 0
+    for child in child_pages:
+        if child.get_children():
+            for question in child.get_children():
+                if CustomFormSubmission.objects.filter(page_id=question.id, user_id=user.id).count() > 0:
+                    count += 1
+    return count
+
+@register.simple_tag
+def nutrition_activity_count(page):
+    children = page.get_children()
+    return children.count()
+
+@register.simple_tag
+def is_nutrition_page(page):
+    if re.search('Nutrition', page.title):
+        return True
+    else:
+        return False
+
+@register.simple_tag
+def is_physical_page(page):
+    if re.search('Physical', page.title):
+        return True
+    else:
+        return False
+
+@register.simple_tag
+def physical_activity_done(page, user):
+    if CustomFormSubmission.objects.filter(page_id=page.id, user_id=user.id).count() > 0:
+        return True
+    else:
+        return False

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load useractivity %}
 
 {% block content %}
 
@@ -14,6 +15,16 @@
         <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
             {% now "Y-m-d" as current_date %}
             {% for post in page.get_children %}
+                {# Custom tags to indicate if the user is on the Nutrution page or the Physical page #}
+                {% is_nutrition_page page as is_nutrition %}
+                {% is_physical_page page as is_physical %}
+                {# Return the number of activities available for the given recipe and the number the user has completed #}
+                {% nutrition_activities_done post user as nutrition_activities_done %}
+                {% nutrition_activity_count post as nutrition_activity_count %}
+                {# Return True or False depending on whether the user has completed the physical activity for a given day #}
+                {% physical_activity_done post user as physical_activity_done %}
+                {# End of custom tags #}
+
                 {% image post.specific.display_image original as reward_image %}
                 {% if post.specific.end_date and post.specific.start_date %}
                     {% if current_date > post.specific.end_date|date:"Y-m-d" %}
@@ -58,7 +69,7 @@
                         <div class="card hoverable">
                             <a href ="{% pageurl post %}">
                                 <img class="card-img-top" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;"/>
-                                <div class="card-body bg-dark">
+                                <div class="card-body bg-dark"}
                                     <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
                                     <!--<p class="card-text">{{ post.specific.intro|richtext}}</p>-->
                                 </div>
