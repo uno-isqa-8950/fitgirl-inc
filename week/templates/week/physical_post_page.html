@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class ="container physical-post-page">
-    <h1 style="text-align: center;"><a href="{{ page.get_parent.url }}" style="float:left" class="confetti-button back-btn btn btn-fitgirl pull-right"></a>{{ page.title }}</h1>
+    <h1 style="text-align: center;"><a href="#" style="float:left" class="confetti-button back-btn btn btn-fitgirl pull-right"></a>{{ page.title }}</h1>
 
 
     {% if user.is_authenticated and user.is_active or request.is_preview %}
@@ -64,18 +64,113 @@
         <div>To fill in the form, you should log in.</div>
     {% endif %}
 <!--added banner space, return button modified:hghanta-->
-    
-    <hr style="color: black; background: #333;">
-        <!--Advertisement-->
-    <div class="img-responsive horizontal-banner" style="text-align: center;">
-        <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
-            {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
-                <img src="{{ ad_photo.url }}" class="img-fluid"/>
-        </a>
-    </div>
-    <!--End Advertisement-->
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </div>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<hr style="color: black; background: #333;">
+    <!--Advertisement-->
+<div class="img-responsive horizontal-banner" style="text-align: center;">
+    <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
+        {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
+            <img src="{{ ad_photo.url }}" class="img-fluid"/>
+    </a>
+    <script>
+            $(".physical-post-page").on('click', '.start-timer', function(){
+        $(".demo").css("visibility","visible");
+        var options = {
+        // data-since
+        since:null,
+        // data-due
+        due:"2017",
+        // data-now
+        now:null,
+        // data-layout
+        layout:"group tight label-uppercase label-small",
+        // data-face
+        face:"text",
+        // data-visual
+        visual:"ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0",
+        // data-format
+        format:"m,s",
+        // data-singular
+        singular:false,
+        // data-reflect
+        reflect:false,
+        // data-scale-max
+        scaleMax:"m",
+        // data-scale-hide
+        scaleHide:null,
+        // data-separate-chars
+        separateChars:true,
+        // data-cascade
+        cascade:true,
+        // data-separator
+        separator:"",
+        // data-labels-*
+        labelsYears:null,
+        labelsDays:null,
+        labelsHours:null,
+        labelsMinutes:null,
+        labelsSeconds:null,
+        // data-padding
+        padding:true,
+        // data-padding-*
+        paddingDays:null,
+        paddingHours:null,
+        paddingMinutes:null,
+        paddingSeconds:null,
+        // data-event-complete
+        eventComplete:null,
+        // data-event-tick
+        eventTick:null,
+                 
+        };
+         // get the element
+         var element = document.getElementById('my-soon-watch-red');
+        // turn it into a Soon counter
+        Soon.create(element,{'due':'in 5 seconds','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0','eventComplete':'warmUp'});
+        });
+        function warmUp(x){
+        // Calculate the time in terms of seconds and minutes
+        var timer2 = "{{ page.timer_for_this_activity|safe }}";
+                var timer = timer2.split(':');
+                //by parsing integer, I avoid all extra string processing
+                var minutes = parseInt(timer[0], 10);
+                var seconds = parseInt(timer[1], 10);
+                --seconds;
+                minutes = (seconds < 0) ? --minutes : minutes;
+                seconds = (seconds < 0) ? 59 : seconds;
+                seconds = (seconds < 10) ? '0' + seconds : seconds;
+        console.log(minutes);
+        console.log(seconds);
+        var x=20;
+        var time = "in "+seconds+" seconds";
+        $("#my-soon-watch-red").soon().destroy();
+         var element = document.getElementById('my-soon-watch-red');
+         var someObject = {'due':'in 10 seconds','eventComplete':'training','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'};
+         someObject.due = time;
+        $("#my-soon-watch-red").soon().create(someObject);
+        }
+        // function coolDown(){// enter the number of intervals here
+                function training(){   
+                     $(".start-timer, .demo").hide(); 
+                    // $('#done').show();
+                    $(".physical-form").submit();
+                    // var x = 5; 
+                    // for (var i=0; i<x; i++ ){
+                    // // alert(i)
+                    // $("#my-soon-watch-red").soon().destroy();
+                    // $("#my-soon-watch-red").soon().create({'due':'in 6 seconds'});
+                    // console.log("done")
+                    // }
+                }
+        // }
+            </script>
+          <section class="demo">
+            <div id="my-soon-watch-red"></div>
+              </section>
+    <!--End Advertisement-->
     <script>
      
 //           function showMessage() {
@@ -125,6 +220,25 @@
 
         $(document).ready(function() {
         $('.nav-item a[href="#strength"]').tab('show')
+            
+        // Initiating the confetti button
+var animateButton = function(e) {
+    e.preventDefault;
+    //reset animation
+    e.target.classList.remove('animate');
+    
+    e.target.classList.add('animate');
+    setTimeout(function(){
+      e.target.classList.remove('animate');
+    },700);
+  };
+  
+  var classname = document.getElementsByClassName("confetti-button");
+  
+  for (var i = 0; i < classname.length; i++) {
+    classname[i].addEventListener('click', animateButton, false);
+    
+  }
 
     });
     
