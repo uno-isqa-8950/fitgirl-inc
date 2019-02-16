@@ -12,6 +12,10 @@ body{
 .btn-return{
     margin-left:0;}
 
+.print-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 .modal-dialog.modal-notify.modal-info .fa {
     color: #ed217c;
 }
