@@ -111,6 +111,7 @@ body{
   width: 100%;
   /* display: none; */
   visibility: hidden;
+  z-index: 1000;
 }
 .soon {
     max-width: 1253px;
@@ -293,6 +294,13 @@ height: 100% !important;
   }
 /*fixing the footer spacing issues-ends here-karthik*/
 
+/* Brent - Created Extras.html page into CMS */
+
+.extra-index-page .rewards-img{
+  width: 100%;
+  height: 200px;
+  object-fit: contain !important;
+  }
 
 /* added space on logout, reset done, change done - hghanta*/
 .spacer-div-30{
@@ -327,7 +335,7 @@ width: 50%;
 }
 .strength-paragraphs,.agility-paragraphs,.flexibility-paragraphs{
   float: right;
-  width: 45%;
+  width: 47%;
   border-radius: 5px;
     padding: 0 10px;
     border:1px solid #c4c4c4;
@@ -347,6 +355,12 @@ width: 100%;
 }
 .inline-block{
   display: inline-block;
+}
+.datatable-container{
+  margin: 0 auto;
+}
+.password-page label{
+  display: inline-block !important;
 }
 .physical-body .navbar-parent{
   max-width: 1253px;
@@ -464,9 +478,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   display: block;
 }
 
-.physical-post-page .horizontal-banner{
-  display: none;
-}
 .vertical-ad-banner .advertisement{
   width: 100%;
   height:600px;
