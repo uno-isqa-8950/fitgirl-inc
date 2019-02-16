@@ -225,6 +225,17 @@ margin:0 auto;
 
 /* styles for affirmations popup ends here - karthik */
 
+/* increase the clsoe button text - affirmations - brent */
+.affirmations_close_button{
+padding:10px;
+font-size: 25px;
+}
+
+/* increase X of the affirmations dialogue box- brent */
+.close_x{
+font-size: 55px;
+        padding: 0 20px !important;
+}
 
 .aboutus-container {
     /* width: 60%; */
