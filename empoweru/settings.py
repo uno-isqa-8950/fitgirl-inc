@@ -212,6 +212,7 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
+
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 '''
