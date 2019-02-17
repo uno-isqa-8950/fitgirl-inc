@@ -34,10 +34,8 @@ def nutrition_activities_done(page, user):
     child_pages = page.get_children()
     count = 0
     for child in child_pages:
-        if child.get_children():
-            for question in child.get_children():
-                if CustomFormSubmission.objects.filter(page_id=question.id, user_id=user.id).count() > 0:
-                    count += 1
+        if CustomFormSubmission.objects.filter(page_id=question.id, user_id=user.id).count() > 0:
+            count += 1
     return count
 
 @register.simple_tag
