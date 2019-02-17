@@ -1,0 +1,23 @@
+{% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Email Students{% endblock %}
+
+{% block dash_content %}
+<div class="container">
+    <div class="col-9 offset-lg-0">
+        <div class="spacer-div-30">
+
+        </div>
+        <h1 class="text-left">Email form</h1>
+        <h3>Recipients:</h3>
+        <p> {{ to_list }}</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="form-actions">
+              <button type="submit" class="btn btn-pink"> &nbsp Send E-mail</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

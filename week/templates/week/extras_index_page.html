@@ -6,7 +6,9 @@
 
 {% block content %}
 
+<!-- Extras pages added for CMS - Brent -->
 <!-- changes done for streched image- srishty -->
+
     <div class ="container rewards-index-page">
     <br>
     <br>
@@ -21,7 +23,7 @@
                 <a href ="{% pageurl post %}">
                 <a  href ="#">
                     <!-- changes done for streched image- srishty -->
-                    <img class="card-img-top rewards-img " src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
+                    <img class="card-img-top rewards-img " src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: fill;"/>
                     <div class="card-body bg-dark">
                         <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
                         <p class="card-text">{{ post.specific.description|richtext }}</p>

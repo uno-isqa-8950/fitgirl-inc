@@ -499,3 +499,16 @@ and (orientation : landscape) { /* STYLES GO HERE */}
 and (min-width : 768px)
 and (max-width : 1024px)
 and (orientation : portrait) { /* STYLES GO HERE */ }
+
+.on-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    background-color: red;
+}
+}

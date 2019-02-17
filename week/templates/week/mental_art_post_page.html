@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<div class ="container">
+<div class ="container mental-art-post-page">
     <br>
     <br>
   <h1 style="text-align: center;">{{ page.title }}</h1>
@@ -19,7 +19,7 @@
                 <div class="card hoverable">
                       <a href ="{% pageurl post %}">
 
-                          <img class="card-img-top img-responsive" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: fill;"/>
+                          <img class="card-img-top img-responsive" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit:contain;"/>
 
                           <div class="card-body bg-dark">
                               <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
@@ -34,7 +34,7 @@
 
 <!-- Added this for coloring app embedding_Kelley -->
     <div id="coloring-app">
-        <iframe id="coloring-app iframe" src="http://www.jogosgratispro.com/demo/coloringScirra/index.html" allowfullscreen="true" frameborder="0"></iframe>
+        <iframe id="coloring-app iframe"  src="http://www.jogosgratispro.com/demo/coloringScirra/index.html" allowfullscreen="true" frameborder="0"></iframe>
     </div>
      <div id="coloring-app-att">
      <p>Brought to you by: www.jogosgratispro.com</p>

@@ -6,12 +6,8 @@
 
 
 
-<div>
 
-<div class="col-12 offset-lg-2">
-
-
-
+<div class="datatable-container">
 <br>
     <br>
 
@@ -78,8 +74,8 @@
 
         </tbody>
     </table>
-  </div>
-  </div>
+ <a href="{% url 'send_email' %}" class="btn btn-pink">E-mail all students</a>
+</div>
 </div>
 </div>
 </div>
@@ -95,7 +91,7 @@
   $(document).ready(function () {
       $('#dtDynamicVerticalScroll').DataTable({
           "order": [[4, "YES"]],
-          "responsive": true, "scrollY": "80vh",
+          "responsive": true,
           "scrollCollapse": true,
           language: {
               searchPlaceholder: "Search",
