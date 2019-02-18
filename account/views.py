@@ -399,6 +399,5 @@ def emails(request):
             return render(request,'account/email_confirmation.html', {'name_list': name_list})
     return render(request, "account/email.html", {'to_list': to_list ,'form': form})
 
-def ssl_validate(request):
-    return HttpResponse("CvHnBeuXkxiUJmNHz7trjEsj50l7C_jw5Vlp8qBHers.3DCalQjZjVirxnL-bXRdyNdvMBxQqYlGWPZIul4oxMw")
+
 
