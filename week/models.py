@@ -16,6 +16,20 @@ from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from account.forms import User
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+class AboutUsIndexPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+    ad_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    ad_url = models.URLField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+		ImageChooserPanel('ad_image'),
+        FieldPanel('ad_url'),
+    ]
+
 class ProgramIndexPage(Page):
     description = models.CharField(max_length=255, blank=True, )
 
@@ -429,6 +443,16 @@ class Disclaimerlink(Page):
         user1.profile.post_assessment = "yes"
         #print(user1.profile.bio)
         user1.profile.save()
+
+class LandingIndexPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+
+    ]
 
 
 

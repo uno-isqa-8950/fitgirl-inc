@@ -32,4 +32,7 @@ urlpatterns = [
     path('archive/', views.archive, name='archive'),
     path('send_email/', views.emails, name='send_email'),
     path('send_individual.email/', views.email_individual, name='send_individual.email'),
+
+
+
 ]

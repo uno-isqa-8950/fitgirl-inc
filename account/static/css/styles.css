@@ -12,6 +12,10 @@ body{
 .btn-return{
     margin-left:0;}
 
+.print-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 .modal-dialog.modal-notify.modal-info .fa {
     color: #ed217c;
 }
@@ -215,12 +219,27 @@ background-color: #e83e8c;
 margin-top: 40px;
 margin-bottom: -18px;
 }
+.physical-post-page .horizontal-banner{        /*adding banner space_Srishty */
+margin-top: 20px;
+padding-bottom:20px;
+}
 .modal-footer button{
 margin:0 auto;
 }
 
 /* styles for affirmations popup ends here - karthik */
 
+/* increase the clsoe button text - affirmations - brent */
+.affirmations_close_button{
+padding:10px;
+font-size: 25px;
+}
+
+/* increase X of the affirmations dialogue box- brent */
+.close_x{
+font-size: 55px;
+        padding: 0 20px !important;
+}
 
 .aboutus-container {
     /* width: 60%; */
@@ -800,7 +819,7 @@ and (orientation : portrait) {
 .physical-post-page .horizontal-banner{
   display: block;
   margin-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 .physical-content{
   max-width:100%;
@@ -872,4 +891,22 @@ and (orientation : landscape) { /* STYLES GO HERE */}
 @media only screen
 and (min-width : 768px)
 and (max-width : 1024px)
-and (orientation : portrait) { /* STYLES GO HERE */ }}
+and (orientation : portrait) { /* STYLES GO HERE */ }
+
+
+/*.card .card-body{
+    position: relative;
+    overflow: hidden;
+}
+.heart{
+    height: 35px;
+    width: 35px;
+    float:right;
+    overflow: hidden;
+    position: absolute;
+    right: 20px;
+}
+.heart-incomplete{
+    overflow: hidden;
+    width: 15px;
+/*}*/

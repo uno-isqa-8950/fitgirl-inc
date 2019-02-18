@@ -3,37 +3,56 @@
 {% load wagtailimages_tags %}
 
 {% block content %}
-<div class ="container">
+<div class="container">
     <br>
     <br>
-  <h1> {{ page.intro|richtext }}</h1>
-<h5> TRY IT!</h5>
-{{ page.body|richtext }}
+    <h1> {{ page.intro|richtext }}</h1>
+    <h5> TRY IT!</h5>
+    <!-- printing area starts here _Kelley -->
+    <div id="printableArea">
+        {{ page.body|richtext }}
 
-<!--<form action="{% pageurl page %}" method="POST">-->
- <!--{% csrf_token %}-->
-<!--{{form.as_p}}-->
-  <!--<input type="submit">-->
-<!--</form>-->
-{{ page.morecontent|richtext}}
+        <!--<form action="{% pageurl page %}" method="POST">-->
+        <!--{% csrf_token %}-->
+        <!--{{form.as_p}}-->
+        <!--<input type="submit">-->
+        <!--</form>-->
 
 
-{% for post in page.get_children %}
-<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
+        {{ page.morecontent|richtext}}
+    </div>
+    <!-- printing area ends here _Kelley -->
+    <script>
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+
+    <form>
+        <input class="print-button" type="button" value="Print me!" onClick="printDiv('printableArea')"/>
+    </form>
+    {% for post in page.get_children %}
+    <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
     {% endfor %}
-<br>
+    <br>
     {{ page.facts|richtext}}
 
+
     <!--Added banner space:hghanta-->
- <br>
- <br>
-<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
-<hr style="color: black; background: #333;">
-<!--Advertisement-->
+    <br>
+    <br>
+    <a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i>
+        &nbsp Return</a>
+    <hr style="color: black; background: #333;">
+    <!--Advertisement-->
     <div class="img-responsive horizontal-banner" style="text-align: center;">
         <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
             {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
-                <img src="{{ ad_photo.url }}" class="img-fluid"/>
+            <img src="{{ ad_photo.url }}" class="img-fluid"/>
         </a>
     </div>
     <!--End Advertisement-->
