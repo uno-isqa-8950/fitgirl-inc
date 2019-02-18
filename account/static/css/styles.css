@@ -294,6 +294,13 @@ height: 100% !important;
   }
 /*fixing the footer spacing issues-ends here-karthik*/
 
+/* Brent - Created Extras.html page into CMS */
+
+.extra-index-page .rewards-img{
+  width: 100%;
+  height: 200px;
+  object-fit: contain !important;
+  }
 
 /* added space on logout, reset done, change done - hghanta*/
 .spacer-div-30{
