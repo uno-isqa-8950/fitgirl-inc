@@ -8,13 +8,14 @@
         <div class="spacer-div-30">
         </div>
         <h1>Email confirmation</h1>
-        <p>Email sent to the following user's email accounts:</p>
-        {% for name in name_list %}
-            <p>{{ name }},</p>
-        {% endfor %}
+        <p>Email sent to the following user's email accounts: {{ contact_email }}</p>
+
+
+    </div>
+    <div>
+        <a class="btn btn-pink waves-effect waves-light" href="/users/">Back</a>
     </div>
 
-    <a class="btn btn-pink waves-effect waves-light" href="/users/">Back</a>
+
+</div>
 {% endblock %}
-
-
