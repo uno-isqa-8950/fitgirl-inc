@@ -142,8 +142,14 @@
                 minutes = (seconds < 0) ? --minutes : minutes;
                 seconds = (seconds < 0) ? 59 : seconds;
                 seconds = (seconds < 10) ? '0' + seconds : seconds;
-
-        var time = "in "+(minutes*60)+seconds+" seconds";
+        var minutes_in_seconds = 60*minutes ;   
+        var total_time_in_seconds = minutes_in_seconds + seconds;
+        var time = "in "+total_time_in_seconds+" seconds";
+        console.log(minutes);
+        console.log(seconds);
+        console.log(minutes_in_seconds);
+        console.log(total_time_in_seconds);
+        console.log(time);
         $("#my-soon-watch-red").soon().destroy();
          var element = document.getElementById('my-soon-watch-red');
          var someObject = {'due':'in 10 seconds','eventComplete':'training','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'};
