@@ -2,7 +2,11 @@
 {% load wagtailcore_tags %}
 <!--<div class="collapse" id="collapseExample">-->
 <div class="navbar-parent">
-    <nav class="navbar navbar-light bg-light" style="border:0">
+            <!-- <span class="previous">&larr;</span>
+            <span class="next">&rarr;</span>
+    <div class="slider"> -->
+    <nav class="navbar navbar-light bg-light" style="border:0">      
+          <!-- <ul>  -->
         {% now "Y-m-d" as current_date %}
         {% for item in menu_items %}
             {% if item.specific.end_date and item.specific.start_date %}
@@ -25,5 +29,7 @@
                 </li>
             {% endif %}
         {% endfor %}
-    </nav>
+         <!-- </ul>  -->
+        </nav>
+</div>
 </div>
