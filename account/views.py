@@ -2,12 +2,12 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, AdminEditForm
-from .forms import Profile,User, Program
-from .models import RegisterUser, Affirmation
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm
+from .forms import Profile,User, Program, ContactForm
+from .models import RegisterUser, Affirmations, Dailyquote
+from week.models import WeekPage
 from io import TextIOWrapper, StringIO
 import re
-
 
 from django.shortcuts import redirect
 import csv, string, random
@@ -19,7 +19,7 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
-from django.utils import timezone
+from django.core.mail import send_mass_mail, BadHeaderError, send_mail
 
 
 def user_login(request):
@@ -49,19 +49,19 @@ def dashboard(request):
 
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
-    affirmation = Affirmation.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
+    dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
     if request.user.is_staff:
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard', 'affirmation': affirmation})
+                  {'section': 'dashboard', 'dailyquote': dailyquote})
 
 @login_required
 def login_success(request):
     today = datetime.date.today()
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-    affirmation = Affirmation.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
+    dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
     if request.user.is_staff:
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
@@ -71,7 +71,7 @@ def login_success(request):
         return render(request,
                       'account/current_week.html',
                       {'current_week': current_week,
-                       'affirmation': affirmation})
+                       'dailyquote': dailyquote})
 
 @login_required
 def userdashboard(request):
@@ -118,18 +118,19 @@ def handle_uploaded_file(request, name):
     for row in reader:
         try:
             if row[1] and row[2] and row[3]:
-                if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$', row[1]):
+                if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
+                    num = len(User.objects.all().filter(email=row[1]))
                     if (len(User.objects.all().filter(email=row[1])) > 0):
-                        targetUser = User.objects.all().filter(email=row[1])[0]
-                        targetUser.is_active = True
-                        targetUser.save()
-                        targetProfile = targetUser.profile
-                        targetProfile.program = Program.objects.all().filter(program_name=name)[0]
-                        targetProfile.points = 0
-                        targetProfile.pre_assessment = 'No'
-                        targetProfile.post_assessment = 'No'
-                        targetProfile.save()
-                        count += 1
+                        # targetUser = User.objects.all().filter(email=row[1])[0]
+                        # targetUser.is_active = True
+                        # targetUser.save()
+                        # targetProfile = targetUser.profile
+                        # targetProfile.program = Program.objects.all().filter(program_name=name)[0]
+                        # targetProfile.points = 0
+                        # targetProfile.pre_assessment = 'No'
+                        # targetProfile.post_assessment = 'No'
+                        # targetProfile.save()
+                        existcount += 1             #hghanta: changes to get existing users count
 
                     else:
                         vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
@@ -327,29 +328,7 @@ def edit(request):
                    'profile_form': profile_form,
                    'activated':activated})
 
-@login_required
-def edit_user(request,pk):
-    user = get_object_or_404(Profile, pk=pk)
 
-    if request.method == "POST":
-        # update
-        form = AdminEditForm(request.POST, instance=user)
-        user_form = AdminEditForm(instance=request.user,
-                                 data=request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.updated_date = timezone.now()
-            user.save()
-            user = Profile.objects.filter(created_date__lte=timezone.now())
-            messages.success(request, 'Profile updated successfully')
-            return redirect('users')
-
-        else:
-            messages.warning(request, 'Please correct the errors below!')
-    else:
-        # edit
-        form = AdminEditForm(instance=user)
-    return render(request, 'account/edit_user.html', {'form': form})
 
 
 @login_required
@@ -393,3 +372,47 @@ def archive(request):
                   'account/archive.html',
                   {'section': 'archive','form':form})
 
+
+def emails(request):
+    if request.method == 'GET':
+        form = EmailForm()
+        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        to_list = []
+        for user in registeredUsers:
+            to_list.append(user.email)
+    else:
+        registered_users = RegisterUser.objects.all()
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = 'capstone18FA@gmail.com'
+            message = form.cleaned_data['message']
+            registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+            recepient_list = []
+            name_list = []
+            for user in registeredUsers:
+                # recepient_list.append(user.email)
+                email = user.email
+                send_mail(subject, message, from_email, [email])
+                name = user.first_name + " " + user.last_name
+                name_list.append(name)
+            return render(request,'account/email_confirmation.html', {'name_list': name_list})
+    return render(request, "account/email.html", {'to_list': to_list ,'form': form})
+
+
+def email_individual(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            contact_email = form.cleaned_data['contact_email']
+            message = form.cleaned_data['message']
+            from_email = 'capstone18FA@gmail.com'
+            try:
+                send_mail(subject, message, from_email, [contact_email])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return render(request,'account/email_individual_confirmation.html',{'contact_email':contact_email})
+    return render(request, 'account/email_individual.html', {'form': form})

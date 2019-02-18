@@ -9,6 +9,8 @@
 
   <!-- Font Awesome -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
 <!-- Bootstrap core CSS -->
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
@@ -23,6 +25,7 @@
  <!-- Main navigation -->
 <header>
     <!--Navbar-->
+    <div class="nav-wrapper grey darken-1">
     <nav class="navbar navbar-expand-lg navbar-dark grey darken-1 scrolling-navbar">
       <a class="navbar-brand" href="#">
          <img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/>
@@ -33,16 +36,19 @@
       <!-- <div class="container"> commented to remove the space between Empower you and About us-->
         <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
           <ul class="navbar-nav mr-auto">
+              <!-- Added home glyphicon to navbar_Kelley -->
+            <li class="nav-item ">
+                <a class="nav-link hoverable" href="{% url 'dashboard' %}" style="background-color: rgba(255,255,255,.1);">
+                    <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
+            </li>
+            <li class="nav-item ">
+                    <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
+                  </li>
               <li class="nav-item active">
-              <a class="nav-link hoverable" target="_blank" style="background-color: rgba(255,255,255,.1);" href="{%url 'aboutus'%}">About Us</a>
+              <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href="/pages/about-fitgirl">About Us</a>
               </li>
               <li class="nav-item active">
-              <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources  
-                <span class="sr-only">(current)</span>    
-              </a>
-            </li>
-               <li class="nav-item active">
-              <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "/pages/extras" target="_blank">Extras
+              <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -50,6 +56,7 @@
         </div>
       <!-- </div> -->
     </nav>
+    </div>
     <!-- Navbar -->
     <!-- Full Page Intro -->
 
@@ -132,6 +139,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/js/mdb.min.js"></script>
+<!-- Custom JS Scripts -->
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 <script> new WOW().init();
 </script>

@@ -1,4 +1,4 @@
-
+ # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
 import datetime
@@ -9,22 +9,68 @@ from django.db import models
 from django.shortcuts import render
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, FieldRowPanel, MultiFieldPanel
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, FieldRowPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, AbstractForm, AbstractFormSubmission
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from account.forms import User
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.core import blocks
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.core.blocks import RichTextBlock
+from wagtail.core.blocks import PageChooserBlock
+from wagtail.documents.blocks import DocumentChooserBlock
+
+
+class BlogPage(Page):
+    author = models.CharField(max_length=255)
+    date = models.DateField("Post date")
+    body = StreamField([
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('HTML', blocks.RawHTMLBlock()),
+        ('embedded_video', EmbedBlock(icon="media")),
+        ('Page', blocks.PageChooserBlock()),
+        ('Document', DocumentChooserBlock()),
+        #('Snippet', SnippetChooserBlock(target_model= StreamField)),
+
+        #('google_map', GoogleMapBlock()),
+        #('image_carousel', blocks.ListBlock(ImageCarouselBlock(), template='yourapp/blocks/carousel.html', icon="image")),
+        #('person', PersonBlock()),
+    ])
+
+    content_panels = Page.content_panels + [
+        FieldPanel('author'),
+        FieldPanel('date'),
+        StreamFieldPanel('body'),
+    ]
+
+
+class AboutUsIndexPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+    ad_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    ad_url = models.URLField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+		ImageChooserPanel('ad_image'),
+        FieldPanel('ad_url'),
+    ]
 
 class ProgramIndexPage(Page):
-    description = models.CharField(max_length=255, blank=True, )
+    description = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full")
 
     ]
 class WeekPage(Page):
-    description = models.CharField(max_length=255, blank=True,)
+    description = RichTextField(blank=True)
     start_date = models.DateTimeField("Start Date", null=True, blank=True)
     end_date = models.DateTimeField("End Date", null=True, blank=True)
     Page.show_in_menus_default = True
@@ -38,7 +84,7 @@ class WeekPage(Page):
     ]
 
 class ModelIndexPage(Page):
-    description = models.CharField(max_length=255, blank=True, )
+    description = RichTextField(blank=True)
     intro = models.CharField(max_length=255, blank=True, )
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
@@ -283,6 +329,18 @@ class RewardsIndexPage(Page):
 
     ]
 
+#Added this to convert HTML page into CMS - Brent
+class ExtrasIndexPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+
+    ]
+
+
 class RewardsPostPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
@@ -362,7 +420,22 @@ class PostassessmentPage(AbstractForm):
     ]
 
 class DisclaimerPage(Page):
-    disclaimer = models.CharField(max_length=10000, blank=True, )
+    disclaimer = RichTextField(blank=True)
+    disclaimer2 = models.CharField(max_length=10000, blank=True, )
+    disclaimer3 = models.CharField(max_length=10000, blank=True, )
+    disclaimer4 = models.CharField(max_length=10000, blank=True, )
+    disclaimer5 = models.CharField(max_length=10000, blank=True, )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('disclaimer', classname="full"),
+        FieldPanel('disclaimer2', classname="full"),
+        FieldPanel('disclaimer3', classname="full"),
+        FieldPanel('disclaimer4', classname="full"),
+        FieldPanel('disclaimer5', classname="full"),
+    ]
+
+class Disclaimerlink(Page):
+    disclaimer = RichTextField(blank=True)
     disclaimer2 = models.CharField(max_length=10000, blank=True, )
     disclaimer3 = models.CharField(max_length=10000, blank=True, )
     disclaimer4 = models.CharField(max_length=10000, blank=True, )
@@ -384,7 +457,6 @@ class DisclaimerPage(Page):
                 self.get_context(request)
             )
 
-
         return super().serve(request, *args, **kwargs)
 
     def get_submission_class(self):
@@ -403,6 +475,16 @@ class DisclaimerPage(Page):
         user1.profile.post_assessment = "yes"
         #print(user1.profile.bio)
         user1.profile.save()
+
+class LandingIndexPage(Page):
+    intro = RichTextField(blank=True)
+    description = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+
+    ]
 
 
 

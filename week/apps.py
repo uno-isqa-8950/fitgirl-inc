@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class WeekConfig(AppConfig):
+class BlogConfig(AppConfig):
     name = 'week'

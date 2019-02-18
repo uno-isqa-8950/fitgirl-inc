@@ -1,5 +1,5 @@
 from .models import InspirationalQuotes
-from .models import Affirmation
+from .models import Affirmations
 
 
 def get_quotes(request):
@@ -13,7 +13,7 @@ def get_quotes(request):
     }
 
 
-def get_affirmation(request):
+def get_affirmations(request):
     return {
-        "affirmation": Affirmation.objects.all()
+        "affirmations": Affirmations.objects.all()
     }
