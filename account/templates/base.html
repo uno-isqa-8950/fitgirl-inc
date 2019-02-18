@@ -125,10 +125,10 @@
     </div>
  <header id="sub-header">
   <div class="container-fluid">
-        <div class="row">
-            {% if user.profile.pre_assessment == "yes" %}
-            {% main_menu template="menus/program_menu.html" %}
-            {% endif %}
+            <div class="row">
+                    {% if user.profile.pre_assessment == "yes" %}
+                    {% main_menu template="menus/program_menu.html" %}
+                    {% endif %}
         </div>
     </div>
     </div>
@@ -193,12 +193,13 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
         <!-- Bootstrap core JavaScript -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        
         <!-- MDB core JavaScript -->
         <script src="{% static 'js/confetti.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/jquery.slidedrawer.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/soon.js' %}" ></script>
+        <script type="text/javascript" src="{% static 'js/carousel.js' %}" ></script>
         <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 <script>

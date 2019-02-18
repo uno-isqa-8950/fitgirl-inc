@@ -48,29 +48,43 @@ $(".physical-post-page").closest("body").addClass("physical-body");
 $( ".physical-post-page br" ).remove();
 
 
+// slider 
+var slideCount = $('.slider ul li').length;
+console.log(slideCount);
+	var slideWidth = $('.slider ul li').width();
+    console.log(slideWidth);
+	var slideHeight = $('.slider ul li').height();
+    console.log(slideHeight);
+	var sliderUlWidth = slideCount * slideWidth;
+    console.log(sliderUlWidth);
+    //$('.slider').css({ width: slideWidth, height: slideHeight });
+    $('.slider ul').css({marginLeft: - slideWidth });
+    $('.slider ul li:last-child').prependTo('.slider ul');
+    function moveLeft() {
+        $('.slider ul').animate({
+            left: + slideWidth
+        }, 200, function () {
+            $('.slider ul li:last-child').prependTo('.slider ul');
+            $('.slider ul').css('left', '');
+        });
+    };
+    function moveRight() {
+        $('#slider ul').animate({
+            left: - slideWidth
+        }, 200, function () {
+            $('#slider ul li:first-child').appendTo('#slider ul');
+            $('#slider ul').css('left', '');
+        });
+    };
+    $('.previous').click(function () {
+        moveLeft();
+    });
+
+    $('.next').click(function () {
+        moveRight();
+    });
 
 
-
-// var phyiscaltimer = function(){
-// $('.drawer').slideDrawer({
-// showDrawer: false, // The drawer is hidden by default.
-// slideTimeout: true, // Sets the drawer to slide down after set count if set to true.
-// slideSpeed: 600, // Slide drawer speed. 
-// slideTimeoutCount: 3000, // How long to wait before sliding drawer slides down.
-// });
-// };
-// Code for toggling the timer
-// var r = $("<input/>").attr({ type: "a", id: "field", class:" start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light",value:"start timer",href:"#"});
-// $(".strength-paragraphs").append(r);
-// $(".physical-post-page").on('click', '.start-timer', function(){
-// //  $(".demo").slideToggle();
-// $(".demo").css("visibility","visible");
-// //$('#done').show();
-
-// });
-// function activityDone(){
-//     alert("done");
-// }
 });
 
   

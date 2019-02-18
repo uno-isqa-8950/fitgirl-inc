@@ -519,6 +519,42 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
     max-width: 83.333333%;
   }
 
+  
+.slider{ width:100%; max-width: 1253px;overflow: hidden;}
+.slider nav{    width: 2000px;}
+.slider ul{width: 1600px; padding-left: 0;}
+.slider ul li{display: inline-block;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @media (max-width: 767px) {
       .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
           color: #ecf0f1;
