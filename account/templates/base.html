@@ -24,7 +24,7 @@
     <div class="nav-wrapper grey darken-1">
     <nav class="navbar navbar-expand-lg navbar-dark grey darken-1  scrolling-navbar">
         <!--hghanta: redirect to dashboard on click empoweu logo, home-->
-      <a class="navbar-brand" href="{% url 'dashboard' %}"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
+      <a class="navbar-brand" href="/pages/welcome/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
       {% if request.user.is_authenticated %}
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon "></span>
@@ -45,7 +45,7 @@
                   <!--</li>-->
             <!-- Added home glyphicon to navbar_Kelley -->
             <li class="nav-item ">
-                <a class="nav-link hoverable" href="{% url 'dashboard' %}" style="background-color: rgba(255,255,255,.1);">
+                <a class="nav-link hoverable" href="/pages/welcome/" style="background-color: rgba(255,255,255,.1);">
                     <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
             </li>
             <li class="nav-item ">
