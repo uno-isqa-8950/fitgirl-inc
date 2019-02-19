@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+{% block dash_content %}
+    {% if request.user.is_superuser %}
+        <div class="container">
+            <h1 class="text-left">Edit Parameters</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-pink">Save Changes</button>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}
