@@ -893,7 +893,18 @@ and (min-width : 768px)
 and (max-width : 1024px)
 and (orientation : portrait) { /* STYLES GO HERE */ }
 
-
+.image-alignable .left{
+    float: left;
+}
+.image-alignable .right{
+    float: right;
+}
+.image-alignable .full-width{
+    width: 100%;
+}
+.block-embedded_video .responsive-object{
+    padding-bottom: 5% !important;
+	
 /*.card .card-body{
     position: relative;
     overflow: hidden;
