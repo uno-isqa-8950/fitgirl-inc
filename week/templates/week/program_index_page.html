@@ -8,7 +8,7 @@
     <br>
     <br>
   <h1>{{ page.title }}</h1>
-{{ page.body|richtext }}
+  <h3>{{ page.description|richtext }}</h3>
 
 {% for post in page.get_children %}
 <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
