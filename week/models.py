@@ -369,6 +369,7 @@ class QuestionPageText(AbstractForm):
         user1=User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
+	user1.profile.save()
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
