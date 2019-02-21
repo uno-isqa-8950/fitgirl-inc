@@ -2,58 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a335fece-8503-4438-83c4-1490b745957a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/account/static/images/activity.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/static/images/activity_complete.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/static/images/heart._oldpng" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/static/images/heart.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/templates/account/email_individual.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/templates/account/email_individual_confirmation.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/anytime_fitness_banner_ad_1.min-1110x20.max-165x165.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/anytime_fitness_banner_ad_1.min-1110x20.width-800.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/nutritional.original.max-165x165.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/nutritional.original.original.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/physical.max-165x165.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/physical.original.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/physical_leaderboard.original.max-165x165.max-165x165.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/physical_leaderboard.original.max-165x165.width-800.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/physical_zrxwrVt.max-165x165.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/physical_zrxwrVt.original.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/original_images/anytime_fitness_banner_ad_1.min-1110x20.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/original_images/nutritional.original.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/original_images/physical.PNG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/original_images/physical_leaderboard.original.max-165x165.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/original_images/physical_zrxwrVt.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/week/migrations/0005_aboutusindexpage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/week/migrations/0005_landingindexpage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/week/migrations/0006_auto_20190218_2101.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/week/migrations/0006_merge_20190217_1413.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/week/templates/week/about_us_index_page.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/week/templates/week/landing_index_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/fitgirl-inc.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/account/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/templates/account/current_week.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/current_week.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/templates/account/email_confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/email_confirmation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/templates/account/viewUsers.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/viewUsers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/empoweru/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/empoweru/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/empoweru/storage_backends.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/empoweru/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/empoweru/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/week/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/week/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/week/templates/week/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/week/templates/week/model_index_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/model_index_page.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/week/templates/week/nutrition_post_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/nutrition_post_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/week/templates/week/physical_post_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/physical_post_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/week/templates/week/print.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/print.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,38 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/week/templates/week/physical_post_page.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="n#style#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#span#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/week/templates/week/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/week/templates/week/nutrition_post_page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1360">
-              <caret line="80" selection-start-line="80" selection-end-line="80" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="-748">
+              <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -104,9 +27,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
               <caret line="19" selection-start-line="19" selection-end-line="19" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -116,19 +36,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
               <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#p#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/account/static/css/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17408">
-              <caret line="1024" column="3" selection-start-line="1024" selection-start-column="3" selection-end-line="1024" selection-end-column="3" />
+            <state relative-caret-position="272">
+              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -208,12 +124,12 @@
         <option value="$PROJECT_DIR$/week/templates/week/nutrition_post_page_landing.html" />
         <option value="$PROJECT_DIR$/account/static/js/script.js" />
         <option value="$PROJECT_DIR$/week/templates/week/question_page.html" />
-        <option value="$PROJECT_DIR$/week/templates/week/nutrition_post_page.html" />
         <option value="$PROJECT_DIR$/account/static/css/styles.css" />
+        <option value="$PROJECT_DIR$/week/templates/week/nutrition_post_page.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="282" />
     <option name="y" value="20" />
     <option name="width" value="1158" />
@@ -295,6 +211,9 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="C:\Users\Aishu\Desktop\new2\fitgirl-inc\node_modules\eslint" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -368,18 +287,20 @@
       <workItem from="1550626613254" duration="14000" />
       <workItem from="1550712075739" duration="1942000" />
       <workItem from="1550714193471" duration="1441000" />
-      <workItem from="1550717057879" duration="178000" />
+      <workItem from="1550717057879" duration="297000" />
+      <workItem from="1550717414643" duration="994000" />
+      <workItem from="1550719422208" duration="250000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44643000" />
+    <option name="totallyTimeSpent" value="46006000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1293" height="773" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.37327936" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.38623482" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -671,6 +592,13 @@
     <entry file="file://$PROJECT_DIR$/account/static/css/dashboard.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/week/templates/week/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/week/templates/week/physical_post_page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -684,10 +612,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/week/templates/week/base.html">
+    <entry file="file://$PROJECT_DIR$/week/templates/week/nutrition_post_page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+        <state relative-caret-position="-748">
+          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -695,16 +623,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="19" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account/static/js/script.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="48" column="62" selection-start-line="48" selection-start-column="62" selection-end-line="48" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -712,27 +630,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#p#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/week/templates/week/nutrition_post_page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="80" selection-start-line="80" selection-end-line="80" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/account/static/css/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17408">
-          <caret line="1024" column="3" selection-start-line="1024" selection-start-column="3" selection-end-line="1024" selection-end-column="3" />
+        <state relative-caret-position="272">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account/static/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="48" column="62" selection-start-line="48" selection-start-column="62" selection-end-line="48" selection-end-column="62" />
         </state>
       </provider>
     </entry>

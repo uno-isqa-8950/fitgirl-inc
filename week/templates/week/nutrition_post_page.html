@@ -3,11 +3,14 @@
 {% load wagtailimages_tags %}
 
 {% block content %}
+{#    Nutritional Redesign - Aishwarya #}
 <div class ="container nutrition-post-page">
   <h1>
       <a href="{{ page.get_parent.url }}" style="float:left" class="confetti-button back-btn btn btn-fitgirl pull-right"></a>{{ page.intro|richtext }}</h1>
 
     <h5> TRY IT!</h5>
+    <!-- printing area starts here _Kelley -->
+    <div id="printableArea">
     {{ page.body|richtext }}
 
 <!--<form action="{% pageurl page %}" method="POST">-->
@@ -15,20 +18,7 @@
 <!--{{form.as_p}}-->
   <!--<input type="submit">-->
 <!--</form>-->
-<div class="container">
-    <br>
-    <br>
-    <h1> {{ page.intro|richtext }}</h1>
-    <h5> TRY IT!</h5>
-    <!-- printing area starts here _Kelley -->
-    <div id="printableArea">
-        {{ page.body|richtext }}
 
-        <!--<form action="{% pageurl page %}" method="POST">-->
-        <!--{% csrf_token %}-->
-        <!--{{form.as_p}}-->
-        <!--<input type="submit">-->
-        <!--</form>-->
 <div id="nutrition">
 
     <div class ="nutrition-facts">
@@ -44,11 +34,6 @@
     <div class="nutrition-content">
        {{ page.morecontent|richtext}}
     </div>
-
-</div>
-
-        {{ page.morecontent|richtext}}
-    </div>
     <!-- printing area ends here _Kelley -->
     <script>
         function printDiv(divName) {
@@ -59,6 +44,8 @@
             document.body.innerHTML = originalContents;
         }
     </script>
+
+</div>
 
     <form>
         <input class="print-button" type="button" value="Print me!" onClick="printDiv('printableArea')"/>
@@ -76,16 +63,8 @@
 <!--Advertisement-->
 
     <br>
-    {{ page.facts|richtext}}
-
-
-    <!--Added banner space:hghanta-->
-    <br>
-    <br>
-    <a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i>
-        &nbsp Return</a>
-    <hr style="color: black; background: #333;">
-    <!--Advertisement-->
+{#    {{ page.facts|richtext}}#}
+    </div>
     <div class="img-responsive horizontal-banner" style="text-align: center;">
         <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
             {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
