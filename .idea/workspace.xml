@@ -2,12 +2,58 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a335fece-8503-4438-83c4-1490b745957a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/account/static/images/activity.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/static/images/activity_complete.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/static/images/heart._oldpng" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/static/images/heart.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/templates/account/email_individual.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/templates/account/email_individual_confirmation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/images/anytime_fitness_banner_ad_1.min-1110x20.max-165x165.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/images/anytime_fitness_banner_ad_1.min-1110x20.width-800.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/images/nutritional.original.max-165x165.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/images/nutritional.original.original.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/images/physical.max-165x165.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/images/physical.original.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/images/physical_leaderboard.original.max-165x165.max-165x165.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/images/physical_leaderboard.original.max-165x165.width-800.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/images/physical_zrxwrVt.max-165x165.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/images/physical_zrxwrVt.original.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/original_images/anytime_fitness_banner_ad_1.min-1110x20.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/original_images/nutritional.original.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/original_images/physical.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/original_images/physical_leaderboard.original.max-165x165.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/original_images/physical_zrxwrVt.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week/migrations/0005_aboutusindexpage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week/migrations/0005_landingindexpage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week/migrations/0006_auto_20190218_2101.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week/migrations/0006_merge_20190217_1413.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week/templates/week/about_us_index_page.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/week/templates/week/landing_index_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/fitgirl-inc.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/account/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/account/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/account/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/templates/account/current_week.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/current_week.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/templates/account/email_confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/email_confirmation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/templates/account/viewUsers.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/viewUsers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/registration/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/empoweru/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/empoweru/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/empoweru/storage_backends.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/empoweru/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/empoweru/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/week/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week/templates/week/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week/templates/week/model_index_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/model_index_page.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/week/templates/week/nutrition_post_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/nutrition_post_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/week/templates/week/nutrition_post_page_landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/nutrition_post_page_landing.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/week/templates/week/question_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/question_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week/templates/week/physical_post_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/physical_post_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/week/templates/week/print.html" beforeDir="false" afterPath="$PROJECT_DIR$/week/templates/week/print.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,8 +73,6 @@
                 <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#span#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#hr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -46,12 +90,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/week/templates/week/nutrition_post_page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="22" column="10" lean-forward="true" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+            <state relative-caret-position="1360">
+              <caret line="80" selection-start-line="80" selection-end-line="80" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#hr#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -61,7 +103,7 @@
         <entry file="file://$PROJECT_DIR$/week/templates/week/question_page.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+              <caret line="19" selection-start-line="19" selection-end-line="19" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -69,11 +111,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/week/templates/week/nutrition_post_page_landing.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+              <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#p#0;n#div#0;n#!!top" expanded="true" />
@@ -82,11 +124,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/account/static/css/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="905" lean-forward="true" selection-start-line="905" selection-end-line="905" />
+            <state relative-caret-position="17408">
+              <caret line="1024" column="3" selection-start-line="1024" selection-start-column="3" selection-end-line="1024" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -165,13 +207,13 @@
         <option value="$PROJECT_DIR$/account/views.py" />
         <option value="$PROJECT_DIR$/week/templates/week/nutrition_post_page_landing.html" />
         <option value="$PROJECT_DIR$/account/static/js/script.js" />
+        <option value="$PROJECT_DIR$/week/templates/week/question_page.html" />
         <option value="$PROJECT_DIR$/week/templates/week/nutrition_post_page.html" />
         <option value="$PROJECT_DIR$/account/static/css/styles.css" />
-        <option value="$PROJECT_DIR$/week/templates/week/question_page.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="282" />
     <option name="y" value="20" />
     <option name="width" value="1158" />
@@ -183,7 +225,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -246,6 +287,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Course" />
     </panes>
   </component>
@@ -265,6 +307,31 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="fitgirl-inc" type="Python.DjangoServer" factoryName="Django server">
+      <module name="fitgirl-inc" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -301,17 +368,18 @@
       <workItem from="1550626613254" duration="14000" />
       <workItem from="1550712075739" duration="1942000" />
       <workItem from="1550714193471" duration="1441000" />
+      <workItem from="1550717057879" duration="178000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44465000" />
+    <option name="totallyTimeSpent" value="44643000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1293" height="773" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.36680162" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.37327936" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -507,13 +575,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/empoweru/storage_backends.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/empoweru/storage_backends.py" />
     <entry file="file://$PROJECT_DIR$/empoweru/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3451">
@@ -618,8 +680,6 @@
             <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#0;n#span#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#hr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -631,6 +691,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/week/templates/week/question_page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/account/static/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
@@ -638,43 +708,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/week/templates/week/nutrition_post_page_landing.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#p#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/week/templates/week/nutrition_post_page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="22" column="10" lean-forward="true" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        <state relative-caret-position="1360">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
           <folding>
             <element signature="n#style#0;n#a#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#hr#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/account/static/css/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="905" lean-forward="true" selection-start-line="905" selection-end-line="905" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/week/templates/week/question_page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#h1#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/week/templates/week/nutrition_post_page_landing.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#p#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="17408">
+          <caret line="1024" column="3" selection-start-line="1024" selection-start-column="3" selection-end-line="1024" selection-end-column="3" />
         </state>
       </provider>
     </entry>
