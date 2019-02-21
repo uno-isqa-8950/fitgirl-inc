@@ -316,7 +316,7 @@ def edit(request):
             theProfile.profile_filled = True
             theProfile.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('edit')
+            return redirect('/pages/pre-assessment/')
         else:
             messages.warning(request, 'Please correct the errors below!')
     else:
@@ -398,6 +398,9 @@ def emails(request):
                 name_list.append(name)
             return render(request,'account/email_confirmation.html', {'name_list': name_list})
     return render(request, "account/email.html", {'to_list': to_list ,'form': form})
+
+
+
 
 
 
