@@ -45,6 +45,8 @@ $(".flexibility-paragraphs").insertAfter(".flexibility-images-array");
 
 
 $(".physical-post-page").closest("body").addClass("physical-body");
+$(".nutrition-post-page").closest("body").addClass("nutrition-body");
+$(".question-page").closest("body").addClass("question-body");
 $( ".physical-post-page br" ).remove();
 
 
@@ -73,4 +75,5 @@ $( ".physical-post-page br" ).remove();
 // }
 });
 
-  
+$( "#nutrition .rich-text img" ).wrapAll( "<div class='nutrition-images-array' />");
+$( ".nutrition-facts" ).prependTo ( ".nutrition-content .rich-text" )
