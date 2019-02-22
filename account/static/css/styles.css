@@ -546,6 +546,74 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
     max-width: 83.333333%;
   }
 
+  
+.slider{ width:100%; max-width: 1253px;overflow: hidden; position: relative}
+.slider nav{    width: 2000px;}
+.slider ul{width: 1600px; padding-left: 0;}
+.slider ul li{display: inline-block;}
+
+.slider .btn.btn-sm {
+  padding: .5rem 1.3rem;
+  font-size: .64rem;
+}
+.slider .previous{
+  position: absolute;
+  left: 0;
+    z-index: 100;
+}
+.slider .next{
+  position: absolute;
+  right: 0;
+    z-index: 100;
+}
+
+.slider a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+.slider a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+
+.slider .previous ,.slider .next {
+  background-color: #ec407a;
+  color: white;
+}
+
+.slider .round {
+  border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @media (max-width: 767px) {
       .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
           color: #ecf0f1;
@@ -831,7 +899,7 @@ and (orientation : portrait) {
 .physical-post-page .horizontal-banner{
   display: block;
   margin-top: 20px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 .physical-content{
   max-width:100%;
