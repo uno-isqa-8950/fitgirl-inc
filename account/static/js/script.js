@@ -1,5 +1,45 @@
 $(document).ready(function() {
 
+    function weekmenuresizing(){
+    
+    }
+    (function($,sr){
+
+        // debouncing function from John Hann
+        // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+        var debounce = function (func, threshold, execAsap) {
+            var timeout;
+      
+            return function debounced () {
+                var obj = this, args = arguments;
+                function delayed () {
+                    if (!execAsap)
+                        func.apply(obj, args);
+                    timeout = null;
+                };
+      
+                if (timeout)
+                    clearTimeout(timeout);
+                else if (execAsap)
+                    func.apply(obj, args);
+      
+                timeout = setTimeout(delayed, threshold || 100);
+            };
+        }
+        // smartresize 
+        jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+      
+      })(jQuery,'smartresize');
+      
+      
+      // usage:
+      $(window).smartresize(function(){
+        // code that takes it easy...
+        weekmenuresizing();
+      });
+
+
+
     // Affirmations popup code starts here - Karthik
     if ($(".current-week").length == 0) {
         //Not the user-landing page
@@ -39,71 +79,64 @@ $( "#flexibility .rich-text img" ).wrapAll( "<div class='flexibility-images-arra
 $("#strength .rich-text").children().not( ".strength-images-array" ).wrapAll( "<div class='strength-paragraphs' />");
 $("#agility .rich-text").children().not( ".agility-images-array" ).wrapAll( "<div class='agility-paragraphs' />");
 $("#flexibility .rich-text").children().not( ".flexibility-images-array" ).wrapAll( "<div class='flexibility-paragraphs' />");
-// $(".physical-form").appendTo( ".tab-pane" );
-// var content = $('#strength .rich-text').clone();
-// $('.strength-images-array', content).remove();
-// alert(content.html());
-// var strength_content =  content.html(); 
-// $(strength_content).wrapAll( "<div class='strength-paragraphs' />");
-// $(".strength-paragraphs").insertAfter(".strength-images-array");
-// $( "#strength .rich-text p" ).wrapAll( "<div class='strength-paragraphs' />");
-// $( "#agility .rich-text p" ).wrapAll( "<div class='agility-paragraphs' />");
-// $( "#flexibility .rich-text p" ).wrapAll( "<div class='flexibility-paragraphs' />");
 $(".strength-paragraphs").insertAfter(".strength-images-array");
 $(".agility-paragraphs").insertAfter(".agility-images-array");
 $(".flexibility-paragraphs").insertAfter(".flexibility-images-array");
 
 
 $(".physical-post-page").closest("body").addClass("physical-body");
+$(".nutrition-post-page").closest("body").addClass("nutrition-body");
+$(".question-page").closest("body").addClass("question-body");
 $( ".physical-post-page br" ).remove();
-// $( "h2" ).appendTo( $( ".container" ) )
-
-//var timer_demo= $(".physical-post-page").children(".demo");
-// $(".demo").insertAfter( ".rich-text" )
-
-// Initiating the confetti button
-var animateButton = function(e) {
-
-    e.preventDefault;
-    //reset animation
-    e.target.classList.remove('animate');
-    
-    e.target.classList.add('animate');
-    setTimeout(function(){
-      e.target.classList.remove('animate');
-    },700);
-  };
-  
-  var classname = document.getElementsByClassName("bubbly-button");
-  
-  for (var i = 0; i < classname.length; i++) {
-    classname[i].addEventListener('click', animateButton, false);
-    
-  }
 
 
+// slider 
+var slideCount = $('.slider ul li').length;
+console.log(slideCount);
+	var slideWidth = $('.slider ul li').width();
+    console.log(slideWidth);
+	var slideHeight = $('.slider ul li').height();
+    console.log(slideHeight);
+	var sliderUlWidth = slideCount * slideWidth;
+    console.log(sliderUlWidth);
+    //$('.slider').css({ width: slideWidth, height: slideHeight });
+    // $('.slider ul').css({marginLeft: - slideWidth });
+    // $('.slider ul li:last-child').prependTo('.slider ul');
+    function moveLeft() {
+        // alert("left");
+        $('.slider ul').animate({
+            left: + slideWidth
+        }, 200, function () {
+            $('.slider ul li:last-child').prependTo('.slider ul');
+            $('.slider ul').css('left', '');
+        });
+    };
+    function moveRight() {
+        // alert("right");
+        $('.slider ul').animate({
+            left: - slideWidth
+        }, 200, function () {
+            $('.slider ul li:first-child').appendTo('.slider ul');
+            $('.slider ul').css('left', '');
+        });
+    };
+    $('.previous').click(function () {
+        moveLeft();
+    });
+
+    $('.next').click(function () {
+        moveRight();
+    });
 
 
-// var phyiscaltimer = function(){
-// $('.drawer').slideDrawer({
-// showDrawer: false, // The drawer is hidden by default.
-// slideTimeout: true, // Sets the drawer to slide down after set count if set to true.
-// slideSpeed: 600, // Slide drawer speed. 
-// slideTimeoutCount: 3000, // How long to wait before sliding drawer slides down.
-// });
-// };
-// Code for toggling the timer
-// var r = $("<input/>").attr({ type: "a", id: "field", class:" start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light",value:"start timer",href:"#"});
-// $(".strength-paragraphs").append(r);
-// $(".physical-post-page").on('click', '.start-timer', function(){
-// //  $(".demo").slideToggle();
-// $(".demo").css("visibility","visible");
-// //$('#done').show();
 
-// });
-// function activityDone(){
-//     alert("done");
-// }
+    if($(".slider").width() < 1250)
+{
+     //Do Something
+}
+
+
 });
 
-  
+$( "#nutrition .rich-text img" ).wrapAll( "<div class='nutrition-images-array' />");
+$( ".nutrition-facts" ).prependTo ( ".nutrition-content .rich-text" )

@@ -12,6 +12,10 @@ body{
 .btn-return{
     margin-left:0;}
 
+.print-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 .modal-dialog.modal-notify.modal-info .fa {
     color: #ed217c;
 }
@@ -111,6 +115,7 @@ body{
   width: 100%;
   /* display: none; */
   visibility: hidden;
+  z-index: 1000;
 }
 .soon {
     max-width: 1253px;
@@ -214,12 +219,27 @@ background-color: #e83e8c;
 margin-top: 40px;
 margin-bottom: -18px;
 }
+.physical-post-page .horizontal-banner{        /*adding banner space_Srishty */
+margin-top: 20px;
+padding-bottom:20px;
+}
 .modal-footer button{
 margin:0 auto;
 }
 
 /* styles for affirmations popup ends here - karthik */
 
+/* increase the clsoe button text - affirmations - brent */
+.affirmations_close_button{
+padding:10px;
+font-size: 25px;
+}
+
+/* increase X of the affirmations dialogue box- brent */
+.close_x{
+font-size: 55px;
+        padding: 0 20px !important;
+}
 
 .aboutus-container {
     /* width: 60%; */
@@ -253,7 +273,7 @@ font-family: 'Amatic SC', cursive;
 font-size: 40px;
 }
 
-/* fixing the different image sizea issue in the physical exercises-starts here-karthik*/
+/* fixing the different image size issue in the physical exercises-starts here-karthik*/
 .tab-pane .rich-text img{
 max-width: 500px;
 height: 100%;
@@ -268,7 +288,7 @@ text-align: center;
 .text-center.affirmations-text{
 padding: 15px;
 }
-/* fixing the different image sizea issue in the physical exercises - ends here - karthik*/
+/* fixing the different image size issue in the physical exercises - ends here - karthik*/
 
 /*fixing the footer spacing issues-starts here-karthik*/
 .fitgirlinc-footer-socialLinks{
@@ -281,7 +301,7 @@ font-size: 15px
 padding:15px
 }
 
-/* changes done for streched image- srishty */
+/* changes done for stretched image- srishty */
 .rewards-post-page .rewards-img{
 width: 100% !important;
 height: 100% !important;
@@ -293,6 +313,13 @@ height: 100% !important;
   }
 /*fixing the footer spacing issues-ends here-karthik*/
 
+/* Brent - Created Extras.html page into CMS */
+
+.extra-index-page .rewards-img{
+  width: 100%;
+  height: 200px;
+  object-fit: contain !important;
+  }
 
 /* added space on logout, reset done, change done - hghanta*/
 .spacer-div-30{
@@ -327,7 +354,7 @@ width: 50%;
 }
 .strength-paragraphs,.agility-paragraphs,.flexibility-paragraphs{
   float: right;
-  width: 45%;
+  width: 47%;
   border-radius: 5px;
     padding: 0 10px;
     border:1px solid #c4c4c4;
@@ -348,11 +375,18 @@ width: 100%;
 .inline-block{
   display: inline-block;
 }
+.datatable-container{
+  margin: 0 auto;
+}
+.password-page label{
+  display: inline-block !important;
+}
 .physical-body .navbar-parent{
   max-width: 1253px;
   margin: 0 auto;
   margin-top: -4px;
 }
+
 /*Srishty*/
  footer{
    max-width: 1260px;
@@ -442,7 +476,7 @@ background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !i
   background: -webkit-linear-gradient(to top, #f80759, #bc4e9c); 
   background: linear-gradient(to top, #f80759, #bc4e9c); */
  }
- .container.physical-post-page{
+ .container.physical-post-page,.container.nutrition-post-page, .container.question-page{
   background:#e3e3e3;}
  #sub-header .navbar{
     background: #e2e2e2; /* Old browsers */
@@ -464,9 +498,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   display: block;
 }
 
-.physical-post-page .horizontal-banner{
-  display: none;
-}
 .vertical-ad-banner .advertisement{
   width: 100%;
   height:600px;
@@ -514,6 +545,74 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
     flex: 0 0 83.333333%;
     max-width: 83.333333%;
   }
+
+  
+.slider{ width:100%; max-width: 1253px;overflow: hidden; position: relative}
+.slider nav{    width: 2000px;}
+.slider ul{width: 1600px; padding-left: 0;}
+.slider ul li{display: inline-block;}
+
+.slider .btn.btn-sm {
+  padding: .5rem 1.3rem;
+  font-size: .64rem;
+}
+.slider .previous{
+  position: absolute;
+  left: 0;
+    z-index: 100;
+}
+.slider .next{
+  position: absolute;
+  right: 0;
+    z-index: 100;
+}
+
+.slider a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+.slider a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+
+.slider .previous ,.slider .next {
+  background-color: #ec407a;
+  color: white;
+}
+
+.slider .round {
+  border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   @media (max-width: 767px) {
       .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
@@ -747,7 +846,18 @@ bottomBubbles {  0% {
       max-width: 1254px;
     padding: 0 22px;
     }
-    .container .physical-post-page{
+    .container.nutrition-post-page{
+        max-width: 1254px;
+        padding: 0 22px;
+        margin-top: -10px;
+    }
+
+    .container.question-page{
+        max-width: 1254px;
+        padding: 0 22px;
+        margin-top: -10px;
+    }
+    .container .physical-post-page,.container .nutrition-post-page, .container .question-page{
     max-width: 1220px;
     }
   }
@@ -778,7 +888,7 @@ and (max-width : 812px)
 and (-webkit-device-pixel-ratio : 3)
 and (orientation : portrait) {
   /* making the physical exercise images responsive in the physical tabs - karthik*/
-  .tab-pane .rich-text img{
+  .tab-pane .rich-text img {
     max-width: 315px !important;
     height: 100% !important;
   }
@@ -861,4 +971,140 @@ and (orientation : landscape) { /* STYLES GO HERE */}
 @media only screen
 and (min-width : 768px)
 and (max-width : 1024px)
-and (orientation : portrait) { /* STYLES GO HERE */ }}
+and (orientation : portrait) { /* STYLES GO HERE */ }
+
+
+/*nutrition redesign starts here - Aishwarya*/
+
+.nutrition-content{
+    width: 83.33%;
+  }
+
+.nutrition-post-page .vertical-ad-banner{
+  float: right;
+  flex: 0 0 16.666667%;
+  max-width: 16.666667%;
+}
+.question-page .vertical-ad-banner{
+    float: right;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+}
+
+#nutrition .vertical-ad-banner .advertisement{
+    margin-top: 0;
+}
+.question-page .vertical-ad-banner .advertisement{
+    margin-top: 0;
+}
+
+.nutrition-post-page h1{
+    text-align: center;
+}
+
+.nutrition-facts {
+    float: right;
+    width: 57%;
+    border-radius: 5px;
+    padding: 0 10px;
+    border: 1px solid #e6ffe6;
+    background: #e6ffe6;
+    margin-bottom: 117px;
+    text-align: justify;
+    display: inline-table;
+}
+
+ .nutrition-body {
+     background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
+ }
+
+  @media (min-width: 1200px){
+
+    .container .nutrition-post-page .question-page{
+    max-width: 1220px;
+    }
+  }
+
+.nutrition-post-page h1 .back-btn{
+  background-image: url(../images/back-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 22px;
+  padding: 20px;
+  position: absolute;
+  left: 27px;
+}
+
+.nutrition-post-page .question-page .rich-text{
+    width: 100%;
+}
+
+.nutrition-post-page br,.nutrition-post-page hr{
+  display: none;
+}
+
+.nutrition-body .nav-wrapper, .question-body .nav-wrapper {
+    width: 100%;
+    display: inherit;
+    margin-bottom: -4px;
+    /*border-bottom: 4px solid #ed217c;*/
+}
+
+.nutrition-body .navbar, .question-body .navbar {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.nutrition-post-page .horizontal-banner{
+  display: block;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+.question-page h1{
+    border-bottom: 1px solid #bbb;
+    padding: 0 0 10px 0;
+    margin: -30px 0 20px 0;
+    text-align: center;
+}
+
+.question-page div{
+    text-align: center;
+}
+
+.question-page h1 .back-btn{
+    left: 27px;
+}
+
+.question-page .navbar {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.question-body {
+    background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
+}
+
+@media (min-width: 1200px){
+
+    .container.question-page{
+    max-width: 1255px;
+    }
+  }
+
+/*.card .card-body{
+    position: relative;
+    overflow: hidden;
+}
+.heart{
+    height: 35px;
+    width: 35px;
+    float:right;
+    overflow: hidden;
+    position: absolute;
+    right: 20px;
+}
+.heart-incomplete{
+    overflow: hidden;
+    width: 15px;
+/*}*/

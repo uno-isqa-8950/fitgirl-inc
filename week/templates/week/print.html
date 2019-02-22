@@ -4,38 +4,38 @@
 {% block title %}Facts{% endblock %}
 
 {% block content %}
-<div class ="container">
-<br>
-     <br>
-  <h1>{{ page.title }}</h1>
-  <div id="printableArea" class=intro"> {{page.body|richtext}}
-  </div>
-     <script>
-        function printDiv(divName){
+<div class="container">
+    <br>
+    <br>
+    <h1>{{ page.title }}</h1>
+    <div id="printableArea" class=intro"> {{page.body|richtext}}
+    </div>
+    <script>
+        function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;
             document.body.innerHTML = printContents;
             window.print();
             document.body.innerHTML = originalContents;
-            }
+        }
     </script>
     <br>
     <br>
-  <form>
-      <input type="button" value="Print me!" onClick="printDiv('printableArea')"/>
-  </form>
+    <form>
+        <input class="print-button" type="button" value="Print me!" onClick="printDiv('printableArea')"/>
+    </form>
 
-<!--<form>-->
-      <!--<input type="button" value="Print me!" onClick="window.print()"/>-->
-  <!--</form>-->
+    <!--<form>-->
+    <!--<input type="button" value="Print me!" onClick="window.print()"/>-->
+    <!--</form>-->
 
-  {% for post in page.get_children %}
-<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
-{% endfor %}
+    {% for post in page.get_children %}
+    <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
+    {% endfor %}
     <br>
     <br>
-<p><a href="{{ page.get_parent.url }}">Return</a></p>
-{% endblock %}
- </div>                                   
+    <p><a href="{{ page.get_parent.url }}">Return</a></p>
+    {% endblock %}
+</div>
                                   
 

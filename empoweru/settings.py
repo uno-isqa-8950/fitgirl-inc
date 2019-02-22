@@ -182,6 +182,10 @@ LOGOUT_URL = 'logout'
 
 WAGTAIL_SITE_NAME = 'EmpowerU'
 
+#mailchimp credentials
+MAILCHIMP_API_KEY = 'd5d56cc5a567972492b93d50b9bf7acf-us11'
+MAILCHIMP_SUBSCRIBE_LIST_ID = 'c22510ef43'
+
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'capstone18FA'
@@ -198,7 +202,7 @@ EMAIL_USE_TLS = True
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-#try:
+# try:
 #     from local_settings import *
-#except ImportError:
+# except ImportError:
 #     pass

@@ -33,7 +33,7 @@
               {{ profile_form|crispy }}
           </fieldset>
           <div class="form-group">
-              <input type="submit" value="Save changes">
+              <input type="submit" class="btn-padding" value="Save and Proceed">
           </div>
 
       </form>
@@ -41,14 +41,15 @@
 </div>
 
     {% if user.profile.pre_assessment == "No" %}
-    <a href="/pages/disclaimer/" class="btn btn-secondary"><i class="fa fa-arrow-circle-left"></i>&nbsp; PREV</a>
+    <a href="/pages/disclaimer/" class="btn btn-secondary">PREV &nbsp;<i class="fa fa-arrow-circle-left"></i></a>
+<!----
     {% if activated %}
     <a href="/pages/pre-assessment/" class="btn btn-secondary pull-right">NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
     {% else %}
     <a href="/pages/pre-assessment/" class="btn btn-secondary disabled pull-right" >NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
     {% endif %}
     {% endif %}
-
+---->
 <script>
 $(document).ready(function(){
 $("#userLandingContent2").remove()
