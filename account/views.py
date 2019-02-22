@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm
 from .forms import Profile,User, Program, ContactForm
 from .models import RegisterUser, Affirmations, Dailyquote
-from week.models import WeekPage
+from week.models import WeekPage, EmailTemplates
 from io import TextIOWrapper, StringIO
 import re
 
@@ -19,8 +19,9 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
-from django.core.mail import send_mass_mail, BadHeaderError, send_mail
-
+from django.core.mail import BadHeaderError, send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 def user_login(request):
     if request.method == 'POST':
@@ -372,6 +373,53 @@ def archive(request):
                   'account/archive.html',
                   {'section': 'archive','form':form})
 
+
+def groups(request):
+    if request.method == 'GET':
+        programs = Program.objects.all()
+        return render(request, "account/groups.html", {'programs': programs})
+
+def group_email(request):
+    if request.method == 'GET':
+        form = EmailForm()
+
+        return render(request, "account/group_email.html", {'form': form})
+    else:
+        form = EmailForm()
+        program = request.POST.get('dropdown1')
+        users = Profile.objects.filter(program__program_name = program)
+        usersEmail = []
+        for profile in enumerate(users):
+            profile = str(profile[1])
+            email = profile.replace(' Profile', '')
+            print(email)
+            usersEmail.append(email)
+        return render(request, "account/group_email.html", {'form': form, 'program': program, 'to_list': usersEmail})
+
+def send_group_email(request):
+    if request.method == 'GET':
+        return render(request, "account/group_email.html")
+    else:
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = 'capstone18FA@gmail.com'
+            program = request.POST.get('program')
+            print(program)
+            users = Profile.objects.filter(program__program_name = program)
+            name_list = []
+            content = EmailTemplates.objects.all()
+            html_message = render_to_string('account/group_email_template.html', {'content': content})
+            plain_message = strip_tags(html_message)
+            for profile in enumerate(users):
+                profile = str(profile[1])
+                email = profile.replace(' Profile', '')
+                send_mail(subject, plain_message, from_email, [email], html_message=html_message)
+                print(email)
+                user = User.objects.get(username = email)
+                name = user.first_name + " " + user.last_name
+                name_list.append(name)
+            return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
 
 def emails(request):
     if request.method == 'GET':

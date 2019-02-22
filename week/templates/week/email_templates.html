@@ -1,0 +1,22 @@
+{% extends "account/dashboard.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}Email Templates{% endblock %}
+
+{% block dash_content %}
+
+<div class ="container">
+
+    <h1 style="text-align: center;">This is how your group message looks:</h1>
+    <div style="background: #ffffff; text-align: center;">
+        {{ page.group_message|richtext }}
+    </div>
+    <div class="spacer-div-30">
+    </div>
+    <h1 style="text-align: center">This is how your individual message looks:</h1>
+    <div style="background: #ffffff; text-align: center;">
+        {{ page.individual_message|richtext }}
+    </div>
+
+</div>
+{% endblock %}
