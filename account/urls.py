@@ -30,6 +30,9 @@ urlpatterns = [
     path('django_frame/', views.django_frame, name='django_frame'),
     path('profile/<int:pk>/', views.profile, name='profile'),
     path('archive/', views.archive, name='archive'),
+    path('groups/', views.groups, name='groups'),
+    path('group_email/', views.group_email, name='group_email'),
+    path('send_group_email/', views.send_group_email, name='send_group_email'),
     path('send_email/', views.emails, name='send_email'),
     path('send_individual.email/', views.email_individual, name='send_individual.email'),
 

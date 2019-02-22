@@ -470,5 +470,15 @@ class LandingIndexPage(Page):
 
     ]
 
+class EmailTemplates(Page):
+    group_message = RichTextField(blank=True)
+    individual_message = RichTextField(blank=True)
+
+
+    content_panels = Page.content_panels + [
+        FieldPanel('group_message', classname="full"),
+        FieldPanel('individual_message', classname="full"),
+
+        ]
 
 
