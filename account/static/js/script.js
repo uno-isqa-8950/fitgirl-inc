@@ -1,5 +1,45 @@
 $(document).ready(function() {
 
+    function weekmenuresizing(){
+    
+    }
+    (function($,sr){
+
+        // debouncing function from John Hann
+        // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+        var debounce = function (func, threshold, execAsap) {
+            var timeout;
+      
+            return function debounced () {
+                var obj = this, args = arguments;
+                function delayed () {
+                    if (!execAsap)
+                        func.apply(obj, args);
+                    timeout = null;
+                };
+      
+                if (timeout)
+                    clearTimeout(timeout);
+                else if (execAsap)
+                    func.apply(obj, args);
+      
+                timeout = setTimeout(delayed, threshold || 100);
+            };
+        }
+        // smartresize 
+        jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+      
+      })(jQuery,'smartresize');
+      
+      
+      // usage:
+      $(window).smartresize(function(){
+        // code that takes it easy...
+        weekmenuresizing();
+      });
+
+
+
     // Affirmations popup code starts here - Karthik
     if ($(".current-week").length == 0) {
         //Not the user-landing page
@@ -50,29 +90,52 @@ $(".question-page").closest("body").addClass("question-body");
 $( ".physical-post-page br" ).remove();
 
 
+// slider 
+var slideCount = $('.slider ul li').length;
+console.log(slideCount);
+	var slideWidth = $('.slider ul li').width();
+    console.log(slideWidth);
+	var slideHeight = $('.slider ul li').height();
+    console.log(slideHeight);
+	var sliderUlWidth = slideCount * slideWidth;
+    console.log(sliderUlWidth);
+    //$('.slider').css({ width: slideWidth, height: slideHeight });
+    // $('.slider ul').css({marginLeft: - slideWidth });
+    // $('.slider ul li:last-child').prependTo('.slider ul');
+    function moveLeft() {
+        // alert("left");
+        $('.slider ul').animate({
+            left: + slideWidth
+        }, 200, function () {
+            $('.slider ul li:last-child').prependTo('.slider ul');
+            $('.slider ul').css('left', '');
+        });
+    };
+    function moveRight() {
+        // alert("right");
+        $('.slider ul').animate({
+            left: - slideWidth
+        }, 200, function () {
+            $('.slider ul li:first-child').appendTo('.slider ul');
+            $('.slider ul').css('left', '');
+        });
+    };
+    $('.previous').click(function () {
+        moveLeft();
+    });
+
+    $('.next').click(function () {
+        moveRight();
+    });
 
 
 
-// var phyiscaltimer = function(){
-// $('.drawer').slideDrawer({
-// showDrawer: false, // The drawer is hidden by default.
-// slideTimeout: true, // Sets the drawer to slide down after set count if set to true.
-// slideSpeed: 600, // Slide drawer speed. 
-// slideTimeoutCount: 3000, // How long to wait before sliding drawer slides down.
-// });
-// };
-// Code for toggling the timer
-// var r = $("<input/>").attr({ type: "a", id: "field", class:" start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light",value:"start timer",href:"#"});
-// $(".strength-paragraphs").append(r);
-// $(".physical-post-page").on('click', '.start-timer', function(){
-// //  $(".demo").slideToggle();
-// $(".demo").css("visibility","visible");
-// //$('#done').show();
+    if($(".slider").width() < 1250)
+{
+     //Do Something
+}
 
-// });
-// function activityDone(){
-//     alert("done");
-// }
+
 });
 
 $( "#nutrition .rich-text img" ).wrapAll( "<div class='nutrition-images-array' />");
