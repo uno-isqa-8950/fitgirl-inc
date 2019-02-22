@@ -369,6 +369,7 @@ class QuestionPageText(AbstractForm):
         user1=User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
+	user1.profile.save()
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
@@ -453,10 +454,26 @@ class Disclaimerlink(Page):
 class LandingIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
+    physical= RichTextField(blank=True)
+    nutritional= RichTextField(blank=True)
+    mental= RichTextField(blank=True)
+    relational= RichTextField(blank=True)
+    physicaldesc = RichTextField(blank=True)
+    nutritionaldesc = RichTextField(blank=True)
+    mentaldesc = RichTextField(blank=True)
+    relationaldesc = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
-        FieldPanel('description', classname="full"),
+        FieldPanel('physical', classname="full"),
+        FieldPanel('nutritional', classname="full"),
+        FieldPanel('mental', classname="full"),
+        FieldPanel('relational', classname="full"),
+        FieldPanel('physicaldesc', classname="full"),
+        FieldPanel('nutritionaldesc', classname="full"),
+        FieldPanel('mentaldesc', classname="full"),
+        FieldPanel('relationaldesc', classname="full"),
+
 
     ]
 
