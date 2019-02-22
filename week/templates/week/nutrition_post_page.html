@@ -18,22 +18,21 @@
 <!--{{form.as_p}}-->
   <!--<input type="submit">-->
 <!--</form>-->
+        <div id="nutrition">
 
-<div id="nutrition">
+            <div class ="nutrition-facts">
+                {{ page.facts|richtext}}
+            </div>
+            <div class="col-sm-2 vertical-ad-banner">
+                <div class="advertisement">
+                    <img src="/static/images/vertica_banner.PNG">
+                </div>
+            </div>
 
-    <div class ="nutrition-facts">
-        {{ page.facts|richtext}}
-    </div>
+            <div class="nutrition-content">
+                {{ page.morecontent|richtext}}
+            </div>
 
-    <div class="col-sm-2 vertical-ad-banner">
-        <div class="advertisement">
-            <img src="/static/images/vertica_banner.PNG">
-        </div>
-    </div>
-
-    <div class="nutrition-content">
-       {{ page.morecontent|richtext}}
-    </div>
     <!-- printing area ends here _Kelley -->
     <script>
         function printDiv(divName) {
@@ -45,7 +44,9 @@
         }
     </script>
 
-</div>
+        </div>
+
+    </div>
 
     <form>
         <input class="print-button" type="button" value="Print me!" onClick="printDiv('printableArea')"/>
@@ -64,7 +65,6 @@
 
     <br>
 {#    {{ page.facts|richtext}}#}
-    </div>
     <div class="img-responsive horizontal-banner" style="text-align: center;">
         <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
             {% image page.get_parent.specific.ad_image width-800 as ad_photo %}

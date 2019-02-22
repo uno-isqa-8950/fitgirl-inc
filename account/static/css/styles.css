@@ -820,7 +820,7 @@ and (max-width : 812px)
 and (-webkit-device-pixel-ratio : 3)
 and (orientation : portrait) {
   /* making the physical exercise images responsive in the physical tabs - karthik*/
-  .tab-pane .rich-text img{
+  .tab-pane .rich-text img {
     max-width: 315px !important;
     height: 100% !important;
   }
@@ -1023,6 +1023,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     max-width: 1255px;
     }
   }
+
 /*.card .card-body{
     position: relative;
     overflow: hidden;
