@@ -461,7 +461,7 @@ class LandingIndexPage(Page):
     ]
 
 class UserActivity(models.Model):
-    program = models.ForeignKey(Program, null=True, on_delete=models.CASCADE)
+#    program = models.ForeignKey(Program, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.CharField(max_length=50, name='Activity')
     week = models.IntegerField(name='Week', null=True)
@@ -479,7 +479,7 @@ def log_activity(user, points, program, page_url):
     activity_log.points_earned = points
     activity_log.creation_date = datetime.date.today()
     activity_log.updated_date = datetime.date.today()
-    activity_log.program = program
+    #activity_log.program = program
     page_components = re.match('^.*\/week-(\d+)\/([\w-]+)\/.*$', page_url)
     week = 0
     activity = "nothing"
