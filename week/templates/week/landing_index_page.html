@@ -7,50 +7,56 @@
 
 {% block content %}
 <div id="userLandingContent1" style="min-height: calc(100vh - 260px);">
-            <div id="userLandingContent2">
+    <div id="userLandingContent2">
 <!-- changes done for streched image- srishty -->
     <div class ="container landing-index-page">
     <br>
     <br>
-  <h1 style="text-align: center;"><b>{{ page.title }}</b></h1>
-    <h6 style="text-align: center;">{{ page.description|richtext }}</h6>
+        <h1 style="text-align: center;"><b>{{ page.title }}</b></h1>
+        <h6 style="text-align: center;">{{ page.description|richtext }}</h6>
     <!--Card Content-->
-    <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
+        <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
 
-       <div class="card-deck ">
+            <div class="card-deck ">
                   <div class="card">
-                    <img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
-                    <div class="card-body bg-dark">
+                    <a href="/"><img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
                         <h5 class="card-title" style="color:deeppink" ><b>{{ page.physical|richtext }}</b></h5>
-                      <span <p class="card-text" style="color:white">{{ page.physicaldesc|richtext }}</p></span>
+                      <span><p class="card-text" style="color:white">{{ page.physicaldesc|richtext }}</p></span>
                     </div>
                   </div>
                  <div class="card">
-                    <img class="card-img-top" src="/media/images/nutritional.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
-                    <div class="card-body bg-dark">
+                    <a href="/"><img class="card-img-top" src="/media/images/nutritional.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
                         <h5 class="card-title" style="color:deeppink" ><b>{{ page.nutritional|richtext }}</b></h5>
-                     <span <p class="card-text" style="color:white">{{ page.nutritionaldesc|richtext }}</p></span>
+                     <span><p class="card-text" style="color:white">{{ page.nutritionaldesc|richtext }}</p></span>
                     </div>
                  </div>
                  <div class="card">
-                    <img class="card-img-top" src="../../../media/images/shutterstock_280067543 (1).jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
-                    <div class="card-body bg-dark">
+                    <a href="/"><img class="card-img-top" src="../../../media/images/shutterstock_280067543 (1).jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
                         <h5 class="card-title" style="color:deeppink" ><b>{{ page.mental|richtext }}</b></h5>
-                      <span<p class="card-text" style="color:white">{{ page.mentaldesc|richtext }}</p></span>
+                      <span><p class="card-text" style="color:white">{{ page.mentaldesc|richtext }}</p></span>
                     </div>
                  </div>
                  <div class="card">
-                    <img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
-                    <div class="card-body bg-dark">
+                    <a href="/"><img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
                         <h5 class="card-title" style="color:deeppink" ><b>{{ page.relational|richtext }}</b></h5>
-                      <span<p class="card-text" style="color:white">{{ page.relationaldesc|richtext }}</p></span>
+                      <span><p class="card-text" style="color:white">{{ page.relationaldesc|richtext }}</p></span>
                     </div>
                  </div>
+            </div>
+        </div>
     </div>
 
 </br>
 </br>
 <!--<p><a href="{{ page.get_parent.url }}">Back</a></p>-->
-</div>
 {% endblock %}
+</div>
 </div>

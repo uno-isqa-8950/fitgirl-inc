@@ -2,14 +2,22 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-<div class ="container">
+<div class ="container question-page">
     <br>
     <br>
-        <h1>{{ page.title }}</h1>
+        <h1><a href="{{ page.get_parent.url }}" style="float:left" class="confetti-button back-btn btn btn-fitgirl pull-right"></a>{{ page.title }}</h1>
 
         {% if user.is_authenticated and user.is_active or request.is_preview %}
             {% if form %}
-                <div>{{ page.intro|richtext }}</div>
+                <div>
+                    {{ page.intro|richtext }}
+                    <div class="col-sm-2 vertical-ad-banner">
+                        <div class="advertisement">
+                            <img src="/static/images/vertica_banner.PNG">
+                        </div>
+                    </div>
+                </div>
+
                 <form action="{% pageurl page %}" method="POST">
 
                     {% csrf_token %}
@@ -27,7 +35,7 @@
 <br>
 <br>
 <!--added btn-return - Brent-->
-<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right btn-return"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+<!--<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right btn-return"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>-->
     <style>
     body {
         background-color: #e3e3e3;
