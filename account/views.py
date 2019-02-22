@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm
-from .forms import Profile,User, Program
+from .forms import Profile,User, Program, ContactForm
 from .models import RegisterUser, Affirmations, Dailyquote
 from week.models import WeekPage
 from io import TextIOWrapper, StringIO
@@ -401,6 +401,20 @@ def emails(request):
 
 
 
-
-
+def email_individual(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            contact_email = form.cleaned_data['contact_email']
+            message = form.cleaned_data['message']
+            from_email = 'capstone18FA@gmail.com'
+            try:
+                send_mail(subject, message, from_email, [contact_email])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return render(request,'account/email_individual_confirmation.html',{'contact_email':contact_email})
+    return render(request, 'account/email_individual.html', {'form': form})
 
