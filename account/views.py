@@ -317,7 +317,7 @@ def edit(request):
             theProfile.profile_filled = True
             theProfile.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('edit')
+            return redirect('/pages/pre-assessment/')
         else:
             messages.warning(request, 'Please correct the errors below!')
     else:
@@ -448,6 +448,7 @@ def emails(request):
     return render(request, "account/email.html", {'to_list': to_list ,'form': form})
 
 
+
 def email_individual(request):
     if request.method == 'GET':
         form = ContactForm()
@@ -464,3 +465,4 @@ def email_individual(request):
                 return HttpResponse('Invalid header found.')
             return render(request,'account/email_individual_confirmation.html',{'contact_email':contact_email})
     return render(request, 'account/email_individual.html', {'form': form})
+
