@@ -82,7 +82,6 @@ class ProgramForm(forms.ModelForm):
 
 class EmailForm(forms.Form):
     subject = forms.CharField(required=True)
-    message = forms.CharField(widget=forms.Textarea)
 
 class ContactForm(forms.Form):
     subject = forms.CharField(required=True)

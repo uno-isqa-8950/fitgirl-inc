@@ -1,0 +1,19 @@
+{% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block dash_content %}
+  {% if request.user.is_superuser %}
+<div class="container">
+    <div class="spacer-div-30"></div>
+    <h1 class="text-left">Send E-mail</h1>
+
+    <form action="{% url 'send_group_email' %}" method="post" >
+        {% csrf_token %}
+        <p>Selected Program: {{ program }}</p>
+        <input type="hidden" name="program" value="{{ program }}">
+        <p>Recepients list: {{ to_list }}</p>
+        {{ form|crispy }}
+        <a><input type="submit" value="Send E-mail"></a>
+    </form>
+</div>
+{% endif %}
+{% endblock %}
