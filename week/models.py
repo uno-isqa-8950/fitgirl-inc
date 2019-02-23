@@ -482,34 +482,7 @@ class Disclaimerlink(Page):
         FieldPanel('disclaimer5', classname="full"),
         ]
 
-    def serve(self, request, *args, **kwargs):
-        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
-            return render(
-                request,
-                self.template,
-                self.get_context(request)
-            )
-
-        return super().serve(request, *args, **kwargs)
-
-    def get_submission_class(self):
-        return CustomFormSubmission
-
-    def process_form_submission(self, form):
-        self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
-            page=self, user=form.user)
-        user1=User.objects.get(username=form.user.username)
-        print(user1.profile.points)
-        user1.profile.points += self.points_for_this_activity
-        #user1.profile.save()
-        #print(form.user.username)
-        #print(user1.profile.points)
-        user1.profile.post_assessment = "yes"
-        #print(user1.profile.bio)
-        user1.profile.save()
-
-class LandingIndexPage(Page):
+ class LandingIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
     physical= RichTextField(blank=True)
