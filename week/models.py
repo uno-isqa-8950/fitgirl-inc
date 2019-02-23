@@ -21,7 +21,7 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.documents.blocks import DocumentChooserBlock
-
+from account.models import Profile, Program
 
 class BlogPage(Page):
     author = models.CharField(max_length=255)
@@ -179,6 +179,7 @@ class QuestionPage(AbstractForm):
         #user1.profile.bio = "yes"
         #print(user1.profile.bio)
         #user1.profile.save()
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
 class CustomFormSubmission(AbstractFormSubmission):
@@ -243,6 +244,7 @@ class PhysicalPostPage(AbstractForm):
         user1.profile.save()
         # print(form.user.username)
         print(user1.profile.points)
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
 class PreassessmentFormField(AbstractFormField):
@@ -287,6 +289,7 @@ class PreassessmentPage(AbstractForm):
         user1.profile.pre_assessment = "yes"
         #print(user1.profile.bio)
         user1.profile.save()
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
 # class CustomFormSubmission(AbstractFormSubmission):
@@ -397,6 +400,8 @@ class QuestionPageText(AbstractForm):
         user1=User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
+        user1.profile.save()
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
 class PostassessmentFormField(AbstractFormField):
@@ -418,6 +423,34 @@ class PostassessmentPage(AbstractForm):
         FieldPanel('start_date'),
         FieldPanel('end_date'),
     ]
+
+    def serve(self, request, *args, **kwargs):
+        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+            return render(
+                request,
+                self.template,
+                self.get_context(request)
+            )
+
+        return super().serve(request, *args, **kwargs)
+
+    def get_submission_class(self):
+        return CustomFormSubmission
+
+    def process_form_submission(self, form):
+        self.get_submission_class().objects.create(
+            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            page=self, user=form.user)
+        user1=User.objects.get(username=form.user.username)
+        print(user1.profile.points)
+        user1.profile.points += self.points_for_this_activity
+        #user1.profile.save()
+        #print(form.user.username)
+        #print(user1.profile.points)
+        user1.profile.post_assessment = "yes"
+        #print(user1.profile.bio)
+        user1.profile.save()
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 class DisclaimerPage(Page):
     disclaimer = RichTextField(blank=True)
@@ -479,12 +512,64 @@ class Disclaimerlink(Page):
 class LandingIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
+    physical= RichTextField(blank=True)
+    nutritional= RichTextField(blank=True)
+    mental= RichTextField(blank=True)
+    relational= RichTextField(blank=True)
+    physicaldesc = RichTextField(blank=True)
+    nutritionaldesc = RichTextField(blank=True)
+    mentaldesc = RichTextField(blank=True)
+    relationaldesc = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
-        FieldPanel('description', classname="full"),
+        FieldPanel('physical', classname="full"),
+        FieldPanel('nutritional', classname="full"),
+        FieldPanel('mental', classname="full"),
+        FieldPanel('relational', classname="full"),
+        FieldPanel('physicaldesc', classname="full"),
+        FieldPanel('nutritionaldesc', classname="full"),
+        FieldPanel('mentaldesc', classname="full"),
+        FieldPanel('relationaldesc', classname="full"),
+
 
     ]
 
+class UserActivity(models.Model):
+    program = models.ForeignKey(Program, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activity = models.CharField(max_length=50, name='Activity')
+    week = models.IntegerField(name='Week', null=True)
+    day = models.CharField(max_length=10, name='DayOfWeek')
+    points_earned = models.IntegerField(null=True)
+    creation_date = models.DateField()
+    updated_date = models.DateField()
 
+    def __str__(self):
+        return("User " + self.user + " performed " + self.activity)
 
+def log_activity(user, points, program, page_url):
+    activity_log = UserActivity()
+    activity_log.user = user
+    activity_log.points_earned = points
+    activity_log.creation_date = datetime.date.today()
+    activity_log.updated_date = datetime.date.today()
+    activity_log.program = program
+    page_components = re.match('^.*\/week-(\d+)\/([\w-]+)\/.*$', page_url)
+    week = 0
+    activity = "nothing"
+    if page_components:
+        if type(page_components[1]) is str:
+            week = page_components[1]
+        if type(page_components[2]) is str:
+            activity = page_components[2]
+    if week:
+        activity_log.Week = int(week)
+
+    activity_log.DayOfWeek = datetime.date.today().strftime('%A')
+    if activity:
+        activity_log.Activity = activity
+
+    activity_log.save()
+
+#https://www.empoweruomaha.com/pages/spring-2019/week-1/bonus/teamwork/teamwork-quiz/
