@@ -403,7 +403,6 @@ def groups(request):
 def group_email(request):
     if request.method == 'GET':
         form = EmailForm()
-
         return render(request, "account/group_email.html", {'form': form})
     else:
         form = EmailForm()
@@ -423,24 +422,39 @@ def send_group_email(request):
     else:
         form = EmailForm(request.POST)
         if form.is_valid():
-            subject = form.cleaned_data['subject']
-            from_email = 'capstone18FA@gmail.com'
+            selection = request.POST.get('selection')
+            print(selection)
             program = request.POST.get('program')
             print(program)
             users = Profile.objects.filter(program__program_name = program)
+            from_email = 'capstone18FA@gmail.com'
+            subject = form.cleaned_data['subject']
             name_list = []
-            content = EmailTemplates.objects.all()
-            html_message = render_to_string('account/group_email_template.html', {'content': content})
-            plain_message = strip_tags(html_message)
-            for profile in enumerate(users):
-                profile = str(profile[1])
-                email = profile.replace(' Profile', '')
-                send_mail(subject, plain_message, from_email, [email], html_message=html_message)
-                print(email)
-                user = User.objects.get(username = email)
-                name = user.first_name + " " + user.last_name
-                name_list.append(name)
-            return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
+            if selection == 'text':
+                message = form.cleaned_data['message']
+                for profile in enumerate(users):
+                    profile = str(profile[1])
+                    email = profile.replace(' Profile', '')
+                    send_mail(subject, message, from_email, [email])
+                    print(email)
+                    user = User.objects.get(username = email)
+                    name = user.first_name + " " + user.last_name
+                    name_list.append(name)
+                return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
+
+            else:
+                content = EmailTemplates.objects.all()
+                html_message = render_to_string('account/group_email_template.html', {'content': content})
+                plain_message = strip_tags(html_message)
+                for profile in enumerate(users):
+                    profile = str(profile[1])
+                    email = profile.replace(' Profile', '')
+                    send_mail(subject, plain_message, from_email, [email], html_message=html_message)
+                    print(email)
+                    user = User.objects.get(username = email)
+                    name = user.first_name + " " + user.last_name
+                    name_list.append(name)
+                return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
 
 def emails(request):
     if request.method == 'GET':
