@@ -49,7 +49,7 @@
     </div>
 
     <form>
-        <input class="print-button" type="button" value="Print me!" onClick="printDiv('printableArea')"/>
+        <input class="print-button" type="button" value="Print Recipe" onClick="printDiv('printableArea')"/>
     </form>
     {% for post in page.get_children %}
     <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
