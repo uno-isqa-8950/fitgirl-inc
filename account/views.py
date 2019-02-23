@@ -449,20 +449,24 @@ def emails(request):
 
 
 
-def email_individual(request):
+def email_individual(request,pk):
+    user_student = get_object_or_404(User,pk=pk)
     if request.method == 'GET':
         form = ContactForm()
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
             subject = form.cleaned_data['subject']
-            contact_email = form.cleaned_data['contact_email']
+            #contact_email = form.cleaned_data['contact_email']
+            contact_email = user_student.username
             message = form.cleaned_data['message']
             from_email = 'capstone18FA@gmail.com'
+
             try:
                 send_mail(subject, message, from_email, [contact_email])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            return render(request,'account/email_individual_confirmation.html',{'contact_email':contact_email})
-    return render(request, 'account/email_individual.html', {'form': form})
+            return render(request,'account/email_individual_confirmation.html',{'contact_email': contact_email},{'user_student':user_student})
+    return render(request, 'account/email_individual.html', {'form': form,'user_student':user_student})
+
 

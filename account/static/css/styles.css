@@ -13,9 +13,13 @@ body{
     margin-left:0;}
 
 .print-button {
+    margin-top: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
+    background-color: #ed217c!important;
+    color: #fff!important;
 }
+
 .modal-dialog.modal-notify.modal-info .fa {
     color: #ed217c;
 }
