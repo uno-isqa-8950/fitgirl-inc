@@ -482,7 +482,7 @@ class Disclaimerlink(Page):
         FieldPanel('disclaimer5', classname="full"),
         ]
 
- class LandingIndexPage(Page):
+class LandingIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
     physical= RichTextField(blank=True)
