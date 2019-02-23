@@ -118,52 +118,63 @@ def handle_uploaded_file(request, name):
     for row in reader:
         try:
             if row[1] and row[2] and row[3]:
-                if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
-                    num = len(User.objects.all().filter(email=row[1]))
-                    if (len(User.objects.all().filter(email=row[1])) > 0):
-                        # targetUser = User.objects.all().filter(email=row[1])[0]
-                        # targetUser.is_active = True
-                        # targetUser.save()
-                        # targetProfile = targetUser.profile
-                        # targetProfile.program = Program.objects.all().filter(program_name=name)[0]
-                        # targetProfile.points = 0
-                        # targetProfile.pre_assessment = 'No'
-                        # targetProfile.post_assessment = 'No'
-                        # targetProfile.save()
-                        existcount += 1             #hghanta: changes to get existing users count
-
-                    else:
-                        vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
-                        current_site = get_current_site(request)
-                        alphabet = string.ascii_letters + string.digits
-                        # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
-                        theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
-                        theUser.set_password('stayfit2019')
-                        theUser.save()
-                        profile = Profile.objects.create(user=theUser,
-                                                         program=Program.objects.all().filter(program_name=name)[0])
-                        profile.save()
-                        form = PasswordResetForm({'email': theUser.email})
-                        if form.is_valid():
-                            request = HttpRequest()
-                            request.META['SERVER_NAME'] = 'www.empoweruomaha.com'
-                            request.META['SERVER_PORT'] = '80'
-                            form.save(
-                                request=request,
-                                from_email=settings.EMAIL_HOST_USER,
-                                subject_template_name='registration/new_user_subject.txt',
-                                email_template_name='registration/password_reset_newuser_email.html')
-                        if vu is not None:
-                            vu.save()
-                            count = count + 1
-                else:
+                if not is_valid(row):
                     emailcount += 1
+                elif exists(row):
+                    existcount += 1
+                else:
+                    if register_user(request, row, name):
+                        count += 1
+                    else:
+                        failcount += 1
             else:
                 failcount += 1
         except Exception as e:
-            print(e)
-            existcount += 1
+             print(e)
+             existcount += 1
     return (count, failcount, existcount, emailcount)
+
+def is_valid(row):
+    if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
+        return True
+    else:
+        return False
+
+def exists(row):
+    num = len(User.objects.all().filter(email=row[1]))
+    if num > 0:
+        return True
+    else:
+        return False
+
+
+def register_user(request, row, name):
+    vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
+    current_site = get_current_site(request)
+    alphabet = string.ascii_letters + string.digits
+    # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
+    theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
+    theUser.set_password('stayfit2019')
+    theUser.save()
+    profile = Profile.objects.create(user=theUser,
+                                     program=Program.objects.all().filter(program_name=name)[0])
+    profile.save()
+    form = PasswordResetForm({'email': theUser.email})
+    if form.is_valid():
+        request = HttpRequest()
+        request.META['SERVER_NAME'] = 'www.empoweruomaha.com'
+        request.META['SERVER_PORT'] = '80'
+        form.save(
+            request=request,
+            from_email=settings.EMAIL_HOST_USER,
+            subject_template_name='registration/new_user_subject.txt',
+            email_template_name='registration/password_reset_newuser_email.html')
+
+    if vu is not None:
+        vu.save()
+        return True
+    else:
+        return False
 
 
 def get_short_name(self):
