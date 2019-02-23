@@ -93,7 +93,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'wagtailmenus.context_processors.wagtailmenus',
                 'account.context_processors.get_quotes',
-                'account.context_processors.get_affirmation'
+                'account.context_processors.get_affirmations'
             ],
         },
     },
