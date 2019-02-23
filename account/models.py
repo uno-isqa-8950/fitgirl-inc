@@ -17,7 +17,7 @@ EVENT = (
 
 
 class Program(models.Model):
-    #program_id = models.AutoField(null=False, primary_key=True)
+    program_id = models.AutoField(null=False, primary_key=True)
     program_name = models.CharField(max_length=20, null=False, unique=True)
     program_start_date = models.DateField(null=False, blank=False)
     program_end_date = models.DateField(null=False, blank=False)
@@ -105,4 +105,8 @@ class Profile(models.Model):
     # def save_user_profile(sender, instance, **kwargs):
     #     instance.profile.save()
 
+
+class Parameters(models.Model):
+    physical_days_to_done = models.IntegerField(default=1)
+    nutrition_days_to_done = models.IntegerField(default=1)
 

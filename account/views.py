@@ -2,10 +2,10 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, ParametersForm
 from .forms import Profile,User, Program, ContactForm
 from .models import RegisterUser, Affirmations, Dailyquote
-from week.models import WeekPage
+from week.models import WeekPage, UserActivity
 from io import TextIOWrapper, StringIO
 import re
 
@@ -416,3 +416,14 @@ def email_individual(request):
                 return HttpResponse('Invalid header found.')
             return render(request,'account/email_individual_confirmation.html',{'contact_email':contact_email})
     return render(request, 'account/email_individual.html', {'form': form})
+
+@login_required
+def parameters_form(request):
+    if request.method == "POST":
+        form = ParametersForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+    else:
+        form = ParametersForm()
+    return render(request, 'account/parameters_edit.html', {'form': form})
