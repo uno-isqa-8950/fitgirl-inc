@@ -30,8 +30,9 @@
       <th class="th-lg text-center">Registered</th>
       <th class="th-lg text-center">User Logged-In</th>
       <th class="th-lg text-center">Pre-Assessment</th>
-          <th class="th-lg text-center ">Post-Assessment</th>
+      <th class="th-lg text-center ">Post-Assessment</th>
       <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+      <th class="th-lg text-center ">Email</th>
       </tr>
       </thead >
         <tbody  >
@@ -68,6 +69,8 @@
         {% endif %}
            <td align="center">{{ registeredUser.profile.points }}</td>
 
+        <td><a href="{% url 'send_individual_email' pk=registeredUser.pk %}" class="btn btn-pink">E-mail</a> </td>
+
 
         {% endfor %}
         </tr>
@@ -75,7 +78,6 @@
         </tbody>
     </table>
     <a href="{% url 'groups' %}" class="btn btn-pink">E-mail a group</a>
-    <a href="{% url 'send_individual.email' %}" class="btn btn-pink">E-mail individual student</a>
 
 </div>
 </div>
