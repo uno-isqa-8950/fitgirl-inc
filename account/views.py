@@ -47,16 +47,37 @@ def user_login(request):
 @login_required
 def dashboard(request):
     today = datetime.date.today()
-
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
     dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
+
+    programs = Program.objects.filter(program_start_date__lt=today).filter(program_end_date__gte=today)
+    for program in programs:
+        current_program = program.program_name
+        current_program_lower = current_program.lower()
+        gap_pos = current_program_lower.find(" ")
+        new_str = current_program_lower[0:gap_pos] + '-' + current_program_lower[gap_pos:]
+        new_str1 = new_str.replace(" ", "")
+
+    weeks = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+    for this_week in weeks:
+        print(this_week.title)
+        todays_week = this_week.title.lower()
+        print(todays_week)
+        week_gap_pos = todays_week.find(" ")
+        new_week_str = todays_week[0:week_gap_pos] + '-' + todays_week[week_gap_pos:]
+        print(new_week_str)
+        new_week_str1 = new_week_str.replace(" ", "")
+
     if request.user.is_staff:
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
+
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard', 'dailyquote': dailyquote})
+                  {'section': 'dashboard', 'dailyquote': dailyquote, 'new_str1': new_str1,
+                   'new_week_str1': new_week_str1})
+
 
 @login_required
 def login_success(request):
@@ -458,7 +479,7 @@ def email_individual(request,pk):
         if form.is_valid():
             subject = form.cleaned_data['subject']
             #contact_email = form.cleaned_data['contact_email']
-            contact_email = user_student.username
+            contact_email = user_student.email
             message = form.cleaned_data['message']
             from_email = 'capstone18FA@gmail.com'
 
