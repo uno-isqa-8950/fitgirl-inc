@@ -131,7 +131,7 @@ console.log(slideCount);
 
 
     if($(".slider").width() < 1253)
-{alert("small")
+{
      //Do Something
 }
 
@@ -150,9 +150,9 @@ $( ".nutrition-facts" ).prependTo ( ".nutrition-content .rich-text" );
 $( ".nutrition-images-array" ).after( "<div class='spacer-div-30 clear-left'></div>" );
 var nutrition_height = $( ".nutrition-images-array" ).height();
 $(".nutrition-facts .rich-text").css("height",nutrition_height);
-if($("body").hasClass("nutrition-body")){
-    $(".fitgirlinc-footer-socialLinks").addClass("nutrition-post-page container");
-}
+// if($("body").hasClass("nutrition-body")){
+//     // $(".fitgirlinc-footer-socialLinks").addClass("nutrition-post-page container");
+// }
 
 
 
