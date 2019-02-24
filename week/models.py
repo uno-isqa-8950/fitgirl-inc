@@ -496,6 +496,9 @@ class LandingIndexPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
+
+        FieldPanel('description', classname="full"),
+
         FieldPanel('physical', classname="full"),
         FieldPanel('nutritional', classname="full"),
         FieldPanel('mental', classname="full"),
