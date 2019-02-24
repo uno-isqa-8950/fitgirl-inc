@@ -141,12 +141,11 @@
     {% block body %}
     {% endblock %}
   </div>
-<br><br>
 {% if request.user.is_superuser %}
     {% else %}
 {% if request.user.is_authenticated %}
     <!--hghanta: changes for social media icons above footer-->
-    <div id="container" class="fitgirlinc-footer-socialLinks">
+    <div id="container" class="fitgirlinc-footer-socialLinks container">
         <p>Follow us on social media</p>
         <a href="https://www.facebook.com/fitgirlinc/"  target="_blank"><img class="facebook" src="{% static 'images/socialMedia_icons/facebook.png' %}" alt="facebook" height="40"/></a>
         <a href="https://www.instagram.com/fitgirlomaha/" target="_blank"><img class="instagram" src="{% static 'images/socialMedia_icons/instagram.png' %}" alt="instagram" height="40"/></a>
