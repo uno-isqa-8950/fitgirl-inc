@@ -348,9 +348,13 @@ h1{
 .physical-post-page .rich-text{
 width: 100%
 }
-.strength-images-array,.agility-images-array,.flexibility-images-array{
+.strength-images-array,.agility-images-array,.flexibility-images-array,.nutrition-images-array{
 float: left;
 width: 50%;
+}
+.nutrition-images-array img{
+  width: 100%;
+  height: 100%;
 }
 .strength-paragraphs,.agility-paragraphs,.flexibility-paragraphs{
   float: right;
@@ -381,7 +385,12 @@ width: 100%;
 .password-page label{
   display: inline-block !important;
 }
-.physical-body .navbar-parent{
+/* .physical-body .navbar-parent{
+  max-width: 1253px;
+  margin: 0 auto;
+  margin-top: -4px;
+} */
+.navbar-parent{
   max-width: 1253px;
   margin: 0 auto;
   margin-top: -4px;
@@ -485,12 +494,17 @@ background: -webkit-linear-gradient(top, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fef
 background: linear-gradient(to bottom, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
   }
-.container.physical-post-page h1{
+  .container.physical-post-page h1,.container.nutrition-post-page h1,.container.question-page h1{
     margin-top: 0px;
     padding-top: 11px;
     margin-bottom: 9px;
     position: relative;
+    text-align: center;
 }
+/* .nutrition-post-page h1 p{
+  margin:0;
+  line-height: 1.5;
+} */
 .physical-body .fitgirlinc-footer-socialLinks,.physical-body br,.physical-body hr{
   display:none;
 }
@@ -508,10 +522,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   background-image: url(../images/back-icon.png);
   background-size: contain;
   background-repeat: no-repeat;
-  border-radius: 22px;
+  border-radius: 4px;
   padding: 20px;
+  font-size: 15px;
   position: absolute;
-  left: 0;}
+  font-weight: bold;
+  margin-left: 16px;
+  text-align: right;
+  left: 0;
+  padding: 9px 5px 9px 45px;
+  }
 
     #soon-glow {
         font-family: 'Quicksand', sans-serif;
@@ -533,7 +553,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
         #soon-glow>.soon-group {
            margin-bottom:-.5em;
              }
-  .physical-description{
+  .container-description{
     padding: 15px 45px;
   }
   #strength h3{
@@ -549,7 +569,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   
 .slider{ width:100%; max-width: 1253px;overflow: hidden; position: relative}
 .slider nav{    width: 2000px;}
-.slider ul{width: 1600px; padding-left: 0;}
+.slider ul{width: 1600px; padding-left:24px;margin-bottom:0;}
 .slider ul li{display: inline-block;}
 
 .slider .btn.btn-sm {
@@ -583,11 +603,32 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   background-color: #ec407a;
   color: white;
 }
-
-.slider .round {
-  border-radius: 50%;
+.slider .glossy_button {
+  position: absolute;
+  display: inline-block;
+  padding:14px 15px;
+  background: green;
+  background-image: linear-gradient(#ec407a,#f0749e);
+  text-decoration: none;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 100;
+  box-shadow: 0px 1px 4px -2px #333;
+  text-shadow: 0px -1px #333;
+}
+.slider .glossy_button:after{
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: calc(100% - 4px);
+	height: 50%;
+	background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
 }
 
+.slider .glossy_button:hover{
+	background: linear-gradient(#f0749e,#ec407a);
+}
 
 
 
@@ -702,6 +743,30 @@ margin-top: 3rem!important;
 }
   }
 
+  @media (min-width: 576px){
+    .physical-body .navbar-parent {
+        max-width: 540px;
+    }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 /*coloring app styles_Kelley*/
 #coloring-app {
     position: relative;
@@ -735,6 +800,12 @@ margin-top: 3rem!important;
     .box-center {
         margin: 0 auto;
         text-align: center;
+    }
+    .clear-left{
+      clear:left;
+    }
+    .clear-right{
+      clear:right;
     }
  /* CSS for confetti buttons */
  .confetti-button.animate:before {
@@ -827,7 +898,7 @@ bottomBubbles {  0% {
   margin-top: 20px;
   padding-bottom: 20px;
 }
-.strength-images-array,.agility-images-array,.flexibility-images-array{
+.strength-images-array,.agility-images-array,.flexibility-images-array,.nutrition-images-array{
   float: left;
   width: 100%;
   }
@@ -846,17 +917,11 @@ bottomBubbles {  0% {
       max-width: 1254px;
     padding: 0 22px;
     }
-    .container.nutrition-post-page{
+    .container.nutrition-post-page,.container.question-page{
         max-width: 1254px;
         padding: 0 22px;
-        margin-top: -10px;
     }
 
-    .container.question-page{
-        max-width: 1254px;
-        padding: 0 22px;
-        margin-top: -10px;
-    }
     .container .physical-post-page,.container .nutrition-post-page, .container .question-page{
     max-width: 1220px;
     }
@@ -1004,12 +1069,11 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 
 .nutrition-facts {
     float: right;
-    width: 57%;
+    width: 49%;
     border-radius: 5px;
     padding: 0 10px;
     border: 1px solid #e6ffe6;
     background: #e6ffe6;
-    margin-bottom: 117px;
     text-align: justify;
     display: inline-table;
 }
@@ -1025,15 +1089,6 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     }
   }
 
-.nutrition-post-page h1 .back-btn{
-  background-image: url(../images/back-icon.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  border-radius: 22px;
-  padding: 20px;
-  position: absolute;
-  left: 27px;
-}
 
 .nutrition-post-page .question-page .rich-text{
     width: 100%;
@@ -1046,13 +1101,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 .nutrition-body .nav-wrapper, .question-body .nav-wrapper {
     width: 100%;
     display: inherit;
-    margin-bottom: -4px;
     /*border-bottom: 4px solid #ed217c;*/
-}
-
-.nutrition-body .navbar, .question-body .navbar {
-    margin-left: 4px;
-    margin-right: 4px;
 }
 
 .nutrition-post-page .horizontal-banner{
@@ -1061,37 +1110,38 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
   padding-bottom: 20px;
 }
 
-.question-page h1{
-    border-bottom: 1px solid #bbb;
-    padding: 0 0 10px 0;
-    margin: -30px 0 20px 0;
-    text-align: center;
-}
-
-.question-page div{
-    text-align: center;
-}
-
-.question-page h1 .back-btn{
-    left: 27px;
-}
-
-.question-page .navbar {
-    margin-left: 4px;
-    margin-right: 4px;
-}
 
 .question-body {
     background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
 }
+.nutrition-facts .rich-text{
+  overflow-y: auto;
+}     
+/* .fancy {
+  position: relative;
+  background-color: #FFC;
+  padding: 2rem;
+  text-align: center;
+  max-width: 200px;
+}
 
-@media (min-width: 1200px){
+.fancy::before {
+  content: "";
 
-    .container.question-page{
-    max-width: 1255px;
-    }
-  }
+  position : absolute;
+  z-index  : -1;
+  bottom   : 15px;
+  right    : 5px;
+  width    : 50%;
+  top      : 80%;
+  max-width: 200px;
 
+  box-shadow: 0px 13px 10px black;
+  transform: rotate(4deg);
+} */
+.fitgirlinc-footer-socialLinks.container{
+  margin: 0 auto;
+}
 /*.card .card-body{
     position: relative;
     overflow: hidden;
