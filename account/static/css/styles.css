@@ -489,7 +489,7 @@ background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !i
   background: -webkit-linear-gradient(to top, #f80759, #bc4e9c); 
   background: linear-gradient(to top, #f80759, #bc4e9c); */
  }
- .container.physical-post-page,.container.nutrition-post-page, .container.question-page{
+ .container.physical-post-page,.container.nutrition-post-page, .container.question-page,.fitgirlinc-footer-socialLinks{
   background:#e3e3e3;}
  #sub-header .navbar{
     background: #e2e2e2; /* Old browsers */
@@ -748,10 +748,15 @@ margin-top: 3rem!important;
   }
 
   @media (min-width: 576px){
-    .physical-body .navbar-parent {
+    .physical-body .navbar-parent,.fitgirlinc-footer-socialLinks {
         max-width: 540px;
     }
     }
+    @media (min-width: 768px){
+    .container,.fitgirlinc-footer-socialLinks {
+        max-width: 720px;
+    }
+  }
 
 
 
@@ -769,8 +774,6 @@ margin-top: 3rem!important;
 
 
 
-
-    
 /*coloring app styles_Kelley*/
 #coloring-app {
     position: relative;
@@ -915,13 +918,12 @@ bottomBubbles {  0% {
       background: #c4c4c4;
   }
   }
-
   @media (min-width: 1200px){
-    .container.physical-post-page{
+    .container.physical-post-page,.fitgirlinc-footer-socialLinks{
       max-width: 1254px;
     padding: 0 22px;
     }
-    .container.nutrition-post-page,.container.question-page{
+    .container.nutrition-post-page,.container.question-page,.fitgirlinc-footer-socialLinks{
         max-width: 1254px;
         padding: 0 22px;
     }
@@ -1143,7 +1145,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
   box-shadow: 0px 13px 10px black;
   transform: rotate(4deg);
 } */
-.fitgirlinc-footer-socialLinks.container{
+.fitgirlinc-footer-socialLinks{
   margin: 0 auto;
 }
 /*.card .card-body{
