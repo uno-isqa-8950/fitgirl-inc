@@ -130,13 +130,31 @@ console.log(slideCount);
 
 
 
-    if($(".slider").width() < 1250)
-{
+    if($(".slider").width() < 1253)
+{alert("small")
      //Do Something
 }
 
 
+// Printing a particular div
+function printDiv(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
+// Content manipulation in nutrition page
+$( "#nutrition .rich-text img" ).wrapAll( "<div class='nutrition-images-array' />");
+$( ".nutrition-facts" ).prependTo ( ".nutrition-content .rich-text" );
+$( ".nutrition-images-array" ).after( "<div class='spacer-div-30 clear-left'></div>" );
+var nutrition_height = $( ".nutrition-images-array" ).height();
+$(".nutrition-facts .rich-text").css("height",nutrition_height);
+if($("body").hasClass("nutrition-body")){
+    $(".fitgirlinc-footer-socialLinks").addClass("nutrition-post-page container");
+}
+
+
+
 });
 
-$( "#nutrition .rich-text img" ).wrapAll( "<div class='nutrition-images-array' />");
-$( ".nutrition-facts" ).prependTo ( ".nutrition-content .rich-text" )

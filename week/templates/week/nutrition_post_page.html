@@ -6,9 +6,10 @@
 {#    Nutritional Redesign - Aishwarya #}
 <div class ="container nutrition-post-page">
   <h1>
-      <a href="{{ page.get_parent.url }}" style="float:left" class="confetti-button back-btn btn btn-fitgirl pull-right"></a>{{ page.intro|richtext }}</h1>
+      <a href="{{ page.get_parent.url }}" style="float:left" class="confetti-button back-btn btn btn-fitgirl pull-right"> BACK</a>
+      {{ page.title }}</h1>
 
-    <h5> TRY IT!</h5>
+    <div class="container-description">{{ page.intro|richtext }}</div>
     <!-- printing area starts here _Kelley -->
     <div id="printableArea">
     {{ page.body|richtext }}
@@ -20,7 +21,7 @@
 <!--</form>-->
         <div id="nutrition">
 
-            <div class ="nutrition-facts">
+            <div class ="nutrition-facts fancy">
                 {{ page.facts|richtext}}
             </div>
             <div class="col-sm-2 vertical-ad-banner">
@@ -31,39 +32,35 @@
 
             <div class="nutrition-content">
                 {{ page.morecontent|richtext}}
+                
+                {% for post in page.get_children %}
+                <h2 class="dont-print-this"><a href="{% pageurl post %}">{{post.title}}</a></h2>
+                {% endfor %}
             </div>
 
     <!-- printing area ends here _Kelley -->
-    <script>
-        function printDiv(divName) {
-            var printContents = document.getElementById(divName).innerHTML;
-            var originalContents = document.body.innerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-        }
-    </script>
-
         </div>
 
     </div>
-
+    <script>
+    function printDiv(divName) {
+    $(".dont-print-this").css("display","none");  
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    $(".dont-print-this").css("display","block");
+}
+    </script>
     <form>
         <input class="print-button" type="button" value="Print Recipe" onClick="printDiv('printableArea')"/>
     </form>
-    {% for post in page.get_children %}
-    <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
-    {% endfor %}
-<br>
     <!--Added banner space:hghanta-->
- <br>
- <br>
 <!--<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>-->
 <hr style="color: black; background: #333;">
 
 <!--Advertisement-->
-
-    <br>
 {#    {{ page.facts|richtext}}#}
     <div class="img-responsive horizontal-banner" style="text-align: center;">
         <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">

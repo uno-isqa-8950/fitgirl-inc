@@ -4,12 +4,12 @@
 
 {% block content %}
     <div class ="container physical-post-page">
-    <h1 style="text-align: center;"><a href="{{ page.get_parent.url }}" style="float:left" class="confetti-button back-btn btn btn-fitgirl pull-right"></a>{{ page.title }}</h1>
+    <h1 style="text-align: center;"><a href="{{ page.get_parent.url }}" style="float:left" class="confetti-button back-btn btn btn-fitgirl pull-right">BACK</a>{{ page.title }}</h1>
 
 
     {% if user.is_authenticated and user.is_active or request.is_preview %}
         {% if form %}
-            <div class="physical-description">{{ page.intro|richtext }}</div>
+            <div class="container-description">{{ page.intro|richtext }}</div>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-10 physical-content">
@@ -64,8 +64,6 @@
         <div>To fill in the form, you should log in.</div>
     {% endif %}
 <!--added banner space, return button modified:hghanta-->
-
-    </div>
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <hr style="color: black; background: #333;">
@@ -324,5 +322,7 @@ innertraining();
     
 
     </script>
+
+</div>
 {% endblock %}
 </div>
