@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
-@import url(http://fonts.googleapis.com/css?family=Quicksand);
+@import url('http://fonts.googleapis.com/css?family=Quicksand');
+@import url('http://fonts.googleapis.com/css?family=Comfortaa');
+
 body{
     background: #f4f4f4;
 }
@@ -121,7 +123,7 @@ body{
     max-width: 1253px;
     margin: 0 auto !important;
 }
-@import url(http://fonts.googleapis.com/css?family=Comfortaa);
+
 #my-soon-watch-red {background-color:#030303da;background-image: url(../images/inspiration-geometry.png);}
 #my-soon-watch-red .soon-reflection {background-color:#030303;background-image:linear-gradient(#030303 25%,rgba(3,3,3,0));}
 #my-soon-watch-red {color:#ffffff;}
@@ -393,15 +395,15 @@ width: 100%;
 
  }
  .footer-wrapper{
-  bottom:0px; 
+  bottom:0px;
   width:100%;
   border-top: 4px solid #ed217c;
   border-bottom: 0px;
-  box-shadow: none; 
+  box-shadow: none;
   -webkit-box-shadow:none;
  }
  .footer-wrapper .navbar{
-  box-shadow: none; 
+  box-shadow: none;
   -webkit-box-shadow:none;
   border-bottom:none;
  }
@@ -471,8 +473,8 @@ background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !i
 }
 
  .physical-body #container-fluid{
-  /* background: #bc4e9c;  
-  background: -webkit-linear-gradient(to top, #f80759, #bc4e9c); 
+  /* background: #bc4e9c;
+  background: -webkit-linear-gradient(to top, #f80759, #bc4e9c);
   background: linear-gradient(to top, #f80759, #bc4e9c); */
  }
  .container.physical-post-page{
@@ -539,7 +541,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
     margin: 15px 0;
   }
 /*Srishty*/
- 
+
   .physical-content{
     flex: 0 0 83.333333%;
     max-width: 83.333333%;
@@ -598,7 +600,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   .soon {
     max-width: 960px;
   }
-  
+
   }
   @media (max-width: 991px) {
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
@@ -612,7 +614,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
       color: #ecdbff;
       background-color: #ff74af
     }
-    
+
 .vertical-ad-banner{
   display: none;
 }
@@ -678,7 +680,7 @@ margin-top: 3rem!important;
   animation: bottomBubbles ease-in-out 0.75s forwards;
 }
 
-@keyframes 
+@keyframes
 topBubbles {  0% {
  background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
 }
@@ -691,7 +693,7 @@ topBubbles {  0% {
 }
 }
 
-@keyframes 
+@keyframes
 bottomBubbles {  0% {
  background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
 }
@@ -719,7 +721,7 @@ bottomBubbles {  0% {
       color: #fcfbfe;
       background-color: #e07dc4;
     }
-    
+
 .vertical-ad-banner{
   display: none;
 }
@@ -746,7 +748,7 @@ bottomBubbles {  0% {
     .soon, .physical-body .navbar-parent, footer {
       max-width: 540px;
   }
-  
+
 .vertical-ad-banner{
   display: none;
   flex: 0 0 16.666667%;
@@ -866,7 +868,7 @@ and (orientation : portrait) {
 /* iPad in portrait & landscape */
 @media only screen
 and (min-width : 768px)
-and (max-width : 1024px)  { 
+and (max-width : 1024px)  {
   .physical-content{
     max-width:100%;
     flex: 100%;
@@ -874,7 +876,7 @@ and (max-width : 1024px)  {
   .vertical-ad-banner{
     display: none;
   }
-  
+
 .physical-post-page .horizontal-banner{
   display: block;
   margin-top: 20px;
@@ -893,31 +895,22 @@ and (min-width : 768px)
 and (max-width : 1024px)
 and (orientation : portrait) { /* STYLES GO HERE */ }
 
-.image-alignable .left{
-    float: left;
-}
-.image-alignable .right{
-    float: right;
-}
-.image-alignable .full-width{
-    width: 100%;
-}
-.block-embedded_video .responsive-object{
-    padding-bottom: 5% !important;
-	
-/*.card .card-body{
+
+.card .card-body{
     position: relative;
     overflow: hidden;
 }
+
 .heart{
     height: 35px;
     width: 35px;
-    float:right;
+    float: right;
     overflow: hidden;
     position: absolute;
     right: 20px;
 }
+
 .heart-incomplete{
     overflow: hidden;
     width: 15px;
-/*}*/
+}
