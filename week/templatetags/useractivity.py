@@ -18,12 +18,13 @@ def is_week_done(user, item):
     nutrition_count = UserActivity.objects.filter(Activity='nutrition', Week=week, program_id=program.program_id).count()
     parameters = Parameters()
     # Check if Parameters is populated. If not, add default row.
-    if Parameters.objects.all().count() == 0:
+    if Parameters.objects.filter(current_values=True).count() == 0:
         parameters.physical_days_to_done = 1
         parameters.nutrition_days_to_done = 1
+        parameters.current_values = True
         parameters.save()
     else:
-        parameters = Parameters.objects.all().first()
+        parameters = Parameters.objects.filter(current_values=True).first()
     if nutrition_count >= parameters.nutrition_days_to_done and physical_count >= parameters.physical_days_to_done:
         return True
     else:

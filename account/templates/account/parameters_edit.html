@@ -1,11 +1,19 @@
 {% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
 {% block dash_content %}
     {% if request.user.is_superuser %}
         <div class="container">
-            <h1 class="text-left">Edit Parameters</h1>
+            <h1 class="text-left">Settings</h1>
             <form method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <div class="form-horizontal">
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.physical_days_to_done|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-4 mb-0">
+                        {{ form.nutrition_days_to_done|as_crispy_field }}
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-pink">Save Changes</button>
             </form>
         </div>

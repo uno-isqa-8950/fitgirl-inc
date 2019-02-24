@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, ParametersForm
 from .forms import Profile,User, Program, ContactForm
-from .models import RegisterUser, Affirmations, Dailyquote
+from .models import RegisterUser, Affirmations, Dailyquote, Parameters
 from week.models import WeekPage, UserActivity
 from io import TextIOWrapper, StringIO
 import re
@@ -433,8 +433,17 @@ def parameters_form(request):
     if request.method == "POST":
         form = ParametersForm(request.POST)
         if form.is_valid():
+            rows = Parameters.objects.filter(current_values=True)
+            rows.update(current_values=False)
             post = form.save(commit=False)
             post.save()
     else:
-        form = ParametersForm()
+        settings = Parameters.objects.get(current_values=True)
+        pdtd = settings.physical_days_to_done
+        ndtd = settings.nutrition_days_to_done
+
+        form = ParametersForm(
+            initial={'physical_days_to_done': pdtd,
+                     'nutrition_days_to_done': ndtd}
+        )
     return render(request, 'account/parameters_edit.html', {'form': form})
