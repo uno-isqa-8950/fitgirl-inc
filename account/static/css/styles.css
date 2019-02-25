@@ -904,9 +904,9 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     width: 100%;
 }
 .block-embedded_video .responsive-object{
-    padding-bottom: 5% !important;
+	padding-bottom: 5% !important;}
 	
-/*.card .card-body{
+.card .card-body{
     position: relative;
     overflow: hidden;
 }
@@ -920,5 +920,5 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 }
 .heart-incomplete{
     overflow: hidden;
-    width: 15px;
-/*}*/
+    width: 15px;}
+
