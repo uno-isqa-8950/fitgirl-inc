@@ -8,12 +8,7 @@
 
     <form action="{% url 'send_group_email' %}" method="post" >
         {% csrf_token %}
-        <p>To:
-            {% for email in to_list %}
-                {{ email }},
-            {% endfor %}
-        </p>
-        <p>Send To: {{ to_list }}</p>
+        <p>To: {{ to_list }}</p>
         {{ form|crispy }}
         <input type="hidden" name="to_list" value="{{ to_list }}">
         <p>Select which content to be sent:

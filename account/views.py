@@ -414,14 +414,9 @@ def send_group_email(request):
         form = EmailForm(request.POST)
         if form.is_valid():
             selection = request.POST.get('selection')
-            print(selection)
             list = request.POST.get('to_list')
-            print(type(list))
-            print(list)
             new = list.replace('[','').replace(']','').replace("'",'')
-            print(new)
             result = [x.strip() for x in new.split(',')]
-            print(result)
             from_email = 'capstone18FA@gmail.com'
             subject = form.cleaned_data['subject']
             name_list = []
