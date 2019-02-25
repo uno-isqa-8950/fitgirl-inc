@@ -15,7 +15,7 @@ def is_week_done(user, item):
     program = Program.objects.filter(id=profile.program_id).first()
     week = re.match('Week (\d+)$', item.text)[1]
     physical_count = UserActivity.objects.filter(user_id=user.id, Activity='physical', Week=week, program_id=program.id).count()
-    nutrition_count = UserActivity.objects.filter(Activity='nutrition', Week=week, program_id=program.id).count()
+    nutrition_count = UserActivity.objects.filter(user_id=user.id, Activity='nutrition', Week=week, program_id=program.id).count()
     parameters = Parameters()
     # Check if Parameters is populated. If not, add default row.
     if Parameters.objects.filter(current_values=True).count() == 0:
