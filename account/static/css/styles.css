@@ -46,8 +46,16 @@
 body {
   background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
 }
-.container{
+.container,#steps{
   background: #e3e3e3;
+}
+#steps{
+  background: #e3e3e3;
+    width: 100% !important;
+    max-width: 1253px !important;
+    text-align: center;
+    margin: 0 auto !important;
+    padding: 20px;
 }
 .admin-page{
   background: #e3e3e3 !important;
@@ -60,6 +68,9 @@ body {
 }
 .container.logged-out{
   min-height: calc(100vh);
+}
+.step-1{
+  margin: 0 auto;
 }
 .btn-fitgirl {
     background-color: #ed217c!important;
@@ -172,18 +183,19 @@ body {
 .demo{
   position: fixed;
   bottom:0;
-  height: 226px;
+  height: 130px;
   width: 100%;
   /* display: none; */
   visibility: hidden;
   z-index: 1000;
 }
 .soon {
-    max-width: 1253px;
+    /* max-width: 1253px; */
+    max-width: 100%;
     margin: 0 auto !important;
 }
 @import url(http://fonts.googleapis.com/css?family=Comfortaa);
-#my-soon-watch-red {background-color:#030303da;background-image: url(../images/inspiration-geometry.png);}
+#my-soon-watch-red {background-color:#030303da;background-image: url(../images/inspiration-geometry.png); padding-top:5px; }
 #my-soon-watch-red .soon-reflection {background-color:#030303;background-image:linear-gradient(#030303 25%,rgba(3,3,3,0));}
 #my-soon-watch-red {color:#ffffff;}
 #my-soon-watch-red .soon-label {color:#ffffff;color:rgba(255,255,255,0.75);}
