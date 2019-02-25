@@ -49,6 +49,12 @@ body {
 .container{
   background: #e3e3e3;
 }
+.admin-page{
+  background: #e3e3e3 !important;
+}
+#fullHeightModalLeft .container{
+  background: #fff;
+}
 .btn-fitgirl {
     background-color: #ed217c!important;
     color: #fff!important;
