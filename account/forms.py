@@ -81,11 +81,13 @@ class ProgramForm(forms.ModelForm):
         fields = ('program_name', 'program_start_date','program_end_date')
 
 class EmailForm(forms.Form):
-    subject = forms.CharField(required=True)
+    subject = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Enter Subject'}))
+    message = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Select "Text" below to send this message or'
+                                                                                          ' Select "CMS template" to send content from CMS'}))
 
 class ContactForm(forms.Form):
     subject = forms.CharField(required=True)
-    contact_email = forms.EmailField(required=True)
+    #contact_email = forms.EmailField(required=True)
     message = forms.CharField(required=True, widget=forms.Textarea)
 
 
