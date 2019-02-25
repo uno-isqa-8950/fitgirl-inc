@@ -14,8 +14,8 @@ def is_week_done(user, item):
     #print(profile.program_id)
     program = Program.objects.filter(id=profile.program_id).first()
     week = re.match('Week (\d+)$', item.text)[1]
-    physical_count = UserActivity.objects.filter(user_id=user.id, Activity='physical', Week=week, program_id=program.program_id).count()
-    nutrition_count = UserActivity.objects.filter(Activity='nutrition', Week=week, program_id=program.program_id).count()
+    physical_count = UserActivity.objects.filter(user_id=user.id, Activity='physical', Week=week, program_id=program.id).count()
+    nutrition_count = UserActivity.objects.filter(Activity='nutrition', Week=week, program_id=program.id).count()
     parameters = Parameters()
     # Check if Parameters is populated. If not, add default row.
     if Parameters.objects.filter(current_values=True).count() == 0:
@@ -34,7 +34,7 @@ def is_week_done(user, item):
 def nutrition_activities_done(page, user):
     child_pages = page.get_children()
     count = 0
-    for child in child_pages:
+    for question in child_pages:
         if CustomFormSubmission.objects.filter(page_id=question.id, user_id=user.id).count() > 0:
             count += 1
     return count
