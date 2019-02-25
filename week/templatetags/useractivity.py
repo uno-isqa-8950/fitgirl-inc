@@ -34,7 +34,7 @@ def is_week_done(user, item):
 def nutrition_activities_done(page, user):
     child_pages = page.get_children()
     count = 0
-    for child in child_pages:
+    for question in child_pages:
         if CustomFormSubmission.objects.filter(page_id=question.id, user_id=user.id).count() > 0:
             count += 1
     return count
