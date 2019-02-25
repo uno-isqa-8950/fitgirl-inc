@@ -44,16 +44,15 @@
                     </div>
 
                     <div class="col-sm-2 vertical-ad-banner">
-                        <div class="advertisement">
-                            <img src="/static/images/vertica_banner.PNG">
-                        </div>
-                <span id="countdown" style="display: block; font-size: 4.5rem; position: fixed">
-                    <button class="btn-fitgirl" id="startClock"
-                            style="font-size: 30%"><i class="fa fa-clock-o" aria-hidden="true"></i> Start your 30 Minutes Timer</button>
-                </span>
-                        <span style="position: fixed">
-                        
-                        </span>
+                            <div class="advertisement">
+                                    <a target="_blank" href="http://fitgirlinc.com/">
+                                <img src="/static/images/FITGIRLBANNER_AD.original.jpg">
+                                </a>
+                            </div>
+                            <div class="announcements">
+                                    <h2>Announcements</h2>
+                                      <div class="rich-text"><ol><li><b>Join us for EmpowerU!</b></li><li><b>Our 12 week empowerment classes are offered 2x a year for girls ages 8-13 years!</b></li><li><b>Become more physically active, working their way up to getting 60 minutes of exercise a day and staying active for life!</b></li><li><b>Develop and maintain self-respect, self-confidence, and a positive self-image.</b></li><li><b>Understand the connection between mind and body.</b></li></ol><p></p></div>
+                                  </div>
                     </div>
                 </div>
             </div>
@@ -73,209 +72,7 @@
         {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
             <img src="{{ ad_photo.url }}" class="img-fluid"/>
     </a>
-    <script>
-            $(".physical-post-page").on('click', '.start-timer', function(){
-        $(".demo").css("visibility","visible");
-        var options = {
-        // data-since
-        since:null,
-        // data-due
-        due:"2017",
-        // data-now
-        now:null,
-        // data-layout
-        layout:"group tight label-uppercase label-small",
-        // data-face
-        face:"text",
-        // data-visual
-        visual:"ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0",
-        // data-format
-        format:"m,s",
-        // data-singular
-        singular:false,
-        // data-reflect
-        reflect:false,
-        // data-scale-max
-        scaleMax:"m",
-        // data-scale-hide
-        scaleHide:null,
-        // data-separate-chars
-        separateChars:true,
-        // data-cascade
-        cascade:true,
-        // data-separator
-        separator:"",
-        // data-labels-*
-        labelsYears:null,
-        labelsDays:null,
-        labelsHours:null,
-        labelsMinutes:null,
-        labelsSeconds:null,
-        // data-padding
-        padding:true,
-        // data-padding-*
-        paddingDays:null,
-        paddingHours:null,
-        paddingMinutes:null,
-        paddingSeconds:null,
-        // data-event-complete
-        eventComplete:null,
-        // data-event-tick
-        eventTick:null,
-                 
-        };
-         // get the element
-         var element = document.getElementById('my-soon-watch-red');
-        // turn it into a Soon counter
-        Soon.create(element,{'due':'in 2 seconds','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0','eventComplete':'warmUp'});
-        });
-        function warmUp(){
-        // Calculate the time in terms of seconds and minutes
-        var timer2 = "{{ page.timer_for_this_activity|safe }}";
-                var timer = timer2.split(':');
-                //by parsing integer, I avoid all extra string processing
-                var minutes = parseInt(timer[0], 10);
-                var seconds = parseInt(timer[1], 10);
-                --seconds;
-                minutes = (seconds < 0) ? --minutes : minutes;
-                seconds = (seconds < 0) ? 59 : seconds;
-                seconds = (seconds < 10) ? '0' + seconds : seconds;
-        var minutes_in_seconds = 60*minutes ;   
-        var total_time_in_seconds = minutes_in_seconds + seconds;
-        var time = "in "+total_time_in_seconds+" seconds";
-        $("#my-soon-watch-red").soon().destroy();
-         var element = document.getElementById('my-soon-watch-red');
-         var someObject = {'due':'in 4 seconds','eventComplete':'training','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'};
-        //  someObject.due = time;
-        $("#my-soon-watch-red").soon().create(someObject);
-        console.log("warm-up");
-        }
-        // function coolDown(){// enter the number of intervals here
-       var training = function(){  
-//Strength Timer
-    var strength = function() {
-    var defer = $.Deferred();
-    // Seeting time from wagtail
-    // Calculate the time in terms of seconds and minutes
-    var timer2 = "{{ page.timer_for_this_activity|safe }}";
-                var timer = timer2.split(':');
-                //by parsing integer, I avoid all extra string processing
-                var minutes = parseInt(timer[0], 10);
-                var seconds = parseInt(timer[1], 10);
-                --seconds;
-                minutes = (seconds < 0) ? --minutes : minutes;
-                seconds = (seconds < 0) ? 59 : seconds;
-                seconds = (seconds < 10) ? '0' + seconds : seconds;
-        var minutes_in_seconds = 60*minutes ;   
-        var total_time_in_seconds = minutes_in_seconds + seconds;
-        var time = "in "+total_time_in_seconds+" seconds";
-
-    $("#my-soon-watch-red").soon().destroy();
-         var element = document.getElementById('my-soon-watch-red');
-         var someObject = {'due':'in 2 seconds','eventComplete':'rest','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'};
-          someObject.due = time;
-        $("#my-soon-watch-red").soon().create(someObject);
-        duration = 4000;
-    console.log('a() called - strength');
-
-    setTimeout(function() {
-        defer.resolve(); // When this fires, the code in a().then(/..../); is executed.
-    },duration);//set duration = durations of individual exercise
-
-    return defer;
-};
-
-var agility = function() {
-    var defer = $.Deferred();
-    $("#my-soon-watch-red").soon().destroy();
-         var element = document.getElementById('my-soon-watch-red');
-         var someObject = {'due':'in 2 seconds','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'};
-        //  someObject.due = time;
-        $("#my-soon-watch-red").soon().create(someObject);
-    console.log('c() called -agility');
-
-    setTimeout(function () {
-        defer.resolve();
-    }, 5000);
-
-    return defer;
-};
-var flexibility = function() {
-    var defer = $.Deferred();
-    $("#my-soon-watch-red").soon().destroy();
-         var element = document.getElementById('my-soon-watch-red');
-         var someObject = {'due':'in 4 seconds','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'};
-        //  someObject.due = time;
-        $("#my-soon-watch-red").soon().create(someObject);
-    console.log('c() called -flexibility');
-
-    setTimeout(function () {
-        defer.resolve();
-    }, 5000);
-
-    return defer;
-};
-
-var rest = function() {
-    var defer = $.Deferred();
-    $("#my-soon-watch-red").soon().destroy();
-         var element = document.getElementById('my-soon-watch-red');
-         var someObject = {'due':'in 4 seconds','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'};
-        //  someObject.due = time;
-        $("#my-soon-watch-red").soon().create(someObject);
-    console.log('b() called - rest');
-
-    setTimeout(function () {
-        defer.resolve();
-    }, 5000);
-
-    return defer;
-};
-// strength().then(rest).then(agility).then(rest).then(flexibility).then(rest);
-var innertraining = function(){ strength().then(rest).then(agility).then(rest).then(flexibility).then(rest);}
-innertraining();
-    var refreshIntervalId = setInterval(innertraining,30000);
-    setTimeout(function() { 
-        clearInterval( refreshIntervalId ) 
-        // should = false;
-        $("#my-soon-watch-red").soon().destroy();
-         var element = document.getElementById('my-soon-watch-red');
-         var someObject = {'due':'in 30 seconds','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'};
-        //  someObject.due = time;
-        $("#my-soon-watch-red").soon().create(someObject);
-             
-    console.log('b() called - cooldown');
-        alert("done");
-    }, 59999);
-        // for (var x = 0; x < list; x++) {
-        // setTimeout(function() {    
-        //     function strength(){
-        //      $("#my-soon-watch-red").soon().destroy();
-        //      var element = document.getElementById('my-soon-watch-red');
-        //             var someObject = {'due':'in 6 seconds','eventComplete':'rest','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'};
-        //             //  someObject.due = time;
-        //             $("#my-soon-watch-red").soon().create(someObject);
-        //             console.log("training");
-
-        //         }
-        // function rest(){
-        //      $("#my-soon-watch-red").soon().destroy();
-        //      var element = document.getElementById('my-soon-watch-red');
-        //             var someObject = {'due':'in 8 seconds','eventComplete':'rest','layout':'group tight label-uppercase label-small','format':'m,s','face':'slot','padding':'false','visual':'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'};
-        //             //  someObject.due = time;
-        //             $("#my-soon-watch-red").soon().create(someObject);
-        //             console.log("rest");
-
-        //         }
-        //         strength()
-        // }, 30 * 1000, x); // we're passing x
-        // }
-    }
-        // }
-            </script>
-          <section class="demo">
-            <div id="my-soon-watch-red"></div>
-              </section>
+    
     <!--End Advertisement-->
     <script>
         $('#done').hide();
@@ -324,5 +121,247 @@ innertraining();
     </script>
 
 </div>
-{% endblock %}
+
 </div>
+<script>
+$(".physical-post-page").on('click', '.start-timer', function() {
+    $(".demo").css("visibility", "visible");
+    var options = {
+        // data-since
+        since: null,
+        // data-due
+        due: "2017",
+        // data-now
+        now: null,
+        // data-layout
+        layout: "group tight label-uppercase label-small",
+        // data-face
+        face: "text",
+        // data-visual
+        visual: "ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0",
+        // data-format
+        format: "m,s",
+        // data-singular
+        singular: false,
+        // data-reflect
+        reflect: false,
+        // data-scale-max
+        scaleMax: "fill",
+        // data-scale-hide
+        scaleHide: null,
+        // data-separate-chars
+        separateChars: true,
+        // data-cascade
+        cascade: true,
+        // data-separator
+        separator: "",
+        // data-labels-*
+        labelsYears: null,
+        labelsDays: null,
+        labelsHours: null,
+        labelsMinutes: null,
+        labelsSeconds: null,
+        // data-padding
+        padding: true,
+        // data-padding-*
+        paddingDays: null,
+        paddingHours: null,
+        paddingMinutes: null,
+        paddingSeconds: null,
+        // data-event-complete
+        eventComplete: null,
+        // data-event-tick
+        eventTick: null,
+
+    };
+    // get the element
+    var element = document.getElementById('my-soon-watch-red');
+    // turn it into a Soon counter
+    Soon.create(element, {
+        'due': 'in 2 seconds',
+        'scale': 'fill',
+        'layout': 'group tight label-uppercase label-small',
+        'format': 'm,s',
+        'face': 'slot',
+        'padding': 'false',
+        'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0',
+        'eventComplete': 'warmUp'
+    });
+});
+
+function warmUp() {
+    // Calculate the time in terms of seconds and minutes
+    var timer2 = "{{ page.timer_for_this_activity|safe }}";
+    var timer = timer2.split(':');
+    //by parsing integer, I avoid all extra string processing
+    var minutes = parseInt(timer[0], 10);
+    var seconds = parseInt(timer[1], 10);
+    --seconds;
+    minutes = (seconds < 0) ? --minutes : minutes;
+    seconds = (seconds < 0) ? 59 : seconds;
+    seconds = (seconds < 10) ? '0' + seconds : seconds;
+    var minutes_in_seconds = 60 * minutes;
+    var total_time_in_seconds = minutes_in_seconds + seconds;
+    var time = "in " + total_time_in_seconds + " seconds";
+    $("#my-soon-watch-red").soon().destroy();
+    var element = document.getElementById('my-soon-watch-red');
+    var someObject = {
+        'due': 'in 4 seconds',
+        'eventComplete': 'training',
+        'layout': 'group tight label-uppercase label-small',
+        'format': 'm,s',
+        'face': 'slot',
+        'padding': 'false',
+        'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+    };
+    //  someObject.due = time;
+    $("#my-soon-watch-red").soon().create(someObject);
+    console.log("warm-up");
+}
+// function coolDown(){// enter the number of intervals here
+var training = function() {
+    //Strength Timer
+    var strength = function() {
+        var defer = $.Deferred();
+        // Seeting time from wagtail
+        // Calculate the time in terms of seconds and minutes
+        var timer2 = "{{ page.timer_for_this_activity|safe }}";
+        var timer = timer2.split(':');
+        //by parsing integer, I avoid all extra string processing
+        var minutes = parseInt(timer[0], 10);
+        var seconds = parseInt(timer[1], 10);
+        --seconds;
+        minutes = (seconds < 0) ? --minutes : minutes;
+        seconds = (seconds < 0) ? 59 : seconds;
+        seconds = (seconds < 10) ? '0' + seconds : seconds;
+        var minutes_in_seconds = 60 * minutes;
+        var total_time_in_seconds = minutes_in_seconds + seconds;
+        var time = "in " + total_time_in_seconds + " seconds";
+
+        $("#my-soon-watch-red").soon().destroy();
+        var element = document.getElementById('my-soon-watch-red');
+        var someObject = {
+            'due': 'in 2 seconds',
+            'eventComplete': 'rest',
+            'layout': 'group tight label-uppercase label-small',
+            'format': 'm,s',
+            'face': 'slot',
+            'padding': 'false',
+            'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+        };
+        someObject.due = time;
+        $("#my-soon-watch-red").soon().create(someObject);
+        duration = 4000;
+        console.log('a() called - strength');
+
+        setTimeout(function() {
+            defer.resolve(); // When this fires, the code in a().then(/..../); is executed.
+        }, duration); //set duration = durations of individual exercise
+
+        return defer;
+    };
+
+    var agility = function() {
+        var defer = $.Deferred();
+        $("#my-soon-watch-red").soon().destroy();
+        var element = document.getElementById('my-soon-watch-red');
+        var someObject = {
+            'due': 'in 5 seconds',
+            'layout': 'group tight label-uppercase label-small',
+            'format': 'm,s',
+            'face': 'slot',
+            'padding': 'false',
+            'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+        };
+        //  someObject.due = time;
+        $("#my-soon-watch-red").soon().create(someObject);
+        console.log('c() called -agility');
+
+        setTimeout(function() {
+            defer.resolve();
+        }, 5000);
+
+        return defer;
+    };
+    var flexibility = function() {
+        var defer = $.Deferred();
+        $("#my-soon-watch-red").soon().destroy();
+        var element = document.getElementById('my-soon-watch-red');
+        var someObject = {
+            'due': 'in 4 seconds',
+            'layout': 'group tight label-uppercase label-small',
+            'format': 'm,s',
+            'face': 'slot',
+            'padding': 'false',
+            'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+        };
+        //  someObject.due = time;
+        $("#my-soon-watch-red").soon().create(someObject);
+        console.log('c() called -flexibility');
+
+        setTimeout(function() {
+            defer.resolve();
+        }, 5000);
+
+        return defer;
+    };
+
+    var rest = function() {
+        var defer = $.Deferred();
+        $("#my-soon-watch-red").soon().destroy();
+        var element = document.getElementById('my-soon-watch-red');
+        var someObject = {
+            'due': 'in 4 seconds',
+            'layout': 'group tight label-uppercase label-small',
+            'format': 'm,s',
+            'face': 'slot',
+            'padding': 'false',
+            'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+        };
+        //  someObject.due = time;
+        $("#my-soon-watch-red").soon().create(someObject);
+        console.log('b() called - rest');
+
+        setTimeout(function() {
+            defer.resolve();
+        }, 5000);
+
+        return defer;
+    };
+    // strength().then(rest).then(agility).then(rest).then(flexibility).then(rest);
+    var innertraining = function() {
+        strength().then(rest).then(agility).then(rest).then(flexibility).then(rest);
+    }
+    innertraining();
+    var refreshIntervalId = setInterval(innertraining, 30000);
+    setTimeout(function() {
+        clearInterval(refreshIntervalId)
+        // should = false;
+        $("#my-soon-watch-red").soon().destroy();
+        var element = document.getElementById('my-soon-watch-red');
+        var someObject = {
+            'eventComplete': 'formSubmit',
+            'due': 'in 30 seconds',
+            'layout': 'group tight label-uppercase label-small',
+            'format': 'm,s',
+            'face': 'slot',
+            'padding': 'false',
+            'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+        };
+        //  someObject.due = time;
+        $("#my-soon-watch-red").soon().create(someObject);
+        console.log('b() called - cooldown');
+        // if($("#my-soon-watch-red")){
+        //     var formSubmit = function() {
+        //             alert("done")
+        //         };
+        //         formSubmit();
+        // }
+    }, 59999);
+    
+}
+    </script>
+  <section class="demo">
+    <div id="my-soon-watch-red"></div>
+      </section>
+{% endblock %}
