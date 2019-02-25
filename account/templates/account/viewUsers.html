@@ -3,91 +3,78 @@
 {% if request.user.is_superuser %}
 
 
-
-
-
-
 <div class="datatable-container">
-<br>
-    <br>
+    <div class="spacer-div-30"></div>
 
       <h1 class="text-left"> All Users</h1>
-  <ul class="messages">
-    {% for message in messages %}
-    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-  </ul>
-
-
-
-  <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered" class="target">
-      <thead class="thead stylish-color text-white">
-      <tr>
-          <th class="th-lg">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th></div>
-          <th class="th-lg">Profile <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-
-          <th class="th-lg text-center">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg text-center">Registered</th>
-      <th class="th-lg text-center">User Logged-In</th>
-      <th class="th-lg text-center">Pre-Assessment</th>
-      <th class="th-lg text-center ">Post-Assessment</th>
-      <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-      <th class="th-lg text-center ">Email</th>
-      </tr>
-      </thead >
-        <tbody  >
-        {% for registeredUser in registeredUsers %}
-        <tr class="hoverable">
-        <td>{{ registeredUser.profile.program.program_name  }}</td>
-            <td ><a href="{% url 'profile' registeredUser.id %}"><img src="{{ registeredUser.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:30px;height:30px;border:1px;" class="img-fluid rounded-circle"></a>&nbsp;&nbsp;<span>{{ registeredUser.first_name }}</span>&nbsp;<span>{{ registeredUser.last_name }}</span></td>
-
-            {% if registeredUser.profile.age  == "None" %}
-             <td align="center"></td>
-            {% else %}
-             <td align="center">{{ registeredUser.profile.age}}</td>
-            {% endif %}
-
-        {% if registeredUser.is_active %}
-            <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
-        {% else %}
-         <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
-        {% endif %}
-        {% if registeredUser.last_login is None %}
-           <td align="center" ><i class="fas fa-times fa-lg" style="color:#FF0000"></i></td>
-        {% else %}
-          <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
-        {% endif %}
-          {% if registeredUser.profile.pre_assessment == "No" %}
-          <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"></i></td>
-        {% else %}
-          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
-        {% endif %}
-             {% if registeredUser.profile.post_assessment == "No" %}
-          <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"></i></td>
-        {% else %}
-          <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
-        {% endif %}
-           <td align="center">{{ registeredUser.profile.points }}</td>
-
-        <td><a href="{% url 'send_individual_email' pk=registeredUser.pk %}" class="btn btn-pink">E-mail</a> </td>
-
-
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
-        </tr>
-
-        </tbody>
-    </table>
-    <a href="{% url 'groups' %}" class="btn btn-pink">E-mail a group</a>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+      </ul>
 
 
-  {% endif %}
+<form action="{% url 'group_email' %}" method="post" >
+    {% csrf_token %}
+      <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered" class="target">
+          <thead class="thead stylish-color text-white">
+          <tr>
+              <th><input type="checkbox" onClick="toggle(this)" /></th>
+              <th class="th-lg">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th class="th-lg">Profile <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th class="th-lg text-center">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th class="th-lg text-center">Registered</th>
+              <th class="th-lg text-center">User Logged-In</th>
+              <th class="th-lg text-center">Pre-Assessment</th>
+              <th class="th-lg text-center ">Post-Assessment</th>
+              <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th class="th-lg text-center ">Email</th>
+          </tr>
+          </thead >
+            <tbody  >
+            {% for registeredUser in registeredUsers %}
+            <tr class="hoverable">
+                <td><input type="checkbox" name="checks[]" value="{{ registeredUser.email }}" /></td>
+                <td>{{ registeredUser.profile.program.program_name  }}</td>
+                <td ><a href="{% url 'profile' registeredUser.id %}"><img src="{{ registeredUser.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:30px;height:30px;border:1px;" class="img-fluid rounded-circle"></a>&nbsp;&nbsp;<span>{{ registeredUser.first_name }}</span>&nbsp;<span>{{ registeredUser.last_name }}</span></td>
+
+                {% if registeredUser.profile.age  == "None" %}
+                 <td align="center"></td>
+                {% else %}
+                 <td align="center">{{ registeredUser.profile.age}}</td>
+                {% endif %}
+
+                {% if registeredUser.is_active %}
+                    <td align="center"><i class="fas fa-check fa-lg"style="color:#008000"></i></td>
+                {% else %}
+                 <td align="center"><i class="fas fa-times fa-lg " style="color:#FF0000"></i></td>
+                {% endif %}
+                {% if registeredUser.last_login is None %}
+                   <td align="center" ><i class="fas fa-times fa-lg" style="color:#FF0000"></i></td>
+                {% else %}
+                  <td align="center" ><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+                {% endif %}
+                  {% if registeredUser.profile.pre_assessment == "No" %}
+                  <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"></i></td>
+                {% else %}
+                  <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+                {% endif %}
+                     {% if registeredUser.profile.post_assessment == "No" %}
+                  <td align="center"><i class="fas fa-times fa-lg "style="color:#FF0000"></i></td>
+                {% else %}
+                  <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i></td>
+                {% endif %}
+                <td align="center">{{ registeredUser.profile.points }}</td>
+                <td><a href="{% url 'send_individual_email' pk=registeredUser.pk %}" class="btn btn-pink">E-mail</a> </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+      </table>
+    <a><input type="submit" value="Send E-mail to selected"></a>
+</form>
+</div>
+
+{% endif %}
 
 <script>
 
@@ -115,6 +102,16 @@ $(document).ready(function(){
     $("#users").css("color","#ffffff")
     $("#users").css("border-color","black")
  });
+</script>
+
+<!--script to select all checkboxes-->
+<script language="JavaScript">
+function toggle(source) {
+  checkboxes = document.getElementsByName('checks[]');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
 </script>
 <style>
     .dataTables_wrapper .dataTables_length {
