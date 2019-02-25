@@ -43,7 +43,16 @@
                             </form>
                         </div>
                     </div>
-
+                     <div class="col-sm-2 vertical-ad-banner">
+                        <div class="advertisement">
+                             <a target="_blank" href="{{ page.get_parent.specific.vertical_url }}">
+        {% image page.get_parent.specific.vertical_image width-800 as vertical_image %}
+            <img src="{{ vertical_image.url }}" class="img-fluid"/>
+                             </a>
+                            <div class="announcements">
+                              <h2>Announcements</h2>
+                                {{ page.get_parent.specific.announcements|richtext }}
+                            </div>
                     <div class="col-sm-2 vertical-ad-banner">
                         <div class="advertisement">
                             <img src="/static/images/vertica_banner.PNG">

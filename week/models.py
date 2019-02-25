@@ -84,24 +84,30 @@ class WeekPage(Page):
     ]
 
 class ModelIndexPage(Page):
-    description = RichTextField(blank=True)
-    intro = models.CharField(max_length=255, blank=True, )
-    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
-                                      related_name='+')
-    ad_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
-                                      related_name='+')
-    ad_url = models.URLField(blank=True)
+        description = RichTextField(blank=True)
+        intro = models.CharField(max_length=255, blank=True, )
+        display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                          related_name='+')
+        ad_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                     related_name='+')
+        ad_url = models.URLField(blank=True)
+        vertical_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                           related_name='+')
+        vertical_url = models.URLField(blank=True)
+        announcements = RichTextField(blank=True)
 
+        content_panels = Page.content_panels + [
+            FieldPanel('description', classname="full"),
+            FieldPanel('intro', classname="full"),
+            ImageChooserPanel('display_image'),
+            FieldPanel('description', classname="full"),
+            ImageChooserPanel('ad_image'),
+            FieldPanel('ad_url'),
+            ImageChooserPanel('vertical_image'),
+            FieldPanel('vertical_url'),
+            FieldPanel('announcements', classname="full"),
 
-    content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
-        ImageChooserPanel('display_image'),
-        FieldPanel('description', classname="full"),
-        ImageChooserPanel('ad_image'),
-        FieldPanel('ad_url'),
-
-    ]
-
+        ]
 # class FormField(AbstractFormField):
 #     page = ParentalKey('NutritionPostPage', on_delete=models.CASCADE, related_name='custom_form_fields')
 

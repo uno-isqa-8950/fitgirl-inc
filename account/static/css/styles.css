@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 @import url('http://fonts.googleapis.com/css?family=Quicksand');
 @import url('http://fonts.googleapis.com/css?family=Comfortaa');
+@import "compass/css3";
 body{
     background: #f4f4f4;
 }
@@ -904,7 +905,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     width: 100%;
 }
 .block-embedded_video .responsive-object{
-	padding-bottom: 5% !important;}
+    padding-bottom: 5% !important;}
 	
 .card .card-body{
     position: relative;
@@ -922,3 +923,54 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     overflow: hidden;
     width: 15px;}
 
+announcements ol li{
+        font-size: 10px;
+    padding: 5px 3px;
+}
+.announcements {
+
+}
+.announcements {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.announcements h2 {
+    font: 400 20px/1.5 Helvetica, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid grey;
+}
+
+.announcements  ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.announcements  li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+
+.announcements  li:last-child {
+  border: none;
+}
+
+.announcements li  {
+  text-decoration: none;
+  color: #000;
+
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+  display: block;
+  width: 100%;
+}
+
+.announcements li {
+  font-size: 12px;
+  background: #f6f6f6;
+}
