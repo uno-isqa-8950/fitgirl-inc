@@ -46,8 +46,16 @@
 body {
   background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
 }
-.container{
+.container,#steps{
   background: #e3e3e3;
+}
+#steps{
+  background: #e3e3e3;
+    width: 100% !important;
+    max-width: 1253px !important;
+    text-align: center;
+    margin: 0 auto !important;
+    padding: 20px;
 }
 .admin-page{
   background: #e3e3e3 !important;
@@ -60,6 +68,9 @@ body {
 }
 .container.logged-out{
   min-height: calc(100vh);
+}
+.step-1{
+  margin: 0 auto;
 }
 .btn-fitgirl {
     background-color: #ed217c!important;
@@ -172,18 +183,19 @@ body {
 .demo{
   position: fixed;
   bottom:0;
-  height: 226px;
+  height: 130px;
   width: 100%;
   /* display: none; */
   visibility: hidden;
   z-index: 1000;
 }
 .soon {
-    max-width: 1253px;
+    /* max-width: 1253px; */
+    max-width: 100%;
     margin: 0 auto !important;
 }
 @import url(http://fonts.googleapis.com/css?family=Comfortaa);
-#my-soon-watch-red {background-color:#030303da;background-image: url(../images/inspiration-geometry.png);}
+#my-soon-watch-red {background-color:#030303da;background-image: url(../images/inspiration-geometry.png); padding-top:5px; }
 #my-soon-watch-red .soon-reflection {background-color:#030303;background-image:linear-gradient(#030303 25%,rgba(3,3,3,0));}
 #my-soon-watch-red {color:#ffffff;}
 #my-soon-watch-red .soon-label {color:#ffffff;color:rgba(255,255,255,0.75);}
@@ -582,7 +594,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 
 .vertical-ad-banner .advertisement{
   width: 100%;
-  height:600px;
+  height:350px;
   margin-top: 103px;
   margin-bottom: 20px;
 }
@@ -697,7 +709,59 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 .slider .glossy_button:hover{
 	background: linear-gradient(#f0749e,#ec407a);
 }
+/*Vertical banner  announcements code starts here- Srishty*/
+.announcements ol li{
+  font-size: 10px;
+padding: 5px 3px;
+}
+.announcements {
 
+}
+.announcements {
+width: 100%;
+margin: 10px 0;
+}
+
+.announcements h2 {
+font: 400 20px/1.5 Helvetica, Verdana, sans-serif;
+margin: 0;
+padding: 0;
+border-top: 1px solid grey;
+}
+
+.announcements  ol {
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+
+.announcements  li {
+font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+border-bottom: 1px solid #ccc;
+}
+
+.announcements  li:last-child {
+border: none;
+}
+
+.announcements li  {
+text-decoration: none;
+color: #000;
+
+-webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+-moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+-o-transition: font-size 0.3s ease, background-color 0.3s ease;
+-ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+transition: font-size 0.3s ease, background-color 0.3s ease;
+display: block;
+width: 100%;
+}
+
+.announcements li {
+font-size: 12px;
+background: #f6f6f6;
+}
+/*Vertical banner  announcements code ends here- Srishty*/
 
 
 
@@ -968,15 +1032,14 @@ bottomBubbles {  0% {
   width: 83.33%;
 }
 
-.nutrition-post-page .vertical-ad-banner{
+.nutrition-post-page .vertical-ad-banner,.question-page .vertical-ad-banner{
 float: right;
 flex: 0 0 16.666667%;
 max-width: 16.666667%;
+padding-right: 0
 }
-.question-page .vertical-ad-banner{
-  float: right;
-  flex: 0 0 16.666667%;
-  max-width: 16.666667%;
+.container.question-page{
+  min-height: 753px;
 }
 
 #nutrition .vertical-ad-banner .advertisement{
