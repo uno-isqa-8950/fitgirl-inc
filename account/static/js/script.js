@@ -1,7 +1,9 @@
 $(document).ready(function() {
 
     function weekmenuresizing(){
-    
+        
+var nutrition_height = $( ".nutrition-images-array" ).height();
+$(".nutrition-facts .rich-text").css("height",nutrition_height);
     }
     (function($,sr){
 
@@ -150,6 +152,8 @@ $( ".nutrition-facts" ).prependTo ( ".nutrition-content .rich-text" );
 $( ".nutrition-images-array" ).after( "<div class='spacer-div-30 clear-left'></div>" );
 var nutrition_height = $( ".nutrition-images-array" ).height();
 $(".nutrition-facts .rich-text").css("height",nutrition_height);
+// $( ".nutrition-facts" ).after( ".nutrition-images-array" );
+$( ".nutrition-images-array" ).after( $(".nutrition-facts") );
 // if($("body").hasClass("nutrition-body")){
 //     // $(".fitgirlinc-footer-socialLinks").addClass("nutrition-post-page container");
 // }
