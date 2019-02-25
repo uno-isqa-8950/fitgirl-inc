@@ -1041,7 +1041,13 @@ padding-right: 0
 .container.question-page{
   min-height: 753px;
 }
-
+.demo span.interval{
+  background: yellow;
+  font-size: 16px;
+  color: black;
+  position: absolute;
+  padding: 10px 20px;
+}
 #nutrition .vertical-ad-banner .advertisement{
   margin-top: 0;
 }
