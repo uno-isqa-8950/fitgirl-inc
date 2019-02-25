@@ -261,13 +261,13 @@ margin-bottom: -16px;}
 background-color: #e83e8c;
 }
 .horizontal-banner{        /*adding banner space_Srishty */
-margin-top: 40px;
-margin-bottom: -18px;
+margin-top: 20px;
+margin-bottom: 0px;
 }
-.physical-post-page .horizontal-banner{        /*adding banner space_Srishty */
+/* .physical-post-page .horizontal-banner{        
 margin-top: 20px;
 padding-bottom:20px;
-}
+} */
 .modal-footer button{
 margin:0 auto;
 }
@@ -557,7 +557,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   margin:0;
   line-height: 1.5;
 } */
-.physical-body .fitgirlinc-footer-socialLinks,.physical-body br,.physical-body hr{
+.physical-body br,.physical-body hr{
   display:none;
 }
 .vertical-ad-banner{
@@ -783,11 +783,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 .vertical-ad-banner{
   display: none;
 }
-.physical-post-page .horizontal-banner{
+/* .physical-post-page .horizontal-banner{
   display: block;
   margin-top: 20px;
   padding-bottom: 20px;
-}
+} */
 
 .pt-lg-5, .py-lg-5 {
   padding-top: 3rem!important;
@@ -1108,11 +1108,11 @@ flex: 0 0 16.666667%;
   max-width: 16.666667%;
 }
 
-.physical-post-page .horizontal-banner{
+/* .physical-post-page .horizontal-banner{
 display: block;
 margin-top: 20px;
 padding-bottom: 20px;
-}
+} */
 .strength-images-array,.agility-images-array,.flexibility-images-array,.nutrition-images-array{
 float: left;
 width: 100%;
@@ -1150,11 +1150,11 @@ and (orientation : portrait) {
     height: 100% !important;
   }
 
-.physical-post-page .horizontal-banner{
+/* .physical-post-page .horizontal-banner{
   display: block;
   margin-top: 20px;
   padding-bottom: 20px;
-}
+} */
 .physical-content{
   max-width:100%;
   flex: 100%;
@@ -1174,11 +1174,11 @@ and (max-width : 1024px)  {
     display: none;
   }
   
-.physical-post-page .horizontal-banner{
+/* .physical-post-page .horizontal-banner{
   display: block;
   margin-top: 20px;
   padding-bottom: 20px;
-}
+} */
 }
 
 /* iPad in landscape */
