@@ -178,7 +178,7 @@ $(".physical-post-page").on('click', '.start-timer', function() {
     var element = document.getElementById('my-soon-watch-red');
     // turn it into a Soon counter
     Soon.create(element, {
-        'due': 'in 2 seconds',
+        'due': 'in 0 seconds',
         'scale': 'fill',
         'layout': 'group tight label-uppercase label-small',
         'format': 'm,s',
@@ -206,7 +206,7 @@ function warmUp() {
     $("#my-soon-watch-red").soon().destroy();
     var element = document.getElementById('my-soon-watch-red');
     var someObject = {
-        'due': 'in 4 seconds',
+        'due': 'in 6 seconds',
         'eventComplete': 'training',
         'layout': 'group tight label-uppercase label-small',
         'format': 'm,s',
@@ -217,6 +217,8 @@ function warmUp() {
     //  someObject.due = time;
     $("#my-soon-watch-red").soon().create(someObject);
     console.log("warm-up");
+        $( "span.interval" ).text( " " );
+        $( "span.interval" ).text( "Warm-up" );
 }
 // function coolDown(){// enter the number of intervals here
 var training = function() {
@@ -241,7 +243,7 @@ var training = function() {
         $("#my-soon-watch-red").soon().destroy();
         var element = document.getElementById('my-soon-watch-red');
         var someObject = {
-            'due': 'in 2 seconds',
+            'due': 'in 4 seconds',
             'eventComplete': 'rest',
             'layout': 'group tight label-uppercase label-small',
             'format': 'm,s',
@@ -249,10 +251,12 @@ var training = function() {
             'padding': 'false',
             'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
         };
-        someObject.due = time;
+        // someObject.due = time;
         $("#my-soon-watch-red").soon().create(someObject);
         duration = 4000;
         console.log('a() called - strength');
+        $( "span.interval" ).text( " " );
+        $( "span.interval" ).text( "Strength" );
 
         setTimeout(function() {
             defer.resolve(); // When this fires, the code in a().then(/..../); is executed.
@@ -266,7 +270,7 @@ var training = function() {
         $("#my-soon-watch-red").soon().destroy();
         var element = document.getElementById('my-soon-watch-red');
         var someObject = {
-            'due': 'in 5 seconds',
+            'due': 'in 4 seconds',
             'layout': 'group tight label-uppercase label-small',
             'format': 'm,s',
             'face': 'slot',
@@ -276,10 +280,12 @@ var training = function() {
         //  someObject.due = time;
         $("#my-soon-watch-red").soon().create(someObject);
         console.log('c() called -agility');
+        $( "span.interval" ).text( " " );
+        $( "span.interval" ).text( "Agility" );
 
         setTimeout(function() {
             defer.resolve();
-        }, 5000);
+        }, 4000);
 
         return defer;
     };
@@ -298,10 +304,12 @@ var training = function() {
         //  someObject.due = time;
         $("#my-soon-watch-red").soon().create(someObject);
         console.log('c() called -flexibility');
+        $( "span.interval" ).text( " " );
+        $( "span.interval" ).text( "Flexibility" );
 
         setTimeout(function() {
             defer.resolve();
-        }, 5000);
+        }, 4000);
 
         return defer;
     };
@@ -311,7 +319,7 @@ var training = function() {
         $("#my-soon-watch-red").soon().destroy();
         var element = document.getElementById('my-soon-watch-red');
         var someObject = {
-            'due': 'in 4 seconds',
+            'due': 'in 2 seconds',
             'layout': 'group tight label-uppercase label-small',
             'format': 'm,s',
             'face': 'slot',
@@ -321,10 +329,12 @@ var training = function() {
         //  someObject.due = time;
         $("#my-soon-watch-red").soon().create(someObject);
         console.log('b() called - rest');
+        $( "span.interval" ).text( " " );
+        $( "span.interval" ).text( "Rest" );
 
         setTimeout(function() {
             defer.resolve();
-        }, 5000);
+        }, 2000);
 
         return defer;
     };
@@ -333,7 +343,7 @@ var training = function() {
         strength().then(rest).then(agility).then(rest).then(flexibility).then(rest);
     }
     innertraining();
-    var refreshIntervalId = setInterval(innertraining, 30000);
+    var refreshIntervalId = setInterval(innertraining, 18000);
     setTimeout(function() {
         clearInterval(refreshIntervalId)
         // should = false;
@@ -341,7 +351,7 @@ var training = function() {
         var element = document.getElementById('my-soon-watch-red');
         var someObject = {
             'eventComplete': 'formSubmit',
-            'due': 'in 30 seconds',
+            'due': 'in 6 seconds',
             'layout': 'group tight label-uppercase label-small',
             'format': 'm,s',
             'face': 'slot',
@@ -351,17 +361,17 @@ var training = function() {
         //  someObject.due = time;
         $("#my-soon-watch-red").soon().create(someObject);
         console.log('b() called - cooldown');
-        // if($("#my-soon-watch-red")){
-        //     var formSubmit = function() {
-        //             alert("done")
-        //         };
-        //         formSubmit();
-        // }
+        $( "span.interval" ).text( " " );
+        $( "span.interval" ).text( "Cool Down" );
+        setTimeout(function() {
+            $( ".physical-form" ).submit();
+        },6000);
     }, 59999);
     
 }
     </script>
   <section class="demo">
+      <span class="interval">abc</span>
     <div id="my-soon-watch-red"></div>
       </section>
 {% endblock %}
