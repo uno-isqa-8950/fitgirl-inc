@@ -47,16 +47,37 @@ def user_login(request):
 @login_required
 def dashboard(request):
     today = datetime.date.today()
-
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
     dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
+
+    programs = Program.objects.filter(program_start_date__lt=today).filter(program_end_date__gte=today)
+    for program in programs:
+        current_program = program.program_name
+        current_program_lower = current_program.lower()
+        gap_pos = current_program_lower.find(" ")
+        new_str = current_program_lower[0:gap_pos] + '-' + current_program_lower[gap_pos:]
+        new_str1 = new_str.replace(" ", "")
+
+    weeks = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+    for this_week in weeks:
+        print(this_week.title)
+        todays_week = this_week.title.lower()
+        print(todays_week)
+        week_gap_pos = todays_week.find(" ")
+        new_week_str = todays_week[0:week_gap_pos] + '-' + todays_week[week_gap_pos:]
+        print(new_week_str)
+        new_week_str1 = new_week_str.replace(" ", "")
+
     if request.user.is_staff:
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
+
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard', 'dailyquote': dailyquote})
+                  {'section': 'dashboard', 'dailyquote': dailyquote, 'new_str1': new_str1,
+                   'new_week_str1': new_week_str1})
+
 
 @login_required
 def login_success(request):
@@ -382,7 +403,6 @@ def groups(request):
 def group_email(request):
     if request.method == 'GET':
         form = EmailForm()
-
         return render(request, "account/group_email.html", {'form': form})
     else:
         form = EmailForm()
@@ -402,24 +422,39 @@ def send_group_email(request):
     else:
         form = EmailForm(request.POST)
         if form.is_valid():
-            subject = form.cleaned_data['subject']
-            from_email = 'capstone18FA@gmail.com'
+            selection = request.POST.get('selection')
+            print(selection)
             program = request.POST.get('program')
             print(program)
             users = Profile.objects.filter(program__program_name = program)
+            from_email = 'capstone18FA@gmail.com'
+            subject = form.cleaned_data['subject']
             name_list = []
-            content = EmailTemplates.objects.all()
-            html_message = render_to_string('account/group_email_template.html', {'content': content})
-            plain_message = strip_tags(html_message)
-            for profile in enumerate(users):
-                profile = str(profile[1])
-                email = profile.replace(' Profile', '')
-                send_mail(subject, plain_message, from_email, [email], html_message=html_message)
-                print(email)
-                user = User.objects.get(username = email)
-                name = user.first_name + " " + user.last_name
-                name_list.append(name)
-            return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
+            if selection == 'text':
+                message = form.cleaned_data['message']
+                for profile in enumerate(users):
+                    profile = str(profile[1])
+                    email = profile.replace(' Profile', '')
+                    send_mail(subject, message, from_email, [email])
+                    print(email)
+                    user = User.objects.get(username = email)
+                    name = user.first_name + " " + user.last_name
+                    name_list.append(name)
+                return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
+
+            else:
+                content = EmailTemplates.objects.all()
+                html_message = render_to_string('account/group_email_template.html', {'content': content})
+                plain_message = strip_tags(html_message)
+                for profile in enumerate(users):
+                    profile = str(profile[1])
+                    email = profile.replace(' Profile', '')
+                    send_mail(subject, plain_message, from_email, [email], html_message=html_message)
+                    print(email)
+                    user = User.objects.get(username = email)
+                    name = user.first_name + " " + user.last_name
+                    name_list.append(name)
+                return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
 
 def emails(request):
     if request.method == 'GET':
@@ -449,20 +484,24 @@ def emails(request):
 
 
 
-def email_individual(request):
+def email_individual(request,pk):
+    user_student = get_object_or_404(User,pk=pk)
     if request.method == 'GET':
         form = ContactForm()
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
             subject = form.cleaned_data['subject']
-            contact_email = form.cleaned_data['contact_email']
+            #contact_email = form.cleaned_data['contact_email']
+            contact_email = user_student.email
             message = form.cleaned_data['message']
             from_email = 'capstone18FA@gmail.com'
+
             try:
                 send_mail(subject, message, from_email, [contact_email])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            return render(request,'account/email_individual_confirmation.html',{'contact_email':contact_email})
-    return render(request, 'account/email_individual.html', {'form': form})
+            return render(request,'account/email_individual_confirmation.html',{'contact_email': contact_email},{'user_student':user_student})
+    return render(request, 'account/email_individual.html', {'form': form,'user_student':user_student})
+
 

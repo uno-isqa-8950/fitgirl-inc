@@ -34,8 +34,6 @@ urlpatterns = [
     path('group_email/', views.group_email, name='group_email'),
     path('send_group_email/', views.send_group_email, name='send_group_email'),
     path('send_email/', views.emails, name='send_email'),
-    path('send_individual.email/', views.email_individual, name='send_individual.email'),
-
-
+    path('send_individual_email/<int:pk>/', views.email_individual, name='send_individual_email'),
 
 ]
