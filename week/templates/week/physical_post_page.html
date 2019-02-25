@@ -36,14 +36,14 @@
                         <form class="physical-form" action="{% pageurl page %}" method="POST">
                                 {% csrf_token %}
                                 {{ form.as_p }}
-                                <input type="hidden" name="pageurl" value="{% pageurl page %}">
                                 <br>
                                 <br>
                                 <button class="btn-fitgirl btn-lg" id="done">Completed!</button>
                             </form>
                         </div>
                     </div>
-                     <div class="col-sm-2 vertical-ad-banner">
+<!--Vertical banner  announcements code starts here- Srishty*/-->
+                    <div class="col-sm-2 vertical-ad-banner">
                         <div class="advertisement">
                              <a target="_blank" href="{{ page.get_parent.specific.vertical_url }}">
         {% image page.get_parent.specific.vertical_image width-800 as vertical_image %}
@@ -53,10 +53,7 @@
                               <h2>Announcements</h2>
                                 {{ page.get_parent.specific.announcements|richtext }}
                             </div>
-                    <div class="col-sm-2 vertical-ad-banner">
-                        <div class="advertisement">
-                            <img src="/static/images/vertica_banner.PNG">
-                        </div>
+<!--Vertical banner  announcements code ends here- Srishty*/-->
                 <span id="countdown" style="display: block; font-size: 4.5rem; position: fixed">
                     <button class="btn-fitgirl" id="startClock"
                             style="font-size: 30%"><i class="fa fa-clock-o" aria-hidden="true"></i> Start your 30 Minutes Timer</button>
