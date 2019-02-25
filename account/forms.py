@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, Program
+from .models import Profile, Program, Parameters
 from django.utils.translation import gettext as _
 from datetime import date
 
@@ -89,6 +89,8 @@ class ContactForm(forms.Form):
     contact_email = forms.EmailField(required=True)
     message = forms.CharField(required=True, widget=forms.Textarea)
 
-
-
+class ParametersForm(forms.ModelForm):
+    class Meta:
+        model = Parameters
+        fields = ('physical_days_to_done', 'nutrition_days_to_done')
 

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
-@import url(http://fonts.googleapis.com/css?family=Quicksand);
+@import url('http://fonts.googleapis.com/css?family=Quicksand');
+@import url('http://fonts.googleapis.com/css?family=Comfortaa');
 body{
     background: #f4f4f4;
 }
@@ -121,7 +122,7 @@ body{
     max-width: 1253px;
     margin: 0 auto !important;
 }
-@import url(http://fonts.googleapis.com/css?family=Comfortaa);
+
 #my-soon-watch-red {background-color:#030303da;background-image: url(../images/inspiration-geometry.png);}
 #my-soon-watch-red .soon-reflection {background-color:#030303;background-image:linear-gradient(#030303 25%,rgba(3,3,3,0));}
 #my-soon-watch-red {color:#ffffff;}
