@@ -90,8 +90,6 @@ class ModelIndexPage(Page):
                                       related_name='+')
     ad_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
-    vertical_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
-                                      related_name='+')
     ad_url = models.URLField(blank=True)
 
 
