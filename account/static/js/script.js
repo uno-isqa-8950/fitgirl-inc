@@ -161,6 +161,8 @@ $( ".nutrition-images-array" ).after( $(".nutrition-facts") );
 if ($("#dtDynamicVerticalScroll, .trigger-admin").length > 0) {
     $("body").addClass("admin-page")
 }
-
+if($("#canvas").length>0){
+    $("body").attr('style', 'background-image: none !important');
+}
 });
 
