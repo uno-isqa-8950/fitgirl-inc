@@ -158,7 +158,9 @@ $( ".nutrition-images-array" ).after( $(".nutrition-facts") );
 //     // $(".fitgirlinc-footer-socialLinks").addClass("nutrition-post-page container");
 // }
 
-
+if ($("#dtDynamicVerticalScroll, .trigger-admin").length > 0) {
+    $("body").addClass("admin-page")
+}
 
 });
 
