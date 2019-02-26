@@ -173,7 +173,7 @@ AWS_HEADERS = {
 }
 # STATIC_ROOT = os.path.join(BASE_DIR, 'stat
 
-
+SECURE_SSL_REDIRECT = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
