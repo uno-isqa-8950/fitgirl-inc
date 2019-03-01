@@ -8,6 +8,10 @@
         {% for item in menu_items %}
             {% if item.specific.end_date and item.specific.start_date %}
                 {% is_week_done user item as done %}
+                <input type="hidden" value="{{ done }}">
+                <input type="hidden" value="{{ user }}">
+                <input type="hidden" value="{{ item }}">
+                <input type="hidden" value="{{ current_date }}">
                 {% if current_date > item.specific.end_date|date:"Y-m-d" %}
                  {# Check if week has been completed. Change button color to a diferent color to represent completed weeks #}
                     {% if done %}
