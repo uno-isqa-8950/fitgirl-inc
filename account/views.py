@@ -7,7 +7,7 @@ from .forms import Profile,User, Program, ContactForm, ProgramClone
 from .models import RegisterUser, Affirmations, Dailyquote, Parameters
 from week.models import WeekPage, UserActivity
 from io import TextIOWrapper, StringIO
-import re
+import re, csv
 from django.shortcuts import redirect
 import csv, string, random
 from django.contrib.auth.models import User
@@ -455,3 +455,30 @@ def cloneprogram(request):
     else:
         form = ProgramClone()
     return render(request, 'account/cloneprogram.html', {'form': form})
+
+@login_required
+def analytics(request):
+    return render(request, 'account/analytics_home.html', {})
+
+@login_required
+def export_useractivity_data(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
+    rows = list(UserActivity.objects.all())
+    writer = csv.writer(response)
+
+    writer.writerow(['User', 'Program', 'Activity',
+                       'Week Number', 'Day of Week',
+                       'Points Earned', 'Date'])
+    for row in rows:
+        user = User.objects.get(id=row.user_id)
+        name = user.first_name + " " + user.last_name
+        program = Program.objects.get(id=row.program_id).program_name
+        writer_row = [name, program,
+                      row.Activity, row.Week,
+                      row.DayOfWeek, row.points_earned,
+                      row.creation_date]
+        print(writer_row)
+        writer.writerow(writer_row)
+
+    return response
