@@ -88,7 +88,7 @@ def login_success(request):
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     elif request.user.is_active:
-        current_week = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+        current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
         print(current_week)
         return render(request,
                       'account/current_week.html',
