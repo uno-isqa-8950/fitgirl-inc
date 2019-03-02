@@ -3,12 +3,11 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, ParametersForm
-from .forms import Profile,User, Program, ContactForm
+from .forms import Profile,User, Program, ContactForm, ProgramClone
 from .models import RegisterUser, Affirmations, Dailyquote, Parameters
 from week.models import WeekPage, UserActivity
 from io import TextIOWrapper, StringIO
 import re
-
 from django.shortcuts import redirect
 import csv, string, random
 from django.contrib.auth.models import User
@@ -66,7 +65,7 @@ def login_success(request):
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     elif request.user.is_active:
-        current_week = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+        current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
         print(current_week)
         return render(request,
                       'account/current_week.html',
@@ -446,3 +445,13 @@ def parameters_form(request):
                      'nutrition_days_to_done': ndtd}
         )
     return render(request, 'account/parameters_edit.html', {'form': form})
+
+@login_required
+def cloneprogram(request):
+    if request.method == "POST":
+        form = ProgramClone(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data['new_start_date'], form.cleaned_data['program'])
+    else:
+        form = ProgramClone()
+    return render(request, 'account/cloneprogram.html', {'form': form})
