@@ -3,12 +3,11 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, ParametersForm
-from .forms import Profile,User, Program, ContactForm
+from .forms import Profile,User, Program, ContactForm, ProgramClone
 from .models import RegisterUser, Affirmations, Dailyquote, Parameters
 from week.models import WeekPage, UserActivity
 from io import TextIOWrapper, StringIO
-import re
-
+import re, csv
 from django.shortcuts import redirect
 import csv, string, random
 from django.contrib.auth.models import User
@@ -66,7 +65,7 @@ def login_success(request):
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     elif request.user.is_active:
-        current_week = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+        current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
         print(current_week)
         return render(request,
                       'account/current_week.html',
@@ -446,3 +445,40 @@ def parameters_form(request):
                      'nutrition_days_to_done': ndtd}
         )
     return render(request, 'account/parameters_edit.html', {'form': form})
+
+@login_required
+def cloneprogram(request):
+    if request.method == "POST":
+        form = ProgramClone(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data['new_start_date'], form.cleaned_data['program'])
+    else:
+        form = ProgramClone()
+    return render(request, 'account/cloneprogram.html', {'form': form})
+
+@login_required
+def analytics(request):
+    return render(request, 'account/analytics_home.html', {})
+
+@login_required
+def export_useractivity_data(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
+    rows = list(UserActivity.objects.all())
+    writer = csv.writer(response)
+
+    writer.writerow(['User', 'Program', 'Activity',
+                       'Week Number', 'Day of Week',
+                       'Points Earned', 'Date'])
+    for row in rows:
+        user = User.objects.get(id=row.user_id)
+        name = user.first_name + " " + user.last_name
+        program = Program.objects.get(id=row.program_id).program_name
+        writer_row = [name, program,
+                      row.Activity, row.Week,
+                      row.DayOfWeek, row.points_earned,
+                      row.creation_date]
+        print(writer_row)
+        writer.writerow(writer_row)
+
+    return response

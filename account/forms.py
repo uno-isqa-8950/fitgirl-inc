@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .models import Profile, Program, Parameters
 from django.utils.translation import gettext as _
 from datetime import date
+import zipcode
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -70,6 +71,7 @@ class ProfileEditForm(forms.ModelForm):
             raise forms.ValidationError('You must be at least 7 years old to register')
         return dob
 
+
     class Meta:
         model = Profile
         fields = ('photo','bio', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school')           # Added Photo to the Start --Shamrose
@@ -94,3 +96,12 @@ class ParametersForm(forms.ModelForm):
         model = Parameters
         fields = ('physical_days_to_done', 'nutrition_days_to_done')
 
+class ProgramClone(forms.Form):
+    program_list = list()
+    for item in Program.objects.all():
+        tuple = (item.id, item.program_name)
+        program_list.append(tuple)
+    program = forms.ChoiceField(choices=program_list)
+    new_start_date = forms.DateField(widget=forms.SelectDateWidget)
+
+    fields = (program, new_start_date)

@@ -523,8 +523,8 @@ class UserActivity(models.Model):
     creation_date = models.DateField()
     updated_date = models.DateField()
 
-    def __str__(self):
-        return("User " + self.user + " performed " + self.activity)
+    #def __str__(self):
+    #    return(str(self.user), self.activity)
 
 def log_activity(user, points, program, page_url):
     activity_log = UserActivity()

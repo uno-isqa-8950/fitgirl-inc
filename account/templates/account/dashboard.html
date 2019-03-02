@@ -122,7 +122,11 @@
                                         <div>
                                             <li class="nav-item">
                                                 <a href="{% url 'createprogram' %}" id="createProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
-                                                        class="fas fa-folder-plus fa-fw"></i> Program </a>
+                                                        class="fas fa-folder-plus fa-fw"></i> Programs </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{% url 'cloneprogram' %}" id="cloneProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                        class="fas fa-clone fa-fw"></i> Clone Program </a>
                                             </li>
                                             <div>
                                                 <li class="nav-item">
@@ -140,6 +144,10 @@
                                                     </li>
                                                     <div>
                                                         <div>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'analytics' %}" id="analytics" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                                class="fas fa-chart-bar fa-fw"></i> Analytics </a>
+                                                    </li>
                                                     <li class="nav-item">
                                                         <a href="{% url 'archive' %}" id="archive" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                             <i class="fas fa-archive fa-fw"></i> Archive </a>
