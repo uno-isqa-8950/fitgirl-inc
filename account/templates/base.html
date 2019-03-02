@@ -206,6 +206,15 @@ $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
 var r = $("<input/>").attr({ type: "a", id: "field", class:"start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light confetti-button",value:"start timer",href:"#"});
 $(".strength-paragraphs").append(r);
 });
+
+    $(document).ready(function(){
+$('a[href^="http://"]').attr('target', '_blank');
+});
+
+    $(document).ready(function(){
+$('a[href^="https://"]').attr('target', '_blank');
+});
+
 </script>
 <style>
     body {
