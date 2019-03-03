@@ -481,4 +481,18 @@ class EmailTemplates(Page):
 
         ]
 
+# Kindness card added- srishty#
+
+# class KindnessCardPage(Page):
+#     KindnessCard = models.CharField(max_length=10000, blank=True, )
+#     KindnessCard2 = models.CharField(max_length=10000, blank=True, )
+#     KindnessCard3 = models.CharField(max_length=10000, blank=True, )
+
+    # content_panels = Page.content_panels + [
+    #     FieldPanel('KindnessCard', classname="full"),
+    #     FieldPanel('KindnessCard2', classname="full"),
+    #     FieldPanel('KindnessCard3', classname="full"),
+
+    # ]
+
 

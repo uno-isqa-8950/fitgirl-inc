@@ -460,5 +460,3 @@ def email_individual(request,pk):
                 return HttpResponse('Invalid header found.')
             return render(request,'account/email_individual_confirmation.html',{'contact_email': contact_email},{'user_student':user_student})
     return render(request, 'account/email_individual.html', {'form': form,'user_student':user_student})
-
-

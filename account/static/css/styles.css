@@ -1280,7 +1280,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 
 
 
-/*.card .card-body{
+.card .card-body{
     position: relative;
     overflow: hidden;
 }
@@ -1295,4 +1295,4 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 .heart-incomplete{
     overflow: hidden;
     width: 15px;
-/*}*/
+}
