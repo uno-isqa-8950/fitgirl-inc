@@ -148,11 +148,11 @@ def exists(row):
 
 
 def register_user(request, row, name):
-    vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
+    #vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
     current_site = get_current_site(request)
     alphabet = string.ascii_letters + string.digits
     # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
-    theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
+    theUser = User(username=row[1], first_name=row[2], last_name=row[3], email=row[1])
     theUser.set_password('stayfit2019')
     theUser.save()
     profile = Profile.objects.create(user=theUser,
@@ -169,8 +169,8 @@ def register_user(request, row, name):
             subject_template_name='registration/new_user_subject.txt',
             email_template_name='registration/password_reset_newuser_email.html')
 
-    if vu is not None:
-        vu.save()
+    if theUser is not None:
+        #vu.save()
         return True
     else:
         return False
