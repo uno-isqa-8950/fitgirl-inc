@@ -42,14 +42,6 @@ Willow==1.1
 django-crispy-forms==1.7.2
 boto3==1.9.57
 wagtail_gallery
-
-WeasyPrint==45
-django-easy-pdf==0.2.0
-cairocffi==0.9.0
-CairoSVG==2.2.1
-tinycss2==0.6.1
-Pyphen==0.9.5
-
 django-storages==1.7.1
 python-decouple==3.1
 django-compressor
