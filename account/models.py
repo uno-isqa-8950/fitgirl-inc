@@ -34,14 +34,13 @@ class Program(models.Model):
 
     def __str__(self):
         return str(self.program_name)
-'''
+
 class RegisterUser(models.Model):
     email = models.EmailField(blank=True, null=None)
     first_name = models.CharField(max_length=50, default=None)
     last_name = models.CharField(max_length=50, default=None)
     is_active = models.BooleanField(_('active'), default =True)
     program = models.CharField(max_length=50, default='Test')
-'''
 
 class InspirationalQuotes(models.Model):
     quote = models.CharField(max_length=500, blank=True, null=True)

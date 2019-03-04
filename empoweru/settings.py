@@ -25,7 +25,7 @@ SECRET_KEY = 'xz@m8r3&j2kh@t+9^rxmrbvg+-c4dv5$_&*ru2d1n1jf$3(l_-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.localhost','.herokuapp.com','www.empoweruomaha.com','cat.empoweruomaha.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'storages',
-
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -62,7 +61,10 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'wagtailmenus',
     'crispy_forms',
-    'wagtail_gallery'
+    'wagtail_gallery',
+    'wagtail.contrib.routable_page',
+    'django_social_share',
+
 
 ]
 
@@ -102,7 +104,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'empoweru.wsgi.application'
 
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -113,6 +115,7 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT'),
     }
 }
+'''
 
 
 # Database
@@ -139,7 +142,7 @@ DATABASES = {
 
 
 # # ## Local Setting
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -150,7 +153,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-'''
+
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -247,3 +250,4 @@ try:
 except ImportError:
     raise Exception("A local_settings.py file is required to run this project")
 '''
+
