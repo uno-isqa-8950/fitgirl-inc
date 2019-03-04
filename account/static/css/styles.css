@@ -1,9 +1,77 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 @import url(http://fonts.googleapis.com/css?family=Quicksand);
-body{
+/* body{
     background: #f4f4f4;
+} */
+
+@media (min-width: 576px){
+  /* .physical-body .navbar-parent,.fitgirlinc-footer-socialLinks {
+      max-width: 540px;
+  } */
+  .fitgirlinc-footer-socialLinks {
+      max-width: 540px;
+  }
+  }
+  @media (min-width: 768px){
+  .container,.fitgirlinc-footer-socialLinks,.navbar-parent {
+      max-width: 720px;
+  }
+  .strength-images-array, .agility-images-array, .flexibility-images-array, .nutrition-images-array{
+
+  }
+}
+@media (min-width: 1200px){
+  .container,.fitgirlinc-footer-socialLinks{
+    max-width: 1254px;
+  padding: 0 22px;
+  }
+  .container.nutrition-post-page,.container.question-page,.fitgirlinc-footer-socialLinks{
+      max-width: 1254px;
+      padding: 0 22px;
+  }
+
+  .container .physical-post-page,.container .nutrition-post-page, .container .question-page{
+  max-width: 1220px;
+  }
+  .container .nutrition-post-page .question-page{
+  max-width: 1220px;
+  }
 }
 
+
+
+
+
+
+body {
+  background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
+}
+.container,#steps{
+  background: #e3e3e3;
+}
+#steps{
+  background: #e3e3e3;
+    width: 100% !important;
+    max-width: 1253px !important;
+    text-align: center;
+    margin: 0 auto !important;
+    padding: 20px;
+}
+.admin-page{
+  background: #e3e3e3 !important;
+}
+#fullHeightModalLeft .container{
+  background: #fff;
+}
+.admin-page .nav-wrapper nav{
+  max-width: 100% !important;
+}
+.container.logged-out{
+  min-height: calc(100vh);
+}
+.step-1{
+  margin: 0 auto;
+}
 .btn-fitgirl {
     background-color: #ed217c!important;
     color: #fff!important;
@@ -115,18 +183,19 @@ body{
 .demo{
   position: fixed;
   bottom:0;
-  height: 226px;
+  height: 130px;
   width: 100%;
   /* display: none; */
   visibility: hidden;
   z-index: 1000;
 }
 .soon {
-    max-width: 1253px;
+    /* max-width: 1253px; */
+    max-width: 100%;
     margin: 0 auto !important;
 }
 @import url(http://fonts.googleapis.com/css?family=Comfortaa);
-#my-soon-watch-red {background-color:#030303da;background-image: url(../images/inspiration-geometry.png);}
+#my-soon-watch-red {background-color:#030303da;background-image: url(../images/inspiration-geometry.png); padding-top:5px; }
 #my-soon-watch-red .soon-reflection {background-color:#030303;background-image:linear-gradient(#030303 25%,rgba(3,3,3,0));}
 #my-soon-watch-red {color:#ffffff;}
 #my-soon-watch-red .soon-label {color:#ffffff;color:rgba(255,255,255,0.75);}
@@ -220,13 +289,13 @@ margin-bottom: -16px;}
 background-color: #e83e8c;
 }
 .horizontal-banner{        /*adding banner space_Srishty */
-margin-top: 40px;
-margin-bottom: -18px;
+margin-top: 20px;
+margin-bottom: 0px;
 }
-.physical-post-page .horizontal-banner{        /*adding banner space_Srishty */
+/* .physical-post-page .horizontal-banner{        
 margin-top: 20px;
 padding-bottom:20px;
-}
+} */
 .modal-footer button{
 margin:0 auto;
 }
@@ -498,18 +567,25 @@ background: -webkit-linear-gradient(top, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fef
 background: linear-gradient(to bottom, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
   }
-  .container.physical-post-page h1,.container.nutrition-post-page h1,.container.question-page h1{
+  /* .container.physical-post-page h1,.container.nutrition-post-page h1,.container.question-page h1{
     margin-top: 0px;
     padding-top: 11px;
     margin-bottom: 9px;
     position: relative;
     text-align: center;
+} */
+.container h1{
+  margin-top: 0px;
+  padding-top: 11px;
+  margin-bottom: 9px;
+  position: relative;
+  text-align: center;
 }
 /* .nutrition-post-page h1 p{
   margin:0;
   line-height: 1.5;
 } */
-.physical-body .fitgirlinc-footer-socialLinks,.physical-body br,.physical-body hr{
+.physical-body br,.physical-body hr{
   display:none;
 }
 .vertical-ad-banner{
@@ -518,7 +594,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 
 .vertical-ad-banner .advertisement{
   width: 100%;
-  height:600px;
+  height:350px;
   margin-top: 103px;
   margin-bottom: 20px;
 }
@@ -558,7 +634,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
            margin-bottom:-.5em;
              }
   .container-description{
-    padding: 15px 45px;
+    padding: 15px 22px;
   }
   #strength h3{
     margin: 15px 0;
@@ -633,7 +709,59 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 .slider .glossy_button:hover{
 	background: linear-gradient(#f0749e,#ec407a);
 }
+/*Vertical banner  announcements code starts here- Srishty*/
+.announcements ol li{
+  font-size: 10px;
+padding: 5px 3px;
+}
+.announcements {
 
+}
+.announcements {
+width: 100%;
+margin: 10px 0;
+}
+
+.announcements h2 {
+font: 400 20px/1.5 Helvetica, Verdana, sans-serif;
+margin: 0;
+padding: 0;
+border-top: 1px solid grey;
+}
+
+.announcements  ol {
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+
+.announcements  li {
+font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+border-bottom: 1px solid #ccc;
+}
+
+.announcements  li:last-child {
+border: none;
+}
+
+.announcements li  {
+text-decoration: none;
+color: #000;
+
+-webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+-moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+-o-transition: font-size 0.3s ease, background-color 0.3s ease;
+-ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+transition: font-size 0.3s ease, background-color 0.3s ease;
+display: block;
+width: 100%;
+}
+
+.announcements li {
+font-size: 12px;
+background: #f6f6f6;
+}
+/*Vertical banner  announcements code ends here- Srishty*/
 
 
 
@@ -677,9 +805,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
       #coloring-app {
           padding-bottom: 63.5% !important;
       }
+      
+.nutrition-images-array img{
+  width: 100%;
+  height: 100%;
+}
   }
-  /* @media (max-width: 991px) {
-    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
+  @media (max-width: 991px) {
+    /* .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
     }
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
@@ -689,8 +822,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
       color: #fcfbfe;
       background-color: #e07dc4;
-    }
-  } */
+    } */
+  }
 
 
 
@@ -730,11 +863,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 .vertical-ad-banner{
   display: none;
 }
-.physical-post-page .horizontal-banner{
+/* .physical-post-page .horizontal-banner{
   display: block;
   margin-top: 20px;
   padding-bottom: 20px;
-}
+} */
 
 .pt-lg-5, .py-lg-5 {
   padding-top: 3rem!important;
@@ -745,17 +878,6 @@ margin-top: 3rem!important;
 .soon,.physical-body .navbar-parent,footer  {
   max-width: 720px;
 }
-  }
-
-  @media (min-width: 576px){
-    .physical-body .navbar-parent,.fitgirlinc-footer-socialLinks {
-        max-width: 540px;
-    }
-    }
-    @media (min-width: 768px){
-    .container,.fitgirlinc-footer-socialLinks {
-        max-width: 720px;
-    }
   }
 
 
@@ -853,85 +975,9 @@ bottomBubbles {  0% {
  /* Css for confetti buttons */
 
 /*coloring app styles ends here_Kelley*/
-   @media (max-width: 1199px) {
-    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
 
-      color: #ecf0f1;
-    }
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-      color: #fcfbfe;
-    }
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
-      color: #fcfbfe;
-      background-color: #e07dc4;
-    }
-    
-.vertical-ad-banner{
-  display: none;
-}
 
-.physical-content {
-  width: 100%;
-    flex: 100%;
-    max-width: 100%;
-}
-  }
-
-  @media (max-width: 575px) {
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
-      color: #ecf0f1;
-    }
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-      color: #fcfbfe;
-    }
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
-      color: #fcfbfe;
-      background-color: #e07dc4;
-    }
-    .soon, .physical-body .navbar-parent, footer {
-      max-width: 540px;
-  }
   
-.vertical-ad-banner{
-  display: none;
-  flex: 0 0 16.666667%;
-    max-width: 16.666667%;
-}
-
-.physical-post-page .horizontal-banner{
-  display: block;
-  margin-top: 20px;
-  padding-bottom: 20px;
-}
-.strength-images-array,.agility-images-array,.flexibility-images-array,.nutrition-images-array{
-  float: left;
-  width: 100%;
-  }
-  .strength-paragraphs,.agility-paragraphs,.flexibility-paragraphs{
-    float: right;
-    width: 100%;
-    border-radius: 5px;
-      padding: 0 10px;
-      border:1px solid #c4c4c4;
-      background: #c4c4c4;
-  }
-  }
-  @media (min-width: 1200px){
-    .container.physical-post-page,.fitgirlinc-footer-socialLinks{
-      max-width: 1254px;
-    padding: 0 22px;
-    }
-    .container.nutrition-post-page,.container.question-page,.fitgirlinc-footer-socialLinks{
-        max-width: 1254px;
-        padding: 0 22px;
-    }
-
-    .container .physical-post-page,.container .nutrition-post-page, .container .question-page{
-    max-width: 1220px;
-    }
-  }
   /* .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
     color: #ecf0f1;
   }
@@ -945,6 +991,231 @@ bottomBubbles {  0% {
   }
 /* HEADER */
 
+/*coloring app styles_Kelley*/
+#coloring-app {
+  position: relative;
+  padding-bottom: 63.5%;
+  padding-top: 35px;
+  height: auto;
+  overflow: hidden;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+#coloring-app iframe {
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#coloring-app-att{
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+  /* added space on logout, reset done, change done - hghanta*/
+  .spacer-div-30 {
+      width: 100%;
+      height: 30px;
+  }
+
+  .box-center {
+      margin: 0 auto;
+      text-align: center;
+  }
+
+/*nutrition redesign starts here - Aishwarya*/
+
+.nutrition-content{
+  width: 83.33%;
+}
+
+.nutrition-post-page .vertical-ad-banner,.question-page .vertical-ad-banner{
+float: right;
+flex: 0 0 16.666667%;
+max-width: 16.666667%;
+padding-right: 0
+}
+.container.question-page{
+  min-height: 753px;
+}
+.demo span.interval{
+  background: yellow;
+  font-size: 16px;
+  color: black;
+  position: absolute;
+  padding: 10px 20px;
+}
+#nutrition .vertical-ad-banner .advertisement{
+  margin-top: 0;
+}
+.question-page .vertical-ad-banner .advertisement{
+  margin-top: 0;
+}
+
+.nutrition-post-page h1{
+  text-align: center;
+}
+
+.nutrition-facts {
+  float: right;
+  width: 49%;
+  border-radius: 5px;
+  padding: 0 10px;
+  border: 1px solid #e6ffe6;
+  background: #e6ffe6;
+  text-align: justify;
+  display: inline-table;
+}
+
+
+.nutrition-post-page .question-page .rich-text{
+  width: 100%;
+}
+
+.nutrition-post-page br,.nutrition-post-page hr{
+display: none;
+}
+
+.nutrition-body .nav-wrapper, .question-body .nav-wrapper {
+  width: 100%;
+  display: inherit;
+  /*border-bottom: 4px solid #ed217c;*/
+}
+
+.nutrition-post-page .horizontal-banner{
+display: block;
+margin-top: 20px;
+padding-bottom: 20px;
+}
+
+
+.question-body {
+  background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
+}
+.nutrition-facts .rich-text{
+overflow-y: auto;
+}     
+.fancy {
+padding : 1em;
+width: 100%;
+height: 200px;
+box-sizing: border-box;
+
+/* At the bottom of our background stack,
+   let's have a misty grey solid color */
+background-color: #E4E4D9;
+
+/* We stack linear gradients on top of each
+   other to create our color strip effect.
+   As you will notice, color gradients are
+   considered to be images and can be
+   manipulated as such */
+background-image: linear-gradient(175deg, rgba(0,0,0,0) 95%, #8da389 95%),
+                  linear-gradient( 85deg, rgba(0,0,0,0) 95%, #8da389 95%),
+                  linear-gradient(175deg, rgba(0,0,0,0) 90%, #b4b07f 90%),
+                  linear-gradient( 85deg, rgba(0,0,0,0) 92%, #b4b07f 92%),
+                  linear-gradient(175deg, rgba(0,0,0,0) 85%, #c5a68e 85%),
+                  linear-gradient( 85deg, rgba(0,0,0,0) 89%, #c5a68e 89%),
+                  linear-gradient(175deg, rgba(0,0,0,0) 80%, #ba9499 80%),
+                  linear-gradient( 85deg, rgba(0,0,0,0) 86%, #ba9499 86%),
+                  linear-gradient(175deg, rgba(0,0,0,0) 75%, #9f8fa4 75%),
+                  linear-gradient( 85deg, rgba(0,0,0,0) 83%, #9f8fa4 83%),
+                  linear-gradient(175deg, rgba(0,0,0,0) 70%, #74a6ae 70%),
+                  linear-gradient( 85deg, rgba(0,0,0,0) 80%, #74a6ae 80%);
+}
+.fitgirlinc-footer-socialLinks{
+margin: 0 auto;
+}
+
+
+@media (max-width: 1199px) {
+  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
+
+    color: #ecf0f1;
+  }
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #fcfbfe;
+  }
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #fcfbfe;
+    background-color: #e07dc4;
+  }
+  
+.vertical-ad-banner{
+display: none;
+}
+
+.physical-content {
+width: 100%;
+  flex: 100%;
+  max-width: 100%;
+}
+.navbar-parent{
+  max-width: 720px;
+}
+}
+
+@media (max-width: 992px){
+  .navbar-parent{
+
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-parent{
+    max-width: 540px;
+  }
+}
+
+@media (max-width: 575px) {
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
+    color: #ecf0f1;
+  }
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #fcfbfe;
+  }
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #fcfbfe;
+    background-color: #e07dc4;
+  }
+  .soon, .physical-body .navbar-parent, footer {
+    max-width: 540px;
+}
+
+.vertical-ad-banner{
+display: none;
+flex: 0 0 16.666667%;
+  max-width: 16.666667%;
+}
+
+/* .physical-post-page .horizontal-banner{
+display: block;
+margin-top: 20px;
+padding-bottom: 20px;
+} */
+.strength-images-array,.agility-images-array,.flexibility-images-array,.nutrition-images-array{
+float: left;
+width: 100%;
+}
+.strength-paragraphs,.agility-paragraphs,.flexibility-paragraphs{
+  float: right;
+  width: 100%;
+  border-radius: 5px;
+    padding: 0 10px;
+    border:1px solid #c4c4c4;
+    background: #c4c4c4;
+}
+
+.nutrition-facts{
+  width: 100% !important;
+  margin: 10px 0 !important;
+}
+}
 /* iphone X landscape orientation */
 @media only screen
 and (min-width : 375px)
@@ -963,55 +1234,17 @@ and (orientation : portrait) {
     max-width: 315px !important;
     height: 100% !important;
   }
-.vertical-ad-banner{
-  display: none;
-}
 
-.physical-post-page .horizontal-banner{
+/* .physical-post-page .horizontal-banner{
   display: block;
   margin-top: 20px;
   padding-bottom: 20px;
-}
+} */
 .physical-content{
   max-width:100%;
   flex: 100%;
 }
 }
-
-/*coloring app styles_Kelley*/
-#coloring-app {
-    position: relative;
-    padding-bottom: 63.5%;
-    padding-top: 35px;
-    height: auto;
-    overflow: hidden;
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 10px;
-}
-
-#coloring-app iframe {
-    position: absolute;
-    top:0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-#coloring-app-att{
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-    /* added space on logout, reset done, change done - hghanta*/
-    .spacer-div-30 {
-        width: 100%;
-        height: 30px;
-    }
-
-    .box-center {
-        margin: 0 auto;
-        text-align: center;
-    }
 
 
 /* iPad in portrait & landscape */
@@ -1026,11 +1259,11 @@ and (max-width : 1024px)  {
     display: none;
   }
   
-.physical-post-page .horizontal-banner{
+/* .physical-post-page .horizontal-banner{
   display: block;
   margin-top: 20px;
   padding-bottom: 20px;
-}
+} */
 }
 
 /* iPad in landscape */
@@ -1045,109 +1278,8 @@ and (max-width : 1024px)
 and (orientation : portrait) { /* STYLES GO HERE */ }
 
 
-/*nutrition redesign starts here - Aishwarya*/
-
-.nutrition-content{
-    width: 83.33%;
-  }
-
-.nutrition-post-page .vertical-ad-banner{
-  float: right;
-  flex: 0 0 16.666667%;
-  max-width: 16.666667%;
-}
-.question-page .vertical-ad-banner{
-    float: right;
-    flex: 0 0 16.666667%;
-    max-width: 16.666667%;
-}
-
-#nutrition .vertical-ad-banner .advertisement{
-    margin-top: 0;
-}
-.question-page .vertical-ad-banner .advertisement{
-    margin-top: 0;
-}
-
-.nutrition-post-page h1{
-    text-align: center;
-}
-
-.nutrition-facts {
-    float: right;
-    width: 49%;
-    border-radius: 5px;
-    padding: 0 10px;
-    border: 1px solid #e6ffe6;
-    background: #e6ffe6;
-    text-align: justify;
-    display: inline-table;
-}
-
- .nutrition-body {
-     background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
- }
-
-  @media (min-width: 1200px){
-
-    .container .nutrition-post-page .question-page{
-    max-width: 1220px;
-    }
-  }
 
 
-.nutrition-post-page .question-page .rich-text{
-    width: 100%;
-}
-
-.nutrition-post-page br,.nutrition-post-page hr{
-  display: none;
-}
-
-.nutrition-body .nav-wrapper, .question-body .nav-wrapper {
-    width: 100%;
-    display: inherit;
-    /*border-bottom: 4px solid #ed217c;*/
-}
-
-.nutrition-post-page .horizontal-banner{
-  display: block;
-  margin-top: 20px;
-  padding-bottom: 20px;
-}
-
-
-.question-body {
-    background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
-}
-.nutrition-facts .rich-text{
-  overflow-y: auto;
-}     
-/* .fancy {
-  position: relative;
-  background-color: #FFC;
-  padding: 2rem;
-  text-align: center;
-  max-width: 200px;
-}
-
-.fancy::before {
-  content: "";
-
-  position : absolute;
-  z-index  : -1;
-  bottom   : 15px;
-  right    : 5px;
-  width    : 50%;
-  top      : 80%;
-  max-width: 200px;
-
-  box-shadow: 0px 13px 10px black;
-  transform: rotate(4deg);
-} */
-.fitgirlinc-footer-socialLinks{
-  margin: 0 auto;
-}
 /*.card .card-body{
     position: relative;
     overflow: hidden;

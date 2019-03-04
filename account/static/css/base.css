@@ -171,6 +171,7 @@ input[type="radio"]{
 input[type="checkbox"]{
   margin-top: 5px;
   margin-right: 5px;
+  transform: scale(1.5); /* increase size on all users */
 }
 .errorlist {
     color:#cc0033;

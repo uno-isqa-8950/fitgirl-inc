@@ -176,15 +176,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-LOGIN_REDIRECT_URL = 'login_success'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
 WAGTAIL_SITE_NAME = 'EmpowerU'
-
-#mailchimp credentials
-MAILCHIMP_API_KEY = 'd5d56cc5a567972492b93d50b9bf7acf-us11'
-MAILCHIMP_SUBSCRIBE_LIST_ID = 'c22510ef43'
 
 
 EMAIL_HOST = 'smtp.gmail.com'

@@ -88,7 +88,7 @@ def login_success(request):
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     elif request.user.is_active:
-        current_week = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+        current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
         print(current_week)
         return render(request,
                       'account/current_week.html',
@@ -395,26 +395,17 @@ def archive(request):
                   {'section': 'archive','form':form})
 
 
-def groups(request):
-    if request.method == 'GET':
-        programs = Program.objects.all()
-        return render(request, "account/groups.html", {'programs': programs})
-
 def group_email(request):
     if request.method == 'GET':
         form = EmailForm()
         return render(request, "account/group_email.html", {'form': form})
     else:
         form = EmailForm()
-        program = request.POST.get('dropdown1')
-        users = Profile.objects.filter(program__program_name = program)
-        usersEmail = []
-        for profile in enumerate(users):
-            profile = str(profile[1])
-            email = profile.replace(' Profile', '')
-            print(email)
-            usersEmail.append(email)
-        return render(request, "account/group_email.html", {'form': form, 'program': program, 'to_list': usersEmail})
+        list = request.POST.getlist('checks[]')
+        return render(request, "account/group_email.html", {'form': form, 'to_list': list})
+
+
+
 
 def send_group_email(request):
     if request.method == 'GET':
@@ -423,64 +414,30 @@ def send_group_email(request):
         form = EmailForm(request.POST)
         if form.is_valid():
             selection = request.POST.get('selection')
-            print(selection)
-            program = request.POST.get('program')
-            print(program)
-            users = Profile.objects.filter(program__program_name = program)
+            list = request.POST.get('to_list')
+            new = list.replace('[','').replace(']','').replace("'",'')
+            result = [x.strip() for x in new.split(',')]
             from_email = 'capstone18FA@gmail.com'
             subject = form.cleaned_data['subject']
             name_list = []
             if selection == 'text':
                 message = form.cleaned_data['message']
-                for profile in enumerate(users):
-                    profile = str(profile[1])
-                    email = profile.replace(' Profile', '')
-                    send_mail(subject, message, from_email, [email])
-                    print(email)
-                    user = User.objects.get(username = email)
+                for user_email in result:
+                    send_mail(subject, message, from_email, [user_email])
+                    user = User.objects.get(username = user_email)
                     name = user.first_name + " " + user.last_name
                     name_list.append(name)
                 return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
-
             else:
                 content = EmailTemplates.objects.all()
                 html_message = render_to_string('account/group_email_template.html', {'content': content})
                 plain_message = strip_tags(html_message)
-                for profile in enumerate(users):
-                    profile = str(profile[1])
-                    email = profile.replace(' Profile', '')
-                    send_mail(subject, plain_message, from_email, [email], html_message=html_message)
-                    print(email)
-                    user = User.objects.get(username = email)
+                for user_email in result:
+                    send_mail(subject, plain_message, from_email, [user_email], html_message=html_message)
+                    user = User.objects.get(username = user_email)
                     name = user.first_name + " " + user.last_name
                     name_list.append(name)
                 return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
-
-def emails(request):
-    if request.method == 'GET':
-        form = EmailForm()
-        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
-        to_list = []
-        for user in registeredUsers:
-            to_list.append(user.email)
-    else:
-        registered_users = RegisterUser.objects.all()
-        form = EmailForm(request.POST)
-        if form.is_valid():
-            subject = form.cleaned_data['subject']
-            from_email = 'capstone18FA@gmail.com'
-            message = form.cleaned_data['message']
-            registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
-            recepient_list = []
-            name_list = []
-            for user in registeredUsers:
-                # recepient_list.append(user.email)
-                email = user.email
-                send_mail(subject, message, from_email, [email])
-                name = user.first_name + " " + user.last_name
-                name_list.append(name)
-            return render(request,'account/email_confirmation.html', {'name_list': name_list})
-    return render(request, "account/email.html", {'to_list': to_list ,'form': form})
 
 
 

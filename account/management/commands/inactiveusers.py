@@ -16,17 +16,20 @@ def user_inactivity():
         latest_set_date = 7
 
     users = User.objects.filter(last_login__lte=datetime.datetime.now() - datetime.timedelta(days=latest_set_date)).filter(is_superuser=False)
-    print(latest_set_date)
     from_email = 'capstone18fa@gmail.com'
     subject = 'Inactive for long time'
     user_inactivity = "True"
     content = EmailTemplates.objects.all()
+
     html_message = render_to_string('account/group_email_template.html',
                                     {'content': content, 'user_inactivity': user_inactivity})
+
+
     plain_message = strip_tags(html_message)
     for user in users:
         email = user.email
         send_mail(subject, plain_message, from_email, [email], html_message=html_message)
+
 
 
 class Command(BaseCommand):
