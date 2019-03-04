@@ -2,9 +2,9 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm
 from .forms import Profile,User, Program, ContactForm
-from .models import RegisterUser, Affirmations, Dailyquote
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser
 from week.models import WeekPage, EmailTemplates
 from io import TextIOWrapper, StringIO
 import re
@@ -503,5 +503,29 @@ def email_individual(request,pk):
                 return HttpResponse('Invalid header found.')
             return render(request,'account/email_individual_confirmation.html',{'contact_email': contact_email},{'user_student':user_student})
     return render(request, 'account/email_individual.html', {'form': form,'user_student':user_student})
+
+
+@login_required
+def user_inactivity(request):
+    try:
+        user_inactive_days = Inactiveuser.objects.latest()
+        latest_date = user_inactive_days.set_days
+        print(latest_date)
+    except Inactiveuser.DoesNotExist:
+        latest_date = 7
+
+    if request.method == 'GET':
+        form = CronForm()
+    else:
+        form = CronForm(request.POST)
+        if form.is_valid():
+            inactive_days = form.cleaned_data['days']
+            days_data = Inactiveuser(set_days=inactive_days)
+            days_data.save()
+            messages.success(request,'User inactivity email notification period set successfully')
+            return redirect('user_inactivity')
+    return render(request,'account/user_inactivity.html',{'form':form,'latest_date':latest_date})
+
+
 
 
