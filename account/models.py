@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from PIL import Image
 from datetime import datetime
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 
@@ -92,6 +93,22 @@ class Profile(models.Model):
             return "None";
         else:
             return int((datetime.now().date() - self.date_of_birth).days / 365.25)
+
+
+class Inactiveuser(models.Model):
+    inactive_id = models.AutoField(primary_key=True,blank=False,null=False)
+    set_days = models.IntegerField(default=7,validators=[MaxValueValidator(31),MinValueValidator(1)])
+    #set_days = models.IntegerField(blank=False,null=False,default=1)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.set_days)
+
+    class Meta:
+        get_latest_by = 'created_at'
+
+
 
 
 

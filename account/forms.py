@@ -91,5 +91,11 @@ class ContactForm(forms.Form):
     message = forms.CharField(required=True, widget=forms.Textarea)
 
 
+class CronForm(forms.Form):
+    days = forms.ChoiceField(choices=[(x,x) for x in range(1,32)])
+
+
+
+
 
 
