@@ -519,7 +519,7 @@ def rewards_redeem(request):
                                                                         'points_available': points_available,
                                                                         'reward_number': reward_number})
             out = BytesIO()
-            stylesheets = [weasyprint.CSS(settings.STATIC_CSS + '/css/pdf.css')]
+            stylesheets = [weasyprint.CSS(settings.STATIC_URL + '/css/pdf.css')]
             print(stylesheets)
             weasyprint.HTML(string=html).write_pdf(out,stylesheets=stylesheets)
             email.attach('Redemption No. {}'.format(rewards.reward_no), out.getvalue(), 'application/pdf')
