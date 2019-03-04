@@ -358,6 +358,31 @@ class RewardsPostPage(Page):
         ImageChooserPanel('display_image')
     ]
 
+    def get_context(self, request):
+        print('inside get_context')
+        context = super().get_context(request)
+        context['user_data'] = User.objects.get(username = request.user.username)
+        return context
+
+
+#services for reward redemption: hghanta
+class ServicePostPage(Page):
+    display_image = models.ForeignKey('wagtailimages.Image', null= True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    description = RichTextField(blank=True)
+    points_for_this_service = models.IntegerField(blank=True, default=0)
+
+    content_panels = Page.content_panels + [
+        ImageChooserPanel('display_image'),
+        FieldPanel('description', classname="full"),
+        FieldPanel('points_for_this_service', classname="title"),
+
+    ]
+
+    def get_context(self, request):
+        print('inside get_context of service post page')
+        context = super().get_context(request)
+        context['user_data'] = User.objects.get(username = request.user.username)
+        return context
 
 class QuestionTextFormField(AbstractFormField):
     page = ParentalKey('QuestionPageText', on_delete=models.CASCADE, related_name='form_field')

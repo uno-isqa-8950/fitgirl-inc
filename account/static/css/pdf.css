@@ -1,0 +1,10 @@
+body {
+    text-align:center;
+    font-family:Helvetica, sans-serif;
+    color:#222;
+    line-height:3;
+}
+
+h1 {
+    border-bottom: 1px solid #bbb;
+}

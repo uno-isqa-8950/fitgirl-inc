@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block title %}Rewards{% endblock %}
+
+{% block content %}
+<div class ="container-fluid" align="center" style="position: absolute">
+    <div class="spacer-div-30"></div>
+    <h1>Confirmation</h1>
+    <p>Congratulations on redeeming this service</p>
+    <p>Redemption Number: {{ reward_number }}</p>
+    <p>Service Used: {{ service }}</p>
+    <p>Points used: {{ point }}</p>
+    <p>Points available: {{ points_available }}</p>
+    <p>PDF sent to your email</p>
+</div>
+<canvas id="canvas"></canvas>
+{% endblock %}
