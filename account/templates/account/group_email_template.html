@@ -9,16 +9,14 @@
     <title>Title</title>
 </head>
 <body>
-    {% for content in content %}
         {% if user_inactivity == "True" %}
             <div style="text-align: center;">
-                {{ content.individual_message|richtext }}
+                {{ content.inactivity_message|richtext }}
             </div>
         {% else %}
             <div style="text-align: center;">
                 {{ content.group_message|richtext }}
             </div>
         {% endif %}
-    {% endfor %}
 </body>
 </html>
