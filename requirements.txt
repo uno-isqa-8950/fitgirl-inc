@@ -48,7 +48,6 @@ django-compressor
 
 
 WeasyPrint==45
-django-easy-pdf==0.2.0
 cairocffi==0.9.0
 CairoSVG==2.2.1
 tinycss2==0.6.1
