@@ -14,7 +14,7 @@
     <!--Card Content-->
     <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
         {% now "Y-m-d" as current_date %}
-        {% for post in page.get_children %}
+        {% for post in page.get_children.live %}
         {# Custom tags to indicate if the user is on the Nutrution page or the Physical page #}
         {% is_nutrition_page page as is_nutrition %}
         {% is_physical_page page as is_physical %}
@@ -38,18 +38,18 @@
                         {% if nutrition_activity_count > 1 %}
                         {% if nutrition_activities_done > 0 and nutrition_activities_done < nutrition_activity_count %}
                             <span class="heart heart-incomplete">
-                                <i class="fas fa-heart fa-2x" style="float:right;"></i>
-                            </span>
+                                <i class="fas fa-heart fa-2x"></i>  <!-- Srishty alingnment of heart-->
+                            </span> <!--half heart -->
                         {% elif nutrition_activity_count == nutrition_activities_done %}
                             <span class="heart">
-                                <i class="far fa-heart fa-2x" style="float:right;"></i>
-                            </span>
+                                <i class="fas fa-heart fa-2x" ></i>
+                            </span> <!-- full heart -->
                         {% endif %}
                         {% endif %}
                         {% endif %}
                         {% if is_physical and physical_activity_done %}
                             <span class="heart">
-                                <i class="far fa-heart fa-2x" style="float:right;"></i>
+                                <i class="fas fa-heart fa-2x" ></i>
                             </span> <!-- full heart -->
                         {% endif %}
                     <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
@@ -69,19 +69,19 @@
                         {% if nutrition_activity_count > 1 %}
                         {% if nutrition_activities_done > 0 and nutrition_activities_done < nutrition_activity_count %}
                             <span class="heart heart-incomplete">
-                                <i class="fas fa-heart fa-2x" style="float:right;"></i>
-                            </span>
+                                <i class="fas fa-heart fa-2x" ></i>
+                            </span> <!--half heart -->
                         {% elif nutrition_activity_count == nutrition_activities_done %}
                             <span class="heart">
-                                <i class="far fa-heart fa-2x" style="float:right;"></i>
+                                <i class="fas fa-heart fa-2x" ></i>
                             </span> <!-- full heart -->
                         {% endif %}
                         {% endif %}
                         {% endif %}
                         {% if is_physical and physical_activity_done %}
                              <span class="heart">
-                                <i class="far fa-heart fa-2x" style="float:right;"></i>
-                             </span><!-- full heart -->
+                                <i class="fas fa-heart fa-2x" ></i>
+                             </span> <!-- full heart -->
                         {% endif %}
                         <!--<p class="card-text">{{ post.specific.intro|richtext}}</p>-->
                         <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
@@ -100,18 +100,18 @@
                         {% if nutrition_activity_count > 1 %}
                         {% if nutrition_activities_done > 0 and nutrition_activities_done < nutrition_activity_count %}
                             <span class="heart heart-incomplete">
-                                <i class="fas fa-heart fa-2x" style="float:right;"></i>
+                                <i class="fas fa-heart fa-2x" ></i>
                             </span> <!--half heart -->
                         {% elif nutrition_activity_count == nutrition_activities_done %}
-                             <span class="heart">
-                                <i class="far fa-heart fa-2x" style="float:right;"></i>
+                            <span class="heart">
+                                <i class="fas fa-heart fa-2x" ></i>
                              </span><!-- full heart -->
                         {% endif %}
                         {% endif %}
                         {% endif %}
                         {% if is_physical and physical_activity_done %}
                             <span class="heart">
-                                <i class="far fa-heart fa-2x" style="float:right;"></i>
+                             <i class="fas fa-heart fa-2x" ></i>
                             </span> <!-- full heart -->
                         {% endif %}
                         <!--<p class="card-text">{{ post.specific.intro|richtext}}</p>-->
@@ -132,18 +132,18 @@
                         {% if nutrition_activity_count > 0 %}
                         {% if nutrition_activities_done > 0 and nutrition_activities_done < nutrition_activity_count %}
                             <span class="heart heart-incomplete">
-                                <i class="fas fa-heart fa-2x" style="float:right;"></i>
+                                <i class="fas fa-heart fa-2x" ></i>
                             </span> <!--half heart -->
                         {% elif nutrition_activity_count == nutrition_activities_done %}
                             <span class="heart">
-                                <i class="far fa-heart fa-2x" style="float:right;"></i>
+                                <i class="fas fa-heart fa-2x" ></i>
                             </span> <!-- full heart -->
                         {% endif %}
                         {% endif %}
                         {% endif %}
                         {% if is_physical and physical_activity_done %}
                             <span class="heart">
-                                <i class="far fa-heart fa-2x" style="float:right;"></i>
+                                <i class="fas fa-heart fa-2x" ></i>
                             </span> <!-- full heart -->
                         {% endif %}
                         <!--<p class="card-text">{{ post.specific.intro|richtext}}</p>-->
