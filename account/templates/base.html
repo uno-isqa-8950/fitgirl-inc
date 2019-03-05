@@ -118,7 +118,10 @@
                     <li class="divider"></li>
                     <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li> -->
                     <!--user name added below and removed welcome--Srishty-->
-                    <a class="dropdown-item" href="#">{{ user.get_short_name|capfirst }}</a>
+                    <!--<a class="dropdown-item" href="#">{{ user.get_short_name|capfirst }}</a>-->
+                    <a class="dropdown-item no-pointer" href="#">{{ user.get_short_name|capfirst }}<span class="user-dropdown"></span>
+                    <!--<a class="dropdown-item"> href="#"{{ user.get_short_name|capfirst }}</a>-->
+
                     <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-edit fa-fw"></i> Edit Profile</a>
                     <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
                     <a class="dropdown-item logout-button" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
@@ -213,6 +216,15 @@ $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
 var r = $("<input/>").attr({ type: "a", id: "field", class:"start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light confetti-button",value:"start timer",href:"#"});
 $(".strength-paragraphs").append(r);
 });
+
+    $(document).ready(function(){
+$('a[href^="http://"]').attr('target', '_blank');
+});
+
+    $(document).ready(function(){
+$('a[href^="https://"]').attr('target', '_blank');
+});
+
 </script>
 <style>
     body {
