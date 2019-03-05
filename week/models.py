@@ -471,13 +471,17 @@ class LandingIndexPage(Page):
     ]
 
 class EmailTemplates(Page):
+    subject_for_inactivity = models.CharField(max_length=10000, blank=True)
+    subject_for_group = models.CharField(max_length=10000, blank=True)
     group_message = RichTextField(blank=True)
-    individual_message = RichTextField(blank=True)
+    inactivity_message = RichTextField(blank=True)
 
 
     content_panels = Page.content_panels + [
+        FieldPanel('subject_for_group', classname="full"),
         FieldPanel('group_message', classname="full"),
-        FieldPanel('individual_message', classname="full"),
+        FieldPanel('subject_for_inactivity', classname="full"),
+        FieldPanel('inactivity_message', classname="full"),
 
         ]
 

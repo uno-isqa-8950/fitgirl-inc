@@ -3,7 +3,7 @@
 # Register your models here.
 from django.contrib import admin
 from .models import Program
-from .models import Profile, RegisterUser, Affirmations, InspirationalQuotes, Dailyquote
+from .models import Profile, RegisterUser, Affirmations, InspirationalQuotes, Dailyquote,Inactiveuser
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
@@ -38,6 +38,7 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
+#admin.site.register(Inactiveuser)
 #admin.site.register(Profile)
 admin.site.register(RegisterUser)
 
@@ -60,3 +61,9 @@ class InspirationalAdmin(admin.ModelAdmin):
     InspirationalQuote = 'Inspirational Quotes'
 admin.site.register(InspirationalQuotes, InspirationalAdmin)
 
+
+class InactiveusersAdmin(admin.ModelAdmin):
+    Inactiveuser = 'Inactiveuser'
+    list_display = ('set_days','created_at','updated_at')
+
+admin.site.register(Inactiveuser,InactiveusersAdmin)
