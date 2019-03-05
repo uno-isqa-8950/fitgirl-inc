@@ -547,5 +547,20 @@ def log_activity(user, points, program, page_url):
 
     activity_log.save()
 
+#kindness card page starts here-- Srishty #
+class KindnessCardPage(Page):
+    KindnessCard = models.CharField(max_length=10000, blank=True, )
+    KindnessCard2 = models.CharField(max_length=10000, blank=True, )
+    KindnessCard3 = models.CharField(max_length=10000, blank=True, )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('KindnessCard', classname="full"),
+        FieldPanel('KindnessCard2', classname="full"),
+        FieldPanel('KindnessCard3', classname="full"),
+
+    ]
+
+# kindness card page ends here-- Srishty #
+
 #https://www.empoweruomaha.com/pages/spring-2019/week-1/bonus/teamwork/teamwork-quiz/
 

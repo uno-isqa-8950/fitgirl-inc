@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, ParametersForm
-from .forms import Profile,User, Program, ContactForm
+from .forms import Profile,User, Program, ContactForm, ProgramClone
 from .models import Affirmations, Dailyquote, Parameters, Reward
 from week.models import WeekPage, UserActivity, ServicePostPage
 from io import TextIOWrapper, StringIO
