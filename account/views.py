@@ -462,6 +462,7 @@ def email_individual(request,pk):
     return render(request, 'account/email_individual.html', {'form': form,'user_student':user_student})
 
 
+
 @login_required
 def user_inactivity(request):
     try:
