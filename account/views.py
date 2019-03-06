@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, ParametersForm
 from .forms import Profile,User, Program, ContactForm, ProgramClone
 from .models import RegisterUser, Affirmations, Dailyquote, Parameters
-from week.models import WeekPage, UserActivity
+from week.models import WeekPage, UserActivity, CustomFormSubmission
 from io import TextIOWrapper, StringIO
-import re, csv
+import re, json
 from django.shortcuts import redirect
 import csv, string, random
 from django.contrib.auth.models import User
@@ -19,6 +19,9 @@ from django.forms import ValidationError
 from datetime import datetime
 import datetime
 from django.core.mail import send_mass_mail, BadHeaderError, send_mail
+from django.views.generic import TemplateView
+#from chartjs.views.lines import BaseLineChartView
+from wagtail.core.models import Page
 
 
 def user_login(request):
@@ -148,11 +151,11 @@ def exists(row):
 
 
 def register_user(request, row, name):
-    vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
+    #vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
     current_site = get_current_site(request)
     alphabet = string.ascii_letters + string.digits
     # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
-    theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
+    theUser = User(username=row[1], first_name=row[2], last_name=row[3], email=row[1])
     theUser.set_password('stayfit2019')
     theUser.save()
     profile = Profile.objects.create(user=theUser,
@@ -169,8 +172,7 @@ def register_user(request, row, name):
             subject_template_name='registration/new_user_subject.txt',
             email_template_name='registration/password_reset_newuser_email.html')
 
-    if vu is not None:
-        vu.save()
+    if theUser is not None:
         return True
     else:
         return False
@@ -461,24 +463,78 @@ def analytics(request):
     return render(request, 'account/analytics_home.html', {})
 
 @login_required
-def export_useractivity_data(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
-    rows = list(UserActivity.objects.all())
-    writer = csv.writer(response)
+def export_data(request):
+    if request.method == 'POST':
 
-    writer.writerow(['User', 'Program', 'Activity',
-                       'Week Number', 'Day of Week',
-                       'Points Earned', 'Date'])
-    for row in rows:
-        user = User.objects.get(id=row.user_id)
-        name = user.first_name + " " + user.last_name
-        program = Program.objects.get(id=row.program_id).program_name
-        writer_row = [name, program,
-                      row.Activity, row.Week,
-                      row.DayOfWeek, row.points_earned,
-                      row.creation_date]
-        print(writer_row)
-        writer.writerow(writer_row)
+        response = HttpResponse(content_type='text/csv')
+        post_data = request.POST
+        export_type = post_data['export_type']
 
-    return response
+        if export_type == 'useractivity':
+            response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
+            rows = list(UserActivity.objects.all())
+            writer = csv.writer(response)
+
+            writer.writerow(['User', 'Program', 'Activity',
+                               'Week Number', 'Day of Week',
+                               'Points Earned', 'Date'])
+            for row in rows:
+                user = User.objects.get(id=row.user_id)
+                name = user.first_name + " " + user.last_name
+                program = Program.objects.get(id=row.program_id).program_name
+                writer_row = [name, program,
+                              row.Activity, row.Week,
+                              row.DayOfWeek, row.points_earned,
+                              row.creation_date]
+                writer.writerow(writer_row)
+        elif export_type == 'preassessment':
+            response['Content-Disposition'] = 'attachment; filename="pre-assessment.csv"'
+            assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
+            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            if len(rows) > 0:
+                writer = csv.writer(response)
+                writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    user = User.objects.get(id=row.user_id)
+                    name = user.first_name + " " + user.last_name
+                    #program = Program.objects.get(id=row.program_id).program_name
+                    writer.writerow([name, row.form_data, row.submit_time])
+        elif export_type == 'preassessment':
+            response['Content-Disposition'] = 'attachment; filename="post-assessment.csv"'
+            assesssment_page_id = Page.objects.filter(slug__contains="post-assessment").first().id
+            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            if len(rows) > 0:
+                writer = csv.writer(response)
+                writer.writerow(['User', 'Post-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    user = User.objects.get(id=row.user_id)
+                    name = user.first_name + " " + user.last_name
+                    # program = Program.objects.get(id=row.program_id).program_name
+                    writer.writerow([name, row.form_data, row.submit_time])
+        else:
+                response = HttpResponse(content_type='text/html', content="No data")
+        return response
+    else:
+        return HttpResponse('Invalid request')
+
+
+# class LineChartJSONView(BaseLineChartView):
+#     def get_context_data(self, **kwargs):
+#         context = super(AnalyticsIndexView, self).get_context_data(**kwargs)
+#         context['30_day_registrations'] = self.thirty_day_registrations()
+#         return context
+#
+#     def thirty_day_registrations(self):
+#         final_data = []
+#
+#         date = arrow.now()
+#         for day in xrange(1, 30):
+#             date = date.replace(days=-1)
+#             count = User.objects.filter(
+#                 date_joined__gte=date.floor('day').datetime,
+#                 date_joined__lte=date.ceil('day').datetime).count()
+#             final_data.append(count)
+#
+#         return final_data
