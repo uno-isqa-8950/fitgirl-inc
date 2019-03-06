@@ -16,25 +16,30 @@
                  {# Check if week has been completed. Change button color to a diferent color to represent completed weeks #}
                     {% if done %}
                         <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                            <a href="{{ item.href }}"  class="btn btn-sm btn-grey btn-rounded disabled">{{ item.text }}</a>
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
+                                <i class="fa fa-check-square"></i> {{ item.text }}</a>
                         </li>
                     {% else %}
                         <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
+                                <i class="fa fa-square"></i> {{ item.text }}</a>
                         </li>
                     {% endif %}
                 {% elif current_date < item.specific.start_date|date:"Y-m-d" %}
                     <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                        <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>
+                        <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
+                             <i class="fa fa-square"></i> {{ item.text }}</a>
                     </li>
                 {% else %}
                     {% if done %}
                         <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                            <a href="{{ item.href }}"  class="btn btn-sm btn-grey btn-rounded">{{ item.text }}</a>
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
+                                <i class="fa fa-check-square"></i> {{ item.text }}</a>
                         </li>
                     {% else %}
                         <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded">{{ item.text }}</a>
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
+                                <i class="fa fa-square"></i> {{ item.text }}</a>
                         </li>
                     {% endif %}
                     <!--
