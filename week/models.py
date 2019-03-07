@@ -73,6 +73,16 @@ class ModelIndexPage(Page):
 # class FormField(AbstractFormField):
 #     page = ParentalKey('NutritionPostPage', on_delete=models.CASCADE, related_name='custom_form_fields')
 
+# nutrition game_Kelley
+class NutritionGame(Page):
+    body = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    content_panels= Page.content_panels + [
+        FieldPanel('body', classname="full"),
+        ImageChooserPanel('display_image')
+    ]
+
 class NutritionPostPage(Page):
     body = RichTextField(blank=True)
     morecontent = RichTextField(blank=True)
