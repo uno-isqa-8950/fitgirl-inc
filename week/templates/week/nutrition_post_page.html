@@ -35,7 +35,7 @@
     <form>
         <input class="print-button" type="button" value="Print me!" onClick="printDiv('printableArea')"/>
     </form>
-    {% for post in page.get_children %}
+    {% for post in page.get_children.live %}
     <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
     {% endfor %}
     <br>
