@@ -763,30 +763,6 @@ background: #f6f6f6;
 }
 /*Vertical banner  announcements code ends here- Srishty*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   @media (max-width: 767px) {
       .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
           color: #ecf0f1;
@@ -805,7 +781,10 @@ background: #f6f6f6;
       #coloring-app {
           padding-bottom: 63.5% !important;
       }
-      
+
+      #nutrition-app {
+          padding-bottom: 63.5% !important;
+      }
 .nutrition-images-array img{
   width: 100%;
   height: 100%;
@@ -880,22 +859,6 @@ margin-top: 3rem!important;
 }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*coloring app styles_Kelley*/
 #coloring-app {
     position: relative;
@@ -916,6 +879,33 @@ margin-top: 3rem!important;
     height: 100%;
 }
 #coloring-app-att{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/*nutrition game styles_Kelley*/
+
+.nutrition-app {
+    position: relative;
+    padding-bottom: 63.5%;
+    padding-top: 35px;
+    height: auto;
+    width: auto;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.nutrition-app iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 90%;
+}
+
+#nutrition-app-att{
     text-align: center;
     margin-bottom: 30px;
 }
@@ -1015,6 +1005,31 @@ bottomBubbles {  0% {
   margin-bottom: 30px;
 }
 
+/*nutrition game_kelley*/
+.nutrition-app {
+    position: relative;
+    padding-bottom: 63.5%;
+    padding-top: 35px;
+    height: auto;
+    width: auto;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.nutrition-app iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 90%;
+}
+
+#nutrition-app-att{
+    text-align: center;
+    margin-bottom: 30px;
+}
   /* added space on logout, reset done, change done - hghanta*/
   .spacer-div-30 {
       width: 100%;
