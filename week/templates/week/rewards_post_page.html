@@ -13,7 +13,7 @@
     <h1 style="text-align: center;">{{ page.title }}</h1>
     <!--{{ page.description|richtext }}-->
     <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
-        {% for post in page.get_children %}
+        {% for post in page.get_children.live %}
             {% image post.specific.display_image original as reward_image %}
                     <input type="hidden" name="pageurl" value="{% pageurl page %}">
                     <div class="col-sm-4 mt-3">
