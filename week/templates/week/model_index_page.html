@@ -14,7 +14,7 @@
     <!--Card Content-->
     <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
         {% now "Y-m-d" as current_date %}
-        {% for post in page.get_children %}
+        {% for post in page.get_children.live %}
         {# Custom tags to indicate if the user is on the Nutrution page or the Physical page #}
         {% is_nutrition_page page as is_nutrition %}
         {% is_physical_page page as is_physical %}
