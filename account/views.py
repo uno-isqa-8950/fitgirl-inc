@@ -4,10 +4,15 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, ParametersForm
 from .forms import Profile,User, Program, ContactForm, ProgramClone
-from .models import RegisterUser, Affirmations, Dailyquote, Parameters
-from week.models import WeekPage, UserActivity, CustomFormSubmission
+from week.models import WeekPage, UserActivity, CustomFormSubmission, ServicePostPage
 from io import TextIOWrapper, StringIO
 import re, json
+
+from .models import Affirmations, Dailyquote, Parameters, Reward
+import weasyprint
+from io import BytesIO
+from django.template.loader import render_to_string
+
 from django.shortcuts import redirect
 import csv, string, random
 from django.contrib.auth.models import User
@@ -18,10 +23,11 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
-from django.core.mail import send_mass_mail, BadHeaderError, send_mail
+
 from django.views.generic import TemplateView
 #from chartjs.views.lines import BaseLineChartView
 from wagtail.core.models import Page
+from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 
 
 def user_login(request):
@@ -538,3 +544,4 @@ def export_data(request):
 #             final_data.append(count)
 #
 #         return final_data
+

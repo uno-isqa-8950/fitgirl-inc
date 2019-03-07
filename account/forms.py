@@ -96,7 +96,6 @@ class ParametersForm(forms.ModelForm):
         model = Parameters
         fields = ('physical_days_to_done', 'nutrition_days_to_done')
 
-
 class ProgramClone(forms.Form):
     program_list = list()
     for item in Program.objects.all():
@@ -106,3 +105,4 @@ class ProgramClone(forms.Form):
     new_start_date = forms.DateField(widget=forms.SelectDateWidget)
 
     fields = (program, new_start_date)
+

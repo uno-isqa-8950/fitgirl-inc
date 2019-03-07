@@ -32,6 +32,7 @@ urlpatterns = [
     path('userdashboard/', views.userdashboard, name='userdashboard'),
     path('cms_frame/', views.cms_frame, name='cms_frame'),
     path('export_data/', views.export_data, name='export_data'),
+    path('redeem-rewards/', views.rewards_redeem, name='redeem_rewards'),
     path('django_frame/', views.django_frame, name='django_frame'),
     path('profile/<int:pk>/', views.profile, name='profile'),
     path('archive/', views.archive, name='archive'),

@@ -61,7 +61,9 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'wagtailmenus',
     'crispy_forms',
-
+    'wagtail_gallery',
+    'wagtail.contrib.routable_page',
+    'django_social_share',
 
 ]
 
