@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Profile, Program, Parameters
 from django.utils.translation import gettext as _
 from datetime import date
-import zipcode
+#import zipcode
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -95,6 +95,7 @@ class ParametersForm(forms.ModelForm):
     class Meta:
         model = Parameters
         fields = ('physical_days_to_done', 'nutrition_days_to_done')
+
 
 class ProgramClone(forms.Form):
     program_list = list()
