@@ -11,11 +11,11 @@
     <br>
     <br>
   <h1 style="text-align: center;"><b>{{ page.title }}</b></h1>
-    <h3>{{ page.intro|richtext }}</h3>   
+    <h3>{{ page.intro|richtext }}</h3>
     <h3 style="text-align: center;">{{ page.description|richtext }}</h3>
     <!--Card Content-->
     <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
-        {% for post in page.get_children.live %}
+        {% for post in reward_post_page %}
             {% image post.specific.display_image original as reward_image %}
         <div class="col-sm-4 mt-3">
             <div class="card hoverable">

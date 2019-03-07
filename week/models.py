@@ -335,6 +335,11 @@ class RewardsIndexPage(Page):
 
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['reward_post_page'] = RewardsPostPage.objects.live()
+        return context
+
 #Added this to convert HTML page into CMS - Brent
 class ExtrasIndexPage(Page):
     intro = RichTextField(blank=True)
@@ -359,9 +364,15 @@ class RewardsPostPage(Page):
     ]
 
     def get_context(self, request):
-        print('inside get_context')
         context = super().get_context(request)
         context['user_data'] = User.objects.get(username = request.user.username)
+        context['25point_category'] = ServicePostPage.objects.filter(points_for_this_service__lte = 25)
+        context['50point_category'] = ServicePostPage.objects.filter(points_for_this_service__lte = 50,
+                                                                     points_for_this_service__gte = 26)
+        context['75point_category'] = ServicePostPage.objects.filter(points_for_this_service__lte = 75,
+                                                                     points_for_this_service__gte = 51)
+        context['100point_category'] = ServicePostPage.objects.filter(points_for_this_service__lte = 100,
+                                                                      points_for_this_service__gte = 76)
         return context
 
 

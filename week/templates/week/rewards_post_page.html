@@ -6,29 +6,80 @@
 
 {% block content %}
 
-
 <div class ="container rewards-post-page">
     <br>
     <br>
     <h1 style="text-align: center;">{{ page.title }}</h1>
-    <!--{{ page.description|richtext }}-->
     <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
-        {% for post in page.get_children.live %}
-            {% image post.specific.display_image original as reward_image %}
-                    <input type="hidden" name="pageurl" value="{% pageurl page %}">
-                    <div class="col-sm-4 mt-3">
-                        <div class="card hoverable">
-                            <a href ="{% pageurl post %}">
-                              <img class="card-img-top rewards-img" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: fill;"/>
+        {% if page.slug == "25-points" %}
+            {% for post in 25point_category %}
+                {% image post.specific.display_image original as reward_image %}
+                        <input type="hidden" name="pageurl" value="{% pageurl page %}">
+                        <div class="col-sm-4 mt-3">
+                            <div class="card hoverable">
+                                <a href ="{% pageurl post %}">
+                                  <img class="card-img-top rewards-img" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: fill;"/>
 
-                              <div class="card-body bg-dark">
-                                  <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
-                              </div>
+                                  <div class="card-body bg-dark">
+                                      <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
+                                  </div>
 
-                            </a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-        {% endfor %}
+            {% endfor %}
+        {% elif page.slug == "50-points" %}
+            {% for post in 50point_category %}
+                {% image post.specific.display_image original as reward_image %}
+                        <input type="hidden" name="pageurl" value="{% pageurl page %}">
+                        <div class="col-sm-4 mt-3">
+                            <div class="card hoverable">
+                                <a href ="{% pageurl post %}">
+                                  <img class="card-img-top rewards-img" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: fill;"/>
+
+                                  <div class="card-body bg-dark">
+                                      <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
+                                  </div>
+
+                                </a>
+                            </div>
+                        </div>
+            {% endfor %}
+        {% elif page.slug == "75-points" %}
+            {% for post in 75point_category %}
+                {% image post.specific.display_image original as reward_image %}
+                        <input type="hidden" name="pageurl" value="{% pageurl page %}">
+                        <div class="col-sm-4 mt-3">
+                            <div class="card hoverable">
+                                <a href ="{% pageurl post %}">
+                                  <img class="card-img-top rewards-img" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: fill;"/>
+
+                                  <div class="card-body bg-dark">
+                                      <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
+                                  </div>
+
+                                </a>
+                            </div>
+                        </div>
+            {% endfor %}
+        {% elif page.slug == "100-points" %}
+            {% for post in 100point_category %}
+                {% image post.specific.display_image original as reward_image %}
+                        <input type="hidden" name="pageurl" value="{% pageurl page %}">
+                        <div class="col-sm-4 mt-3">
+                            <div class="card hoverable">
+                                <a href ="{% pageurl post %}">
+                                  <img class="card-img-top rewards-img" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: fill;"/>
+
+                                  <div class="card-body bg-dark">
+                                      <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
+                                  </div>
+
+                                </a>
+                            </div>
+                        </div>
+            {% endfor %}
+        {% endif %}
     </div>
 
 </br>
@@ -36,21 +87,6 @@
 <!--added btn-return - Brent-->
 <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
 </div>
-
-<script>
-function validate(form) {
-    var points_for_service = form.getElementById("service_points").value;
-    console.log(points_for_service);
-    if({{ user_data.profile.points }} < points_for_service) {
-        alert('You do not have enough points');
-        return false;
-    }
-    else {
-        return confirm('{{ post.specific.points_for_this_service }} will be deducted from your points. Do you really want to continue?');
-    }
-}
-</script>
-
 
 
 
