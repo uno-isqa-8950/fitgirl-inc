@@ -2,9 +2,9 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm
 from .forms import Profile,User, Program, ContactForm
-from .models import RegisterUser, Affirmations, Dailyquote
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification
 from week.models import WeekPage, EmailTemplates
 from io import TextIOWrapper, StringIO
 import re
@@ -88,7 +88,7 @@ def login_success(request):
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     elif request.user.is_active:
-        current_week = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+        current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
         print(current_week)
         return render(request,
                       'account/current_week.html',
@@ -460,5 +460,57 @@ def email_individual(request,pk):
                 return HttpResponse('Invalid header found.')
             return render(request,'account/email_individual_confirmation.html',{'contact_email': contact_email},{'user_student':user_student})
     return render(request, 'account/email_individual.html', {'form': form,'user_student':user_student})
+
+
+
+@login_required
+def user_inactivity(request):
+    try:
+        user_inactive_days = Inactiveuser.objects.latest()
+        latest_date = user_inactive_days.set_days
+        print(latest_date)
+    except Inactiveuser.DoesNotExist:
+        latest_date = 7
+
+    if request.method == 'GET':
+        form = CronForm(initial={'days':latest_date})
+    else:
+        form = CronForm(request.POST,initial={'days':latest_date})
+        if form.is_valid():
+            inactive_days = form.cleaned_data['days']
+            days_data = Inactiveuser(set_days=inactive_days)
+            days_data.save()
+            messages.success(request,'User inactivity email notification period set successfully')
+            return redirect('user_inactivity')
+    return render(request,'account/user_inactivity.html',{'form':form})
+
+
+def rewards_notification(request):
+    try:
+        milestones = RewardsNotification.objects.latest()
+        set_point1 = milestones.Rewards_milestone_1
+        set_point2 = milestones.Rewards_milestone_2
+        set_point3 = milestones.Rewards_milestone_3
+        set_point4 = milestones.Rewards_milestone_4
+    except RewardsNotification.DoesNotExist:
+        set_point1 = 25
+        set_point2 = 50
+        set_point3 = 75
+        set_point4 = 100
+
+    if request.method == 'GET':
+        form = RewardsNotificationForm(initial={'Rewards_milestone_1':set_point1,'Rewards_milestone_2':set_point2,'Rewards_milestone_3':set_point3,'Rewards_milestone_4':set_point4})
+    else:
+        form = RewardsNotificationForm(request.POST,initial={'Rewards_milestone_1':set_point1,'Rewards_milestone_2':set_point2,'Rewards_milestone_3':set_point3,'Rewards_milestone_4':set_point4})
+        if form.is_valid():
+            Rewards_milestone_1 = form.cleaned_data['Rewards_milestone_1']
+            Rewards_milestone_2 = form.cleaned_data['Rewards_milestone_2']
+            Rewards_milestone_3 = form.cleaned_data['Rewards_milestone_3']
+            Rewards_milestone_4 = form.cleaned_data['Rewards_milestone_4']
+            rewards_notification_data = RewardsNotification(Rewards_milestone_1=Rewards_milestone_1,Rewards_milestone_2=Rewards_milestone_2,Rewards_milestone_3=Rewards_milestone_3,Rewards_milestone_4=Rewards_milestone_4)
+            rewards_notification_data.save()
+            messages.success(request,'Rewards email notification milestones set successfully')
+            return render(request,'account/rewards_notification.html',{'form':form})
+    return render(request,'account/rewards_notification.html',{'form':form})
 
 

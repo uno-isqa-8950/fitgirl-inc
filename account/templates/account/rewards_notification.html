@@ -1,0 +1,31 @@
+{% extends 'account/dashboard.html' %}
+
+
+{% block title %}Manage Rewards Notification{% endblock %}
+
+
+{% block dash_content %}
+<div class="container">
+<div class="spacer-div-32">
+  <ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+    <h1>Manage Rewards Notification</h1>
+
+    <p>Set the Rewards Milestones below for the user's to get E-mail notification on reaching the Milestone</p>
+
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <p><input type="submit" value="Submit">
+
+        <a class="btn btn-pink" href="{% url 'users' %}">Back</a></p>
+
+    </form>
+
+</div>
+</div>
+{% endblock %}

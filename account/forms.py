@@ -91,5 +91,13 @@ class ContactForm(forms.Form):
     message = forms.CharField(required=True, widget=forms.Textarea)
 
 
+class CronForm(forms.Form):
+    days = forms.ChoiceField(choices=[(x,x) for x in range(1,32)])
 
 
+
+class RewardsNotificationForm(forms.Form):
+    Rewards_milestone_1 = forms.IntegerField(required=True)
+    Rewards_milestone_2 = forms.IntegerField(required=True)
+    Rewards_milestone_3 = forms.IntegerField(required=True)
+    Rewards_milestone_4 = forms.IntegerField(required=True)

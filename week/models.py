@@ -73,6 +73,16 @@ class ModelIndexPage(Page):
 # class FormField(AbstractFormField):
 #     page = ParentalKey('NutritionPostPage', on_delete=models.CASCADE, related_name='custom_form_fields')
 
+# nutrition game_Kelley
+class NutritionGame(Page):
+    body = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    content_panels= Page.content_panels + [
+        FieldPanel('body', classname="full"),
+        ImageChooserPanel('display_image')
+    ]
+
 class NutritionPostPage(Page):
     body = RichTextField(blank=True)
     morecontent = RichTextField(blank=True)
@@ -471,14 +481,34 @@ class LandingIndexPage(Page):
     ]
 
 class EmailTemplates(Page):
+    subject_for_inactivity = models.CharField(max_length=10000, blank=True)
+    subject_for_group = models.CharField(max_length=10000, blank=True)
     group_message = RichTextField(blank=True)
-    individual_message = RichTextField(blank=True)
-
+    inactivity_message = RichTextField(blank=True)
+    subject_for_rewards_notification = models.CharField(max_length=10000, blank=True)
+    rewards_message = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
+        FieldPanel('subject_for_group', classname="full"),
         FieldPanel('group_message', classname="full"),
-        FieldPanel('individual_message', classname="full"),
+        FieldPanel('subject_for_inactivity', classname="full"),
+        FieldPanel('inactivity_message', classname="full"),
+        FieldPanel('subject_for_rewards_notification', classname="full"),
+        FieldPanel('rewards_message', classname="full"),
 
         ]
 
+# kindness card page starts here-- Srishty #
+class KindnessCardPage(Page):
+    KindnessCard = models.CharField(max_length=10000, blank=True, )
+    KindnessCard2 = models.CharField(max_length=10000, blank=True, )
+    KindnessCard3 = models.CharField(max_length=10000, blank=True, )
 
+    content_panels = Page.content_panels + [
+        FieldPanel('KindnessCard', classname="full"),
+        FieldPanel('KindnessCard2', classname="full"),
+        FieldPanel('KindnessCard3', classname="full"),
+
+    ]
+
+# kindness card page ends here-- Srishty #

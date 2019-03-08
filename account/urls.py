@@ -19,6 +19,7 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('edit/', views.edit, name='edit'),
     path('aboutus/', views.aboutus, name='aboutus'),
+    # path('KindnessCard/', views.KindnessCard, name='KindnessCard'),
     path('users/', views.users, name='users'),
     path('createprogram/', views.createprogram, name='createprogram'),
     path('programs/', views.createprogram, name='programs'),
@@ -33,5 +34,7 @@ urlpatterns = [
     path('group_email/', views.group_email, name='group_email'),
     path('send_group_email/', views.send_group_email, name='send_group_email'),
     path('send_individual_email/<int:pk>/', views.email_individual, name='send_individual_email'),
+    path('inactive_users/',views.user_inactivity,name='user_inactivity'),
+    path('rewards_notification',views.rewards_notification, name='rewards_notification'),
 
 ]
