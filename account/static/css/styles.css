@@ -38,10 +38,13 @@
   }
 }
 
-
-
-
-
+/*avoid text fields being split onto 2 pages when printing_Kelley*/
+@media print
+{
+    div{
+        page-break-inside: avoid;
+    }
+}
 
 body {
   background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
