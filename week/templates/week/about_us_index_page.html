@@ -9,15 +9,11 @@
 <!-- changes done for streched image- srishty -->
     <div class ="container about-us">
     <h1 style="text-align: center;"><b>{{ page.title }}</b></h1>
-    <h2 style="..."><b>{{ page.introduction }}</b></h2>
+    <h2 style="text-align: center;"><b>{{ page.introduction }}</b></h2>
     <h3 style="text-align: center;">{{ page.description|richtext }}</h3>
     <!--Card Content-->
-
-
-</br>
-</br>
 <!--<p><a href="{{ page.get_parent.url }}">Back</a></p>-->
-</div>
+
 
 <!--Advertisement-->
     <div class="img-responsive horizontal-banner" style="text-align: center;">
@@ -26,6 +22,7 @@
                 <img src="{{ ad_photo.url }}" class="img-fluid"/>
         </a>
     </div>
+</div>
     <!--End Advertisement-->
 {% endblock %}
 </div>

@@ -19,6 +19,7 @@
 	<title>{% block title %}{% endblock %}</title>
 	<link href="{% static 'css/base.css' %}" rel="stylesheet">
 <!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 </head>
 <body>
     <div class="nav-wrapper grey darken-1">
@@ -77,7 +78,7 @@
               <div class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></div>
             </li>
             <li class="nav-item ">
-              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">Reward Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
+              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">RP: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
             </li>
 
             {% endif %}
@@ -89,7 +90,7 @@
             </li>
 
             <li class="dropdown ">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" >
                   {% if request.user.is_staff %}
                       <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg" height="30" width="30">
                   {% else %}
@@ -156,11 +157,12 @@
 {% if request.user.is_authenticated %}
     <!--hghanta: changes for social media icons above footer-->
     <div id="container" class="fitgirlinc-footer-socialLinks">
-        <p>Follow us on social media</p>
+        <p>&nbsp;</p>
         <a href="https://www.facebook.com/fitgirlinc/"  target="_blank"><img class="facebook" src="{% static 'images/socialMedia_icons/facebook.png' %}" alt="facebook" height="40"/></a>
         <a href="https://www.instagram.com/fitgirlomaha/" target="_blank"><img class="instagram" src="{% static 'images/socialMedia_icons/instagram.png' %}" alt="instagram" height="40"/></a>
         <a href="https://www.pinterest.com/fitgirlinc2015/" target="_blank"><img class="pinterest" src="{% static 'images/socialMedia_icons/pinterest.png' %}" alt="pinterest" height="40"/></a>
         <a href="https://www.snapchat.com/add/fitgirlomaha" target="_blank"><img class="snapchat" src="{% static 'images/socialMedia_icons/snapchat.png' %}" alt="snapchat" height="40"/></a>
+        <a href="http://www.youtube.com/channel/UC9L3EfjfB-SvFACYR6moKRg" target="_blank"><img class="youtube" src="{% static 'images/socialMedia_icons/youtube_social_circle_red.png' %}" alt="youtube" height="40"/></a>
     </div>
     <div class="footer-wrapper grey darken-1">
     <footer>
@@ -205,7 +207,9 @@
         <!-- MDB core JavaScript -->
         <script src="{% static 'js/confetti.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
+        <!-- <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
         <script type="text/javascript" src="{% static 'js/soon.js' %}" ></script>
         <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
@@ -215,6 +219,9 @@ $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
    // Code for toggling the timer
 var r = $("<input/>").attr({ type: "a", id: "field", class:"start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light confetti-button",value:"start timer",href:"#"});
 $(".strength-paragraphs").append(r);
+
+
+
 });
 
     $(document).ready(function(){
