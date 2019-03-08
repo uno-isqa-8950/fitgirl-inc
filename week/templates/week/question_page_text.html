@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <div class ="container">
+    <div class="container">
     <div id="printableArea" class="intro">
 
 
@@ -14,6 +14,32 @@
             {% if form %}
                 <div>{{ page.intro|richtext }}</div>
                 <div>{{ page.description|richtext }}</div>
+
+                <script>
+                    function printDiv(divName) {
+                        var index = 0;
+                        var inputText = [];
+                        {% for field in form.visible_fields %}
+                            inputText[index] = document.getElementsByClassName("form-control")[index].value;
+                            index++;
+                        {% endfor %}
+                        var printContents = document.getElementById(divName).innerHTML;
+                        var originalContents = document.body.innerHTML;
+                        document.body.innerHTML = printContents;
+                        index = 0;
+                        {% for field in form.visible_fields %}
+                            document.getElementsByClassName("form-control")[index].value = inputText[index];
+                            index++;
+                        {% endfor %}
+                        window.print();
+                        document.body.innerHTML = originalContents;
+                        index = 0;
+                        {% for field in form.visible_fields %}
+                            document.getElementsByClassName("form-control")[index].value = inputText[index];
+                            index++;
+                        {% endfor %}
+                    }
+                </script>
                 <form action="{% pageurl page %}" method="POST">
 
                     {% csrf_token %}
@@ -25,40 +51,16 @@
                     {% endfor %}
 
                     <br>
+                    <div class="col-sm-8">
+                        <br>
+                        <input class="print-button" id="no-print" type="button" value="Print Form"
+                               onClick="printDiv('printableArea')"/>
+                        <br>
+                        <br>
+                        <br>
+                        <input class="btn-md btn-fitgirl" id="no-print" type="submit">
+                    </div>
                 </form>
-                <script>
-                    function printDiv(divName) {
-                        var index = 0;
-                        var inputText = [];
-                        {% for field in form.visible_fields %}
-                        inputText[index] = document.getElementsByClassName("form-control")[index].value;
-                        index++;
-                        {% endfor %}
-                        var printContents = document.getElementById(divName).innerHTML;
-                        var originalContents = document.body.innerHTML;
-                        document.body.innerHTML = printContents;
-                        index = 0;
-                        {% for field in form.visible_fields %}
-                        document.getElementsByClassName("form-control")[index].value = inputText[index];
-                        index++;
-                        {% endfor %}
-                        window.print();
-                        document.body.innerHTML = originalContents;
-                        index = 0;
-                        {% for field in form.visible_fields %}
-                        document.getElementsByClassName("form-control")[index].value = inputText[index];
-                        index++;
-                        {% endfor %}
-                    }
-                </script>
-                </div>
-                <div class="col-sm-8">
-                    <br>
-                    <input class="print-button" type="button" value="Print Form" onClick="printDiv('printableArea')"/>
-                    <br>
-                    <br>
-                    <br>
-                    <input class="btn-md btn-fitgirl" type="submit">
                 </div>
 
 
