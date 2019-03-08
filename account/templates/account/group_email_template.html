@@ -13,6 +13,10 @@
             <div style="text-align: center;">
                 {{ content.inactivity_message|richtext }}
             </div>
+            {% elif rewards_notification == "True" %}
+            <div style="text-align: center;">
+                {{ messages.rewards_message|richtext }}
+            </div>
         {% else %}
             <div style="text-align: center;">
                 {{ content.group_message|richtext }}

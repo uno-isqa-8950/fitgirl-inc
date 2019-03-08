@@ -15,7 +15,7 @@ def user_inactivity():
     except Inactiveuser.DoesNotExist:
         latest_set_date = 7
 
-    users = User.objects.filter(last_login__lte=datetime.datetime.now() - datetime.timedelta(days=latest_set_date)).filter(is_superuser=False)
+    users = User.objects.filter(last_login__lte=datetime.datetime.now() - datetime.timedelta(days=latest_set_date)).filter(is_superuser=False).filter(is_active=True)
     from_email = 'capstone18fa@gmail.com'
     # subject = EmailTemplates.objects.filter(subject_inactivity)
     # subject = 'Inactive for long time'
