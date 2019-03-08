@@ -123,3 +123,17 @@ class Inactiveuser(models.Model):
     #     instance.profile.save()
 
 
+class RewardsNotification(models.Model):
+    rewards_notification_id = models.AutoField(primary_key=True,blank=False,null=False)
+    Rewards_milestone_1 = models.IntegerField(default=25,blank=False,null=False)
+    Rewards_milestone_2 = models.IntegerField(default=50, blank=False, null=False)
+    Rewards_milestone_3 = models.IntegerField(default=75, blank=False, null=False)
+    Rewards_milestone_4 = models.IntegerField(default=100, blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.rewards_notification_id)
+
+    class Meta:
+        get_latest_by = 'created_at'

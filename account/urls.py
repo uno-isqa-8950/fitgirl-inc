@@ -35,5 +35,6 @@ urlpatterns = [
     path('send_group_email/', views.send_group_email, name='send_group_email'),
     path('send_individual_email/<int:pk>/', views.email_individual, name='send_individual_email'),
     path('inactive_users/',views.user_inactivity,name='user_inactivity'),
+    path('rewards_notification',views.rewards_notification, name='rewards_notification'),
 
 ]
