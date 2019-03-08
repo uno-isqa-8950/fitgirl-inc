@@ -44,6 +44,9 @@
     div{
         page-break-inside: avoid;
     }
+    #no-print{
+        display: none !important;
+    }
 }
 
 body {
