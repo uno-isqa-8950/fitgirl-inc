@@ -19,6 +19,7 @@
 	<title>{% block title %}{% endblock %}</title>
 	<link href="{% static 'css/base.css' %}" rel="stylesheet">
 <!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 </head>
 <body>
     <div class="nav-wrapper grey darken-1">
@@ -73,7 +74,7 @@
               <div class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></div>
             </li>
             <li class="nav-item ">
-              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">Reward Points: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
+              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">RP: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
             </li>
 
             {% endif %}
@@ -195,7 +196,9 @@
         <!-- MDB core JavaScript -->
         <script src="{% static 'js/confetti.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
+        <!-- <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
         <script type="text/javascript" src="{% static 'js/soon.js' %}" ></script>
         <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
@@ -205,6 +208,9 @@ $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
    // Code for toggling the timer
 var r = $("<input/>").attr({ type: "a", id: "field", class:"start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light confetti-button",value:"start timer",href:"#"});
 $(".strength-paragraphs").append(r);
+
+
+
 });
 </script>
 <style>
