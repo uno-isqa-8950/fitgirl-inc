@@ -96,6 +96,8 @@ class CronForm(forms.Form):
 
 
 
-
-
-
+class RewardsNotificationForm(forms.Form):
+    Rewards_milestone_1 = forms.IntegerField(required=True)
+    Rewards_milestone_2 = forms.IntegerField(required=True)
+    Rewards_milestone_3 = forms.IntegerField(required=True)
+    Rewards_milestone_4 = forms.IntegerField(required=True)

@@ -2,9 +2,9 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm
 from .forms import Profile,User, Program, ContactForm
-from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification
 from week.models import WeekPage, EmailTemplates
 from io import TextIOWrapper, StringIO
 import re
@@ -473,17 +473,44 @@ def user_inactivity(request):
         latest_date = 7
 
     if request.method == 'GET':
-        form = CronForm()
+        form = CronForm(initial={'days':latest_date})
     else:
-        form = CronForm(request.POST)
+        form = CronForm(request.POST,initial={'days':latest_date})
         if form.is_valid():
             inactive_days = form.cleaned_data['days']
             days_data = Inactiveuser(set_days=inactive_days)
             days_data.save()
             messages.success(request,'User inactivity email notification period set successfully')
             return redirect('user_inactivity')
-    return render(request,'account/user_inactivity.html',{'form':form,'latest_date':latest_date})
+    return render(request,'account/user_inactivity.html',{'form':form})
 
 
+def rewards_notification(request):
+    try:
+        milestones = RewardsNotification.objects.latest()
+        set_point1 = milestones.Rewards_milestone_1
+        set_point2 = milestones.Rewards_milestone_2
+        set_point3 = milestones.Rewards_milestone_3
+        set_point4 = milestones.Rewards_milestone_4
+    except RewardsNotification.DoesNotExist:
+        set_point1 = 25
+        set_point2 = 50
+        set_point3 = 75
+        set_point4 = 100
+
+    if request.method == 'GET':
+        form = RewardsNotificationForm(initial={'Rewards_milestone_1':set_point1,'Rewards_milestone_2':set_point2,'Rewards_milestone_3':set_point3,'Rewards_milestone_4':set_point4})
+    else:
+        form = RewardsNotificationForm(request.POST,initial={'Rewards_milestone_1':set_point1,'Rewards_milestone_2':set_point2,'Rewards_milestone_3':set_point3,'Rewards_milestone_4':set_point4})
+        if form.is_valid():
+            Rewards_milestone_1 = form.cleaned_data['Rewards_milestone_1']
+            Rewards_milestone_2 = form.cleaned_data['Rewards_milestone_2']
+            Rewards_milestone_3 = form.cleaned_data['Rewards_milestone_3']
+            Rewards_milestone_4 = form.cleaned_data['Rewards_milestone_4']
+            rewards_notification_data = RewardsNotification(Rewards_milestone_1=Rewards_milestone_1,Rewards_milestone_2=Rewards_milestone_2,Rewards_milestone_3=Rewards_milestone_3,Rewards_milestone_4=Rewards_milestone_4)
+            rewards_notification_data.save()
+            messages.success(request,'Rewards email notification milestones set successfully')
+            return render(request,'account/rewards_notification.html',{'form':form})
+    return render(request,'account/rewards_notification.html',{'form':form})
 
 
