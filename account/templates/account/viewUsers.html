@@ -67,8 +67,8 @@
                   <td align="center"><i class="fas fa-check fa-lg " style="color:#008000"></i><span class="hide">b</span></td>
                 {% endif %}
                 <td align="center">{{ registeredUser.profile.points }}</td>
-                <td><a href="{% url 'send_individual_email' pk=registeredUser.pk %}" class="btn btn-pink">E-mail</a> </td>
-                <td><a href="{% url 'manage_points' pk=registeredUser.pk %}" class="btn btn-pink">E-mail</a> </td>
+                <td align="center"><a href="{% url 'send_individual_email' pk=registeredUser.pk %}"  class="fas fa-envelope" style="font-size:45.76px;color:#ec407a"a> </td>
+                <td align="center"><a href="{% url 'manage_points' pk=registeredUser.pk %}" class="fas fa-plus-square" style="font-size:45.76px;color:#ec407a"a> </td>
 
             </tr>
             {% endfor %}

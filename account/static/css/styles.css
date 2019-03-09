@@ -79,20 +79,41 @@ body {
   margin: 0 auto;
 }
 .btn-fitgirl {
+    margin-left:10px;
     background-color: #ed217c!important;
     color: #fff!important;
+
 }
 
 .btn-return{
     margin-left:0;}
 
-.print-button {
-    margin-top: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #ed217c!important;
-    color: #fff!important;
+input[type=submit], a.button{
+    font-weight: inherit !important;
+    background: #ed217c;
+    color: #fff;
+    padding: 10px 25px;
+    font-size: 14px;
+    text-transform: inherit !important;
 }
+.print-button {
+
+    font-weight: inherit !important;
+    background: #ed217c;
+    color: #fff;
+    padding: 10px 25px;
+    font-size: 14px;
+    text-transform: inherit !important;
+}
+/*.print-button {*/
+    /*margin-left:10px;*/
+    /*margin-top: 10px;*/
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
+    /*padding-right: 18px;*/
+    /*background-color: #ed217c!important;*/
+    /*color: #fff!important;*/
+/*}*/
 
 .modal-dialog.modal-notify.modal-info .fa {
     color: #ed217c;
@@ -604,20 +625,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   margin-top: 103px;
   margin-bottom: 20px;
 }
-.back-btn{
-  /*background-image: url(../images/back-icon.png);*/
-  /*background-size: contain;*/
-  /*background-repeat: no-repeat;*/
-  /*border-radius: 4px;*/
-  /*padding: 20px;*/
-  /*font-size: 15px;*/
-  position: absolute;
-  /*font-weight: bold;*/
-  /*margin-left: 16px;*/
-  /*text-align: right;*/
-  left: 0;
-  /*padding: 9px 5px 9px 45px;*/
-  }
+
+.back-btn {
+    /* background-image: url(../images/back-icon.png); */
+    /* background-size: contain; */
+    /* background-repeat: no-repeat; */
+    /* border-radius: 4px; */
+    /* padding: 20px; */
+    /* font-size: 15px; */
+    position: absolute;
+    /* font-weight: bold; */
+    /* margin-left: 16px; */
+    /* text-align: right; */
+    left: 0;
+    /* padding: 9px 5px 9px 45px; */
+}
 
     #soon-glow {
         font-family: 'Quicksand', sans-serif;
@@ -1022,7 +1044,7 @@ border-radius: 15px 15px 0 0;
 
 
 }
-.card-body{
+.kindness-container .card-body{
   width: 100%;
     background: #F2F2F2;
     padding-top: 0;
@@ -1088,9 +1110,17 @@ iframe {
   min-width: 100%;
   *width: 100%;
 }
+.my-kindness-cards{
+  background: yellow;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 
-
-
+.kindness-container{
+  position: relative
+}
 
 
 
