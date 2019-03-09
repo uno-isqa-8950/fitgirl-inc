@@ -68,7 +68,7 @@
                 {% endif %}
                 <td align="center">{{ registeredUser.profile.points }}</td>
                 <td><a href="{% url 'send_individual_email' pk=registeredUser.pk %}" class="btn btn-pink">E-mail</a> </td>
-                <td><a href="{% url 'manage_points' pk=registeredUser.pk %}" class="btn btn-pink">E-mail</a> </td>
+                <td><a href="{% url 'manage_points' pk=registeredUser.pk %}" class="btn btn-pink">Points</a> </td>
 
             </tr>
             {% endfor %}
