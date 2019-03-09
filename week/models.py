@@ -335,6 +335,11 @@ class RewardsIndexPage(Page):
 
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['reward_post_page'] = RewardsPostPage.objects.live()
+        return context
+
 #Added this to convert HTML page into CMS - Brent
 class ExtrasIndexPage(Page):
     intro = RichTextField(blank=True)
@@ -358,6 +363,37 @@ class RewardsPostPage(Page):
         ImageChooserPanel('display_image')
     ]
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['user_data'] = User.objects.get(username = request.user.username)
+        context['25point_category'] = ServicePostPage.objects.filter(points_for_this_service__lte = 25)
+        context['50point_category'] = ServicePostPage.objects.filter(points_for_this_service__lte = 50,
+                                                                     points_for_this_service__gte = 26)
+        context['75point_category'] = ServicePostPage.objects.filter(points_for_this_service__lte = 75,
+                                                                     points_for_this_service__gte = 51)
+        context['100point_category'] = ServicePostPage.objects.filter(points_for_this_service__lte = 100,
+                                                                      points_for_this_service__gte = 76)
+        return context
+
+
+#services for reward redemption: hghanta
+class ServicePostPage(Page):
+    display_image = models.ForeignKey('wagtailimages.Image', null= True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    description = RichTextField(blank=True)
+    points_for_this_service = models.IntegerField(blank=True, default=0)
+
+    content_panels = Page.content_panels + [
+        ImageChooserPanel('display_image'),
+        FieldPanel('description', classname="full"),
+        FieldPanel('points_for_this_service', classname="title"),
+
+    ]
+
+    def get_context(self, request):
+        print('inside get_context of service post page')
+        context = super().get_context(request)
+        context['user_data'] = User.objects.get(username = request.user.username)
+        return context
 
 class QuestionTextFormField(AbstractFormField):
     page = ParentalKey('QuestionPageText', on_delete=models.CASCADE, related_name='form_field')
@@ -485,34 +521,6 @@ class Disclaimerlink(Page):
         ]
 
 
-class LandingIndexPage(Page):
-    intro = RichTextField(blank=True)
-    description = RichTextField(blank=True)
-    description1 = RichTextField(blank=True)
-    physical= RichTextField(blank=True)
-    nutritional= RichTextField(blank=True)
-    mental= RichTextField(blank=True)
-    relational= RichTextField(blank=True)
-    physicaldesc = RichTextField(blank=True)
-    nutritionaldesc = RichTextField(blank=True)
-    mentaldesc = RichTextField(blank=True)
-    relationaldesc = RichTextField(blank=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel('intro', classname="full"),
-        FieldPanel('description', classname="full"),
-        FieldPanel('description1', classname="full"),
-        FieldPanel('physical', classname="full"),
-        FieldPanel('nutritional', classname="full"),
-        FieldPanel('mental', classname="full"),
-        FieldPanel('relational', classname="full"),
-        FieldPanel('physicaldesc', classname="full"),
-        FieldPanel('nutritionaldesc', classname="full"),
-        FieldPanel('mentaldesc', classname="full"),
-        FieldPanel('relationaldesc', classname="full"),
-
-    ]
-
 class UserActivity(models.Model):
     program = models.ForeignKey(Program, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -549,6 +557,21 @@ def log_activity(user, points, program, page_url):
         activity_log.Activity = activity
 
     activity_log.save()
+
+#kindness card page starts here-- Srishty #
+class KindnessCardPage(Page):
+    KindnessCard = models.CharField(max_length=10000, blank=True, )
+    KindnessCard2 = models.CharField(max_length=10000, blank=True, )
+    KindnessCard3 = models.CharField(max_length=10000, blank=True, )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('KindnessCard', classname="full"),
+        FieldPanel('KindnessCard2', classname="full"),
+        FieldPanel('KindnessCard3', classname="full"),
+
+    ]
+
+# kindness card page ends here-- Srishty #
 
 #https://www.empoweruomaha.com/pages/spring-2019/week-1/bonus/teamwork/teamwork-quiz/
 

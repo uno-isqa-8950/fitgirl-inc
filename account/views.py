@@ -3,11 +3,16 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, ParametersForm
-from .forms import Profile,User, Program, ContactForm, ProgramClone
-from .models import RegisterUser, Affirmations, Dailyquote, Parameters
-from week.models import WeekPage, UserActivity, CustomFormSubmission
+from .forms import Profile,User, Program, ContactForm #, ProgramClone
+from .models import Affirmations, Dailyquote, Parameters, Reward
+from week.models import WeekPage, UserActivity, ServicePostPage, CustomFormSubmission
 from io import TextIOWrapper, StringIO
-import re, json
+import json
+import re, csv
+import weasyprint
+from io import BytesIO
+from django.template.loader import render_to_string
+
 from django.shortcuts import redirect
 import csv, string, random
 from django.contrib.auth.models import User
@@ -18,10 +23,9 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
-from django.core.mail import send_mass_mail, BadHeaderError, send_mail
 from django.views.generic import TemplateView
-#from chartjs.views.lines import BaseLineChartView
 from wagtail.core.models import Page
+from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 
 
 def user_login(request):
@@ -173,6 +177,7 @@ def register_user(request, row, name):
             email_template_name='registration/password_reset_newuser_email.html')
 
     if theUser is not None:
+        #vu.save()
         return True
     else:
         return False
@@ -519,22 +524,49 @@ def export_data(request):
     else:
         return HttpResponse('Invalid request')
 
+@login_required
+def rewards_redeem(request):
+    if request.method == "GET":
+        data = ServicePostPage.objects.get(page_ptr_id=10)
+        print(type(data.points_for_this_service))
+        return render(request, 'rewards/reward_confirmation.html')
+    else:
+        points = request.POST.get('points')
+        service = request.POST.get('service')
+        point = int(points)
+        print(type(point))
+        user1=User.objects.get(username=request.user.username)
+        print(user1.profile.points, point)
+        if user1.profile.points < point:
+            print('cannot redeem')
+        else:
+            print('ask if user wants to continue?')
+            user1.profile.points -= point
+            user1.profile.save()
+            points_available = user1.profile.points
+            rewards = Reward.objects.create(user=user1, points_redeemed=point, service_used=service)
+            reward_number = rewards.reward_no
+            subject = 'Confirmation Rewards Redeemed - Redemption No.'.format(rewards.reward_no)
+            messages = 'Check the PDF attachment for your redemption number'
+            from_email = 'capstone18FA@gmail.com'
+            email = EmailMessage(subject, messages, from_email, [user1.email])
+            print(user1.email)
+            #genarate PDF
+            html = render_to_string('rewards/pdf.html',{'point': point, 'service': service,
+                                                                        'points_available': points_available,
+                                                                        'reward_number': reward_number})
+            out = BytesIO()
+            stylesheets = [weasyprint.CSS('https://fitgirl-empoweru-prod.s3.amazonaws.com/static/css/pdf.css')]
+            print(stylesheets)
+            weasyprint.HTML(string=html).write_pdf(out,stylesheets=stylesheets)
+            email.attach('Redemption No. {}'.format(rewards.reward_no), out.getvalue(), 'application/pdf')
+            email.send()
+            return render(request, 'rewards/reward_confirmation.html', {'point': point, 'service': service,
+                                                                        'points_available': points_available,
+                                                                        'reward_number': reward_number})
 
-# class LineChartJSONView(BaseLineChartView):
-#     def get_context_data(self, **kwargs):
-#         context = super(AnalyticsIndexView, self).get_context_data(**kwargs)
-#         context['30_day_registrations'] = self.thirty_day_registrations()
-#         return context
-#
-#     def thirty_day_registrations(self):
-#         final_data = []
-#
-#         date = arrow.now()
-#         for day in xrange(1, 30):
-#             date = date.replace(days=-1)
-#             count = User.objects.filter(
-#                 date_joined__gte=date.floor('day').datetime,
-#                 date_joined__lte=date.ceil('day').datetime).count()
-#             final_data.append(count)
-#
-#         return final_data
+@login_required
+def viewRewards(request):
+    rewards = Reward.objects.all()
+    user = User.objects.get(username=request.user.username)
+    return render(request, 'rewards/viewRewards.html', {'rewards' : rewards, 'user': user})
