@@ -97,12 +97,12 @@ class ParametersForm(forms.ModelForm):
         fields = ('physical_days_to_done', 'nutrition_days_to_done')
 
 
-# class ProgramClone(forms.Form):
-#     program_list = list()
-#     for item in Program.objects.all():
-#         tuple = (item.id, item.program_name)
-#         program_list.append(tuple)
-#     program = forms.ChoiceField(choices=program_list)
-#     new_start_date = forms.DateField(widget=forms.SelectDateWidget)
-#
-#     fields = (program, new_start_date)
+class ProgramClone(forms.Form):
+    program_list = list()
+    for item in Program.objects.all():
+        tuple = (item.id, item.program_name)
+        program_list.append(tuple)
+    program = forms.ChoiceField(choices=program_list)
+    new_start_date = forms.DateField(widget=forms.SelectDateWidget)
+
+    fields = (program, new_start_date)
