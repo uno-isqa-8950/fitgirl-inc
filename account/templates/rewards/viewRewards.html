@@ -12,17 +12,27 @@
         {% endfor %}
     </ul>
 
-      <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered" class="target">
+      <table id="example" class="table table-hover table-striped table-bordered" class="target">
           <thead class="thead stylish-color text-white">
           <tr>
-              <th class="th-lg">Reward Number<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg">User<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg text-center">Points Redeemed<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg text-center">Points post redemption</th>
-              <th class="th-lg text-center">Service Used</th>
-              <th class="th-lg text-center">Time stamp</th>
-              <th class="th-lg text-center">Redeem Status</th>
+              <th class="th-lg rewards-th">Reward Number<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th class="th-lg rewards-th">User<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th class="th-lg text-center rewards-th">Points Redeemed<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th class="th-lg text-center rewards-th">Service Used<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th class="th-lg text-center rewards-th">Time stamp<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th class="th-lg text-center rewards-th" colspan="2" >Redeem Status</th>
+              <!--<th class="th-lg text-center" >Redeem Status</th>-->
           </tr>
+          <tr class="hide" style="display:none">
+
+            <th>&nbsp;</th> <!-- column 4 -->
+            <th>&nbsp;</th> <!-- column 4 -->
+            <th>&nbsp;</th> <!-- column 4 -->
+            <th>&nbsp;</th> <!-- column 4 -->
+            <th>&nbsp;</th> <!-- column 4 -->
+            <th>&nbsp;</th> <!-- column 4 -->
+            <th>&nbsp;</th> <!-- column 5 -->
+         </tr>
           </thead>
             <tbody>
                 {% for rewards in rewards %}
@@ -30,10 +40,15 @@
                         <td>{{ rewards.reward_no }}</td>
                         <td>{{ rewards.user }}</td>
                         <td align="center">{{ rewards.points_redeemed }}</td>
-                        <td align="center">{{ rewards.points_redeemed }}</td>
                         <td align="center">{{ rewards.service_used }}</td>
                         <td align="center">{{ rewards.timestamp }}</td>
-                        <td align="center">{{ rewards.redeem_status }}</td>
+                        {% if rewards.redeem_status == "No" %}
+                            <td><a href="{% url 'redeem_yes' reward_no=rewards.reward_no %}">Yes</a></td>
+                            <td align="center" class="btn-green">{{ rewards.redeem_status }}</td>
+                        {% elif rewards.redeem_status == "Yes" %}
+                            <td align="center" class="btn-green">{{ rewards.redeem_status }}</td>
+                            <td align="center"><a href="{% url 'redeem_no' reward_no=rewards.reward_no %}">No</a></td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>
@@ -44,7 +59,7 @@
 
 <script>
   $(document).ready(function () {
-      $('#dtDynamicVerticalScroll').DataTable({
+      $('#example').DataTable({
           "order": [[4, "YES"]],
           "responsive": true,
           "scrollCollapse": true,

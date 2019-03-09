@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+$('.rewards-th').unbind('click').bind('click', function (e) {
+  var col = $(this).parent().children().index($(this));
+  $('.hide').children().eq(col).trigger('click');
+    }
+);
     // Affirmations popup code starts here - Karthik
     if ($(".current-week").length == 0) {
         //Not the user-landing page
@@ -69,4 +74,3 @@ $( ".physical-post-page br" ).remove();
 // }
 });
 
-  

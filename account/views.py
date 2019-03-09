@@ -531,5 +531,29 @@ def rewards_redeem(request):
 @login_required
 def viewRewards(request):
     rewards = Reward.objects.all()
-    user = User.objects.get(username=request.user.username)
-    return render(request, 'rewards/viewRewards.html', {'rewards' : rewards, 'user': user})
+    # user1 = Reward.objects.all().user
+    # print(rewards)
+    # # print(rewards.user)
+    # registeredUsers = User.objects.filter(is_superuser = False, username=rewards.user)
+    # print(registeredUsers)
+    # user1 = User.objects.get(username=rewards.user)
+    # print(user1)
+    return render(request, 'rewards/viewRewards.html', {'rewards' : rewards})
+
+@login_required
+def redeem_yes(request, reward_no):
+    reward = Reward.objects.get(reward_no=reward_no)
+    reward.redeem_status = 'Yes'
+    reward.save()
+    rewards = Reward.objects.all()
+    messages.success(request, f'Reward number: {reward.reward_no} status set to {reward.redeem_status} for {reward.user} ')
+    return render(request, 'rewards/viewRewards.html', {'rewards': rewards})
+
+@login_required
+def redeem_no(request, reward_no):
+    reward = Reward.objects.get(reward_no=reward_no)
+    reward.redeem_status = 'No'
+    reward.save()
+    rewards = Reward.objects.all()
+    messages.success(request, f'Reward number: {reward.reward_no}, status set to {reward.redeem_status} for {reward.user} ')
+    return render(request, 'rewards/viewRewards.html', {'rewards': rewards})
