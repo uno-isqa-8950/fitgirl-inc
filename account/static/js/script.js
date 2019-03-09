@@ -47,11 +47,7 @@ $(".flexibility-paragraphs").insertAfter(".flexibility-images-array");
 $(".physical-post-page").closest("body").addClass("physical-body");
 $( ".physical-post-page br" ).remove();
 
-
-
-
-
-// var phyiscaltimer = function(){
+// var physicaltimer = function(){
 // $('.drawer').slideDrawer({
 // showDrawer: false, // The drawer is hidden by default.
 // slideTimeout: true, // Sets the drawer to slide down after set count if set to true.
