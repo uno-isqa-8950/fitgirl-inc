@@ -8,7 +8,7 @@ from .models import Affirmations, Dailyquote, Parameters, Reward
 from week.models import WeekPage, UserActivity, ServicePostPage
 from io import TextIOWrapper, StringIO
 import re, csv
-import weasyprint
+# import weasyprint
 from io import BytesIO
 from django.template.loader import render_to_string
 
