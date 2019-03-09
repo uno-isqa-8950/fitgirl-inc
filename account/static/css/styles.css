@@ -605,18 +605,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   margin-bottom: 20px;
 }
 .back-btn{
-  background-image: url(../images/back-icon.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  border-radius: 4px;
-  padding: 20px;
-  font-size: 15px;
+  /*background-image: url(../images/back-icon.png);*/
+  /*background-size: contain;*/
+  /*background-repeat: no-repeat;*/
+  /*border-radius: 4px;*/
+  /*padding: 20px;*/
+  /*font-size: 15px;*/
   position: absolute;
-  font-weight: bold;
-  margin-left: 16px;
-  text-align: right;
+  /*font-weight: bold;*/
+  /*margin-left: 16px;*/
+  /*text-align: right;*/
   left: 0;
-  padding: 9px 5px 9px 45px;
+  /*padding: 9px 5px 9px 45px;*/
   }
 
     #soon-glow {
