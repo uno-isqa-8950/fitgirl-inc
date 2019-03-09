@@ -539,7 +539,7 @@ def manage_points(request,pk):
             print(point)
             #form = form.save(commit=False)
             #form.save()
-            messages.success(request, 'Points updated successfully')
+            messages.success(request, f'{user_point} points has been added to {user_name}')
             return redirect('users')
             #return render(request,
              #          'account/point_confirmation.html',
