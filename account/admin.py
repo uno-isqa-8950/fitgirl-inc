@@ -42,7 +42,7 @@ admin.site.register(User, CustomUserAdmin)
 #admin.site.register(Profile)
 admin.site.register(RegisterUser)
 
-'''
+
 class AffirmationAdmin(admin.ModelAdmin):
     Quotes = 'Quotes'
     list_display = ('affirmation', 'published_date')
@@ -50,7 +50,7 @@ class AffirmationAdmin(admin.ModelAdmin):
     search_fields = ('affirmation', 'published_date')
 
 admin.site.register(Affirmations, AffirmationAdmin)
-'''
+
 class DailyquoteAdmin(admin.ModelAdmin):
     list_display = ('dailyquote', 'quote_date')
     list_filter = ('dailyquote', 'quote_date')
