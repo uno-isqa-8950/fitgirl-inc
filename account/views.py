@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm
 from .forms import Profile,User, Program, ContactForm
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification
 from week.models import WeekPage, EmailTemplates
@@ -512,5 +512,39 @@ def rewards_notification(request):
             messages.success(request,'Rewards email notification milestones set successfully')
             return render(request,'account/rewards_notification.html',{'form':form})
     return render(request,'account/rewards_notification.html',{'form':form})
+
+def manage_points(request,pk):
+    user1 = get_object_or_404(User,pk=pk)
+    user_name = user1.email
+    user_point = user1.profile.points
+    if request.method == 'GET':
+        form = ManagePointForm()
+    else:
+        form = ManagePointForm(request.POST)
+        if form.is_valid():
+
+            #user = User.objects.get(username=request.POST.get('username'))
+            # user = form.objects.get('users')
+
+            point = user1.profile.points
+            print(point)
+            manage_points = form.cleaned_data['manage_points']
+            print(manage_points)
+            print(type(manage_points))
+            added_points = int(manage_points)
+            point += added_points
+            user1.profile.points = point
+            user1.profile.save()
+            # user.save()
+            print(point)
+            #form = form.save(commit=False)
+            #form.save()
+            messages.success(request, 'Points updated successfully')
+            return redirect('users')
+            #return render(request,
+             #          'account/point_confirmation.html',
+              #          { 'form': form,'user_name':user_name,'user_point':user_point})
+    return render(request, 'account/managepoints.html', {'form': form,'user_name':user_name,'user_point':user_point})
+
 
 

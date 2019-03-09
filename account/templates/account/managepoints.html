@@ -1,0 +1,28 @@
+{% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block dash_content %}
+<div class="container">
+    <div class="col-9 offset-lg-0">
+        <div class="spacer-div-30">
+      <br>
+      <br>
+    <h1 class="text-left">Manage Points</h1>
+    <form action="" method="post">
+            {% csrf_token %}
+
+            Username:
+            {{user_name}}
+    <p>
+        <br><bold>Current Points: </bold> {{user_point}}
+            {{ form|crispy }}
+        </br>
+    </p>
+
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-pink"> &nbsp Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
