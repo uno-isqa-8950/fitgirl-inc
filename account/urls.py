@@ -37,5 +37,6 @@ urlpatterns = [
     path('inactive_users/',views.user_inactivity,name='user_inactivity'),
     path('rewards_notification',views.rewards_notification, name='rewards_notification'),
     path('manage_points/<int:pk>/', views.manage_points, name='manage_points'),
+    path('admin_edit/', views.admin_edit, name='admin_edit'),
 
 ]

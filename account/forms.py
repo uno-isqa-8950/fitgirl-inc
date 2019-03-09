@@ -107,3 +107,18 @@ class ManagePointForm(forms.Form):
     #programs = forms.ModelChoiceField(queryset=Program.objects.all().order_by('program_name'))
     #users = forms.ModelChoiceField(queryset=User.objects.filter(is_superuser=False).order_by('username'))
     manage_points = forms.IntegerField(required=True)
+
+class AdminEditForm(forms.ModelForm):
+    photo = forms.ImageField(widget=forms.FileInput(attrs={'class': 'media'}), required=False)  # Image field is optional --Shamrose
+    bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': ' Write Something about yourself'}))
+    date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'mm/dd/yyyy format'}))
+    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your Address'}))
+    zip = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your Zip-Code'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your city name'}))
+    state = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your State'}))
+    day_phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}))
+
+
+    class Meta:
+        model = Profile
+        fields = ('photo', 'bio', 'date_of_birth', 'address', 'city', 'state', 'zip', 'day_phone')
