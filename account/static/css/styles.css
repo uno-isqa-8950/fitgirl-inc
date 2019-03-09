@@ -921,12 +921,14 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 }
 .heart-incomplete{
     overflow: hidden;
-    width: 15px;
-}
+    width: 15px;}
 
 .announcements ol li{
         font-size: 10px;
     padding: 5px 3px;
+}
+.announcements {
+
 }
 .announcements {
   width: 100%;
