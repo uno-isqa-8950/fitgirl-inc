@@ -1016,7 +1016,7 @@ border-radius: 15px 15px 0 0;
 
 
 }
-.card-body{
+.kindness-container .card-body{
   width: 100%;
     background: #F2F2F2;
     padding-top: 0;
@@ -1082,9 +1082,17 @@ iframe {
   min-width: 100%;
   *width: 100%;
 }
+.my-kindness-cards{
+  background: yellow;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 
-
-
+.kindness-container{
+  position: relative
+}
 
 
 
