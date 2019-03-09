@@ -49,14 +49,14 @@ class InspirationalQuotes(models.Model):
     def __str__(self):
         return str(self.quote)
     
-'''
+
 class Affirmations(models.Model):
     affirmation = models.CharField(max_length=500, blank=True, null=True)
     published_date = models.DateField(null=True, blank=False)
     
     def __str__(self):
         return str(self.affirmation)
-'''
+
 class Dailyquote(models.Model):
     dailyquote = models.CharField(max_length=500, blank=True, null=True)
     quote_date = models.DateField(null=True, blank=False)
