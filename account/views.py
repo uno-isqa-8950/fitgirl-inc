@@ -3,8 +3,8 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm
-from .forms import Profile,User, Program, ContactForm
-from .models import RegisterUser,Dailyquote, Inactiveuser, RewardsNotification
+from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification
 from week.models import WeekPage, EmailTemplates
 from io import TextIOWrapper, StringIO
 import re
@@ -22,6 +22,7 @@ import datetime
 from django.core.mail import BadHeaderError, send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from django.utils import timezone
 
 def user_login(request):
     if request.method == 'POST':
@@ -349,7 +350,30 @@ def edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form,
                    'activated':activated})
+@login_required
+def admin_edit(request):
+    if request.method == 'POST':
+        # update
+        user_form = UserEditForm(instance=request.user,
+                                 data=request.POST)
+        admin_form = AdminEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
 
+        if user_form.is_valid() and admin_form.is_valid():
+            user_form.save()
+            admin_form.save()
+            theProfile = request.user.profile
+            theProfile.profile_filled = True
+            theProfile.save()
+            messages.success(request, 'Profile updated successfully')
+            return redirect('users')
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        # edit
+        user_form = UserEditForm(instance=request.user)
+        admin_form = AdminEditForm(instance=request.user.profile)
+
+    return render(request, 'account/admin_edit.html', {'user_form': user_form, 'admin_form': admin_form})
 
 
 
