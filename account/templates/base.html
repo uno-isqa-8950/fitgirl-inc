@@ -19,7 +19,7 @@
 	<title>{% block title %}{% endblock %}</title>
 	<link href="{% static 'css/base.css' %}" rel="stylesheet">
 <!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<!-- <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
 </head>
 <body>
     <div class="nav-wrapper grey darken-1">
@@ -73,12 +73,21 @@
             </li>
               <!--kindeness card tab ends -srishty-->
         </ul>
-        <ul class="navbar-nav navbar-centre">
-            <li class="nav-item" class="navbar-nav navbar-centre">
+        <ul class="navbar-nav navbar-centre" style="margin-right: 6px; margin-top: -7px;">
+            <!-- <li class="nav-item" class="navbar-nav navbar-centre">
               <div class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></div>
-            </li>
+            </li> -->
             <li class="nav-item ">
-              <a class="nav-link hoverable" href="/pages/rewards/" style="background-color: rgba(255,255,255,.1);">RP: {{ user.profile.points }}<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/pages/rewards/" style="position:relative;">
+                     <img class="rewards-icon" alt="My Rewards" src="{% static 'images/iconfinder_badge_3688520.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                      <span class="sr-only">(current)</span>
+                  </a>
+                  </li>
+            <li class="nav-item ">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target=".bd-example-modal-lg" style="position:relative;">
+                     <img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                      <span class="sr-only">(current)</span>
+                  </a>
             </li>
 
             {% endif %}
@@ -92,7 +101,7 @@
             <li class="dropdown ">
                 <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" >
                   {% if request.user.is_staff %}
-                      <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg" height="30" width="30">
+                      <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg" height="35" width="35">
                   {% else %}
                       <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30" width="30" style="height: 30px;width: 30px">
                   {% endif %}
@@ -121,9 +130,11 @@
                     <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li> -->
                     <!--user name added below and removed welcome--Srishty-->
                     <!--<a class="dropdown-item" href="#">{{ user.get_short_name|capfirst }}</a>-->
-                    <a class="dropdown-item no-pointer" href="#">{{ user.get_short_name|capfirst }}<span class="user-dropdown"></span>
+                    <a class="dropdown-item no-pointer" href="#">{{ user.get_short_name|capfirst }}</a><span class="user-dropdown"></span>
                     <!--<a class="dropdown-item"> href="#"{{ user.get_short_name|capfirst }}</a>-->
-
+                    <a class="dropdown-item no-pointer" href="#">Program: {{ user.profile.program.program_name }}</a>
+                    <div class="dropdown-divider"></div>
+ 
                     <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-edit fa-fw"></i> Edit Profile</a>
                     <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
                     <a class="dropdown-item logout-button" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
@@ -241,6 +252,47 @@ $('a[href^="https://"]').attr('target', '_blank');
         background-color: #e3e3e3;
     }
 </style>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+                <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel">My Cards</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
 
+
+<div class="container">
+                            <div class="row">
+    
+                                    <div class="col-md-6">      
+                                      <!-- tabs left -->
+                                      <div class="tabbable tabs-left">
+                                        <ul class="nav nav-tabs">
+                                          <li><a href="#a" data-toggle="tab">One</a></li>
+                                          <li class="active"><a href="#b" data-toggle="tab">Two</a></li>
+                                          <li><a href="#c" data-toggle="tab">Twee</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                         <div class="tab-pane active" id="a">Lorem ipsum dolor sit amet, charetra varius quam sit amet vulputate. 
+                                         Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero.</div>
+                                         <div class="tab-pane" id="b">Secondo sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+                                         Aliquam in felis sit amet augue.</div>
+                                         <div class="tab-pane" id="c">Thirdamuno, ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+                                         Quisque mauris augue, molestie tincidunt condimentum vitae. </div>
+                                        </div>
+                                      </div>
+                                      <!-- /tabs -->
+                                      
+                                    </div>
+                          </div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
 </body>
 </html>
