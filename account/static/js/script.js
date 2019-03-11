@@ -212,6 +212,7 @@ if ($("#dtDynamicVerticalScroll, .trigger-admin").length > 0) {
 }
 if($("#canvas").length>0){
     $("body").attr('style', 'background-image: none !important');
+    $(".back-btn").css('position','relative');
 }
 });
 
