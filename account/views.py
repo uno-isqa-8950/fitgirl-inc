@@ -568,7 +568,8 @@ def manage_points(request,pk):
             #return render(request,
              #          'account/point_confirmation.html',
               #          { 'form': form,'user_name':user_name,'user_point':user_point})
-    return render(request, 'account/managepoints.html', {'form': form,'user_name':user_name,'user_point':user_point})
+        return render(request, 'account/managepoints.html', {'form': form,'user_name':user_name,'added_points':added_points})
+    return render(request,'account/managepoints.html',{'form':form,'user_name':user_name,'added_points':added_points})
 
 
 
