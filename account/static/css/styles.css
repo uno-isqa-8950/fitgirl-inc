@@ -133,6 +133,9 @@ body{
 #my-soon-watch-red .soon-ring-progress {border-top-width:14px;}
 #my-soon-watch-red .soon-ring-progress {border-bottom-width:13px;}
 
+.navbar-light .btn-grey{
+  background-color: #FFA500!important;
+}
 
 .main-color-bg{
 
