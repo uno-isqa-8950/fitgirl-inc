@@ -72,7 +72,6 @@ class Profile(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
     secondary_email = models.EmailField(max_length=255, blank=True, null=True)
-    other_email = models.EmailField(max_length=255, blank=True, null=True)
     third_email = models.EmailField(max_length=255, blank=True, null=True)
     fourth_email = models.EmailField(max_length=255, blank=True, null=True)
     zip = models.IntegerField(blank=True, null=True)
