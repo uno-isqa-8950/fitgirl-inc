@@ -105,13 +105,13 @@ class Fact(Page):
     intro = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
-
+    description = RichTextField(blank=True)
     body = RichTextField(blank=True)
     content_panels= Page.content_panels + [
         FieldPanel('intro', classname="full"),
         ImageChooserPanel('display_image'),
         FieldPanel('body', classname="full"),
-
+        FieldPanel('description', classname="full")
     ]
 
 class QuestionFormField(AbstractFormField):

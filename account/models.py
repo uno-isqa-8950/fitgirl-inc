@@ -53,7 +53,7 @@ class InspirationalQuotes(models.Model):
 class Affirmations(models.Model):
     affirmation = models.CharField(max_length=500, blank=True, null=True)
     published_date = models.DateField(null=True, blank=False)
-    
+    description = models.CharField(max_length=500, blank=True, null=True)
     def __str__(self):
         return str(self.affirmation)
 
@@ -75,7 +75,9 @@ class Profile(models.Model):
     other_email = models.EmailField(max_length=255, blank=True, null=True)
     zip = models.IntegerField(blank=True, null=True)
     city = models.CharField(max_length=25, blank=True, null=True)
+    county = models.CharField(max_length=25, blank=True, null=True)
     state = models.CharField(max_length=25, blank=True, null=True)
+    country = models.CharField(max_length=25, blank=True, null=True)
     day_phone = models.CharField(blank=True, null=True, max_length=13)
     eve_phone = models.CharField(blank=True, null=True, max_length=13)
     age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
