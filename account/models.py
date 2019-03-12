@@ -71,6 +71,7 @@ class Profile(models.Model):
     bio = models.CharField(max_length=255, blank=False, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
+    secondary_email = models.EmailField(max_length=255, blank=True, null=True)
     zip = models.IntegerField(blank=True, null=True)
     city = models.CharField(max_length=25, blank=True, null=True)
     state = models.CharField(max_length=25, blank=True, null=True)
