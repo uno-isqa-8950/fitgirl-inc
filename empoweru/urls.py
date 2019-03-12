@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
-from account.views import ssl_validate
+from django.conf.urls import url
+#from account.views import ssl_validate 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.core import urls as wagtail_urls
@@ -26,9 +27,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
     path('', include('account.urls')),
-    path('.well-known/acme-challenge/CvHnBeuXkxiUJmNHz7trjEsj50l7C_jw5Vlp8qBHers',views.ssl_validate, name='ssl_validate'),
+    #path('.well-known/',include('letsencrypt.urls')),
+    #url(r'^\.well-known/', include('letsencrypt.urls')),
     path('avatar/', include('avatar.urls')),
-    path('assessment/', include('assessment.urls')),
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^documents/', include(wagtaildocs_urls)),
     re_path(r'^pages/', include(wagtail_urls)),

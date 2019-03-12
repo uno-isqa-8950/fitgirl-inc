@@ -1,0 +1,14 @@
+{% extends "account/dashboard.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block title %}Analytics{% endblock %}
+{% block dash_content %}
+    {% if request.user.is_superuser %}
+        <form action="/export_data/" method="post">
+            {% csrf_token %}
+            <button class="btn btn-pink" name="export_useractivity">Export User Activity Data</button>
+        </form>
+        </div>
+    {% endif %}
+{% endblock %}

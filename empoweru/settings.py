@@ -9,8 +9,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 #import django_heroku
 import os
 from decouple import config
-import os
-
 
 
 
@@ -40,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'storages',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -57,13 +56,13 @@ INSTALLED_APPS = [
     'taggit',
     'empoweru',
     'avatar',
-    'assessment',
     'home',
     'week',
     'widget_tweaks',
     'wagtailmenus',
     'crispy_forms',
-    'storages',
+
+
 ]
 
 MIDDLEWARE = [
@@ -103,10 +102,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'empoweru.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -119,7 +114,42 @@ DATABASES = {
 }
 
 
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd4br3qegmoba7s',
+#         'USER': 'vlpfizeviactfl',
+#         'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
+#         'HOST': 'ec2-23-21-171-249.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
+
+
+
+# # ## Local Setting
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'empoweru4',
+        'USER': 'postgres',
+        'PASSWORD': 'instructor1a',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+'''
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -156,10 +186,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
 
 
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
@@ -184,9 +214,6 @@ DEFAULT_FILE_STORAGE = 'storage_backends.MediaStorage'
 AWS_HEADERS = {
     'Access-Control-Allow-Origin': '*'
 }
-# STATIC_ROOT = os.path.join(BASE_DIR, 'stat
-
-
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'

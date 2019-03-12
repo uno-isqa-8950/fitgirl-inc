@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
-
+@import url('http://fonts.googleapis.com/css?family=Quicksand');
+@import url('http://fonts.googleapis.com/css?family=Comfortaa');
+@import "compass/css3";
 body{
     background: #f4f4f4;
 }
@@ -12,6 +14,10 @@ body{
 .btn-return{
     margin-left:0;}
 
+.print-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 .modal-dialog.modal-notify.modal-info .fa {
     color: #ed217c;
 }
@@ -104,7 +110,28 @@ body{
   .navbar .navbar-link:hover {
     color: #fcfbfe;
   }
+.demo{
+  position: fixed;
+  bottom:0;
+  height: 226px;
+  width: 100%;
+  /* display: none; */
+  visibility: hidden;
+  z-index: 1000;
+}
+.soon {
+    max-width: 1253px;
+    margin: 0 auto !important;
+}
 
+#my-soon-watch-red {background-color:#030303da;background-image: url(../images/inspiration-geometry.png);}
+#my-soon-watch-red .soon-reflection {background-color:#030303;background-image:linear-gradient(#030303 25%,rgba(3,3,3,0));}
+#my-soon-watch-red {color:#ffffff;}
+#my-soon-watch-red .soon-label {color:#ffffff;color:rgba(255,255,255,0.75);}
+#my-soon-watch-red {font-family:"Comfortaa",sans-serif;}
+#my-soon-watch-red .soon-ring-progress {background-color:#410918;}
+#my-soon-watch-red .soon-ring-progress {border-top-width:14px;}
+#my-soon-watch-red .soon-ring-progress {border-bottom-width:13px;}
 
 
 .main-color-bg{
@@ -117,35 +144,429 @@ body{
 
 }
 
-  @media (max-width: 575px) {
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
-      color: #ecf0f1;
-    }
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-      color: #fcfbfe;
-    }
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
-      color: #fcfbfe;
-      background-color: #e07dc4;
-    }
+#header{
+  background: #333333;
+  color:#ffffff;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+#header > h4{
+  padding-top:10px;
+}
+
+#header .create{
+  padding-top:    5px;
+  padding-bottom: 0px;
+}
+
+/*Breadcrumb*/
+
+.breadcrumb{
+  background: #cccccc;
+  color: #333333;
+  margin-bottom: 4px;
+
+
+}
+
+.breadcrumb a{
+  color: #333333;
+}
+
+
+
+
+
+/* CARD */
+
+#main.card{
+  padding-bottom: 0px;
+}
+
+/* styles for affirmations popup - karthik */
+.modal-title{
+position: relative;
+width: 100%;
+}
+.modal-title .navbar-brand{
+position: relative;
+  top: -12px;
+  -webkit-animation: mymove 5s ; /* Safari 4.0 - 8.0 */
+  animation: mymove 5s ;
+}
+@-webkit-keyframes mymove {
+from {left: 70%; opacity:0.2;}
+to {left: 0;opacity:1;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+from {left: 70%;opacity:0.2;}
+to {left: 0;opacity:1;}
+}
+/* Safari 4.0 - 8.0 */
+.modal-title .navbar-brand {-webkit-animation-timing-function: linear;margin-top: 10px;
+margin-bottom: -16px;}
+/* Standard syntax */
+.modal-title .navbar-brand {animation-timing-function: linear;margin-top: 10px;
+margin-bottom: -16px;}
+
+/* Changed color from blue to pink _Srishty */
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+background-color: #e83e8c;
+}
+.horizontal-banner{        /*adding banner space_Srishty */
+margin-top: 40px;
+margin-bottom: -18px;
+}
+.physical-post-page .horizontal-banner{        /*adding banner space_Srishty */
+margin-top: 20px;
+padding-bottom:20px;
+}
+.modal-footer button{
+margin:0 auto;
+}
+
+/* styles for affirmations popup ends here - karthik */
+
+/* increase the clsoe button text - affirmations - brent */
+.affirmations_close_button{
+padding:10px;
+font-size: 25px;
+}
+
+/* increase X of the affirmations dialogue box- brent */
+.close_x{
+font-size: 55px;
+        padding: 0 20px !important;
+}
+
+.aboutus-container {
+    /* width: 60%; */
+    text-align: center;
+    margin: 0 auto;
+}
+
+.aboutus-container-parent{
+      margin: 0 auto;
+}
+.aboutus-container h1{
+
+
+
+}
+
+.aboutus-container p{
+    line-height: 150%;
+    font-size: 28px;
+}
+
+/* styling the affirmations popup - karthik*/
+#exampleModalCenter{
+font-weight: bold;
+}
+#exampleModalCenter .modal-content {
+background: url(../images/popup_bg.jpg);
+background-repeat:repeat;
+opacity: 0.95;
+font-family: 'Amatic SC', cursive;
+font-size: 40px;
+}
+
+/* fixing the different image sizea issue in the physical exercises-starts here-karthik*/
+.tab-pane .rich-text img{
+max-width: 500px;
+height: 100%;
+}
+.affirmations-text{
+display: block;
+text-align:center;
+}
+.text-center{
+text-align: center;
+}
+.text-center.affirmations-text{
+padding: 15px;
+}
+/* fixing the different image sizea issue in the physical exercises - ends here - karthik*/
+
+/*fixing the footer spacing issues-starts here-karthik*/
+.fitgirlinc-footer-socialLinks{
+text-align:center; 
+margin:10px; 
+height:100px;
+font-size: 15px
+}
+.fitgirlinc-footer-socialLinks a{
+padding:15px
+}
+
+/* changes done for streched image- srishty */
+.rewards-post-page .rewards-img{
+width: 100% !important;
+height: 100% !important;
+}
+.rewards-index-page .rewards-img{
+  width: 100%;
+  height: 200px;
+  object-fit: contain !important;
+  }
+/*fixing the footer spacing issues-ends here-karthik*/
+
+/* Brent - Created Extras.html page into CMS */
+
+.extra-index-page .rewards-img{
+  width: 100%;
+  height: 200px;
+  object-fit: contain !important;
+  }
+
+/* added space on logout, reset done, change done - hghanta*/
+.spacer-div-30{
+width: 100%;
+height: 30px;
+}
+/* setting max-width wrappers */
+.nav-wrapper{
+width: 100%;
+display:inherit;
+border-bottom: 4px solid #ed217c;
+
+}
+.nav-wrapper nav{
+max-width: 1260px !important;
+margin: 0 auto;
+}
+.nav-wrapper .navbar{
+box-shadow: none;
+border-bottom:none;
+}
+h1{
+  font-weight: bold !important;
+}
+
+.physical-post-page .rich-text{
+width: 100%
+}
+.strength-images-array,.agility-images-array,.flexibility-images-array{
+float: left;
+width: 50%;
+}
+.strength-paragraphs,.agility-paragraphs,.flexibility-paragraphs{
+  float: right;
+  width: 47%;
+  border-radius: 5px;
+    padding: 0 10px;
+    border:1px solid #c4c4c4;
+    background: #c4c4c4;
+}
+.advertisement img{
+  width: 100%; height: 335px;
+}
+.start-timer{
+  margin:0 auto;
+  display: block;
+  margin-bottom: 25px;
+}
+.physical-post-page .rich-text img{
+margin-bottom: 10px;
+width: 100%;
+}
+.inline-block{
+  display: inline-block;
+}
+.datatable-container{
+  margin: 0 auto;
+}
+.password-page label{
+  display: inline-block !important;
+}
+.physical-body .navbar-parent{
+  max-width: 1253px;
+  margin: 0 auto;
+  margin-top: -4px;
+}
+/*Srishty*/
+ footer{
+   max-width: 1260px;
+  margin: 0 auto;
+
+ }
+ .footer-wrapper{
+  bottom:0px; 
+  width:100%;
+  border-top: 4px solid #ed217c;
+  border-bottom: 0px;
+  box-shadow: none; 
+  -webkit-box-shadow:none;
+ }
+ .footer-wrapper .navbar{
+  box-shadow: none; 
+  -webkit-box-shadow:none;
+  border-bottom:none;
+ }
+/*Disclaimer Footer - Tarun*/
+  .disclaimer{
+    position: absolute;
+    right:0;
+    bottom: 0;
+    font-size: 15px;
+      color: #D3D3D3;
+
+ }
+  .disclaimer a{
+      color: #D3D3D3;
+      text-decoration: underline;
+  }
+.footer-from-disclaimer .btn{
+    margin-left: 0;
+}
+
+ .physical-body{
+  /*   */
+background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !important;
+/* background: url(../images/dark-mosaic.png),  linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+	background-size: 400% 400%;
+	-webkit-animation: Gradient 15s ease infinite;
+	-moz-animation: Gradient 15s ease infinite;
+	animation: Gradient 15s ease infinite; */
+ }
+ .mental-art-post-page .card .card-img-top{
+  object-fit: scale-down !important;
+ }
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+ .physical-body #container-fluid{
+  /* background: #bc4e9c;  
+  background: -webkit-linear-gradient(to top, #f80759, #bc4e9c); 
+  background: linear-gradient(to top, #f80759, #bc4e9c); */
+ }
+ .container.physical-post-page{
+  background:#e3e3e3;}
+ #sub-header .navbar{
+    background: #e2e2e2; /* Old browsers */
+background: -moz-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
+  }
+.container.physical-post-page h1{
+    margin-top: 0px;
+    padding-top: 11px;
+    margin-bottom: 9px;
+    position: relative;
+}
+.physical-body .fitgirlinc-footer-socialLinks,.physical-body br,.physical-body hr{
+  display:none;
+}
+.vertical-ad-banner{
+  display: block;
+}
+
+.vertical-ad-banner .advertisement{
+  width: 100%;
+  height:600px;
+  margin-top: 103px;
+  margin-bottom: 20px;
+}
+.back-btn{
+  background-image: url(../images/back-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 22px;
+  padding: 20px;
+  position: absolute;
+  left: 0;}
+
+    #soon-glow {
+        font-family: 'Quicksand', sans-serif;
+         color:#fff;
+          background-color:#f13446;
+         background-image:linear-gradient(30deg, #F13B6F,#FC9E2C);
+         text-transform:lowercase;
+         max-width: 1253px;
+        margin: 0 auto;
+     }
+        #soon-glow .soon-label {
+           color:#fff;
+            text-shadow:0 0 .25rem rgba(255,255,255,.75);
+             }
+       #soon-glow .soon-ring-progress {
+             color:#fff;
+           background-color:rgba(255,255,255,.15);
+               }
+        #soon-glow>.soon-group {
+           margin-bottom:-.5em;
+             }
+  .physical-description{
+    padding: 15px 45px;
+  }
+  #strength h3{
+    margin: 15px 0;
+  }
+/*Srishty*/
+ 
+  .physical-content{
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
   }
 
   @media (max-width: 767px) {
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
-      color: #ecf0f1;
-    }
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-      color: #fcfbfe;
-    }
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
-      color: #fcfbfe;
-      background-color: #e07dc4;
-    }
-  }
+      .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
+          color: #ecf0f1;
+      }
 
-  @media (max-width: 991px) {
+      .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+      .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+          color: #fcfbfe;
+      }
+
+      .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
+          color: #fcfbfe;
+          background-color: #e07dc4;
+      }
+
+      #coloring-app {
+          padding-bottom: 63.5% !important;
+      }
+  }
+  /* @media (max-width: 991px) {
     .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
       color: #ecf0f1;
     }
@@ -157,7 +578,9 @@ body{
       color: #fcfbfe;
       background-color: #e07dc4;
     }
-  }
+  } */
+
+
 
    @media (max-width: 1199px) {
     .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
@@ -171,8 +594,195 @@ body{
       color: #fcfbfe;
       background-color: #e07dc4;
     }
+    .physical-body .navbar-parent,footer {
+      max-width: 960px;
+  }
+  .soon {
+    max-width: 960px;
+  }
+  
+  }
+  @media (max-width: 991px) {
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #ecf0f1;
+    }
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #ecdbff;
+    }
+    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #ecdbff;
+      background-color: #ff74af
+    }
+    
+.vertical-ad-banner{
+  display: none;
+}
+.physical-post-page .horizontal-banner{
+  display: block;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+.pt-lg-5, .py-lg-5 {
+  padding-top: 3rem!important;
+}
+.mt-lg-5, .my-lg-5 {
+margin-top: 3rem!important;
+}
+.soon,.physical-body .navbar-parent,footer  {
+  max-width: 720px;
+}
   }
 
+/*coloring app styles_Kelley*/
+#coloring-app {
+    position: relative;
+    padding-bottom: 63.5%;
+    padding-top: 35px;
+    height: auto;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+#coloring-app iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#coloring-app-att{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    /* added space on logout, reset done, change done - hghanta*/
+    .spacer-div-30 {
+        width: 100%;
+        height: 30px;
+    }
+
+    .box-center {
+        margin: 0 auto;
+        text-align: center;
+    }
+ /* CSS for confetti buttons */
+ .confetti-button.animate:before {
+  display: block;
+  animation: topBubbles ease-in-out 0.75s forwards;
+}
+
+.confetti-button.animate:after {
+  display: block;
+  animation: bottomBubbles ease-in-out 0.75s forwards;
+}
+
+@keyframes 
+topBubbles {  0% {
+ background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+}
+ 50% {
+ background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;
+}
+ 100% {
+ background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+ background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+}
+}
+
+@keyframes 
+bottomBubbles {  0% {
+ background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+}
+ 50% {
+ background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;
+}
+ 100% {
+ background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+ background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+}
+}
+ /* Css for confetti buttons */
+
+/*coloring app styles ends here_Kelley*/
+   @media (max-width: 1199px) {
+    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
+
+      color: #ecf0f1;
+    }
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #fcfbfe;
+    }
+    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #fcfbfe;
+      background-color: #e07dc4;
+    }
+    
+.vertical-ad-banner{
+  display: none;
+}
+
+.physical-content {
+  width: 100%;
+    flex: 100%;
+    max-width: 100%;
+}
+  }
+
+  @media (max-width: 575px) {
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
+      color: #ecf0f1;
+    }
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+      color: #fcfbfe;
+    }
+    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
+      color: #fcfbfe;
+      background-color: #e07dc4;
+    }
+    .soon, .physical-body .navbar-parent, footer {
+      max-width: 540px;
+  }
+  
+.vertical-ad-banner{
+  display: none;
+  flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+}
+
+.physical-post-page .horizontal-banner{
+  display: block;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+.strength-images-array,.agility-images-array,.flexibility-images-array{
+  float: left;
+  width: 100%;
+  }
+  .strength-paragraphs,.agility-paragraphs,.flexibility-paragraphs{
+    float: right;
+    width: 100%;
+    border-radius: 5px;
+      padding: 0 10px;
+      border:1px solid #c4c4c4;
+      background: #c4c4c4;
+  }
+  }
+
+  @media (min-width: 1200px){
+    .container.physical-post-page{
+      max-width: 1254px;
+    padding: 0 22px;
+    }
+    .container .physical-post-page{
+    max-width: 1220px;
+    }
+  }
   /* .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
     color: #ecf0f1;
   }
@@ -186,181 +796,17 @@ body{
   }
 /* HEADER */
 
-#header{
-    background: #333333;
-    color:#ffffff;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-
-#header > h4{
-    padding-top:10px;
-}
-
-#header .create{
-    padding-top:    5px;
-    padding-bottom: 0px;
-}
-
-/*Breadcrumb*/
-
-.breadcrumb{
-    background: #cccccc;
-    color: #333333;
-    margin-bottom: 4px;
-
-
-}
-
-.breadcrumb a{
-    color: #333333;
-}
-
-
-
-@media (max-width: 991px) {
-    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
-      color: #ecf0f1;
-    }
-    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-      color: #ecdbff;
-    }
-    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
-      color: #ecdbff;
-      background-color: #ff74af
-    }
-  }
-
-
-
-/* CARD */
-
-#main.card{
-    padding-bottom: 0px;
-}
-
-/* styles for affirmations popup - karthik */
-.modal-title{
-  position: relative;
-  width: 100%;
-}
-.modal-title .navbar-brand{
-  position: relative;
-    top: -12px;
-    -webkit-animation: mymove 5s ; /* Safari 4.0 - 8.0 */
-    animation: mymove 5s ;
-}
-@-webkit-keyframes mymove {
-  from {left: 70%; opacity:0.2;}
-  to {left: 0;opacity:1;}
-}
-
-/* Standard syntax */
-@keyframes mymove {
-  from {left: 70%;opacity:0.2;}
-  to {left: 0;opacity:1;}
-}
-/* Safari 4.0 - 8.0 */
-.modal-title .navbar-brand {-webkit-animation-timing-function: linear;margin-top: 10px;
-  margin-bottom: -16px;}
-/* Standard syntax */
-.modal-title .navbar-brand {animation-timing-function: linear;margin-top: 10px;
-  margin-bottom: -16px;}
-
-/* Changed color from blue to pink _Srishty */
-
- .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
- background-color: #e83e8c;
- }
- .horizontal-banner{        /*adding banner space_Srishty */
-  margin-top: 40px;
-  margin-bottom: -18px;
- }
-.modal-footer button{
-  margin:0 auto;
-}
-
-/* styles for affirmations popup ends here - karthik */
-
-
-.aboutus-container {
-    width: 60%;
-    text-align: center;
-    margin: 0 auto;
-}
-
-.aboutus-container-parent{
-        margin: 0 auto;
-}
-.aboutus-container h1{
-
-
-
-}
-
-.aboutus-container p{
-    line-height: 150%;
-
-}
-
-  /* styling the affirmations popup - karthik*/
-#exampleModalCenter{
-  font-weight: bold;
-  }
-#exampleModalCenter .modal-content {
-  background: url(../images/popup_bg.jpg);
-  background-repeat:repeat;
-  opacity: 0.95;
-  font-family: 'Amatic SC', cursive;
-  font-size: 40px;
-}
-
-  /* fixing the different image sizea issue in the physical exercises-starts here-karthik*/
-.tab-pane .rich-text img{
-  max-width: 500px;
-  height: 100%;
-}
-.affirmations-text{
-display: block
-}
-.text-center{
-  text-align: center;
-}
-.text-center.affirmations-text{
-padding: 15px;
-}
-/* fixing the different image sizea issue in the physical exercises - ends here - karthik*/
-
-/*fixing the footer spacing issues-starts here-karthik*/
-.fitgirlinc-footer-socialLinks{
-  text-align:center; 
-  margin:10px; 
-  height:100px;
-  font-size: 15px
-}
-.fitgirlinc-footer-socialLinks a{
-  padding:15px
-}
-.rewards-post-page .rewards-img{
-  width: 100% !important;
-  height: 100% !important;
-}
-/*fixing the footer spacing issues-ends here-karthik*/
-
-
-
 /* iphone X landscape orientation */
 @media only screen
-and (min-device-width : 375px)
-and (max-device-width : 812px)
+and (min-width : 375px)
+and (max-width : 812px)
 and (-webkit-device-pixel-ratio : 3)
 and (orientation : landscape) { /* STYLES GO HERE */}
 
 /* iphone X portrait orientation */
 @media only screen
-and (min-device-width : 375px)
-and (max-device-width : 812px)
+and (min-width : 375px)
+and (max-width : 812px)
 and (-webkit-device-pixel-ratio : 3)
 and (orientation : portrait) {
   /* making the physical exercise images responsive in the physical tabs - karthik*/
@@ -368,24 +814,172 @@ and (orientation : portrait) {
     max-width: 315px !important;
     height: 100% !important;
   }
+.vertical-ad-banner{
+  display: none;
 }
 
+.physical-post-page .horizontal-banner{
+  display: block;
+  margin-top: 20px;
+  padding-bottom: 30px;
+}
+.physical-content{
+  max-width:100%;
+  flex: 100%;
+}
+}
 
+/*coloring app styles_Kelley*/
+#coloring-app {
+    position: relative;
+    padding-bottom: 63.5%;
+    padding-top: 35px;
+    height: auto;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
 
+#coloring-app iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#coloring-app-att{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    /* added space on logout, reset done, change done - hghanta*/
+    .spacer-div-30 {
+        width: 100%;
+        height: 30px;
+    }
+
+    .box-center {
+        margin: 0 auto;
+        text-align: center;
+    }
 
 
 /* iPad in portrait & landscape */
 @media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px)  { /* STYLES GO HERE */}
+and (min-width : 768px)
+and (max-width : 1024px)  { 
+  .physical-content{
+    max-width:100%;
+    flex: 100%;
+  }
+  .vertical-ad-banner{
+    display: none;
+  }
+  
+.physical-post-page .horizontal-banner{
+  display: block;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+}
 
 /* iPad in landscape */
 @media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px)
+and (min-width : 768px)
+and (max-width : 1024px)
 and (orientation : landscape) { /* STYLES GO HERE */}
 /* iPad in portrait */
 @media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px)
+and (min-width : 768px)
+and (max-width : 1024px)
 and (orientation : portrait) { /* STYLES GO HERE */ }
+
+.image-alignable .left{
+    float: left;
+}
+.image-alignable .right{
+    float: right;
+}
+.image-alignable .full-width{
+    width: 100%;
+}
+.block-embedded_video .responsive-object{
+    padding-bottom: 5% !important;}
+	
+.card .card-body{
+    position: relative;
+    overflow: hidden;
+}
+.heart{
+    height: 35px;
+    width: 35px;
+    float:right;
+    overflow: hidden;
+    position: absolute;
+    right: 20px;
+}
+.heart-incomplete{
+    overflow: hidden;
+    width: 15px;}
+
+.announcements ol li{
+        font-size: 10px;
+    padding: 5px 3px;
+}
+.announcements {
+
+}
+.announcements {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.announcements h2 {
+    font: 400 20px/1.5 Helvetica, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid grey;
+}
+
+.announcements  ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.announcements  li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+
+.announcements  li:last-child {
+  border: none;
+}
+
+.announcements li  {
+  text-decoration: none;
+  color: #000;
+
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+  display: block;
+  width: 100%;
+}
+
+.announcements li {
+  font-size: 12px;
+  background: #f6f6f6;
+}
+
+/*Rewards pop up - Aishwarya */
+#ModalReward .modal-dialog .modal-content .modal-header{
+    background: #FCC9B9;
+}
+.rewards-popup h5{
+    color: #ed217c;  
+}
+/*Rewards pop up - Aishwarya */

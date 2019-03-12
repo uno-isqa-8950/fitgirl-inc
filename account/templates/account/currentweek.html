@@ -1,0 +1,117 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block title %}Current Week{% endblock %}
+
+{% block content %}
+
+   {% if not user.is_staff and user.profile.pre_assessment == "No" %}
+        {% load staticfiles %}
+        <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <div id="steps">
+            {% if request.path == "/" %}
+                <div class="step active" data-desc="How It Works">1</div>
+            {% else %}
+                <div class="step done" data-desc="How It Works">1</div>
+            {% endif %}
+            {% if request.path == "/pages/disclaimer/" %}
+                <div class="step active" data-desc="Disclaimer">2</div>  <!--Disclaimer added as step 2 - Tarun, hghanta-->
+            {% elif request.path == "/" %}
+                <div class="step" data-desc="Disclaimer">2</div>
+            {% elif request.path == "/edit/" %}
+                <div class="step done" data-desc="Disclaimer">2</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Disclaimer">2</div>
+            {% endif %}
+            {% if request.path == "/edit/" %}
+                <div class="step active" data-desc="Update Profile">3</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Update Profile">3</div>
+            {% else %}
+                <div class="step" data-desc="Update Profile">3</div>
+            {% endif %}
+            {% if request.path == "/pages/pre-assessment/" %}
+                <div class="step active" data-desc="Take Pre-Assessment">4</div>
+            {% else %}
+                <div class="step" data-desc="Take Pre-Assessment">4</div>
+            {% endif %}
+            <div class="step" data-desc="Complete">5</div>
+        </div>
+        {% if request.path == "/" %}
+            <div class="container offset-lg-2 justify-content-between">
+              <div class="col-sm-9 ">
+                <h1>FITGirl, Inc.</h1>
+                  <p><b>FORMING INCREDIBLE TEEN GIRLS by INFLUENCING RELATIONSHIPS and LIFESTYLES</b></p>
+                  <p><b>Welcome to the EmpowerU interactive website! Created just for you!</b></p>
+                <p>This website aims to give you the tools and confidence to make the best health choices.
+                    Here you can find simple snack ideas, track your daily physical activity, watch videos, find games, learn about friendships and more!
+                    Best part...collect points to redeem for amazing prizes from local and national stores!</p>
+                <p>To see the graphic featured below, please view on a desktop. Click "this page" link  and allow Flash if it is having trouble displaying.  Or, click <b> NEXT </b> and update your profile to begin and start earning points!
+                </p>
+                    <br>
+                    <br>
+                    <iframe allowtransparency="true" width="780" height="630" src="//scratch.mit.edu/projects/embed/262218134/?autostart=false" frameborder="0" allowfullscreen></iframe>
+                    <br>
+                    <br>
+                  <a href="/pages/disclaimer/" class="btn btn-secondary pull-right">NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+        {% endif %}
+
+    {% else %}
+        <div class ="container current-week">
+        <br>
+        <br>
+        {% for current_week in current_week %}
+            <h1 style="text-align: center;">{{ current_week.title }}</h1>
+            <h3 style="text-align: center;"> {{ current_week.description|richtext }}</h3>
+            <!--Card Content-->
+            <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
+                {% for post in current_week.get_children %}
+                    {% image post.specific.display_image original as reward_image %}
+                    <div class="col-sm-4 mt-3">
+                        <div class="card hoverable">
+                            <a href ="{% pageurl post %}">
+                                <img class="card-img-top" src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;"/>
+                                <div class="card-body bg-dark">
+                                    <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+            <!--End Card Content-->
+             <!-- Modal -->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+             <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                    <a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>
+              </h5>
+              <button type="button" class="close remove-popup" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+             </div>
+             <div class="modal-body">
+                {% for dailyquote in dailyquote %}
+              <span class="affirmations-text">Today your affirmation is,</span>
+              <span class="affirmations-text text-center">"{{ dailyquote.dailyquote }}"</span>
+              <span class="affirmations-text">Repeat this affirmation to yourself throughout the day!</span>
+                {% endfor %}
+             </div>
+             <div class="modal-footer text-center">
+              <button type="button" class="btn btn-secondary btn-pink" data-dismiss="modal">Close</button>
+             </div>
+            </div>
+           </div>
+          </div>
+        </div>
+    {% endif %}
+{% endblock %}

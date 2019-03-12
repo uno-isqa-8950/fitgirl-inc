@@ -2,11 +2,15 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
-from .forms import Profile,User, Program
-from .models import RegisterUser, Affirmations, Dailyquote
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, ParametersForm
+from .forms import Profile,User, Program, ContactForm, ProgamClone
+from .models import Affirmations, Dailyquote, Parameters, Reward
+from week.models import WeekPage, UserActivity, ServicePostPage
 from io import TextIOWrapper, StringIO
-import re
+import re, csv
+import weasyprint
+from io import BytesIO
+from django.template.loader import render_to_string
 
 from django.shortcuts import redirect
 import csv, string, random
@@ -18,6 +22,7 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
+from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 
 
 def user_login(request):
@@ -54,6 +59,22 @@ def dashboard(request):
     return render(request,
                   'account/dashboard.html',
                   {'section': 'dashboard', 'dailyquote': dailyquote})
+
+@login_required
+def login_success(request):
+    today = datetime.date.today()
+    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+    dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
+    if request.user.is_staff:
+        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
+    elif request.user.is_active:
+        current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
+        print(current_week)
+        return render(request,
+                      'account/current_week.html',
+                      {'current_week': current_week,
+                       'dailyquote': dailyquote})
 
 @login_required
 def userdashboard(request):
@@ -100,45 +121,15 @@ def handle_uploaded_file(request, name):
     for row in reader:
         try:
             if row[1] and row[2] and row[3]:
-                if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$', row[1]):
-                    if (len(User.objects.all().filter(email=row[1])) > 0):
-                        targetUser = User.objects.all().filter(email=row[1])[0]
-                        targetUser.is_active = True
-                        targetUser.save()
-                        targetProfile = targetUser.profile
-                        targetProfile.program = Program.objects.all().filter(program_name=name)[0]
-                        targetProfile.points = 0
-                        targetProfile.pre_assessment = 'No'
-                        targetProfile.post_assessment = 'No'
-                        targetProfile.save()
-                        count += 1
-
-                    else:
-                        vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
-                        current_site = get_current_site(request)
-                        alphabet = string.ascii_letters + string.digits
-                        # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
-                        theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
-                        theUser.set_password('fitgirl1')
-                        theUser.save()
-                        profile = Profile.objects.create(user=theUser,
-                                                         program=Program.objects.all().filter(program_name=name)[0])
-                        profile.save()
-                        form = PasswordResetForm({'email': theUser.email})
-                        if form.is_valid():
-                            request = HttpRequest()
-                            request.META['SERVER_NAME'] = 'empoweru.herokuapp.com'
-                            request.META['SERVER_PORT'] = '80'
-                            form.save(
-                                request=request,
-                                from_email=settings.EMAIL_HOST_USER,
-                                subject_template_name='registration/new_user_subject.txt',
-                                email_template_name='registration/password_reset_newuser_email.html')
-                        if vu is not None:
-                            vu.save()
-                            count = count + 1
-                else:
+                if not is_valid(row):
                     emailcount += 1
+                elif exists(row):
+                    existcount += 1
+                else:
+                    if register_user(request, row, name):
+                        count += 1
+                    else:
+                        failcount += 1
             else:
                 failcount += 1
         except Exception as e:
@@ -146,6 +137,47 @@ def handle_uploaded_file(request, name):
             existcount += 1
     return (count, failcount, existcount, emailcount)
 
+def is_valid(row):
+    if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
+        return True
+    else:
+        return False
+
+def exists(row):
+    num = len(User.objects.all().filter(email=row[1]))
+    if num > 0:
+        return True
+    else:
+        return False
+
+
+def register_user(request, row, name):
+    #vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
+    current_site = get_current_site(request)
+    alphabet = string.ascii_letters + string.digits
+    # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
+    theUser = User(username=row[1], first_name=row[2], last_name=row[3], email=row[1])
+    theUser.set_password('stayfit2019')
+    theUser.save()
+    profile = Profile.objects.create(user=theUser,
+                                     program=Program.objects.all().filter(program_name=name)[0])
+    profile.save()
+    form = PasswordResetForm({'email': theUser.email})
+    if form.is_valid():
+        request = HttpRequest()
+        request.META['SERVER_NAME'] = 'www.empoweruomaha.com'
+        request.META['SERVER_PORT'] = '80'
+        form.save(
+            request=request,
+            from_email=settings.EMAIL_HOST_USER,
+            subject_template_name='registration/new_user_subject.txt',
+            email_template_name='registration/password_reset_newuser_email.html')
+
+    if theUser is not None:
+        #vu.save()
+        return True
+    else:
+        return False
 
 def get_short_name(self):
     # The user is identified by their email address
@@ -353,5 +385,151 @@ def archive(request):
                   'account/archive.html',
                   {'section': 'archive','form':form})
 
-def ssl_validate(request):
-    return HttpResponse("CvHnBeuXkxiUJmNHz7trjEsj50l7C_jw5Vlp8qBHers.3DCalQjZjVirxnL-bXRdyNdvMBxQqYlGWPZIul4oxMw")
+
+def emails(request):
+    if request.method == 'GET':
+        form = EmailForm()
+        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        to_list = []
+        for user in registeredUsers:
+            to_list.append(user.email)
+    else:
+        registered_users = RegisterUser.objects.all()
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = 'capstone18FA@gmail.com'
+            message = form.cleaned_data['message']
+            registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+            recepient_list = []
+            name_list = []
+            for user in registeredUsers:
+                # recepient_list.append(user.email)
+                email = user.email
+                send_mail(subject, message, from_email, [email])
+                name = user.first_name + " " + user.last_name
+                name_list.append(name)
+            return render(request,'account/email_confirmation.html', {'name_list': name_list})
+    return render(request, "account/email.html", {'to_list': to_list ,'form': form})
+
+
+def email_individual(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            contact_email = form.cleaned_data['contact_email']
+            message = form.cleaned_data['message']
+            from_email = 'capstone18FA@gmail.com'
+            try:
+                send_mail(subject, message, from_email, [contact_email])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return render(request,'account/email_individual_confirmation.html',{'contact_email':contact_email})
+    return render(request, 'account/email_individual.html', {'form': form})
+
+@login_required
+def parameters_form(request):
+    if request.method == "POST":
+        form = ParametersForm(request.POST)
+        if form.is_valid():
+            rows = Parameters.objects.filter(current_values=True)
+            rows.update(current_values=False)
+            post = form.save(commit=False)
+            post.save()
+    else:
+        settings = Parameters.objects.get(current_values=True)
+        pdtd = settings.physical_days_to_done
+        ndtd = settings.nutrition_days_to_done
+
+        form = ParametersForm(
+            initial={'physical_days_to_done': pdtd,
+                     'nutrition_days_to_done': ndtd}
+        )
+    return render(request, 'account/parameters_edit.html', {'form': form})
+
+@login_required
+def cloneprogram(request):
+    if request.method == "POST":
+        form = ProgramClone(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data['new_start_date'], form.cleaned_data['program'])
+    else:
+        form = ProgramClone()
+    return render(request, 'account/cloneprogram.html', {'form': form})
+
+@login_required
+def analytics(request):
+    return render(request, 'account/analytics_home.html', {})
+
+@login_required
+def export_useractivity_data(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
+    rows = list(UserActivity.objects.all())
+    writer = csv.writer(response)
+
+    writer.writerow(['User', 'Program', 'Activity',
+                       'Week Number', 'Day of Week',
+                       'Points Earned', 'Date'])
+    for row in rows:
+        user = User.objects.get(id=row.user_id)
+        name = user.first_name + " " + user.last_name
+        program = Program.objects.get(id=row.program_id).program_name
+        writer_row = [name, program,
+                      row.Activity, row.Week,
+                      row.DayOfWeek, row.points_earned,
+                      row.creation_date]
+        print(writer_row)
+        writer.writerow(writer_row)
+
+    return response
+
+@login_required
+def rewards_redeem(request):
+    if request.method == "GET":
+        data = ServicePostPage.objects.get(page_ptr_id=10)
+        print(type(data.points_for_this_service))
+        return render(request, 'rewards/reward_confirmation.html')
+    else:
+        points = request.POST.get('points')
+        service = request.POST.get('service')
+        point = int(points)
+        print(type(point))
+        user1=User.objects.get(username=request.user.username)
+        print(user1.profile.points, point)
+        if user1.profile.points < point:
+            print('cannot redeem')
+        else:
+            print('ask if user wants to continue?')
+            user1.profile.points -= point
+            user1.profile.save()
+            points_available = user1.profile.points
+            rewards = Reward.objects.create(user=user1, points_redeemed=point, service_used=service)
+            reward_number = rewards.reward_no
+            subject = 'Confirmation Rewards Redeemed - Redemption No.'.format(rewards.reward_no)
+            messages = 'Check the PDF attachment for your redemption number'
+            from_email = 'capstone18FA@gmail.com'
+            email = EmailMessage(subject, messages, from_email, [user1.email])
+            print(user1.email)
+            #genarate PDF
+            html = render_to_string('rewards/pdf.html',{'point': point, 'service': service,
+                                                                        'points_available': points_available,
+                                                                        'reward_number': reward_number})
+            out = BytesIO()
+            stylesheets = [weasyprint.CSS('https://fitgirl-empoweru-prod.s3.amazonaws.com/static/css/pdf.css')]
+            print(stylesheets)
+            weasyprint.HTML(string=html).write_pdf(out,stylesheets=stylesheets)
+            email.attach('Redemption No. {}'.format(rewards.reward_no), out.getvalue(), 'application/pdf')
+            email.send()
+            return render(request, 'rewards/reward_confirmation.html', {'point': point, 'service': service,
+                                                                        'points_available': points_available,
+                                                                        'reward_number': reward_number})
+
+@login_required
+def viewRewards(request):
+    rewards = Reward.objects.all()
+    user = User.objects.get(username=request.user.username)
+    return render(request, 'rewards/viewRewards.html', {'rewards' : rewards, 'user': user})

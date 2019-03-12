@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 
 {% block title %}Dashboard{% endblock %}
-<div class="container">
+<div class="container ">
     <div class="row">
 
 
@@ -14,22 +14,35 @@
         <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
         <div id="steps">
-            <div class="step done" data-desc="How It Works">1</div>
-            {% if request.path == "/edit/" %}
-                <div class="step active" data-desc="Update Profile">2</div>
-            {% elif request.path == "/pages/pre-assessment/" %}
-                <div class="step done" data-desc="Update Profile">2</div>
+            {% if request.path == "/dashboard/" %}
+                <div class="step active" data-desc="How It Works">1</div>
             {% else %}
-                <div class="step" data-desc="Update Profile">2</div>
+                <div class="step done" data-desc="How It Works">1</div>
+            {% endif %}
+            {% if request.path == "/pages/disclaimer/" %}
+                <div class="step active" data-desc="Disclaimer">2</div>  <!--Disclaimer added as step 2 - Tarun, hghanta-->
+            {% elif request.path == "/dashboard/" %}
+                <div class="step" data-desc="Disclaimer">2</div>
+            {% elif request.path == "/edit/" %}
+                <div class="step done" data-desc="Disclaimer">2</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Disclaimer">2</div>
+            {% endif %}
+            {% if request.path == "/edit/" %}
+                <div class="step active" data-desc="Update Profile">3</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Update Profile">3</div>
+            {% else %}
+                <div class="step" data-desc="Update Profile">3</div>
             {% endif %}
             {% if request.path == "/pages/pre-assessment/" %}
-                <div class="step active" data-desc="Take Pre-Assessment">3</div>
+                <div class="step active" data-desc="Take Pre-Assessment">4</div>
             {% else %}
-                <div class="step" data-desc="Take Pre-Assessment">3</div>
+                <div class="step" data-desc="Take Pre-Assessment">4</div>
             {% endif %}
-            <div class="step" data-desc="Complete">3</div>
+            <div class="step" data-desc="Complete">5</div>
         </div>
-        {% if request.path == "/" %}
+        {% if request.path == "/dashboard/" %}
         <div class="container offset-lg-2 justify-content-between">
           <div class="col-sm-9 ">
 
@@ -62,7 +75,7 @@
                 <br>
                 <br>
 
-                 <a href="{% url 'edit' %}"  class="btn btn-fitgirl pull-right">Next &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                 <a href="/pages/disclaimer/" class="btn btn-secondary pull-right">NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i></a>  <!--Next button goes to disclaimer - Tarun-->
             </p>
 
 
@@ -109,7 +122,11 @@
                                         <div>
                                             <li class="nav-item">
                                                 <a href="{% url 'createprogram' %}" id="createProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
-                                                        class="fas fa-edit fa-fw"></i> Program </a>
+                                                        class="fas fa-folder-plus fa-fw"></i> Programs </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{% url 'cloneprogram' %}" id="cloneProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                        class="fas fa-clone fa-fw"></i> Clone Program </a>
                                             </li>
                                             <div>
                                                 <li class="nav-item">
@@ -121,21 +138,33 @@
                                                         <a href="{% url 'users' %}" id="users" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                             <i class="fas fa-female fa-fw"></i> Users </a>
                                                     </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'parameters' %}" id="parameters" class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Settings </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'rewards' %}" id="rewards" class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Manage Rewards </a>
+                                                    </li>
                                                     <div>
                                                         <div>
                                                     <li class="nav-item">
+                                                        <a href="{% url 'analytics' %}" id="analytics" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                                class="fas fa-chart-bar fa-fw"></i> Analytics </a>
+                                                    </li>
+                                                    <li class="nav-item">
                                                         <a href="{% url 'archive' %}" id="archive" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                            <i class="fas fa-female fa-fw"></i> Archive </a>
+                                                            <i class="fas fa-archive fa-fw"></i> Archive </a>
                                                     </li>
                                                     <div>
                                                     <li class="nav-item">
                                                         <a href="{% url 'cms_frame' %}" id="cms" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                            <i class="fas fa-cog fa-fw"></i> Manage Content </a>
+                                                            <i class="fas fa-edit fa-fw"></i> Manage Content </a>
                                                     </li>
                                                         <div>
                                                     <li class="nav-item">
                                                         <a href="{% url 'django_frame' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                            <i class="fas fa-edit fa-fw"></i> Manage Site </a>
+                                                            <i class="fas fa-database fa-fw"></i> Manage Site </a>
                                                     </li>
                                                     <!-- <div>
                                                         <li class="nav-item">
@@ -305,6 +334,7 @@
 </div>
 </div>
 
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 <script>
 // window.onload = function() {
 //   window.setTimeout(fadeout, 8000); //8 seconds
