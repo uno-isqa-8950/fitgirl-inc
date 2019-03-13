@@ -11,7 +11,7 @@
     <h1 style="text-align: center;">{{ page.title }}</h1>
     <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
         {% if page.slug == "25-points" %}
-            {% for post in 25point_category %}
+            {% for post in 25point_category.live %}
                 {% image post.specific.display_image original as reward_image %}
                         <input type="hidden" name="pageurl" value="{% pageurl page %}">
                         <div class="col-sm-4 mt-3">
@@ -37,7 +37,7 @@
             {# Rewards - Aishwarya #}
             {% endfor %}
         {% elif page.slug == "50-points" %}
-            {% for post in 50point_category %}
+            {% for post in 50point_category.live %}
                 {% image post.specific.display_image original as reward_image %}
                         <input type="hidden" name="pageurl" value="{% pageurl page %}">
                         <div class="col-sm-4 mt-3">
@@ -63,7 +63,7 @@
             {# Rewards - Aishwarya #}
             {% endfor %}
         {% elif page.slug == "75-points" %}
-            {% for post in 75point_category %}
+            {% for post in 75point_category.live %}
                 {% image post.specific.display_image original as reward_image %}
                         <input type="hidden" name="pageurl" value="{% pageurl page %}">
                         <div class="col-sm-4 mt-3">
@@ -89,7 +89,7 @@
             {# Rewards - Aishwarya #}
             {% endfor %}
         {% elif page.slug == "100-points" %}
-            {% for post in 100point_category %}
+            {% for post in 100point_category.live %}
                 {% image post.specific.display_image original as reward_image %}
                         <input type="hidden" name="pageurl" value="{% pageurl page %}">
                         <div class="col-sm-4 mt-3">
