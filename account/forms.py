@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from .models import Profile, Program, Parameters
 from django.utils.translation import gettext as _
 from datetime import date
-#import zipcode
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -98,11 +97,13 @@ class ParametersForm(forms.ModelForm):
 
 
 class ProgramClone(forms.Form):
-    program_list = list()
-    for item in Program.objects.all():
-        tuple = (item.id, item.program_name)
-        program_list.append(tuple)
-    program = forms.ChoiceField(choices=program_list)
-    new_start_date = forms.DateField(widget=forms.SelectDateWidget)
+     program_list = list()
+     for item in Program.objects.all():
+         tuple = (item.id, item.program_name)
+         program_list.append(tuple)
+     program = forms.ChoiceField(choices=program_list)
+     new_start_date = forms.DateField(widget=forms.SelectDateWidget)
+     new_program = forms.CharField(max_length=50,)
+     length_of_program = forms.IntegerField(max_value=18, min_value=1)
 
-    fields = (program, new_start_date)
+     fields = (program, new_start_date, new_program, length_of_program)
