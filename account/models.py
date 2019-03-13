@@ -61,7 +61,6 @@ class Dailyquote(models.Model):
     dailyquote = models.CharField(max_length=500, blank=True, null=True)
     quote_date = models.DateField(null=True, blank=False)
     description = models.CharField(max_length=500, blank=True, null=True)
-    test_date = models.DateField(null=True, blank=False)
     def __str__(self):
         return str(self.dailyquote)
 
@@ -107,7 +106,7 @@ class Inactiveuser(models.Model):
     #set_days = models.IntegerField(blank=False,null=False,default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    up_at = models.DateTimeField(auto_now=True)
+    down_at = models.CharField(max_length=25, blank=True, null=True)
 
     def __str__(self):
         return str(self.set_days)
@@ -163,7 +162,7 @@ class Testfield(models.Model):
     nutrition_days_to_done = models.IntegerField(default=1)
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
-
+    test1 = models.CharField(max_length=25, blank=True, null=True)
 
 class Parameters(models.Model):
     physical_days_to_done = models.IntegerField(default=1)
@@ -171,3 +170,9 @@ class Parameters(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
 
+class Testfield2(models.Model):
+    physical_to_done = models.IntegerField(default=1)
+    nutrition_days_to_done = models.IntegerField(default=1)
+    creation_date = models.DateTimeField(auto_now=True)
+    current_values = models.BooleanField(default=True)
+    test4 = models.CharField(max_length=25, blank=True, null=True)

@@ -359,6 +359,7 @@ class RewardsIndexPage(Page):
 class ExtrasIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
+    additional = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -629,3 +630,13 @@ def log_activity(user, points, program, page_url):
         activity_log.Activity = activity
 
     activity_log.save()
+
+#Test Page - Tarun
+class TestPage(Page):
+    description = models.CharField(max_length=10000, blank=True, )
+
+
+    content_panels = Page.content_panels + [
+        FieldPanel('description', classname="full"),
+
+        ]
