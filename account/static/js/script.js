@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+$('.rewards-th').unbind('click').bind('click', function (e) {
+  var col = $(this).parent().children().index($(this));
+  $('.hide').children().eq(col).trigger('click');
+    }
+);
     // Affirmations popup code starts here - Karthik
     if ($(".current-week").length == 0) {
         //Not the user-landing page
@@ -47,11 +52,7 @@ $(".flexibility-paragraphs").insertAfter(".flexibility-images-array");
 $(".physical-post-page").closest("body").addClass("physical-body");
 $( ".physical-post-page br" ).remove();
 
-
-
-
-
-// var phyiscaltimer = function(){
+// var physicaltimer = function(){
 // $('.drawer').slideDrawer({
 // showDrawer: false, // The drawer is hidden by default.
 // slideTimeout: true, // Sets the drawer to slide down after set count if set to true.
@@ -73,4 +74,3 @@ $( ".physical-post-page br" ).remove();
 // }
 });
 
-  
