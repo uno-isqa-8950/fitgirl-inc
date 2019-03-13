@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, Program
+from .models import Profile, Program, Parameters
 from django.utils.translation import gettext as _
 from datetime import date
 
@@ -80,20 +80,8 @@ class ProgramForm(forms.ModelForm):
         model = Program
         fields = ('program_name', 'program_start_date','program_end_date')
 
-class EmailForm(forms.Form):
-    subject = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Enter Subject'}))
-    message = forms.CharField(required=False, widget=forms.Textarea(attrs={'placeholder': 'Select "Text" below to send this message or'
-                                                                                          ' Select "CMS template" to send content from CMS'}))
-
-class ContactForm(forms.Form):
-    subject = forms.CharField(required=True)
-    #contact_email = forms.EmailField(required=True)
-    message = forms.CharField(required=True, widget=forms.Textarea)
-
-
 class CronForm(forms.Form):
     days = forms.ChoiceField(choices=[(x,x) for x in range(1,32)])
-
 
 
 class RewardsNotificationForm(forms.Form):
@@ -122,3 +110,28 @@ class AdminEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('photo', 'bio', 'date_of_birth', 'address', 'city', 'state', 'zip', 'day_phone')
+
+class EmailForm(forms.Form):
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea)
+
+class ContactForm(forms.Form):
+    subject = forms.CharField(required=True)
+    contact_email = forms.EmailField(required=True)
+    message = forms.CharField(required=True, widget=forms.Textarea)
+
+class ParametersForm(forms.ModelForm):
+    class Meta:
+        model = Parameters
+        fields = ('physical_days_to_done', 'nutrition_days_to_done')
+
+
+class ProgramClone(forms.Form):
+    program_list = list()
+    for item in Program.objects.all():
+        tuple = (item.id, item.program_name)
+        program_list.append(tuple)
+    program = forms.ChoiceField(choices=program_list)
+    new_start_date = forms.DateField(widget=forms.SelectDateWidget)
+
+    fields = (program, new_start_date)

@@ -114,9 +114,6 @@ class Inactiveuser(models.Model):
         get_latest_by = 'created_at'
 
 
-
-
-
     # @receiver(post_save, sender=User)
     # def create_user_profile(sender, instance, created, **kwargs):
     #     if created:
@@ -126,7 +123,22 @@ class Inactiveuser(models.Model):
     # @receiver(post_save, sender=User)
     # def save_user_profile(sender, instance, **kwargs):
     #     instance.profile.save()
+BOOL_CHOICES = [('Yes','yes'),('No','no')]
 
+class Reward(models.Model):
+    reward_no = models.AutoField(null=False, primary_key=True)
+    user = models.ForeignKey(User, related_name='rewards', on_delete=models.CASCADE)
+    points_redeemed = models.IntegerField(blank=True, null=True)
+    service_used = models.CharField(max_length=25, blank=True, null=True)
+    redeem_status= models.CharField(max_length=10, choices=BOOL_CHOICES, default='No', blank=False, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.reward_no)
+
+    def updated(self):
+        self.timestamp = timezone.now()
+        self.save()
 
 class RewardsNotification(models.Model):
     rewards_notification_id = models.AutoField(primary_key=True,blank=False,null=False)
@@ -142,3 +154,12 @@ class RewardsNotification(models.Model):
 
     class Meta:
         get_latest_by = 'created_at'
+
+class Parameters(models.Model):
+    physical_days_to_done = models.IntegerField(default=1)
+    nutrition_days_to_done = models.IntegerField(default=1)
+    creation_date = models.DateTimeField(auto_now=True)
+    current_values = models.BooleanField(default=True)
+
+
+

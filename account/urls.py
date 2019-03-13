@@ -9,7 +9,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', views.login_success, name='login_success'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    # change password urls
+    path('parameters/', views.parameters_form, name='parameters'),
+        # change password urls
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
     # reset password urls
@@ -21,13 +22,18 @@ urlpatterns = [
     path('aboutus/', views.aboutus, name='aboutus'),
     # path('KindnessCard/', views.KindnessCard, name='KindnessCard'),
     path('users/', views.users, name='users'),
+    path('view-rewards/', views.viewRewards, name='rewards'),
     path('createprogram/', views.createprogram, name='createprogram'),
+    path('cloneprogram/', views.cloneprogram, name='cloneprogram'),
+    path('analytics/', views.analytics, name='analytics'),
     path('programs/', views.createprogram, name='programs'),
 
     path('myprogram/', views.myprogram, name='myprogram'),
     path('registerusers/', views.registerusers, name='registerusers'),
     path('userdashboard/', views.userdashboard, name='userdashboard'),
     path('cms_frame/', views.cms_frame, name='cms_frame'),
+    path('redeem-rewards/', views.rewards_redeem, name='redeem_rewards'),
+    path('export_data/', views.export_useractivity_data, name='export_data'),
     path('django_frame/', views.django_frame, name='django_frame'),
     path('profile/<int:pk>/', views.profile, name='profile'),
     path('archive/', views.archive, name='archive'),

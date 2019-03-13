@@ -2,13 +2,14 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm
-from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm
-from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification
-from week.models import WeekPage, EmailTemplates
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm
+from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, ProgramClone
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward
+from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage
 from io import TextIOWrapper, StringIO
-import re
-
+import re, csv
+#import weasyprint
+from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
 from django.contrib.auth.models import User
@@ -570,6 +571,109 @@ def manage_points(request,pk):
               #          { 'form': form,'user_name':user_name,'user_point':user_point})
         return render(request, 'account/managepoints.html', {'form': form,'user_name':user_name,'added_points':added_points})
     return render(request,'account/managepoints.html',{'form':form,'user_name':user_name,'user_point':user_point})
+
+def parameters_form(request):
+    if request.method == "POST":
+        form = ParametersForm(request.POST)
+        if form.is_valid():
+            rows = Parameters.objects.filter(current_values=True)
+            rows.update(current_values=False)
+            post = form.save(commit=False)
+            post.save()
+    else:
+        settings = Parameters.objects.get(current_values=True)
+        pdtd = settings.physical_days_to_done
+        ndtd = settings.nutrition_days_to_done
+
+        form = ParametersForm(
+            initial={'physical_days_to_done': pdtd,
+                     'nutrition_days_to_done': ndtd}
+        )
+    return render(request, 'account/parameters_edit.html', {'form': form})
+
+@login_required
+def cloneprogram(request):
+    if request.method == "POST":
+        form = ProgramClone(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data['new_start_date'], form.cleaned_data['program'])
+    else:
+        form = ProgramClone()
+    return render(request, 'account/cloneprogram.html', {'form': form})
+
+@login_required
+def analytics(request):
+    return render(request, 'account/analytics_home.html', {})
+
+@login_required
+def export_useractivity_data(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
+    rows = list(UserActivity.objects.all())
+    writer = csv.writer(response)
+
+    writer.writerow(['User', 'Program', 'Activity',
+                       'Week Number', 'Day of Week',
+                       'Points Earned', 'Date'])
+    for row in rows:
+        user = User.objects.get(id=row.user_id)
+        name = user.first_name + " " + user.last_name
+        program = Program.objects.get(id=row.program_id).program_name
+        writer_row = [name, program,
+                      row.Activity, row.Week,
+                      row.DayOfWeek, row.points_earned,
+                      row.creation_date]
+        print(writer_row)
+        writer.writerow(writer_row)
+
+    return response
+
+@login_required
+def rewards_redeem(request):
+    if request.method == "GET":
+        data = ServicePostPage.objects.get(page_ptr_id=10)
+        print(type(data.points_for_this_service))
+        return render(request, 'rewards/reward_confirmation.html')
+    else:
+        points = request.POST.get('points')
+        service = request.POST.get('service')
+        point = int(points)
+        print(type(point))
+        user1=User.objects.get(username=request.user.username)
+        print(user1.profile.points, point)
+        if user1.profile.points < point:
+            print('cannot redeem')
+        else:
+            print('ask if user wants to continue?')
+            user1.profile.points -= point
+            user1.profile.save()
+            points_available = user1.profile.points
+            rewards = Reward.objects.create(user=user1, points_redeemed=point, service_used=service)
+            reward_number = rewards.reward_no
+            subject = 'Confirmation Rewards Redeemed - Redemption No.'.format(rewards.reward_no)
+            messages = 'Check the PDF attachment for your redemption number'
+            from_email = 'capstone18FA@gmail.com'
+            email = EmailMessage(subject, messages, from_email, [user1.email])
+            print(user1.email)
+            #genarate PDF
+            html = render_to_string('rewards/pdf.html',{'point': point, 'service': service,
+                                                                        'points_available': points_available,
+                                                                        'reward_number': reward_number})
+            out = BytesIO()
+            stylesheets = [weasyprint.CSS('https://fitgirl-empoweru-prod.s3.amazonaws.com/static/css/pdf.css')]
+            print(stylesheets)
+            weasyprint.HTML(string=html).write_pdf(out,stylesheets=stylesheets)
+            email.attach('Redemption No. {}'.format(rewards.reward_no), out.getvalue(), 'application/pdf')
+            email.send()
+            return render(request, 'rewards/reward_confirmation.html', {'point': point, 'service': service,
+                                                                        'points_available': points_available,
+                                                                        'reward_number': reward_number})
+
+@login_required
+def viewRewards(request):
+    rewards = Reward.objects.all()
+    user = User.objects.get(username=request.user.username)
+    return render(request, 'rewards/viewRewards.html', {'rewards' : rewards, 'user': user})
 
 
 

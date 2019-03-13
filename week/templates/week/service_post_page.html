@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+<div class ="container rewards-post-page">
+    <div class="spacer-div-30"></div>
+    <div style="text-align: center;">
+        <h1>{{ page.title }}</h1>
+        <h4>{{ page.description|richtext }}</h4>
+        <form action="{% url 'redeem_rewards' %}" onsubmit="return validate(this);" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="points" id="service_points" value="{{ page.points_for_this_service }}">
+            <input type="hidden" name="service" value="{{ page.title }}">
+            <p class="card-text">Required points:{{ page.points_for_this_service }}</p>
+            <button type="submit" class="btn btn-secondary">Click to Redeem</button>
+        </form>
+<!--brent removed <br> for spacing-->
+<!--added btn-return - Brent-->
+    </div>
+    <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+</div>
+
+<script>
+function validate(form) {
+    var points_for_service = document.getElementById("service_points").value;
+    if({{ user_data.profile.points }} < points_for_service) {
+        alert('You do not have enough points :( ');
+        return false;
+    }
+    else {
+        return confirm('{{ page.points_for_this_service }} will be deducted from your points. Do you really want to continue?');
+    }
+}
+</script>
+
+{% endblock %}

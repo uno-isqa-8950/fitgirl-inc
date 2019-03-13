@@ -3,7 +3,7 @@
 # Register your models here.
 from django.contrib import admin
 from .models import Program
-from .models import Profile, RegisterUser,InspirationalQuotes, Dailyquote,Inactiveuser,RewardsNotification, Affirmations
+from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote,Inactiveuser,RewardsNotification, Affirmations, Reward
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
@@ -43,13 +43,13 @@ admin.site.register(User, CustomUserAdmin)
 admin.site.register(RegisterUser)
 
 
-class AffirmationAdmin(admin.ModelAdmin):
-    Quotes = 'Quotes'
-    list_display = ('affirmation', 'published_date')
-    list_filter = ('affirmation', 'published_date')
-    search_fields = ('affirmation', 'published_date')
-
-admin.site.register(Affirmations, AffirmationAdmin)
+# class AffirmationAdmin(admin.ModelAdmin):
+#     Quotes = 'Quotes'
+#     list_display = ('affirmation', 'published_date')
+#     list_filter = ('affirmation', 'published_date')
+#     search_fields = ('affirmation', 'published_date')
+#
+# admin.site.register(Affirmations, AffirmationAdmin)
 
 class DailyquoteAdmin(admin.ModelAdmin):
     list_display = ('dailyquote', 'quote_date')
@@ -75,3 +75,11 @@ class RewardsNotificationAdmin(admin.ModelAdmin):
 
 admin.site.register(RewardsNotification,RewardsNotificationAdmin)
 
+class RewardList(admin.ModelAdmin):
+    list_display = ('reward_no', 'user', 'timestamp')
+    list_filter = ('user', 'timestamp')
+    search_fields = ('user', 'timestamp')
+    ordering = ['timestamp']
+
+
+admin.site.register(Reward, RewardList)

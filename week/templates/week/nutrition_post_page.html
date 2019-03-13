@@ -40,7 +40,7 @@
             <div class="nutrition-content">
                 {{ page.morecontent|richtext}}
                 
-                {% for post in page.get_children %}
+                {% for post in page.get_children.live %}
                 <h2 class="dont-print-this"><a href="{% pageurl post %}">{{post.title}}</a></h2>
                 {% endfor %}
             </div>

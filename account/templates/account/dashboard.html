@@ -123,7 +123,11 @@
                                         <div>
                                             <li class="nav-item">
                                                 <a href="{% url 'createprogram' %}" id="createProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
-                                                        class="fas fa-edit fa-fw"></i> Program </a>
+                                                        class="fas fa-folder-plus fa-fw"></i> Programs </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{% url 'cloneprogram' %}" id="cloneProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                        class="fas fa-clone fa-fw"></i> Clone Program </a>
                                             </li>
                                             <div>
                                                 <li class="nav-item">
@@ -135,11 +139,23 @@
                                                         <a href="{% url 'users' %}" id="users" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                             <i class="fas fa-female fa-fw"></i> Users </a>
                                                     </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'parameters' %}" id="parameters" class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Settings </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'rewards' %}" id="rewards" class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Manage Rewards </a>
+                                                    </li>
                                                     <div>
                                                         <div>
+                                                     <li class="nav-item">
+                                                        <a href="{% url 'analytics' %}" id="analytics" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                                class="fas fa-chart-bar fa-fw"></i> Analytics </a>
+                                                    </li>
                                                     <li class="nav-item">
                                                         <a href="{% url 'archive' %}" id="archive" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                            <i class="fas fa-female fa-fw"></i> Archive </a>
+                                                            <i class="fas fa-archive fa-fw"></i> Archive </a>
                                                     </li>
                                                     <div>
                                                     <li class="nav-item">
@@ -149,7 +165,7 @@
                                                         <div>
                                                     <li class="nav-item">
                                                         <a href="{% url 'django_frame' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                            <i class="fas fa-edit fa-fw"></i> Manage Site </a>
+                                                            <i class="fas fa-database fa-fw"></i> Manage Site </a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a href="{% url 'user_inactivity' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">

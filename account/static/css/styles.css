@@ -3,6 +3,8 @@
 /* body{
     background: #f4f4f4;
 } */
+@import url('http://fonts.googleapis.com/css?family=Comfortaa');
+@import "compass/css3";
 
 @media (min-width: 576px){
   /* .physical-body .navbar-parent,.fitgirlinc-footer-socialLinks {
@@ -106,6 +108,11 @@ input[type=submit], a.button{
     padding: 10px 25px;
     font-size: 14px;
     text-transform: inherit !important;
+}
+
+.print-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 /*.print-button {*/
     /*margin-left:10px;*/
