@@ -1849,3 +1849,11 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 
 .no-pointer:hover{ cursor:default; background:none !important;}
 
+/*Rewards pop up - Aishwarya */
+#ModalReward .modal-dialog .modal-content .modal-header{
+    background: #FCC9B9;
+}
+.rewards-popup h5{
+    color: #ed217c;
+}
+/*Rewards pop up - Aishwarya */
