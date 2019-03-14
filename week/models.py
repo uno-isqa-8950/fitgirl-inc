@@ -263,7 +263,7 @@ class PhysicalPostPage(AbstractForm):
         # print(form.user.username)
         print(user1.profile.points)
 
-        #log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 class PreassessmentFormField(AbstractFormField):
     page = ParentalKey('PreassessmentPage', on_delete=models.CASCADE, related_name='form_fields')
