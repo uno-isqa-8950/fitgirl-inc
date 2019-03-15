@@ -489,7 +489,7 @@ class PostassessmentPage(AbstractForm):
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
- class DisclaimerPage(Page):
+class DisclaimerPage(Page):
      disclaimer = RichTextField(blank=True)
      disclaimer2 = models.CharField(max_length=10000, blank=True, )
      disclaimer3 = models.CharField(max_length=10000, blank=True, )
@@ -505,7 +505,7 @@ class PostassessmentPage(AbstractForm):
      ]
 
 
- class Disclaimerlink(Page):
+class Disclaimerlink(Page):
      disclaimer = RichTextField(blank=True)
      disclaimer2 = models.CharField(max_length=10000, blank=True, )
      disclaimer3 = models.CharField(max_length=10000, blank=True, )
@@ -521,7 +521,7 @@ class PostassessmentPage(AbstractForm):
      ]
 
 
- class LandingIndexPage(Page):
+class LandingIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
     physical= RichTextField(blank=True)
