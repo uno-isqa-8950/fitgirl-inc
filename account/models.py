@@ -101,7 +101,7 @@ class Profile(models.Model):
 
 
 class Inactiveuser(models.Model):
-    #inactive_id = models.AutoField(primary_key=True,blank=False,null=False)
+    inactive_id = models.AutoField(primary_key=True,blank=False,null=False)
     set_days = models.IntegerField(default=7,validators=[MaxValueValidator(31),MinValueValidator(1)])
     #set_days = models.IntegerField(blank=False,null=False,default=1)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -142,7 +142,7 @@ class Reward(models.Model):
         self.save()
 
 class RewardsNotification(models.Model):
-    #rewards_notification_id = models.AutoField(primary_key=True,blank=False,null=False)
+    rewards_notification_id = models.AutoField(primary_key=True,blank=False,null=False)
     Rewards_milestone_1 = models.IntegerField(default=25,blank=False,null=False)
     Rewards_milestone_2 = models.IntegerField(default=50, blank=False, null=False)
     Rewards_milestone_3 = models.IntegerField(default=75, blank=False, null=False)
@@ -151,7 +151,7 @@ class RewardsNotification(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.created_at)
+        return str(self.rewards_notification_id)
 
     class Meta:
         get_latest_by = 'created_at'
