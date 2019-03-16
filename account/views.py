@@ -538,39 +538,42 @@ def rewards_notification(request):
             return render(request,'account/rewards_notification.html',{'form':form})
     return render(request,'account/rewards_notification.html',{'form':form})
 
-def manage_points(request,pk):
-    user1 = get_object_or_404(User,pk=pk)
-    user_name = user1.email
-    user_point = user1.profile.points
+def manage_points(request):
     if request.method == 'GET':
         form = ManagePointForm()
+        return render(request, "account/managepoints.html", {'form': form})
+    else:
+        form = ManagePointForm()
+        list = request.POST.getlist('checks[]')
+        users = []
+        for email in list:
+            user1 = User.objects.get(username=email)
+            users.append(user1)
+        return render(request, "account/managepoints.html", {'form': form, 'users': users, 'to_list': list})
+
+def update_points(request):
+    if request.method == 'GET':
+        form = ManagePointForm()
+        return render(request, "account/managepoints.html", {'form': form})
     else:
         form = ManagePointForm(request.POST)
         if form.is_valid():
-
-            #user = User.objects.get(username=request.POST.get('username'))
-            # user = form.objects.get('users')
-
-            point = user1.profile.points
-            print(point)
+            list = request.POST.get('to_list')
+            new = list.replace('[','').replace(']','').replace("'",'')
+            result = [x.strip() for x in new.split(',')]
             manage_points = form.cleaned_data['manage_points']
-            print(manage_points)
-            print(type(manage_points))
             added_points = int(manage_points)
-            point += added_points
-            user1.profile.points = point
-            user1.profile.save()
-            # user.save()
-            print(point)
-            #form = form.save(commit=False)
-            #form.save()
-            messages.success(request, f'{added_points} points has been added to {user_name}')
+            users = []
+            for user_email in result:
+                user = User.objects.get(username=user_email)
+                users.append(user.email)
+                point = user.profile.points
+                point += added_points
+                user.profile.points = point
+                user.profile.save()
+            messages.success(request, f'{added_points} points has been updated to {users}')
             return redirect('users')
-            #return render(request,
-             #          'account/point_confirmation.html',
-              #          { 'form': form,'user_name':user_name,'user_point':user_point})
-        return render(request, 'account/managepoints.html', {'form': form,'user_name':user_name,'added_points':added_points})
-    return render(request,'account/managepoints.html',{'form':form,'user_name':user_name,'user_point':user_point})
+
 
 def parameters_form(request):
     if request.method == "POST":
