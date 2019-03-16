@@ -21,6 +21,13 @@
   .strength-images-array, .agility-images-array, .flexibility-images-array, .nutrition-images-array{
 
   }
+  .btn-return {
+    padding: .84rem;
+    }
+    .btn-return .return-txt{
+      display: none
+    }
+    
 }
 @media (min-width: 1200px){
   .container,.fitgirlinc-footer-socialLinks{
@@ -1281,8 +1288,6 @@ canvas{
   width: 100% !important;
   height: auto !important;
 }
-
-
 
 
 
