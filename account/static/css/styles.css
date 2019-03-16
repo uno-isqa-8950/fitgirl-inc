@@ -1267,6 +1267,44 @@ iframe {
   border-color: #ddd #ddd #ddd transparent;
   *border-left-color: #ffffff;
 }
+.registration-complete{
+  position: relative;
+}
+canvas{
+  top:0;
+}
+#c2canvasdiv{
+  width: 100% !important;
+  height: auto !important;
+}
+#c2canvas{
+  width: 100% !important;
+  height: auto !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
