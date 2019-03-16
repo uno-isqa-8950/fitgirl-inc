@@ -713,4 +713,9 @@ def viewRewards(request):
     return render(request, 'rewards/viewRewards.html', {'rewards' : rewards, 'user': user})
 
 
-
+@login_required
+def Analytics_Dashboard(request):
+    return render(request,
+                  'account/Analytics_Dashboard.html',
+                  {'section': 'Analytics_Dashboard'})
+# analytics dashboard ends- srishty#
