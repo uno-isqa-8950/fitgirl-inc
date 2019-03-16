@@ -26,6 +26,7 @@
 
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <input type="hidden" name="pageurl" value="{% pageurl page %}">
                     <br>
                     <br>
                     <input class="btn-md btn-fitgirl"  type="submit">

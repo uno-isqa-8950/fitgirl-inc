@@ -460,35 +460,6 @@ class PostassessmentPage(AbstractForm):
         FieldPanel('end_date'),
     ]
 
-class DisclaimerPage(Page):
-    disclaimer = RichTextField(blank=True)
-    disclaimer2 = models.CharField(max_length=10000, blank=True, )
-    disclaimer3 = models.CharField(max_length=10000, blank=True, )
-    disclaimer4 = models.CharField(max_length=10000, blank=True, )
-    disclaimer5 = models.CharField(max_length=10000, blank=True, )
-
-    content_panels = Page.content_panels + [
-        FieldPanel('disclaimer', classname="full"),
-        FieldPanel('disclaimer2', classname="full"),
-        FieldPanel('disclaimer3', classname="full"),
-        FieldPanel('disclaimer4', classname="full"),
-        FieldPanel('disclaimer5', classname="full"),
-    ]
-
-class Disclaimerlink(Page):
-    disclaimer = RichTextField(blank=True)
-    disclaimer2 = models.CharField(max_length=10000, blank=True, )
-    disclaimer3 = models.CharField(max_length=10000, blank=True, )
-    disclaimer4 = models.CharField(max_length=10000, blank=True, )
-    disclaimer5 = models.CharField(max_length=10000, blank=True, )
-
-    content_panels = Page.content_panels + [
-        FieldPanel('disclaimer', classname="full"),
-        FieldPanel('disclaimer2', classname="full"),
-        FieldPanel('disclaimer3', classname="full"),
-        FieldPanel('disclaimer4', classname="full"),
-        FieldPanel('disclaimer5', classname="full"),
-        ]
 
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
@@ -517,6 +488,38 @@ class Disclaimerlink(Page):
         #print(user1.profile.bio)
         user1.profile.save()
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
+
+
+
+class DisclaimerPage(Page):
+    disclaimer = RichTextField(blank=True)
+    disclaimer2 = models.CharField(max_length=10000, blank=True, )
+    disclaimer3 = models.CharField(max_length=10000, blank=True, )
+    disclaimer4 = models.CharField(max_length=10000, blank=True, )
+    disclaimer5 = models.CharField(max_length=10000, blank=True, )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('disclaimer', classname="full"),
+        FieldPanel('disclaimer2', classname="full"),
+        FieldPanel('disclaimer3', classname="full"),
+        FieldPanel('disclaimer4', classname="full"),
+        FieldPanel('disclaimer5', classname="full"),
+    ]
+
+class Disclaimerlink(Page):
+    disclaimer = RichTextField(blank=True)
+    disclaimer2 = models.CharField(max_length=10000, blank=True, )
+    disclaimer3 = models.CharField(max_length=10000, blank=True, )
+    disclaimer4 = models.CharField(max_length=10000, blank=True, )
+    disclaimer5 = models.CharField(max_length=10000, blank=True, )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('disclaimer', classname="full"),
+        FieldPanel('disclaimer2', classname="full"),
+        FieldPanel('disclaimer3', classname="full"),
+        FieldPanel('disclaimer4', classname="full"),
+        FieldPanel('disclaimer5', classname="full"),
+    ]
 
 class LandingIndexPage(Page):
     intro = RichTextField(blank=True)

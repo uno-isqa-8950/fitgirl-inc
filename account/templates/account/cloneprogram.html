@@ -1,9 +1,14 @@
 {% extends 'account/dashboard.html' %}
+{% load staticfiles %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
+{% block title %}Clone Program{% endblock %}
 {% block dash_content %}
 
+
 {% if request.user.is_superuser %}
-<div class="container-fluid">
+<div class="container">
     <fieldset>
         <legend>Clone a Program</legend>
         <form method="post">
@@ -19,6 +24,5 @@
     <h1>Error</h1>
     </div>
 {% endif %}
-
 
 {% endblock %}

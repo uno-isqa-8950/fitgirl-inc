@@ -8,7 +8,7 @@ from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, Reward
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage
 from io import TextIOWrapper, StringIO
 import re, csv
-import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -609,27 +609,61 @@ def analytics(request):
     return render(request, 'account/analytics_home.html', {})
 
 @login_required
-def export_useractivity_data(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
-    rows = list(UserActivity.objects.all())
-    writer = csv.writer(response)
+def export_data(request):
+    if request.method == 'POST':
 
-    writer.writerow(['User', 'Program', 'Activity',
-                       'Week Number', 'Day of Week',
-                       'Points Earned', 'Date'])
-    for row in rows:
-        user = User.objects.get(id=row.user_id)
-        name = user.first_name + " " + user.last_name
-        program = Program.objects.get(id=row.program_id).program_name
-        writer_row = [name, program,
-                      row.Activity, row.Week,
-                      row.DayOfWeek, row.points_earned,
-                      row.creation_date]
-        print(writer_row)
-        writer.writerow(writer_row)
+        response = HttpResponse(content_type='text/csv')
+        post_data = request.POST
+        export_type = post_data['export_type']
 
-    return response
+        if export_type == 'useractivity':
+            response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
+            rows = list(UserActivity.objects.all())
+            writer = csv.writer(response)
+
+            writer.writerow(['User', 'Program', 'Activity',
+                               'Week Number', 'Day of Week',
+                               'Points Earned', 'Date'])
+            for row in rows:
+                user = User.objects.get(id=row.user_id)
+                name = user.first_name + " " + user.last_name
+                program = Program.objects.get(id=row.program_id).program_name
+                writer_row = [name, program,
+                              row.Activity, row.Week,
+                              row.DayOfWeek, row.points_earned,
+                              row.creation_date]
+                writer.writerow(writer_row)
+        elif export_type == 'preassessment':
+            response['Content-Disposition'] = 'attachment; filename="pre-assessment.csv"'
+            assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
+            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            if len(rows) > 0:
+                writer = csv.writer(response)
+                writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    user = User.objects.get(id=row.user_id)
+                    name = user.first_name + " " + user.last_name
+                    #program = Program.objects.get(id=row.program_id).program_name
+                    writer.writerow([name, row.form_data, row.submit_time])
+        elif export_type == 'preassessment':
+            response['Content-Disposition'] = 'attachment; filename="post-assessment.csv"'
+            assesssment_page_id = Page.objects.filter(slug__contains="post-assessment").first().id
+            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            if len(rows) > 0:
+                writer = csv.writer(response)
+                writer.writerow(['User', 'Post-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    user = User.objects.get(id=row.user_id)
+                    name = user.first_name + " " + user.last_name
+                    # program = Program.objects.get(id=row.program_id).program_name
+                    writer.writerow([name, row.form_data, row.submit_time])
+        else:
+                response = HttpResponse(content_type='text/html', content="No data")
+        return response
+    else:
+        return HttpResponse('Invalid request')
 
 @login_required
 def rewards_redeem(request):

@@ -133,5 +133,7 @@ class ProgramClone(forms.Form):
         program_list.append(tuple)
     program_to_clone = forms.ChoiceField(choices=program_list)
     new_start_date = forms.DateField(widget=forms.SelectDateWidget)
+    new_program = forms.CharField(max_length=50, )
+    length_of_program = forms.IntegerField(max_value=18, min_value=1)
 
-    fields = (program_to_clone, new_start_date)
+    fields = (program_to_clone, new_start_date, new_program, length_of_program)
