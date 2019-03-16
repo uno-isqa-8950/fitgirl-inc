@@ -3,25 +3,18 @@
 {% block dash_content %}
 <div class="container">
     <div class="col-9 offset-lg-0">
-        <div class="spacer-div-30">
-      <br>
-      <br>
-    <h1 class="text-left">Manage Points</h1>
-    <form action="" method="post">
+        <div class="spacer-div-30"></div>
+        <h1 class="text-left">Manage Points</h1>
+        <form action="{% url 'update_points' %}" method="post">
             {% csrf_token %}
-
-            Username:
-            {{user_name}}
-    <p>
-        <br><bold>Current Points: </bold> {{user_point}}
+            {% for user in users %}
+                <p>
+                    User: {{ user.username }}, Current Points: {{ user.profile.points }}
+                </p>
+            {% endfor %}
             {{ form|crispy }}
-        </br>
-    </p>
-
-
-            <div class="form-actions">
-              <button type="submit" class="btn btn-pink"> &nbsp Update</button>
-            </div>
+            <input type="hidden" name="to_list" value="{{ to_list }}">
+            <button type="submit" class="btn btn-pink">Update</button>
         </form>
     </div>
 </div>
