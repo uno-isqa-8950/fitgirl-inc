@@ -524,6 +524,7 @@ class Disclaimerlink(Page):
 class LandingIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
+    additional = RichTextField(blank=True)
     physical= RichTextField(blank=True)
     nutritional= RichTextField(blank=True)
     mental= RichTextField(blank=True)
@@ -535,6 +536,8 @@ class LandingIndexPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+        FieldPanel('additional', classname="full"),
         FieldPanel('physical', classname="full"),
         FieldPanel('nutritional', classname="full"),
         FieldPanel('mental', classname="full"),
