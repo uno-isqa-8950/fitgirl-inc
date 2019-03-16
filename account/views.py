@@ -8,6 +8,7 @@ from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, Reward
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage
 from io import TextIOWrapper, StringIO
 import re, csv
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
