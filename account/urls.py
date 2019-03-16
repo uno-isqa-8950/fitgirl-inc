@@ -9,6 +9,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', views.login_success, name='login_success'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('Analytics_Dashboard/', views.Analytics_Dashboard, name='Analytics_Dashboard'),
+
     path('parameters/', views.parameters_form, name='parameters'),
         # change password urls
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
@@ -33,7 +35,7 @@ urlpatterns = [
     path('userdashboard/', views.userdashboard, name='userdashboard'),
     path('cms_frame/', views.cms_frame, name='cms_frame'),
     path('redeem-rewards/', views.rewards_redeem, name='redeem_rewards'),
-    path('export_data/', views.export_useractivity_data, name='export_data'),
+    path('export_data/', views.export_data, name='export_data'),
     path('django_frame/', views.django_frame, name='django_frame'),
     path('profile/<int:pk>/', views.profile, name='profile'),
     path('archive/', views.archive, name='archive'),
@@ -42,7 +44,8 @@ urlpatterns = [
     path('send_individual_email/<int:pk>/', views.email_individual, name='send_individual_email'),
     path('inactive_users/',views.user_inactivity,name='user_inactivity'),
     path('rewards_notification',views.rewards_notification, name='rewards_notification'),
-    path('manage_points/<int:pk>/', views.manage_points, name='manage_points'),
+    path('manage_points/', views.manage_points, name='manage_points'),
+    path('update_points/', views.update_points, name='update_points'),
     path('admin_edit/', views.admin_edit, name='admin_edit'),
 
 ]

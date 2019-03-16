@@ -29,7 +29,6 @@
               <th class="th-lg text-center ">Post-Assessment<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
               <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
               <th class="th-lg text-center ">Email</th>
-              <th class="th-lg text-center ">Manage Points</th>
 
           </tr>
           </thead >
@@ -68,13 +67,13 @@
                 {% endif %}
                 <td align="center">{{ registeredUser.profile.points }}</td>
                 <td align="center"><a href="{% url 'send_individual_email' pk=registeredUser.pk %}"  class="fas fa-envelope" style="font-size:45.76px;color:#ec407a"a> </td>
-                <td align="center"><a href="{% url 'manage_points' pk=registeredUser.pk %}" class="fas fa-plus-square" style="font-size:45.76px;color:#ec407a"a> </td>
 
             </tr>
             {% endfor %}
             </tbody>
       </table>
-    <a><input type="submit" value="Send E-mail to selected"></a>
+    <button type="submit" formaction="{% url 'group_email' %}" class="btn btn-pink">Send E-mail to selected</button>
+    <button type="submit" formaction="{% url 'manage_points' %}" class="btn btn-pink">Manage points for selected</button
 </form>
 </div>
 

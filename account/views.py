@@ -8,7 +8,7 @@ from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, Reward
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage
 from io import TextIOWrapper, StringIO
 import re, csv
-# import weasyprint
+import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -538,39 +538,42 @@ def rewards_notification(request):
             return render(request,'account/rewards_notification.html',{'form':form})
     return render(request,'account/rewards_notification.html',{'form':form})
 
-def manage_points(request,pk):
-    user1 = get_object_or_404(User,pk=pk)
-    user_name = user1.email
-    user_point = user1.profile.points
+def manage_points(request):
     if request.method == 'GET':
         form = ManagePointForm()
+        return render(request, "account/managepoints.html", {'form': form})
+    else:
+        form = ManagePointForm()
+        list = request.POST.getlist('checks[]')
+        users = []
+        for email in list:
+            user1 = User.objects.get(username=email)
+            users.append(user1)
+        return render(request, "account/managepoints.html", {'form': form, 'users': users, 'to_list': list})
+
+def update_points(request):
+    if request.method == 'GET':
+        form = ManagePointForm()
+        return render(request, "account/managepoints.html", {'form': form})
     else:
         form = ManagePointForm(request.POST)
         if form.is_valid():
-
-            #user = User.objects.get(username=request.POST.get('username'))
-            # user = form.objects.get('users')
-
-            point = user1.profile.points
-            print(point)
+            list = request.POST.get('to_list')
+            new = list.replace('[','').replace(']','').replace("'",'')
+            result = [x.strip() for x in new.split(',')]
             manage_points = form.cleaned_data['manage_points']
-            print(manage_points)
-            print(type(manage_points))
             added_points = int(manage_points)
-            point += added_points
-            user1.profile.points = point
-            user1.profile.save()
-            # user.save()
-            print(point)
-            #form = form.save(commit=False)
-            #form.save()
-            messages.success(request, f'{added_points} points has been added to {user_name}')
+            users = []
+            for user_email in result:
+                user = User.objects.get(username=user_email)
+                users.append(user.email)
+                point = user.profile.points
+                point += added_points
+                user.profile.points = point
+                user.profile.save()
+            messages.success(request, f'{added_points} points has been updated to {users}')
             return redirect('users')
-            #return render(request,
-             #          'account/point_confirmation.html',
-              #          { 'form': form,'user_name':user_name,'user_point':user_point})
-        return render(request, 'account/managepoints.html', {'form': form,'user_name':user_name,'added_points':added_points})
-    return render(request,'account/managepoints.html',{'form':form,'user_name':user_name,'user_point':user_point})
+
 
 def parameters_form(request):
     if request.method == "POST":
@@ -606,27 +609,61 @@ def analytics(request):
     return render(request, 'account/analytics_home.html', {})
 
 @login_required
-def export_useractivity_data(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
-    rows = list(UserActivity.objects.all())
-    writer = csv.writer(response)
+def export_data(request):
+    if request.method == 'POST':
 
-    writer.writerow(['User', 'Program', 'Activity',
-                       'Week Number', 'Day of Week',
-                       'Points Earned', 'Date'])
-    for row in rows:
-        user = User.objects.get(id=row.user_id)
-        name = user.first_name + " " + user.last_name
-        program = Program.objects.get(id=row.program_id).program_name
-        writer_row = [name, program,
-                      row.Activity, row.Week,
-                      row.DayOfWeek, row.points_earned,
-                      row.creation_date]
-        print(writer_row)
-        writer.writerow(writer_row)
+        response = HttpResponse(content_type='text/csv')
+        post_data = request.POST
+        export_type = post_data['export_type']
 
-    return response
+        if export_type == 'useractivity':
+            response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
+            rows = list(UserActivity.objects.all())
+            writer = csv.writer(response)
+
+            writer.writerow(['User', 'Program', 'Activity',
+                               'Week Number', 'Day of Week',
+                               'Points Earned', 'Date'])
+            for row in rows:
+                user = User.objects.get(id=row.user_id)
+                name = user.first_name + " " + user.last_name
+                program = Program.objects.get(id=row.program_id).program_name
+                writer_row = [name, program,
+                              row.Activity, row.Week,
+                              row.DayOfWeek, row.points_earned,
+                              row.creation_date]
+                writer.writerow(writer_row)
+        elif export_type == 'preassessment':
+            response['Content-Disposition'] = 'attachment; filename="pre-assessment.csv"'
+            assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
+            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            if len(rows) > 0:
+                writer = csv.writer(response)
+                writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    user = User.objects.get(id=row.user_id)
+                    name = user.first_name + " " + user.last_name
+                    #program = Program.objects.get(id=row.program_id).program_name
+                    writer.writerow([name, row.form_data, row.submit_time])
+        elif export_type == 'preassessment':
+            response['Content-Disposition'] = 'attachment; filename="post-assessment.csv"'
+            assesssment_page_id = Page.objects.filter(slug__contains="post-assessment").first().id
+            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            if len(rows) > 0:
+                writer = csv.writer(response)
+                writer.writerow(['User', 'Post-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    user = User.objects.get(id=row.user_id)
+                    name = user.first_name + " " + user.last_name
+                    # program = Program.objects.get(id=row.program_id).program_name
+                    writer.writerow([name, row.form_data, row.submit_time])
+        else:
+                response = HttpResponse(content_type='text/html', content="No data")
+        return response
+    else:
+        return HttpResponse('Invalid request')
 
 @login_required
 def rewards_redeem(request):
@@ -676,4 +713,9 @@ def viewRewards(request):
     return render(request, 'rewards/viewRewards.html', {'rewards' : rewards, 'user': user})
 
 
-
+@login_required
+def Analytics_Dashboard(request):
+    return render(request,
+                  'account/Analytics_Dashboard.html',
+                  {'section': 'Analytics_Dashboard'})
+# analytics dashboard ends- srishty#
