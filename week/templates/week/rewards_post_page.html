@@ -9,7 +9,11 @@
 <div class ="container rewards-post-page">
     <br>
     <br>
-    <h1 style="text-align: center;">{{ page.title }}</h1>
+    <h1 style="text-align: center;">
+
+  <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i><span class="return-txt"> &nbsp Return</span></a>
+
+        {{ page.title }}</h1>
     <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
         {% if page.slug == "25-points" %}
             {% for post in 25point_category %}
@@ -126,7 +130,7 @@
 </br>
 <!--brent removed <br> for spacing-->
 <!--added btn-return - Brent-->
-<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+<!--<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>-->
 {# Rewards popup - Aishwarya #}
  <div class="modal fade" id="ModalReward" tabindex="-1" role="dialog" aria-labelledby="ModalReward" aria-hidden="true">
            <div class="modal-dialog modal-dialog-centered" role="document">
