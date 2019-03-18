@@ -1895,3 +1895,13 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     color: #ed217c;
 }
 /*Rewards pop up - Aishwarya */
+
+
+/*submit button */
+.container h1{
+    margin-top: 0px;
+    padding-top: 9px;
+    margin-bottom:9px;
+    position:relative;
+    text-align: center;
+}

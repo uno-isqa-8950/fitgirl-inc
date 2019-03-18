@@ -9,11 +9,12 @@
 <div class ="container rewards-post-page">
     <br>
     <br>
-    <h1 style="text-align: center;">
-
-  <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i><span class="return-txt"> &nbsp Return</span></a>
-
+    <h1>
+        <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right">
+        <i class="fa fa-chevron-circle-left">
+         </i><span class="return-txt"> &nbsp Return</span></a>
         {{ page.title }}</h1>
+
     <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
         {% if page.slug == "25-points" %}
             {% for post in 25point_category %}
