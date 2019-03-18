@@ -8,11 +8,18 @@
 <div class="container">
     <br>
     <br>
-    <h1 style="text-align: center;">
-        <a href="{{ page.get_parent.url.live }}" class="btn btn-fitgirl pull-right btn-return">
-        <i class="fa fa-chevron-circle-left">
-        </i><span class="return-txt"> &nbsp Return</span></a>
+    <h1>
+        <a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn">
+        <i class="fa fa-chevron-circle-left"></i>
+        <span class="return-txt"> &nbsp Return</span></a>
         {{ page.title }}</h1>
+
+<!--    <h1>
+        <a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right back-btn">
+        <i class="fa fa-chevron-circle-left"></i><span class="return-txt"> &nbsp rrReturn</span></a>
+        {{ page.title }}</h1>-->
+
+
 
     <h2 style="text-align: center;"> {{ page.intro|richtext }}</h2>
     <h4 style="text-align: center;"> {{ page.description|richtext }}</h4>
