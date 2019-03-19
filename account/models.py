@@ -170,9 +170,9 @@ class Parameters(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
 
-class Testfield2(models.Model):
-    physical_to_done = models.IntegerField(default=1)
-    nutrition_days_to_done = models.IntegerField(default=1)
-    creation_date = models.DateTimeField(auto_now=True)
-    current_values = models.BooleanField(default=True)
-    test4 = models.CharField(max_length=25, blank=True, null=True)
+# class Testfield2(models.Model):
+#     physical_to_done = models.IntegerField(default=1)
+#     nutrition_days_to_done = models.IntegerField(default=1)
+#     creation_date = models.DateTimeField(auto_now=True)
+#     current_values = models.BooleanField(default=True)
+#     test4 = models.CharField(max_length=25, blank=True, null=True)

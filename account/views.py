@@ -8,7 +8,7 @@ from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, Reward
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage
 from io import TextIOWrapper, StringIO
 import re, csv
-import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -20,7 +20,7 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
-from django.core.mail import BadHeaderError, send_mail
+from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
@@ -538,39 +538,42 @@ def rewards_notification(request):
             return render(request,'account/rewards_notification.html',{'form':form})
     return render(request,'account/rewards_notification.html',{'form':form})
 
-def manage_points(request,pk):
-    user1 = get_object_or_404(User,pk=pk)
-    user_name = user1.email
-    user_point = user1.profile.points
+def manage_points(request):
     if request.method == 'GET':
         form = ManagePointForm()
+        return render(request, "account/managepoints.html", {'form': form})
+    else:
+        form = ManagePointForm()
+        list = request.POST.getlist('checks[]')
+        users = []
+        for email in list:
+            user1 = User.objects.get(username=email)
+            users.append(user1)
+        return render(request, "account/managepoints.html", {'form': form, 'users': users, 'to_list': list})
+
+def update_points(request):
+    if request.method == 'GET':
+        form = ManagePointForm()
+        return render(request, "account/managepoints.html", {'form': form})
     else:
         form = ManagePointForm(request.POST)
         if form.is_valid():
-
-            #user = User.objects.get(username=request.POST.get('username'))
-            # user = form.objects.get('users')
-
-            point = user1.profile.points
-            print(point)
+            list = request.POST.get('to_list')
+            new = list.replace('[','').replace(']','').replace("'",'')
+            result = [x.strip() for x in new.split(',')]
             manage_points = form.cleaned_data['manage_points']
-            print(manage_points)
-            print(type(manage_points))
             added_points = int(manage_points)
-            point += added_points
-            user1.profile.points = point
-            user1.profile.save()
-            # user.save()
-            print(point)
-            #form = form.save(commit=False)
-            #form.save()
-            messages.success(request, f'{added_points} points has been added to {user_name}')
+            users = []
+            for user_email in result:
+                user = User.objects.get(username=user_email)
+                users.append(user.email)
+                point = user.profile.points
+                point += added_points
+                user.profile.points = point
+                user.profile.save()
+            messages.success(request, f'{added_points} points has been updated to {users}')
             return redirect('users')
-            #return render(request,
-             #          'account/point_confirmation.html',
-              #          { 'form': form,'user_name':user_name,'user_point':user_point})
-        return render(request, 'account/managepoints.html', {'form': form,'user_name':user_name,'added_points':added_points})
-    return render(request,'account/managepoints.html',{'form':form,'user_name':user_name,'user_point':user_point})
+
 
 def parameters_form(request):
     if request.method == "POST":
@@ -597,6 +600,60 @@ def cloneprogram(request):
         form = ProgramClone(request.POST)
         if form.is_valid():
             print(form.cleaned_data['new_start_date'], form.cleaned_data['program'])
+            new_start_date = form.cleaned_data['new_start_date']
+            program = form.cleaned_data['program']
+            local_timezone = pytz.timezone('America/Chicago')
+            plus_one_week = timedelta(weeks=1)
+            plus_one_day = timedelta(days=1)
+            date_fields = new_start_date.split('/')
+            new_start_datetime = datetime(int(date_fields[2]), int(date_fields[0]), int(date_fields[1]),
+                                          tzinfo=local_timezone)
+
+            program = Program()
+            program.program_name = new_page_class
+            program.program_start_date = new_start_datetime
+            program.program_end_date = new_start_datetime + plus_one_week * 13 - plus_one_day
+            program.created_date = datetime.now(local_timezone)
+            program.updated_date = program.created_date
+            program.save()
+
+            weeks = children.type(WeekPage)
+            for week in weeks:
+                week_number = re.match('Week (\d+)$', week.title)[1]
+                time_delta = (int(week_number) - 1) * plus_one_week
+                new_week_start_date = time_delta + new_start_datetime
+                new_week_end_date = new_week_start_date + plus_one_day * 6
+                week.weekpage.start_date = new_week_start_date
+                week.weekpage.end_date = new_week_end_date
+                week.weekpage.save()
+                for activity in week.get_children():
+                    print("Activity " + str(activity))
+                    for day in activity.get_children().type(PhysicalPostPage):
+                        print(week.title, str(day))
+                        print("start date " + str(day.physicalpostpage.start_date))
+
+                        if str(day) == 'Monday':
+                            day.physicalpostpage.start_date = new_week_start_date
+                            day.physicalpostpage.end_date = new_week_end_date
+                        elif str(day) == 'Tuesday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day
+                        elif str(day) == 'Wednesday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
+                        elif str(day) == 'Thursday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 3
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 3
+                        elif str(day) == 'Friday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
+                        else:
+                            print('Incorrect week title')
+
+                        day.physicalpostpage.save()
+
+        return True
+
     else:
         form = ProgramClone()
     return render(request, 'account/cloneprogram.html', {'form': form})
@@ -708,3 +765,11 @@ def viewRewards(request):
     rewards = Reward.objects.all()
     user = User.objects.get(username=request.user.username)
     return render(request, 'rewards/viewRewards.html', {'rewards' : rewards, 'user': user})
+
+
+@login_required
+def Analytics_Dashboard(request):
+    return render(request,
+                  'account/Analytics_Dashboard.html',
+                  {'section': 'Analytics_Dashboard'})
+# analytics dashboard ends- srishty#
