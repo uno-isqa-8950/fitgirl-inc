@@ -22,7 +22,7 @@ from django.forms import ValidationError
 from datetime import datetime
 import datetime
 import wagtail
-from django.core.mail import BadHeaderError, send_mail, EmailMessage
+from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
@@ -727,4 +727,9 @@ def viewRewards(request):
     return render(request, 'rewards/viewRewards.html', {'rewards' : rewards, 'user': user})
 
 
-
+@login_required
+def Analytics_Dashboard(request):
+    return render(request,
+                  'account/Analytics_Dashboard.html',
+                  {'section': 'Analytics_Dashboard'})
+# analytics dashboard ends- srishty#
