@@ -21,6 +21,13 @@
   .strength-images-array, .agility-images-array, .flexibility-images-array, .nutrition-images-array{
 
   }
+  .btn-return {
+    padding: .84rem;
+    }
+    .btn-return .return-txt{
+      display: none
+    }
+    
 }
 @media (min-width: 1200px){
   .container,.fitgirlinc-footer-socialLinks{
@@ -1281,10 +1288,75 @@ canvas{
   width: 100% !important;
   height: auto !important;
 }
-
-
-
-
+#vertical_tab_nav{
+	width: 700px;
+	margin:0 auto;
+	display: block;
+	overflow:hidden;
+}
+#vertical_tab_nav ul{
+   display: block;
+   float: left;
+   margin: 0px;
+   padding: 0px;
+   list-style: none;
+   overflow: hidden;
+   width: 250px;
+  border-radius: 15px 0 0 15px;
+}
+#vertical_tab_nav li{
+	margin-bottom: 1px;
+   text-align: left;
+   padding: 0px;
+}
+#vertical_tab_nav li:hover {
+	margin-bottom: 1px;
+	text-align: left;
+	padding: 2px;
+}
+#vertical_tab_nav li:last-child{
+   margin-bottom: 0px;
+  border-bottom: 0px;
+}
+#vertical_tab_nav li a{
+   display: block;
+   font-size: 14pt;
+   color: #fff;
+   text-decoration: none;
+   padding: 4%;
+   background: #6c5a9d;
+  background: -webkit-linear-gradient(top,#A79ACB,#6c5a9d);
+  background: -moz-linear-gradient(top,#A79ACB,#6c5a9d);
+}
+#vertical_tab_nav li a.selected{
+   background: #efefef;
+   color: #000;
+}
+#vertical_tab_nav div{
+   display: block;
+   float: left;
+   background: #efefef;
+   width:400px;
+   min-height: 260px;
+   padding: 10px 3% 3% 3%;
+  border-radius: 0 10px 10px 0;
+}
+#vertical_tab_nav div article{
+   display: none;
+   margin: 0px;
+   color: #000;
+   font-size:18px;
+   
+}
+#vertical_tab_nav div article p{
+   margin: 0px 0px 20px 0px;
+}
+.envelope-icon{
+  background-image: url(../images/envelope-icon.png);
+  background-repeat: none;
+  padding: 10px;
+  background-size: 100% 100%;
+}
 
 
 
