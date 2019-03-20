@@ -3,6 +3,13 @@
 {% load useractivity %}
 <!--<div class="collapse" id="collapseExample">-->
 <div class="navbar-parent">
+    <div class="slider">
+            <!-- <span class="previous">&larr;</span> 
+            
+        <span class="next">&rarr;</span>  -->
+        
+        <a href="#" class="previous glossy_button">&#8249;</a>
+        <a href="#" class="next glossy_button">&#8250;</a>
     <nav class="navbar navbar-light bg-light" style="border:0">
         {% now "Y-m-d" as current_date %}
         {% for item in menu_items %}
@@ -33,12 +40,12 @@
                 {% else %}
                     {% if done %}
                         <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded ">
                                 <i class="fa fa-check-square"></i> {{ item.text }}</a>
                         </li>
                     {% else %}
                         <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded ">
                                 <i class="fa fa-square"></i> {{ item.text }}</a>
                         </li>
                     {% endif %}
@@ -55,4 +62,5 @@
             {% endif %}
         {% endfor %}
     </nav>
+</div>
 </div>
