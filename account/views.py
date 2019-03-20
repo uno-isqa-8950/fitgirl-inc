@@ -18,12 +18,13 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from django.forms import ValidationError
-from datetime import datetime
-import datetime
+from datetime import datetime, timedelta
+import pytz
 from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
+from wagtail.core.models import Page
 
 def user_login(request):
     if request.method == 'POST':
@@ -599,25 +600,26 @@ def cloneprogram(request):
     if request.method == "POST":
         form = ProgramClone(request.POST)
         if form.is_valid():
-            print(form.cleaned_data['new_start_date'], form.cleaned_data['program'])
-            new_start_date = form.cleaned_data['new_start_date']
-            program = form.cleaned_data['program']
+            new_start_date = str(form.cleaned_data['new_start_date'])
+            program_to_clone = form.cleaned_data['program_to_clone']
+            new_program = form.clean()['new_program']
             local_timezone = pytz.timezone('America/Chicago')
             plus_one_week = timedelta(weeks=1)
             plus_one_day = timedelta(days=1)
-            date_fields = new_start_date.split('/')
-            new_start_datetime = datetime(int(date_fields[2]), int(date_fields[0]), int(date_fields[1]),
-                                          tzinfo=local_timezone)
+            date_fields = new_start_date.split('-')
+            new_start_datetime = datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=local_timezone)
 
             program = Program()
-            program.program_name = new_page_class
+            program.program_name = new_program
             program.program_start_date = new_start_datetime
             program.program_end_date = new_start_datetime + plus_one_week * 13 - plus_one_day
             program.created_date = datetime.now(local_timezone)
             program.updated_date = program.created_date
             program.save()
 
-            weeks = children.type(WeekPage)
+            page = Page(id=program_to_clone)
+
+            weeks = page.children.type(WeekPage)
             for week in weeks:
                 week_number = re.match('Week (\d+)$', week.title)[1]
                 time_delta = (int(week_number) - 1) * plus_one_week
