@@ -460,6 +460,7 @@ class PostassessmentPage(AbstractForm):
         FieldPanel('end_date'),
     ]
 
+
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
             return render(
@@ -489,41 +490,41 @@ class PostassessmentPage(AbstractForm):
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 
+
 class DisclaimerPage(Page):
-     disclaimer = RichTextField(blank=True)
-     disclaimer2 = models.CharField(max_length=10000, blank=True, )
-     disclaimer3 = models.CharField(max_length=10000, blank=True, )
-     disclaimer4 = models.CharField(max_length=10000, blank=True, )
-     disclaimer5 = models.CharField(max_length=10000, blank=True, )
+    disclaimer = RichTextField(blank=True)
+    disclaimer2 = models.CharField(max_length=10000, blank=True, )
+    disclaimer3 = models.CharField(max_length=10000, blank=True, )
+    disclaimer4 = models.CharField(max_length=10000, blank=True, )
+    disclaimer5 = models.CharField(max_length=10000, blank=True, )
 
-     content_panels = Page.content_panels + [
-         FieldPanel('disclaimer', classname="full"),
-         FieldPanel('disclaimer2', classname="full"),
-         FieldPanel('disclaimer3', classname="full"),
-         FieldPanel('disclaimer4', classname="full"),
-         FieldPanel('disclaimer5', classname="full"),
-     ]
-
+    content_panels = Page.content_panels + [
+        FieldPanel('disclaimer', classname="full"),
+        FieldPanel('disclaimer2', classname="full"),
+        FieldPanel('disclaimer3', classname="full"),
+        FieldPanel('disclaimer4', classname="full"),
+        FieldPanel('disclaimer5', classname="full"),
+    ]
 
 class Disclaimerlink(Page):
-     disclaimer = RichTextField(blank=True)
-     disclaimer2 = models.CharField(max_length=10000, blank=True, )
-     disclaimer3 = models.CharField(max_length=10000, blank=True, )
-     disclaimer4 = models.CharField(max_length=10000, blank=True, )
-     disclaimer5 = models.CharField(max_length=10000, blank=True, )
+    disclaimer = RichTextField(blank=True)
+    disclaimer2 = models.CharField(max_length=10000, blank=True, )
+    disclaimer3 = models.CharField(max_length=10000, blank=True, )
+    disclaimer4 = models.CharField(max_length=10000, blank=True, )
+    disclaimer5 = models.CharField(max_length=10000, blank=True, )
 
-     content_panels = Page.content_panels + [
-         FieldPanel('disclaimer', classname="full"),
-         FieldPanel('disclaimer2', classname="full"),
-         FieldPanel('disclaimer3', classname="full"),
-         FieldPanel('disclaimer4', classname="full"),
-         FieldPanel('disclaimer5', classname="full"),
-     ]
-
+    content_panels = Page.content_panels + [
+        FieldPanel('disclaimer', classname="full"),
+        FieldPanel('disclaimer2', classname="full"),
+        FieldPanel('disclaimer3', classname="full"),
+        FieldPanel('disclaimer4', classname="full"),
+        FieldPanel('disclaimer5', classname="full"),
+    ]
 
 class LandingIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
+    additional = RichTextField(blank=True)
     physical= RichTextField(blank=True)
     nutritional= RichTextField(blank=True)
     mental= RichTextField(blank=True)
@@ -535,6 +536,8 @@ class LandingIndexPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
+        FieldPanel('description', classname="full"),
+        FieldPanel('additional', classname="full"),
         FieldPanel('physical', classname="full"),
         FieldPanel('nutritional', classname="full"),
         FieldPanel('mental', classname="full"),

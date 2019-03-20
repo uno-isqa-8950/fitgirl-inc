@@ -38,6 +38,14 @@
                 background-color: rgba(255,255,255,.1);
             " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span class="sr-only">(current)</span></a>
               </li>
+             <!--Adding new analytics dashboard starts --srishty-->
+             <li class="nav-item">
+                <a class="nav-link hoverable" style="
+                background-color: rgba(255,255,255,.1);
+            " href="{% url 'Analytics_Dashboard' %}"> <i class="fas fa-book"></i> Analytics Dashboard </a>
+              </li>
+<!--Adding new analytics dashboard ends --srishty-->
+
             {% else %}
                 {% if user.profile.pre_assessment == "No" %}
                 {% else %}
@@ -224,7 +232,7 @@
         <script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
         <!-- <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
-        <script type="text/javascript" src="{% static 'js/soon.js' %}" ></script>
+        <script type="text/javascript" src="{% static 'js/soon.js' %}" ></script>   
         <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 <script>

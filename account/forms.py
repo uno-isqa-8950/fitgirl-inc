@@ -54,6 +54,8 @@ EVENT = (
 class ProfileEditForm(forms.ModelForm):
     photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}),required=False)                            #Image field is optional --Shamrose
     bio = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
+    secondary_email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your secondary email (optional)'}),required=False)
+    other_email = forms.EmailField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter your other email (optional)'}),required=False)
     date_of_birth = forms.DateField(widget=forms.TextInput(attrs={'class':'form-control','type':'date','placeholder':'mm/dd/yyyy format'}))
     zip = forms.IntegerField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your Zip-Code'}))
     city = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
@@ -72,7 +74,7 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('photo','bio', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school')           # Added Photo to the Start --Shamrose
+        fields = ('photo','bio', 'secondary_email','other_email', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school')           # Added Photo to the Start --Shamrose
 
 
 class ProgramForm(forms.ModelForm):
@@ -127,13 +129,13 @@ class ParametersForm(forms.ModelForm):
 
 
 class ProgramClone(forms.Form):
-     program_list = list()
-     for item in Program.objects.all():
-         tuple = (item.id, item.program_name)
-         program_list.append(tuple)
-     program_to_clone = forms.ChoiceField(choices=program_list)
-     new_start_date = forms.DateField(widget=forms.SelectDateWidget)
-     new_program = forms.CharField(max_length=50,)
-     length_of_program = forms.IntegerField(max_value=18, min_value=1)
+    program_list = list()
+    for item in Program.objects.all():
+        tuple = (item.id, item.program_name)
+        program_list.append(tuple)
+    program_to_clone = forms.ChoiceField(choices=program_list)
+    new_start_date = forms.DateField(widget=forms.SelectDateWidget)
+    new_program = forms.CharField(max_length=50, )
+    length_of_program = forms.IntegerField(max_value=18, min_value=1)
 
-     fields = (program_to_clone, new_start_date, new_program, length_of_program)
+    fields = (program_to_clone, new_start_date, new_program, length_of_program)

@@ -64,8 +64,6 @@
 
     {% else %}
         <div class ="container current-week">
-        <br>
-        <br>
         {% for current_week in current_week %}
             <h1 style="text-align: center;">{{ current_week.title }}</h1>
             <h3 style="text-align: center;"> {{ current_week.description|richtext }}</h3>
@@ -114,4 +112,5 @@
           </div>
         </div>
     {% endif %}
+    
 {% endblock %}
