@@ -22,6 +22,7 @@ def my_choices():
     d = {}
     for program in Program.objects.all().order_by('program_name'):
         d[program.program_name] = program.program_name
+    print(d)
     return d.items()
 
 
@@ -45,6 +46,7 @@ class UploadFileForm(forms.Form):
             choices=my_choices())
 
     file = forms.FileField(label=" Choose the CSV file")
+
 
 
 EVENT = (
@@ -111,9 +113,12 @@ class AdminEditForm(forms.ModelForm):
         model = Profile
         fields = ('photo', 'bio', 'date_of_birth', 'address', 'city', 'state', 'zip', 'day_phone')
 
+
 class EmailForm(forms.Form):
-    subject = forms.CharField(required=True)
-    message = forms.CharField(widget=forms.Textarea)
+    subject = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Enter Subject'}))
+    message = forms.CharField(required=False,
+                              widget=forms.Textarea(attrs={'placeholder': 'Select "Text" below to send this message or'
+                                                                          'Select "CMS template" to send content from CMS'}))
 
 class ContactForm(forms.Form):
     subject = forms.CharField(required=True)
