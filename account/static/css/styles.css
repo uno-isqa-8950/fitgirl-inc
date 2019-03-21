@@ -24,9 +24,6 @@
   .btn-return {
     padding: .84rem;
     }
-    .btn-return .return-txt{
-      display: none
-    }
     
 }
 @media (min-width: 1200px){
@@ -1440,6 +1437,10 @@ canvas{
   width: 100%;
   height: 100%;
 }
+
+    .btn-fitgirl .return-txt{
+      display: none
+    }
   }
   @media (max-width: 991px) {
     /* .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {

@@ -6,9 +6,10 @@ from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, Upload
 from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, ProgramClone
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage
+from week.forms import TemplateForm
 from io import TextIOWrapper, StringIO
 import re, csv
-# import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -20,6 +21,7 @@ from django.conf import settings
 from django.forms import ValidationError
 from datetime import datetime
 import datetime
+import wagtail
 from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -426,8 +428,9 @@ def group_email(request):
         return render(request, "account/group_email.html", {'form': form})
     else:
         form = EmailForm()
+        template_form = TemplateForm()
         list = request.POST.getlist('checks[]')
-        return render(request, "account/group_email.html", {'form': form, 'to_list': list})
+        return render(request, "account/group_email.html", {'form': form, 'template_form': template_form, 'to_list': list})
 
 
 
@@ -436,8 +439,9 @@ def send_group_email(request):
     if request.method == 'GET':
         return render(request, "account/group_email.html")
     else:
+        template_form = TemplateForm(request.POST)
         form = EmailForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() :
             selection = request.POST.get('selection')
             list = request.POST.get('to_list')
             new = list.replace('[','').replace(']','').replace("'",'')
@@ -453,9 +457,26 @@ def send_group_email(request):
                     name = user.first_name + " " + user.last_name
                     name_list.append(name)
                 return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
-            else:
-                content = EmailTemplates.objects.all()
-                html_message = render_to_string('account/group_email_template.html', {'content': content})
+            elif template_form.is_valid() and selection == 'CMS content':
+                template = request.POST.get('templates')
+                field = template.replace('week.EmailTemplates.', '')
+                content = EmailTemplates.objects.get()
+                group_message = 'False'
+                user_inactivity = 'False'
+                rewards_notification = 'False'
+                if field == 'group_message':
+                    group_message = 'True'
+                    subject = content.subject_for_group
+                elif field == 'inactivity_message':
+                    user_inactivity = 'True'
+                    subject = content.subject_for_inactivity
+                elif field == 'rewards_message':
+                    rewards_notification = 'True'
+                    subject = content.subject_for_rewards_notification
+                html_message = render_to_string('account/group_email_template.html', {'content': content,
+                                                                                      'group_message': group_message,
+                                                                                      'user_inactivity': user_inactivity,
+                                                                                      'rewards_notification': rewards_notification})
                 plain_message = strip_tags(html_message)
                 for user_email in result:
                     send_mail(subject, plain_message, from_email, [user_email], html_message=html_message)
@@ -493,7 +514,6 @@ def user_inactivity(request):
     try:
         user_inactive_days = Inactiveuser.objects.latest()
         latest_date = user_inactive_days.set_days
-        print(latest_date)
     except Inactiveuser.DoesNotExist:
         latest_date = 7
 
@@ -669,19 +689,15 @@ def export_data(request):
 def rewards_redeem(request):
     if request.method == "GET":
         data = ServicePostPage.objects.get(page_ptr_id=10)
-        print(type(data.points_for_this_service))
         return render(request, 'rewards/reward_confirmation.html')
     else:
         points = request.POST.get('points')
         service = request.POST.get('service')
         point = int(points)
-        print(type(point))
         user1=User.objects.get(username=request.user.username)
-        print(user1.profile.points, point)
         if user1.profile.points < point:
             print('cannot redeem')
         else:
-            print('ask if user wants to continue?')
             user1.profile.points -= point
             user1.profile.save()
             points_available = user1.profile.points
@@ -691,14 +707,12 @@ def rewards_redeem(request):
             messages = 'Check the PDF attachment for your redemption number'
             from_email = 'capstone18FA@gmail.com'
             email = EmailMessage(subject, messages, from_email, [user1.email])
-            print(user1.email)
             #genarate PDF
             html = render_to_string('rewards/pdf.html',{'point': point, 'service': service,
                                                                         'points_available': points_available,
                                                                         'reward_number': reward_number})
             out = BytesIO()
             stylesheets = [weasyprint.CSS('https://fitgirl-empoweru-prod.s3.amazonaws.com/static/css/pdf.css')]
-            print(stylesheets)
             weasyprint.HTML(string=html).write_pdf(out,stylesheets=stylesheets)
             email.attach('Redemption No. {}'.format(rewards.reward_no), out.getvalue(), 'application/pdf')
             email.send()
