@@ -699,6 +699,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 .slider .btn.btn-sm {
   padding: .5rem 1.3rem;
   font-size: .64rem;
+  position: relative;
+}
+.slider .far{
+  position:absolute;  
+  top:0;
+  right:0;
 }
 .slider .previous{
   position: absolute;
@@ -1051,6 +1057,7 @@ padding-bottom: 10px;}
   /* width: 24%; */
   margin: 4.3px;
   padding: 0;
+  width: 100%;
 }
 .card-head{
 height: 100px;
