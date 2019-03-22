@@ -3,7 +3,7 @@
 # Register your models here.
 from django.contrib import admin
 from .models import Program
-from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote,Inactiveuser,RewardsNotification, Affirmations, Reward
+from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote,Inactiveuser,RewardsNotification, Affirmations, Reward, KindnessMessage
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
@@ -81,5 +81,12 @@ class RewardList(admin.ModelAdmin):
     search_fields = ('user', 'timestamp')
     ordering = ['timestamp']
 
-
 admin.site.register(Reward, RewardList)
+
+class KindnessMessageAdmin(admin.ModelAdmin):
+    list_display = ('message_id','from_user', 'to_user', 'body', 'created_date')
+    list_filter = ('from_user', 'to_user', 'created_date')
+    search_fields = ('from_user', 'to_user')
+    ordering = ['created_date']
+
+admin.site.register(KindnessMessage, KindnessMessageAdmin)

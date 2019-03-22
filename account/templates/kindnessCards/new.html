@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Kindness Cards{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for key, values in inbox.items %}
+        <ul>
+            <li class="selected"><a href="index.html">{{ key }}</a></li>
+        </ul>
+
+        <div>
+            <article>
+                <h3 style="font-size:18px;">{{ key }}</h3>
+                <hr />
+                <p></p>
+                {% for v in values %}
+                    <p>{{v}}</p>
+                {% endfor %}
+            </article>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
