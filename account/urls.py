@@ -47,5 +47,6 @@ urlpatterns = [
     path('manage_points/', views.manage_points, name='manage_points'),
     path('update_points/', views.update_points, name='update_points'),
     path('admin_edit/', views.admin_edit, name='admin_edit'),
+    path('inbox/', views.inbox, name='inbox'),
 
 ]

@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm
 from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, ProgramClone
-from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage
 from week.forms import TemplateForm
 from io import TextIOWrapper, StringIO
@@ -733,3 +733,15 @@ def Analytics_Dashboard(request):
                   'account/Analytics_Dashboard.html',
                   {'section': 'Analytics_Dashboard'})
 # analytics dashboard ends- srishty#
+
+def inbox(request):
+    if request.method == 'GET':
+        messages = KindnessMessage.objects.filter(to_user=request.user.username)
+        dict={}
+        for message in messages:
+            try:
+                dict[message.from_user].append(message.body)
+            except KeyError:
+                dict[message.from_user] = [message.body]
+
+        return render(request, 'kindnessCards/new.html', {'messages': messages, 'inbox': dict})

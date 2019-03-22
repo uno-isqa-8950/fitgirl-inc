@@ -92,10 +92,15 @@
                   </a>
                   </li>
             <li class="nav-item ">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target=".bd-example-modal-lg" style="position:relative;">
-                     <img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
-                      <span class="sr-only">(current)</span>
-                  </a>
+                <!--<a class="nav-link" href="#" data-toggle="modal" data-target=".bd-example-modal-lg" style="position:relative;">-->
+                    <!--<img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>-->
+                    <!--<span class="sr-only">(current)</span>-->
+                <!--</a>-->
+                <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
+                    <img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/>
+                    <span class="rewards-notify">{{ user.profile.points }}</span>
+                    <span class="sr-only">(current)</span>
+                </a>
             </li>
 
             {% endif %}
