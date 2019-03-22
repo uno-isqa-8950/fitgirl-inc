@@ -644,7 +644,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
     /* background-size: contain; */
     /* background-repeat: no-repeat; */
     /* border-radius: 4px; */
-    /* padding: 20px; */
+    padding: 14px;
     /* font-size: 15px; */
     position: absolute;
     /* font-weight: bold; */
@@ -1970,7 +1970,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 /*Rewards pop up - Aishwarya */
 
 
-/*submit button */
+/*return button */
 .container h1{
     margin-top: 0px;
     padding-top: 9px;
