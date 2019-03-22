@@ -1,3 +1,10 @@
+
+
+  $(window).on('load', function(){ 
+    // executes when complete page is fully loaded, including all frames, objects and images
+    var nutrition_height = $( ".nutrition-images-array" ).height();
+    $(".nutrition-facts .rich-text").css("height",nutrition_height);
+  });
 $(document).ready(function() {
 
 
@@ -244,8 +251,14 @@ if($("#canvas").length>0){
         return false;
       
 		});
-		
+	$(".kindness-card-button").click( function(){
+       var kindness_name = $(this)
+       .siblings( ".bio" ).children(".profile-name")
+       .text();
+       $(".popup-name").empty();
+       $( ".popup-name" ).text( kindness_name );
+    })	
 	 
 
+   
 });
-

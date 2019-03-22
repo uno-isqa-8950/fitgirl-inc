@@ -24,9 +24,6 @@
   .btn-return {
     padding: .84rem;
     }
-    .btn-return .return-txt{
-      display: none
-    }
     
 }
 @media (min-width: 1200px){
@@ -647,7 +644,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
     /* background-size: contain; */
     /* background-repeat: no-repeat; */
     /* border-radius: 4px; */
-    /* padding: 20px; */
+    padding: 14px;
     /* font-size: 15px; */
     position: absolute;
     /* font-weight: bold; */
@@ -699,6 +696,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 .slider .btn.btn-sm {
   padding: .5rem 1.3rem;
   font-size: .64rem;
+  position: relative;
+}
+.slider .far{
+  position:absolute;  
+  top:0;
+  right:0;
 }
 .slider .previous{
   position: absolute;
@@ -1051,6 +1054,7 @@ padding-bottom: 10px;}
   /* width: 24%; */
   margin: 4.3px;
   padding: 0;
+  width: 100%;
 }
 .card-head{
 height: 100px;
@@ -1433,6 +1437,10 @@ canvas{
   width: 100%;
   height: 100%;
 }
+
+    .btn-fitgirl .return-txt{
+      display: none
+    }
   }
   @media (max-width: 991px) {
     /* .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
@@ -1969,7 +1977,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 /*Rewards pop up - Aishwarya */
 
 
-/*submit button */
+/*return button */
 .container h1{
     margin-top: 0px;
     padding-top: 9px;
