@@ -9,7 +9,7 @@ from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage,
 from week.forms import TemplateForm
 from io import TextIOWrapper, StringIO
 import re, csv
-import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
