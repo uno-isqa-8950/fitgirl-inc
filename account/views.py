@@ -6,6 +6,7 @@ from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, Upload
 from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, ProgramClone
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage
+from week.models import CustomFormSubmission
 from io import TextIOWrapper, StringIO
 import re, csv
 #import weasyprint
@@ -18,8 +19,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from django.forms import ValidationError
-from datetime import datetime, timedelta
-import pytz
+#from datetime import datetime, timedelta
+import pytz, datetime
 from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -604,22 +605,22 @@ def cloneprogram(request):
             program_to_clone = form.cleaned_data['program_to_clone']
             new_program = form.clean()['new_program']
             local_timezone = pytz.timezone('America/Chicago')
-            plus_one_week = timedelta(weeks=1)
-            plus_one_day = timedelta(days=1)
+            plus_one_week = datetime.timedelta(weeks=1)
+            plus_one_day = datetime.timedelta(days=1)
             date_fields = new_start_date.split('-')
-            new_start_datetime = datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=local_timezone)
+            new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=local_timezone)
 
             program = Program()
             program.program_name = new_program
             program.program_start_date = new_start_datetime
             program.program_end_date = new_start_datetime + plus_one_week * 13 - plus_one_day
-            program.created_date = datetime.now(local_timezone)
+            program.created_date = datetime.datetime.now(local_timezone)
             program.updated_date = program.created_date
             program.save()
 
             page = Page(id=program_to_clone)
 
-            weeks = page.children.type(WeekPage)
+            weeks = page.get_descendants()
             for week in weeks:
                 week_number = re.match('Week (\d+)$', week.title)[1]
                 time_delta = (int(week_number) - 1) * plus_one_week
