@@ -92,10 +92,15 @@
                   </a>
                   </li>
             <li class="nav-item ">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target=".bd-example-modal-lg" style="position:relative;">
-                     <img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
-                      <span class="sr-only">(current)</span>
-                  </a>
+                <!--<a class="nav-link" href="#" data-toggle="modal" data-target=".bd-example-modal-lg" style="position:relative;">-->
+                    <!--<img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>-->
+                    <!--<span class="sr-only">(current)</span>-->
+                <!--</a>-->
+                <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
+                    <img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/>
+                    <span class="rewards-notify">{{ user.profile.points }}</span>
+                    <span class="sr-only">(current)</span>
+                </a>
             </li>
 
             {% endif %}
@@ -273,29 +278,43 @@ $('a[href^="https://"]').attr('target', '_blank');
 
 
 <div class="container">
-                            <div class="row">
-    
-                                    <div class="col-md-6">      
-                                      <!-- tabs left -->
-                                      <div class="tabbable tabs-left">
-                                        <ul class="nav nav-tabs">
-                                          <li><a href="#a" data-toggle="tab">One</a></li>
-                                          <li class="active"><a href="#b" data-toggle="tab">Two</a></li>
-                                          <li><a href="#c" data-toggle="tab">Twee</a></li>
-                                        </ul>
-                                        <div class="tab-content">
-                                         <div class="tab-pane active" id="a">Lorem ipsum dolor sit amet, charetra varius quam sit amet vulputate. 
-                                         Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero.</div>
-                                         <div class="tab-pane" id="b">Secondo sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-                                         Aliquam in felis sit amet augue.</div>
-                                         <div class="tab-pane" id="c">Thirdamuno, ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-                                         Quisque mauris augue, molestie tincidunt condimentum vitae. </div>
-                                        </div>
-                                      </div>
-                                      <!-- /tabs -->
-                                      
-                                    </div>
-                          </div>
+    <div id="vertical_tab_nav">
+
+        <ul>
+            <li class="selected"><a href="index.html">Pre-alphabetic</a></li>
+            <li><a href="index.html">Early Alphabetic</a></li>
+            <li><a href="index.html">Later Alphabetic</a></li>
+            <li><a href="index.html">Consolidated Alphabetic</a></li>
+        </ul>
+
+        <div>
+            <article>
+                <h3 style="font-size:18px;">Pre-alphabetic</h3>
+                <hr />
+                <p>students read words by memorizing their visual features or guessing words from their context</p>
+
+            </article>
+
+            <article>
+                <h3 style="font-size:18px;">Early Alphabetic</h3>
+                <hr />
+                <p>students recognize some letters of the alphabet and can use them together with context to remember words by sight</p>
+            </article>
+
+            <article>
+                <h3 style="font-size:18px;">Later Alphabetic</h3>
+                <hr />
+                <p>readers possess extensive working knowledge of the graphophonemic system, and they can use this knowledge to analyze fully the connections between graphemes and phonemes in words; they can decode unfamiliar words and store fully analyzed sight words in memory</p>
+            </article>
+
+            <article>
+                <h3 style="font-size:18px;">Consolidated Alphabetic</h3>
+                <hr />
+                <p>students consolidate their knowledge of grapheme-phoneme blends into larger units that recur in different words</p>
+            </article>
+            
+        </div>
+    </div>
 </div>
 
 

@@ -208,20 +208,21 @@ function warmUp() {
     seconds = (seconds < 10) ? '0' + seconds : seconds;
     var minutes_in_seconds = 60 * minutes;
     var total_time_in_seconds = minutes_in_seconds + seconds;
+    var total_time_in_milliseconds = total_time_in_seconds*1000;
     var time = "in " + total_time_in_seconds + " seconds";
     // ##############Exercise variables###########################
-        var _exercise ="in " + 90 + " seconds";
-        var _exercise_set_timeout = 90*1000;
-        var _rest = "in " + 30 + " seconds";
-        var _rest_set_timeout = 30*1000;
-        var _one_interval = 3 * (_exercise_set_timeout + _rest_set_timeout);
-        console.log(_one_interval)
-        var _intervals =5;
-        var _total_exercise_time = _intervals * _one_interval;
-        console.log(_total_exercise_time);
-        var _warm_up = "in " + 180 + " seconds";
-        var _cool_down = "in " + 180 + " seconds";
-        var _cool_down_timeout = 180*1000;
+        // var _exercise ="in " + 90 + " seconds";
+        // var _exercise_set_timeout = 90*1000;
+        // var _rest = "in " + 30 + " seconds";
+        // var _rest_set_timeout = 30*1000;
+        // var _one_interval = 3 * (_exercise_set_timeout + _rest_set_timeout);
+        // console.log(_one_interval)
+        // var _intervals =5;
+        // var _total_exercise_time = _intervals * _one_interval;
+        // console.log(_total_exercise_time);
+        // var _warm_up = "in " + 180 + " seconds";
+        // var _cool_down = "in " + 180 + " seconds";
+        // var _cool_down_timeout = 180*1000;
     // ##############Exercise variables########################### 
     $("#my-soon-watch-red").soon().destroy();
     var element = document.getElementById('my-soon-watch-red');
@@ -234,180 +235,182 @@ function warmUp() {
         'padding': 'false',
         'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
     };
-     someObject.due = _warm_up;
+     someObject.due = time;
     $("#my-soon-watch-red").soon().create(someObject);
     console.log("warm-up");
-        $( "span.interval" ).text( " " );
-        $( "span.interval" ).text( "Warm-up" );
+    //     $( "span.interval" ).text( " " );
+    //     $( "span.interval" ).text( "Warm-up" );
+    setTimeout(function() {
+            $( ".physical-form" ).submit();
+        },total_time_in_milliseconds);
 }
 // function coolDown(){// enter the number of intervals here
-var training = function() {
-    //Strength Timer
-    var strength = function() {
-        var defer = $.Deferred();
-        // Setting time from wagtail
+// var training = function() {
+//     //Strength Timer
+//     var strength = function() {
+//         var defer = $.Deferred();
+//         // Setting time from wagtail
         
-    // ##############Exercise variables###########################
-        var _exercise ="in " + 90 + " seconds";
-        var _exercise_set_timeout = 90*1000;
-    // ##############Exercise variables########################### 
+//     // ##############Exercise variables###########################
+//         var _exercise ="in " + 90 + " seconds";
+//         var _exercise_set_timeout = 90*1000;
+//     // ##############Exercise variables########################### 
 
-        $("#my-soon-watch-red").soon().destroy();
-        var element = document.getElementById('my-soon-watch-red');
-        var someObject = {
-            'due': 'in 4 seconds',
-            'eventComplete': 'rest',
-            'layout': 'group tight label-uppercase label-small',
-            'format': 'm,s',
-            'face': 'slot',
-            'padding': 'false',
-            'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
-        };
-        someObject.due = _exercise;
-        $("#my-soon-watch-red").soon().create(someObject);
-        duration = 4000;
-        console.log('a() called - strength');
-        $( "span.interval" ).text( " " );
-        $( "span.interval" ).text( "Strength" );
+//         $("#my-soon-watch-red").soon().destroy();
+//         var element = document.getElementById('my-soon-watch-red');
+//         var someObject = {
+//             'due': 'in 4 seconds',
+//             'eventComplete': 'rest',
+//             'layout': 'group tight label-uppercase label-small',
+//             'format': 'm,s',
+//             'face': 'slot',
+//             'padding': 'false',
+//             'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+//         };
+//         someObject.due = _exercise;
+//         $("#my-soon-watch-red").soon().create(someObject);
+//         duration = 4000;
+//         console.log('a() called - strength');
+//         $( "span.interval" ).text( " " );
+//         $( "span.interval" ).text( "Strength" );
 
-        setTimeout(function() {
-            defer.resolve(); // When this fires, the code in a().then(/..../); is executed.
-        }, _exercise_set_timeout); //set duration = durations of individual exercise
+//         setTimeout(function() {
+//             defer.resolve(); // When this fires, the code in a().then(/..../); is executed.
+//         }, _exercise_set_timeout); //set duration = durations of individual exercise
 
-        return defer;
-    };
+//         return defer;
+//     };
 
-    var agility = function() {
-        var defer = $.Deferred();
+//     var agility = function() {
+//         var defer = $.Deferred();
         
-        // ##############Exercise variables###########################
-            var _exercise ="in " + 90 + " seconds";
-            var _exercise_set_timeout = 90*1000;
-        // ##############Exercise variables########################### 
-        $("#my-soon-watch-red").soon().destroy();
-        var element = document.getElementById('my-soon-watch-red');
-        var someObject = {
-            'due': 'in 4 seconds',
-            'layout': 'group tight label-uppercase label-small',
-            'format': 'm,s',
-            'face': 'slot',
-            'padding': 'false',
-            'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
-        };
-         someObject.due = _exercise;
-        $("#my-soon-watch-red").soon().create(someObject);
-        console.log('c() called -agility');
-        $( "span.interval" ).text( " " );
-        $( "span.interval" ).text( "Agility" );
+//         // ##############Exercise variables###########################
+//             var _exercise ="in " + 90 + " seconds";
+//             var _exercise_set_timeout = 90*1000;
+//         // ##############Exercise variables########################### 
+//         $("#my-soon-watch-red").soon().destroy();
+//         var element = document.getElementById('my-soon-watch-red');
+//         var someObject = {
+//             'due': 'in 4 seconds',
+//             'layout': 'group tight label-uppercase label-small',
+//             'format': 'm,s',
+//             'face': 'slot',
+//             'padding': 'false',
+//             'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+//         };
+//          someObject.due = _exercise;
+//         $("#my-soon-watch-red").soon().create(someObject);
+//         console.log('c() called -agility');
+//         $( "span.interval" ).text( " " );
+//         $( "span.interval" ).text( "Agility" );
 
-        setTimeout(function() {
-            defer.resolve();
-        }, _exercise_set_timeout);
-        return defer;
-    };
-    var flexibility = function() {
-        var defer = $.Deferred();
+//         setTimeout(function() {
+//             defer.resolve();
+//         }, _exercise_set_timeout);
+//         return defer;
+//     };
+//     var flexibility = function() {
+//         var defer = $.Deferred();
         
-        // ##############Exercise variables###########################
-            var _exercise ="in " + 90 + " seconds";
-            var _exercise_set_timeout = 90*1000;
-        // ##############Exercise variables########################### 
-        $("#my-soon-watch-red").soon().destroy();
-        var element = document.getElementById('my-soon-watch-red');
-        var someObject = {
-            'due': 'in 4 seconds',
-            'layout': 'group tight label-uppercase label-small',
-            'format': 'm,s',
-            'face': 'slot',
-            'padding': 'false',
-            'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
-        };
-         someObject.due = _exercise;
-        $("#my-soon-watch-red").soon().create(someObject);
-        console.log('c() called -flexibility');
-        $( "span.interval" ).text( " " );
-        $( "span.interval" ).text( "Flexibility" );
+//         // ##############Exercise variables###########################
+//             var _exercise ="in " + 90 + " seconds";
+//             var _exercise_set_timeout = 90*1000;
+//         // ##############Exercise variables########################### 
+//         $("#my-soon-watch-red").soon().destroy();
+//         var element = document.getElementById('my-soon-watch-red');
+//         var someObject = {
+//             'due': 'in 4 seconds',
+//             'layout': 'group tight label-uppercase label-small',
+//             'format': 'm,s',
+//             'face': 'slot',
+//             'padding': 'false',
+//             'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+//         };
+//          someObject.due = _exercise;
+//         $("#my-soon-watch-red").soon().create(someObject);
+//         console.log('c() called -flexibility');
+//         $( "span.interval" ).text( " " );
+//         $( "span.interval" ).text( "Flexibility" );
 
-        setTimeout(function() {
-            defer.resolve();
-        }, _exercise_set_timeout);
+//         setTimeout(function() {
+//             defer.resolve();
+//         }, _exercise_set_timeout);
 
-        return defer;
-    };
+//         return defer;
+//     };
 
-    var rest = function() {
-        var defer = $.Deferred(); 
-        // ##############Exercise variables###########################
-        var _rest = "in " + 30 + " seconds";
-        var _rest_set_timeout = 30*1000;
-        // ##############Exercise variables###########################
-        $("#my-soon-watch-red").soon().destroy();
-        var element = document.getElementById('my-soon-watch-red');
-        var someObject = {
-            'due': 'in 2 seconds',
-            'layout': 'group tight label-uppercase label-small',
-            'format': 'm,s',
-            'face': 'slot',
-            'padding': 'false',
-            'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
-        };
-         someObject.due = _rest;
-        $("#my-soon-watch-red").soon().create(someObject);
-        console.log('b() called - rest');
-        $( "span.interval" ).text( " " );
-        $( "span.interval" ).text( "Rest" );
+//     var rest = function() {
+//         var defer = $.Deferred(); 
+//         // ##############Exercise variables###########################
+//         var _rest = "in " + 30 + " seconds";
+//         var _rest_set_timeout = 30*1000;
+//         // ##############Exercise variables###########################
+//         $("#my-soon-watch-red").soon().destroy();
+//         var element = document.getElementById('my-soon-watch-red');
+//         var someObject = {
+//             'due': 'in 2 seconds',
+//             'layout': 'group tight label-uppercase label-small',
+//             'format': 'm,s',
+//             'face': 'slot',
+//             'padding': 'false',
+//             'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+//         };
+//          someObject.due = _rest;
+//         $("#my-soon-watch-red").soon().create(someObject);
+//         console.log('b() called - rest');
+//         $( "span.interval" ).text( " " );
+//         $( "span.interval" ).text( "Rest" );
 
-        setTimeout(function() {
-            defer.resolve();
-        }, _rest_set_timeout);
+//         setTimeout(function() {
+//             defer.resolve();
+//         }, _rest_set_timeout);
 
-        return defer;
-    };
-    // strength().then(rest).then(agility).then(rest).then(flexibility).then(rest);
-    var innertraining = function() {
-        strength().then(rest).then(agility).then(rest).then(flexibility).then(rest);
-    }
-    // ##############Exercise variables###########################
-        var _exercise ="in " + 90 + " seconds";
-        var _exercise_set_timeout = 90*1000;
-        var _rest = "in " + 30 + " seconds";
-        var _rest_set_timeout = 30*1000;
-        var _one_interval = 3 * (_exercise_set_timeout + _rest_set_timeout);
-        var _intervals =5;
-        var _total_exercise_time = _intervals * _one_interval;
-    // ##############Exercise variables########################### 
-    innertraining();
-    var refreshIntervalId = setInterval(innertraining, _one_interval);
+//         return defer;
+//     };
+//     // strength().then(rest).then(agility).then(rest).then(flexibility).then(rest);
+//     var innertraining = function() {
+//         strength().then(rest).then(agility).then(rest).then(flexibility).then(rest);
+//     }
+//     // ##############Exercise variables###########################
+//         var _exercise ="in " + 90 + " seconds";
+//         var _exercise_set_timeout = 90*1000;
+//         var _rest = "in " + 30 + " seconds";
+//         var _rest_set_timeout = 30*1000;
+//         var _one_interval = 3 * (_exercise_set_timeout + _rest_set_timeout);
+//         var _intervals =5;
+//         var _total_exercise_time = _intervals * _one_interval;
+//     // ##############Exercise variables########################### 
+//     innertraining();
+//     var refreshIntervalId = setInterval(innertraining, _one_interval);
     
-    setTimeout(function() {
-        clearInterval(refreshIntervalId)
-        var _cool_down = "in " + 180 + " seconds";
-        var _cool_down_timeout = 180*1000;
-        $("#my-soon-watch-red").soon().destroy();
-        var element = document.getElementById('my-soon-watch-red');
-        var someObject = {
-            'eventComplete': 'formSubmit',
-            'due': 'in 6 seconds',
-            'layout': 'group tight label-uppercase label-small',
-            'format': 'm,s',
-            'face': 'slot',
-            'padding': 'false',
-            'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
-        };
-        someObject.due = _cool_down;
-        $("#my-soon-watch-red").soon().create(someObject);
-        console.log('b() called - cooldown');
-        $( "span.interval" ).text( " " );
-        $( "span.interval" ).text( "Cool Down" );
-        setTimeout(function() {
-            $( ".physical-form" ).submit();
-        },_cool_down_timeout);
-    }, _total_exercise_time);
+//     setTimeout(function() {
+//         clearInterval(refreshIntervalId)
+//         var _cool_down = "in " + 180 + " seconds";
+//         var _cool_down_timeout = 180*1000;
+//         $("#my-soon-watch-red").soon().destroy();
+//         var element = document.getElementById('my-soon-watch-red');
+//         var someObject = {
+//             'eventComplete': 'formSubmit',
+//             'due': 'in 6 seconds',
+//             'layout': 'group tight label-uppercase label-small',
+//             'format': 'm,s',
+//             'face': 'slot',
+//             'padding': 'false',
+//             'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
+//         };
+//         someObject.due = _cool_down;
+//         $("#my-soon-watch-red").soon().create(someObject);
+//         console.log('b() called - cooldown');
+//         $( "span.interval" ).text( " " );
+//         $( "span.interval" ).text( "Cool Down" );
+//         setTimeout(function() {
+//             $( ".physical-form" ).submit();
+//         },_cool_down_timeout);
+//     }, _total_exercise_time);
     
-}
+// }
     </script>
   <section class="demo">
-      <span class="interval">abc</span>
     <div id="my-soon-watch-red"></div>
       </section>
 {% endblock %}

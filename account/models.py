@@ -18,6 +18,7 @@ EVENT = (
 
 
 class Program(models.Model):
+    #program_id = models.AutoField(null=False, primary_key=True)
     program_name = models.CharField(max_length=20, null=False, unique=True)
     program_start_date = models.DateField(null=False, blank=False)
     program_end_date = models.DateField(null=False, blank=False)
@@ -34,7 +35,6 @@ class Program(models.Model):
 
     def __str__(self):
         return str(self.program_name)
-
 
 class RegisterUser(models.Model):
     email = models.EmailField(blank=True, null=None)
@@ -170,5 +170,23 @@ class Parameters(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
 
+class Testfield2(models.Model):
+    physical_to_done = models.IntegerField(default=1)
+    nutrition_days_to_done = models.IntegerField(default=1)
+    creation_date = models.DateTimeField(auto_now=True)
+    current_values = models.BooleanField(default=True)
+    test4 = models.CharField(max_length=25, blank=True, null=True)
 
+class KindnessMessage(models.Model):
+    message_id = models.AutoField(null=False, primary_key=True)
+    body = models.CharField(max_length=500, blank=True, null=True)
+    from_user = models.CharField(max_length=50, blank=False, null=False)
+    to_user = models.CharField(max_length=50, blank=False, null=False)
+    created_date = models.DateTimeField(auto_now_add=True)
 
+    def created(self):
+        self.created_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return str(self.body)
