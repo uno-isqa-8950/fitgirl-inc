@@ -1,3 +1,4 @@
+
 beautifulsoup4==4.6.0
 bleach==2.1.4
 certifi==2018.8.24
@@ -46,3 +47,8 @@ django-storages==1.7.1
 python-decouple==3.1
 django-compressor
 
+WeasyPrint==45
+cairocffi==0.9.0
+CairoSVG==2.2.1
+tinycss2==0.6.1
+Pyphen==0.9.5
