@@ -1437,7 +1437,10 @@ canvas{
   width: 100%;
   height: 100%;
 }
-
+    .container h1 {
+    padding-left:45px !important;
+    padding-right:45px !important;
+}
     .btn-fitgirl .return-txt{
       display: none
     }
@@ -1978,10 +1981,12 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 
 
 /*return button */
-.container h1{
+.container h1 {
     margin-top: 0px;
     padding-top: 9px;
-    margin-bottom:9px;
-    position:relative;
+    margin-bottom: 9px;
+    position: relative;
+    padding-left: 100px;
+    padding-right: 100px;
     text-align: center;
 }
