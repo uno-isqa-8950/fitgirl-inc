@@ -7,6 +7,7 @@ from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEdi
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
+from week.models import CustomFormSubmission
 from io import TextIOWrapper, StringIO
 import re, csv
 import weasyprint
