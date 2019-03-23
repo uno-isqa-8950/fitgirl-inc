@@ -1980,6 +1980,68 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 /*Rewards pop up - Aishwarya */
 
 
+/*Photo Gallery - Aishwarya */
+
+.gallery-title h1{
+    text-align: center;
+}
+.gallery-card-header{
+    width: 100%;
+}
+.gallery-card-body{
+    width: 100%;
+}
+.gallery-card-footer{
+    display: none;
+}
+.gallery-card-header-image{
+    width: 100%;
+}
+.gallery-card{
+    /*height: 475px;*/
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    border: 0;
+    outline: 0;
+}
+.gallery-card-title h5{
+    text-align: center;
+    color: #ed217c;
+}
+.gallery-count{
+    text-align: center;
+    color: #ed217c;
+}
+.folder-icon{
+    align-items: center;
+    color: white;
+    position:   absolute;
+        position: absolute;
+    top: 0;
+    left: 0;
+}
+.folder-icon span{
+    position: absolute;
+    left: 12px;
+    top: 9px;
+    font-size: 12px;
+}
+/*.circle-badge {*/
+    /*height: 25px;*/
+    /*width: 25px;*/
+    /*line-height: 25px;*/
+    /*text-align: center;*/
+    /*border-radius: 25px;*/
+    /*background: #BBBBBB;*/
+    /*color: white;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+/*}*/
+
+/*Photo Gallery - Aishwarya */
+
+
 /*return button */
 .container h1 {
     margin-top: 0px;
@@ -1990,3 +2052,4 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     padding-right: 100px;
     text-align: center;
 }
+
