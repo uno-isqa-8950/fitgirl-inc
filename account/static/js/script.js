@@ -216,3 +216,4 @@ if($("#canvas").length>0){
 }
 });
 
+$( ".folder-icon" ).prependTo ( ".gallery-card-title .rich-text" );
