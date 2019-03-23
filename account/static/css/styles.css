@@ -178,9 +178,12 @@ input[type=submit], a.button{
   .navbar .navbar-nav .dropdown-menu {
     background-color: #757575;
     border-color: #e07dc4;
+    margin-top: 7px;
+    margin-right: -3px;
   }
   .navbar .navbar-nav .dropdown-menu .dropdown-item {
     color: #ecf0f1;
+    padding: 4px 10px;
   }
   .navbar .navbar-nav .dropdown-menu .dropdown-item:hover,
   .navbar .navbar-nav .dropdown-menu .dropdown-item:focus,
@@ -219,6 +222,34 @@ input[type=submit], a.button{
   }
   .navbar .navbar-link:hover {
     color: #fcfbfe;
+  }
+  .arrow_box {
+    position: relative;
+    background: #4b515d;
+    border: 1px solid #ec407a;
+  }
+  .arrow_box:after, .arrow_box:before {
+    bottom: 100%;
+    left: 92%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  
+  .arrow_box:after {
+    border-color: rgba(117, 117, 117, 0);
+    border-bottom-color: #4b515d;
+    border-width: 8px;
+    margin-left: -8px;
+  }
+  .arrow_box:before {
+    border-color: rgba(236, 64, 122, 0);
+    border-bottom-color: #e07dc4;
+    border-width: 9px;
+    margin-left: -9px;
   }
 .demo{
   position: fixed;
@@ -702,6 +733,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   position:absolute;  
   top:0;
   right:0;
+  color: #FFA500;
+    background: #FFA500;
+    border-radius: 6px;
+}
+.slider .far.fa-check-circle{
+      position: absolute;
+    top: -3px;
+    right: -3px;
+    color: green;
+    background: green;
+    border-radius: 6px;
 }
 .slider .previous{
   position: absolute;
@@ -1437,7 +1479,10 @@ canvas{
   width: 100%;
   height: 100%;
 }
-
+.container h1 {		
+  	    padding-left:45px !important;		
+  	    padding-right:45px !important;		
+	}
     .btn-fitgirl .return-txt{
       display: none
     }
@@ -1977,11 +2022,76 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 /*Rewards pop up - Aishwarya */
 
 
+
+/*Photo Gallery - Aishwarya */
+
+.gallery-title h1{
+  text-align: center;
+}
+.gallery-card-header{
+  width: 100%;
+}
+.gallery-card-body{
+  width: 100%;
+}
+.gallery-card-footer{
+  display: none;
+}
+.gallery-card-header-image{
+  width: 100%;
+}
+.gallery-card{
+  /*height: 475px;*/
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  border: 0;
+  outline: 0;
+}
+.gallery-card-title h5{
+  text-align: center;
+  color: #ed217c;
+}
+.gallery-count{
+  text-align: center;
+  color: #ed217c;
+}
+.folder-icon{
+  align-items: center;
+  color: white;
+  position:   absolute;
+      position: absolute;
+  top: 0;
+  left: 0;
+}
+.folder-icon span{
+  position: absolute;
+  left: 12px;
+  top: 9px;
+  font-size: 12px;
+}
+/*.circle-badge {*/
+  /*height: 25px;*/
+  /*width: 25px;*/
+  /*line-height: 25px;*/
+  /*text-align: center;*/
+  /*border-radius: 25px;*/
+  /*background: #BBBBBB;*/
+  /*color: white;*/
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+/*}*/
+
+/*Photo Gallery - Aishwarya */
+
+
 /*return button */
-.container h1{
-    margin-top: 0px;
-    padding-top: 9px;
-    margin-bottom:9px;
-    position:relative;
-    text-align: center;
+.container h1 {
+  margin-top: 0px;
+  padding-top: 9px;
+  margin-bottom: 9px;
+  position: relative;
+  padding-left: 100px;
+  padding-right: 100px;
+  text-align: center;
 }

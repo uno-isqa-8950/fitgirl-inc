@@ -82,9 +82,6 @@
               <!--kindeness card tab ends -srishty-->
         </ul>
         <ul class="navbar-nav navbar-centre" style="margin-right: 6px; margin-top: -7px;">
-            <!-- <li class="nav-item" class="navbar-nav navbar-centre">
-              <div class="nav-link  " href="#">Program Name: {{ user.profile.program.program_name }}<span class="sr-only">(current)</span></div>
-            </li> -->
             <li class="nav-item ">
                     <a class="nav-link" href="/pages/rewards/" style="position:relative;">
                      <img class="rewards-icon" alt="My Rewards" src="{% static 'images/iconfinder_badge_3688520.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
@@ -92,25 +89,36 @@
                   </a>
                   </li>
             <li class="nav-item ">
-                <!--<a class="nav-link" href="#" data-toggle="modal" data-target=".bd-example-modal-lg" style="position:relative;">-->
-                    <!--<img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>-->
-                    <!--<span class="sr-only">(current)</span>-->
-                <!--</a>-->
                 <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
                     <img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/>
                     <span class="rewards-notify">{{ user.profile.points }}</span>
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
+            <li class="nav-item ">
+                    <a class="nav-link" href="/pages/gallery/" style="position:relative;">
+                        <img class="gallery-icon" alt="My Photo Gallery" src="{% static 'images/iconfinder_camera_1785207.png' %}" height="38" width="35"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            <li class="nav-item">
+                    <a class="nav-link" href="/pages/rewards/" style="position:relative;">
+                     <img class="rewards-icon" alt="My Rewards" src="{% static 'images/bell-icon.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                      <span class="sr-only">(current)</span>
+                  </a>
+                  </li>
 
             {% endif %}
         </ul>
-          <ul class="navbar-nav navbar-right">
-            <li class="nav-item">
-                <!--user name added in drop down  and removed welcome-- Srishty- -->
-              <!--<div class="nav-link  " href="#">Welcome {{ user.get_short_name|capfirst }}<span class="sr-only">(current)</span></div>-->
-            </li>
-
+          <ul class="navbar-nav navbar-right ">
+                <li class="dropdown ">
+                    <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" >
+                        <img class="rounded-circle account-img" alt="Notifications" src="{% static 'images/bell-icon.png' %}" height="35" width="35">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box" >
+                            <a class="dropdown-item" href='{% url 'admin_edit' %}'><i class="fas fa-user-shield fa-fw"></i> Edit Admin Profile</a>
+                    </ul>
+                </li>
             <li class="dropdown ">
                 <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" >
                   {% if request.user.is_staff %}
@@ -119,7 +127,7 @@
                       <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30" width="30" style="height: 30px;width: 30px">
                   {% endif %}
                 </a>
-                <ul class="dropdown-menu dropdown-menu-right stylish-color" >
+                <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box" >
                     {% if request.user.is_superuser %}
                     {% else %}
 {#                    <li class="card mx-2" style="width: 18rem;">#}
@@ -235,6 +243,7 @@
         <script src="{% static 'js/confetti.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/lightbox.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
         <!-- <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
         <script type="text/javascript" src="{% static 'js/soon.js' %}" ></script>   
@@ -246,7 +255,10 @@ $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
    // Code for toggling the timer
 var r = $("<input/>").attr({ type: "a", id: "field", class:"start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light confetti-button",value:"start timer",href:"#"});
 $(".strength-paragraphs").append(r);
-
+lightbox.option({		
+	      'resizeDuration': 200,		
+	      'wrapAround': true		
+	    })
 
 
 });
