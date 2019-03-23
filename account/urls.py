@@ -50,4 +50,6 @@ urlpatterns = [
     path('inbox/', views.inbox, name='inbox'),
     path('', views.send_message, name='send_message'),
 
+    path('edit_user/<int:pk>/', views.edit_user, name='edit_user'),
+
 ]

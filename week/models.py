@@ -582,7 +582,6 @@ class KindnessCardPage(Page):
     ]
 
     def get_context(self, request):
-        print('inside get_context of service kindness cards')
         context = super().get_context(request)
         context['user_data'] = User.objects.filter(is_superuser=False).filter(is_active=True).exclude(username=request.user.username)
         return context

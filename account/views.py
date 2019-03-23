@@ -741,9 +741,9 @@ def Analytics_Dashboard(request):
 def send_message(request):
     if request.method == 'POST':
         message = request.POST.get("message")
-        # to_name = request.POST.get("user")
-        # print(to_name)
-        to = 'one@gmail.com'
+        to = request.POST.get("user")
+        print(to)
+        # to = 'one@gmail.com'
         from_user = request.user.username
         KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
         print(message)
@@ -762,3 +762,37 @@ def inbox(request):
                 dict[message.from_user] = [message.body]
 
         return render(request, 'kindnessCards/new.html', {'messages': messages, 'inbox': dict})
+
+@login_required()
+def edit_user(request,pk):
+    user = get_object_or_404(User, pk= pk)
+    print(user)
+    #user1 = get_object_or_404(Profile, profile.user_id )
+    user1 = Profile.objects.filter(user_id=pk).first()
+
+
+    if request.method == 'POST':
+        # update
+        form = UserEditForm(instance=user,data=request.POST,files=request.FILES)
+        form1 = ProfileEditForm(instance=user1,data=request.POST,files=request.FILES)
+
+        if form1.is_valid() and form.is_valid():
+            #user1.profile.photo = ProfileEditForm.cleaned_data['photo']
+            user = form.save(commit=False)
+            user1 = form1.save(commit=False)
+            user1.photo = form1.cleaned_data['photo']
+            print(user1.photo)
+            user.save()
+            user1.save()
+
+            messages.success(request, 'Profile updated successfully')
+            return redirect('users')
+
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        # edit
+        form = UserEditForm(instance=user)
+        form1 = ProfileEditForm(instance=user1)
+        return render(request, 'account/edit_user.html', {'form1': form1,'form': form})
+    return render(request, 'account/edit_user.html', {'form1': form1,'form': form})
