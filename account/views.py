@@ -737,9 +737,9 @@ def Analytics_Dashboard(request):
 def send_message(request):
     if request.method == 'POST':
         message = request.POST.get("message")
-        # to_name = request.POST.get("user")
-        # print(to_name)
-        to = 'one@gmail.com'
+        to = request.POST.get("user")
+        print(to)
+        # to = 'one@gmail.com'
         from_user = request.user.username
         KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
         print(message)
