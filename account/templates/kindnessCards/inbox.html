@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Kindness Cards{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div id="vertical_tab_nav">
+
+        {% for key, values in inbox.items %}
+            <ul>
+                <li class="selected"><a href="index.html">{{ key }}</a></li>
+            </ul>
+
+            <div>
+                <article>
+                    <h3 style="font-size:18px;">{{ key }}</h3>
+                    <hr />
+                    <p></p>
+                    {% for v in values %}
+                        <p>{{v}}</p>
+                    {% endfor %}
+                </article>
+            </div>
+        {% endfor %}
+
+
+        <!--<ul>-->
+            <!--<li class="selected"><a href="index.html">Pre-alphabetic</a></li>-->
+            <!--<li><a href="index.html">Early Alphabetic</a></li>-->
+            <!--<li><a href="index.html">Later Alphabetic</a></li>-->
+            <!--<li><a href="index.html">Consolidated Alphabetic</a></li>-->
+        <!--</ul>-->
+
+        <!--<div>-->
+            <!--<article>-->
+                <!--<h3 style="font-size:18px;">Pre-alphabetic</h3>-->
+                <!--<hr />-->
+                <!--<p>students read words by memorizing their visual features or guessing words from their context</p>-->
+
+            <!--</article>-->
+
+            <!--<article>-->
+                <!--<h3 style="font-size:18px;">Early Alphabetic</h3>-->
+                <!--<hr />-->
+                <!--<p>students recognize some letters of the alphabet and can use them together with context to remember words by sight</p>-->
+            <!--</article>-->
+
+            <!--<article>-->
+                <!--<h3 style="font-size:18px;">Later Alphabetic</h3>-->
+                <!--<hr />-->
+                <!--<p>readers possess extensive working knowledge of the graphophonemic system, and they can use this knowledge to analyze fully the connections between graphemes and phonemes in words; they can decode unfamiliar words and store fully analyzed sight words in memory</p>-->
+            <!--</article>-->
+
+            <!--<article>-->
+                <!--<h3 style="font-size:18px;">Consolidated Alphabetic</h3>-->
+                <!--<hr />-->
+                <!--<p>students consolidate their knowledge of grapheme-phoneme blends into larger units that recur in different words</p>-->
+            <!--</article>-->
+
+        <!--</div>-->
+    </div>
+</div>
+{% endblock %}

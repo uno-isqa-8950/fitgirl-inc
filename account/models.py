@@ -176,3 +176,17 @@ class Testfield2(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
     test4 = models.CharField(max_length=25, blank=True, null=True)
+
+class KindnessMessage(models.Model):
+    message_id = models.AutoField(null=False, primary_key=True)
+    body = models.CharField(max_length=500, blank=True, null=True)
+    from_user = models.CharField(max_length=50, blank=False, null=False)
+    to_user = models.CharField(max_length=50, blank=False, null=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    def created(self):
+        self.created_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return str(self.body)

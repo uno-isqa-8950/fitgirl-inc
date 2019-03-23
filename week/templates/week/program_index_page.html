@@ -9,9 +9,9 @@
     <br>
   <h1>
      <!-- Brent added return button here-->
-      <p><a class="btn btn-fitgirl pull-right back-btn" href="{{ page.get_parent.url }}">i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
-
-
+      <a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn" >
+      <i class="fa fa-chevron-circle-left"></i>
+      <span class="return-txt"> &nbsp Return</span></a>
       {{ page.title }}</h1>
 
  <h3>{{ page.description|richtext }}</h3>

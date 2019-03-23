@@ -9,6 +9,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', views.login_success, name='login_success'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('Analytics_Dashboard/', views.Analytics_Dashboard, name='Analytics_Dashboard'),
+
     path('parameters/', views.parameters_form, name='parameters'),
         # change password urls
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
@@ -45,5 +47,7 @@ urlpatterns = [
     path('manage_points/', views.manage_points, name='manage_points'),
     path('update_points/', views.update_points, name='update_points'),
     path('admin_edit/', views.admin_edit, name='admin_edit'),
+    path('inbox/', views.inbox, name='inbox'),
+    path('/', views.send_message, name='send_message'),
 
 ]
