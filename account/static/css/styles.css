@@ -346,8 +346,21 @@ margin:0 auto;
 .affirmations_close_button{
 padding:10px;
 font-size: 25px;
+    margin: 0 auto;
 }
-
+#kindnessModal .waves-input-wrapper .waves-button-input{
+    font-size: 22px;
+}
+.kindness-container ul.messages {
+width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+.kindness-container ul.messages li.success{
+   background-color: #4BB543;
+    opacity: 0.7;
+    width: 100%;
+}
 /* increase X of the affirmations dialogue box- brent */
 .close_x{
 font-size: 55px;
