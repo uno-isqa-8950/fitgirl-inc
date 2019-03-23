@@ -26,6 +26,8 @@ from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMes
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
+from wagtail.core.models import Page
+
 
 def user_login(request):
     if request.method == 'POST':
