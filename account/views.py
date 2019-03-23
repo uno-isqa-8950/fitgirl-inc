@@ -7,6 +7,7 @@ from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEdi
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
+from week.models import CustomFormSubmission
 from io import TextIOWrapper, StringIO
 import re, csv
 import weasyprint
@@ -26,6 +27,8 @@ from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMes
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
+from wagtail.core.models import Page
+
 
 def user_login(request):
     if request.method == 'POST':

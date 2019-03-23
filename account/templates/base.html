@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/addons/datatables.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="{% static 'css/soon.css' %}" rel="stylesheet">
 	<title>{% block title %}{% endblock %}</title>
@@ -98,7 +99,12 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
-
+            <li class="nav-item ">
+                <a class="nav-link" href="/pages/gallery/" style="position:relative;">
+                    <img class="gallery-icon" alt="My Photo Gallery" src="{% static 'images/iconfinder_camera_1785207.png' %}" height="38" width="35"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
             {% endif %}
         </ul>
           <ul class="navbar-nav navbar-right">
@@ -231,6 +237,7 @@
         <script src="{% static 'js/confetti.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/lightbox.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
         <!-- <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
         <script type="text/javascript" src="{% static 'js/soon.js' %}" ></script>   
@@ -244,6 +251,10 @@ var r = $("<input/>").attr({ type: "a", id: "field", class:"start-timer btn btn-
 $(".strength-paragraphs").append(r);
 
 
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true
+    })
 
 });
 

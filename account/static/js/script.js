@@ -222,6 +222,7 @@ if($("#canvas").length>0){
     $(".back-btn").css('position','relative');
 }
 
+$( ".folder-icon" ).prependTo ( ".gallery-card-title .rich-text" );
 					   
 
 	//----------Select the first tab and div by default
@@ -263,3 +264,4 @@ if($("#canvas").length>0){
 
    
 });
+
