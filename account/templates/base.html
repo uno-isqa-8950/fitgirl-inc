@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/addons/datatables.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="{% static 'css/soon.css' %}" rel="stylesheet">
 	<title>{% block title %}{% endblock %}</title>
@@ -87,7 +88,7 @@
                      <img class="rewards-icon" alt="My Rewards" src="{% static 'images/iconfinder_badge_3688520.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
                       <span class="sr-only">(current)</span>
                   </a>
-                  </li>
+            </li>
             <li class="nav-item ">
                 <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
                     <img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/>
@@ -260,6 +261,10 @@ lightbox.option({
 	      'wrapAround': true		
 	    })
 
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true
+    })
 
 });
 

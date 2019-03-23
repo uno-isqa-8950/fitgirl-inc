@@ -5,11 +5,12 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm
 from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, ProgramClone
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
-from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage
+from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
+from week.models import CustomFormSubmission
 from io import TextIOWrapper, StringIO
 import re, csv
-#import weasyprint
+import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -26,6 +27,8 @@ from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMes
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
+from wagtail.core.models import Page
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -733,6 +736,19 @@ def Analytics_Dashboard(request):
                   'account/Analytics_Dashboard.html',
                   {'section': 'Analytics_Dashboard'})
 # analytics dashboard ends- srishty#
+
+def send_message(request):
+    if request.method == 'POST':
+        message = request.POST.get("message")
+        # to_name = request.POST.get("user")
+        # print(to_name)
+        to = 'one@gmail.com'
+        from_user = request.user.username
+        KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
+        print(message)
+        messages.success(request, f'Message sent to: {to}')
+    return redirect('pages/kindness-card', {'section': 'send_message'})
+    # return render(request, 'week/kindness_card_page.html', {'section': 'send_message', 'page': page})
 
 def inbox(request):
     if request.method == 'GET':
