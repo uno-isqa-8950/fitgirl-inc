@@ -2048,3 +2048,21 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     text-align: center;
 }
 
+/*Rewards pop ups Starts here - Aishwarya */
+#ModalReward .modal-dialog .modal-content .modal-header{
+    background: #FCC9B9;
+}
+.rewards-popup h5{
+    color: #ed217c;
+}
+#ModalRedeemSuccess .modal-dialog .modal-content .modal-header{
+    background: #FCC9B9;
+}
+#ModalRedeemFail .modal-dialog .modal-content .modal-header{
+    background: #FCC9B9;
+}
+#ModalRedeemSuccess form{
+    overflow: auto;
+    width: 100%;
+}
+/*Rewards pop ups Ends here - Aishwarya */
