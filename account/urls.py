@@ -48,6 +48,6 @@ urlpatterns = [
     path('update_points/', views.update_points, name='update_points'),
     path('admin_edit/', views.admin_edit, name='admin_edit'),
     path('inbox/', views.inbox, name='inbox'),
-    path('/', views.send_message, name='send_message'),
+    path('', views.send_message, name='send_message'),
 
 ]

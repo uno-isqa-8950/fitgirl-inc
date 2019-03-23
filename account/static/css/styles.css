@@ -2066,3 +2066,15 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     text-align: center;
 }
 
+/*Cecelia's Code */
+.useredit-form {
+    max-width: 739.075px;
+    line-height: 1;
+    margin-left: auto;
+    margin-right: auto;
+    background-clip: padding-box;
+    border-radius: 0.25rem;
+    width: 100%;
+    padding: 25px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
