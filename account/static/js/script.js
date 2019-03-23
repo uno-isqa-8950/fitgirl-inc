@@ -253,9 +253,10 @@ $( ".folder-icon" ).prependTo ( ".gallery-card-title .rich-text" );
       
 		});
 	$(".kindness-card-button").click( function(){
-       var kindness_name = $(this)
-       .siblings( ".bio" ).children(".profile-name")
-       .text();
+       var kindness_name = $(this).siblings( ".bio" ).children(".profile-name").text();
+       $(".kindness-modal-content").children(".kindness-email").remove();
+       var kindness_email = $(this).siblings( ".bio" ).children(".kindness-email");
+       $( kindness_email ).clone().appendTo( ".kindness-modal-content" );
        $(".popup-name").empty();
        $( ".popup-name" ).text( kindness_name );
     })	

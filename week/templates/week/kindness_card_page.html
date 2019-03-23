@@ -15,15 +15,7 @@
         {% endfor %}
         </ul>
     {% endif %}
-    <!-- <div class="my-kindness-cards">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-        <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a href="#">HTML</a></li>
-          <li><a href="#">CSS</a></li>
-          <li><a href="#">JavaScript</a></li>
-        </ul>
-      </div> -->
+    
     <div class="spacer-div-30"></div>
     <h1>{{ page.title }}</h1>
 
@@ -41,7 +33,7 @@
                             </div>
                             <div class="bio">
                                 <p class="profile-name">{{ user.first_name }} {{ user.last_name }}</p>
-                                <input type="hidden" value="{{ user.email }}">
+                                <input type="hidden" value="{{ user.email }}" name="user" class="kindness-email">
                                 <p>{{ user.profile.bio }}</p>
                             </div>
                             <a href="#" class="btn btn-sm btn-pink btn-rounded waves-effect waves-light kindness-card-button" data-toggle="modal" data-target="#kindnessModal">Send kindness card</a>
@@ -69,16 +61,9 @@
           </div>
           <form action="{% url 'send_message' %}" method="post">
               {% csrf_token %}
-              <div class="modal-body">
-                 <!-- {% for dailyquote in dailyquote %}
-               <span class="affirmations-text">Today your affirmation is,</span>
-               <span class="affirmations-text text-center">""</span>
-               <span class="affirmations-text">Repeat this affirmation to yourself throughout the day!</span>
-                 {% endfor %} -->
-                 <label>Dear <span class="popup-name">Jane</span>,</label>
-                 <input type="hidden" name="user" value="{{ user.email }}">
-                 <input type="text" name="message">
-                 <!--<textarea></textarea>-->
+              <div class="modal-body kindness-modal-content">
+                  <label>Dear <span class="popup-name">Jane</span>,</label>
+                  <textarea name="message"></textarea>
               </div>
               <div class="modal-footer text-center">
                <input type="submit" class="btn btn-secondary btn-pink affirmations_close_button" value="Send">
@@ -86,14 +71,7 @@
           </form>
          </div>
         </div>
-       </div>
+    </div>
 
-<!-- <div class="chat-popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
-    <h1>My Cards</h1>
-
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-  </form>
-</div> -->
 {% endblock %}
 </div>
