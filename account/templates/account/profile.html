@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block head %}
@@ -14,7 +15,7 @@
         <div>
         <br>
             <div>
-                <h1 class="text-left">
+                <h1 class="text-center">
                     Profile</h1>
                     <br>
 
@@ -22,13 +23,10 @@
                 </h5>
 
 
-<div class="media"><img  src="{{ user.user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:80px;height:80px;border:1px;" class="img-fluid rounded-circle"></div>
+<div class="profile media"><img  src="{{ user.user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:150px;height:150px;border:1px;" class="img-fluid rounded-circle"></div>
             </div>
             <!--Card content-->
-            <div>
                 <br>
-                <br>
-
                 <!-- Form -->
                 <form class="text-left"style="overflow-x: hidden" >
 
@@ -38,15 +36,14 @@
                             <div></div>
                             <!-- First name -->
                             <div>
-                                <label  ><strong>First Name:  </strong>{{ user.user.first_name }}</label>
+                               <p><span class="fas fa-user" style="font-size:20px;color:#ec407a;"></span> First Name: {{ user.user.first_name }}  </p>
                             </div>
                         </div>
                         <div class="col">
 
                             <!-- Last name -->
                             <div class="">
-
-                                <label for="materialRegisterFormLastName"><strong>Last Name: </strong>{{ user.user.last_name }}</label>
+                                <p><span class="fas fa-user" style="font-size:20px;color:#ec407a"></span>   Last Name: {{ user.user.last_name }} </p>
                             </div>
                         </div>
                     </div>
@@ -55,8 +52,7 @@
                     <div class="form-row">
                         <div class="col">
                             <div class="">
-                                <label  ><strong>E-mail: </strong>{{ user.user.email }} </label>
-
+                                <p><span class="fas fa-envelope" style="font-size:15px;color:#ec407a"></span> Email: {{ user.user.email }} </p>
                             </div>
                         </div>
 
@@ -66,8 +62,7 @@
                         <div class="col">
                             <div class="text-justify">
 
-                                <label for="materialRegisterFormEmail"><strong>Bio: </strong>{{user.bio}}</label>
-                            </div>
+                                <p><span class="fas fa-pen-square" style="font-size:15px;color:#ec407a"></span> Bio: {{ user.bio }} </p>                            </div>
                         </div>
                     </div>
                     <br>
@@ -75,7 +70,7 @@
                     <div class="form-row">
                         <div class="col">
                             <div >
-                                <label ><strong>Birthday: </strong>{{  user.date_of_birth }}</label>
+                                <p><span class="fas fa-birthday-cake" style="font-size:20px;color:#ec407a"></span> Birthday: {{ user.date_of_birth}} </p>
 
                             </div>
                         </div>
@@ -83,7 +78,7 @@
                         <!-- Newsletter -->
                         <div class="col">
                             <div >
-                                <label for="materialRegisterFormPhone"><strong>Age: </strong>{{ user.age }}</label>
+                                <p><span class="fas fa-birthday-cake" style="font-size:20px;color:#ec407a"></span> Age: {{ user.age}} </p>
 
                             </div>
                         </div>
@@ -91,11 +86,10 @@
                     <br>
                     <!--  Address  -->
                     <div class="form-row">
-           
+
                         <div class="col">
                             <div >
-                                <label for="materialRegisterFormPhone"><strong>Zip: </strong>{{ user.zip }}</label>
-
+                         <p><span class="fas fa-address-card" style="font-size:15px;color:#ec407a"></span> City: {{ user.city }}</p>
                             </div>
                         </div>
                     </div>
@@ -104,14 +98,13 @@
 
                         <div class="col">
                             <div >
-                                <label for="materialRegisterFormPhone"><strong>City: </strong>{{ user.city }}</label>
+                               <p><span class="fas fa-address-card" style="font-size:15px;color:#ec407a"></span> State: {{ user.state }} </p>
 
                             </div>
                         </div>
                         <div class="col">
                             <div >
-                                <label for="materialRegisterFormPhone"><strong>State: </strong>{{ user.state }}</label>
-
+                                 <p><span class="fas fa-address-card" style="font-size:15px;color:#ec407a"></span> Zip: {{ user.zip }} </p>
                             </div>
                         </div>
                     </div>
@@ -120,13 +113,12 @@
                     <div class="form-row">
                         <div class="col">
                             <div >
-                                <label for="materialRegisterFormPhone"><strong>Day Phone: </strong>{{  user.day_phone }}</label>
-
+                                <p><span class="fas fa-mobile-alt" style="font-size:20px;color:#ec407a"></span> Day Phone: {{ user.day_phone }} </p>
                             </div>
                         </div>
 
 
-                      
+
                     </div>
                     <br>
                     <div class="form-row">
@@ -135,14 +127,18 @@
 
                             <div >
 
-                                {% if user.age_group  == 1 %}
-                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>8-10</label>
+                                <p><span class="fas fa-user" style="font-size:20px;color:#ec407a"></span>
+
+                                    {% if user.age_group  == 1 %}
+                                Age Group: 8-10
                                 {% elif user.age_group  == 2 %}
-                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>11-13</label>
+                                Age Group: 11-13
                                 {% else %}
-                                <label for="materialRegisterFormPhone"><strong>Age Group: </strong>{{ user.age_group }}</label>
+                                Age Group: {{ user.age_group }}
 
                                 {% endif %}
+
+                                </p>
 
                             </div>
                         </div>
@@ -150,42 +146,20 @@
                         <!-- Newsletter -->
                         <div class="col">
                             <div >
-                                <label for="materialRegisterFormPhone"><strong>School: </strong>{{ user.school }}</label>
-
+                                <p><span class="fas fa-school" style="font-size:15px;color:#ec407a"></span> School: {{ user.school}} </p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Sign up button -->
 
 
                     <div style="float: left">
 
-                        <!-- Newsletter -->
-                        <div class="col">
-                            <div >
-                                <br>
-                                <br>
-                                <a class="btn btn-pink" href="{% url 'users' %}">Back</a>
-
-
-                            </div>
-                        </div>
+                                <a href="{% url 'users' %}" class="btn btn-pink" >Return</a>
                     </div>
-
-                    <!-- Social register -->
-
-
-                    <hr>
-
-
 
                 </form>
                 <!-- Form -->
 
-            </div>
-
-        </div>
         <!-- Material form register -->
 
         <!-- <div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">

@@ -3,7 +3,7 @@
 # Register your models here.
 from django.contrib import admin
 from .models import Program
-from .models import Profile, RegisterUser, Affirmations, InspirationalQuotes, Dailyquote
+from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote,Inactiveuser,RewardsNotification, Affirmations, Reward, KindnessMessage
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
@@ -38,16 +38,18 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
+#admin.site.register(Inactiveuser)
 #admin.site.register(Profile)
 admin.site.register(RegisterUser)
 
-class AffirmationAdmin(admin.ModelAdmin):
-    Quotes = 'Quotes'
-    list_display = ('affirmation', 'published_date')
-    list_filter = ('affirmation', 'published_date')
-    search_fields = ('affirmation', 'published_date')
 
-admin.site.register(Affirmations, AffirmationAdmin)
+# class AffirmationAdmin(admin.ModelAdmin):
+#     Quotes = 'Quotes'
+#     list_display = ('affirmation', 'published_date')
+#     list_filter = ('affirmation', 'published_date')
+#     search_fields = ('affirmation', 'published_date')
+#
+# admin.site.register(Affirmations, AffirmationAdmin)
 
 class DailyquoteAdmin(admin.ModelAdmin):
     list_display = ('dailyquote', 'quote_date')
@@ -60,3 +62,31 @@ class InspirationalAdmin(admin.ModelAdmin):
     InspirationalQuote = 'Inspirational Quotes'
 admin.site.register(InspirationalQuotes, InspirationalAdmin)
 
+
+class InactiveusersAdmin(admin.ModelAdmin):
+    Inactiveuser = 'Inactiveuser'
+    list_display = ('set_days','created_at','updated_at')
+
+admin.site.register(Inactiveuser,InactiveusersAdmin)
+
+
+class RewardsNotificationAdmin(admin.ModelAdmin):
+    list_display = ('Rewards_milestone_1','Rewards_milestone_2','Rewards_milestone_3','Rewards_milestone_4')
+
+admin.site.register(RewardsNotification,RewardsNotificationAdmin)
+
+class RewardList(admin.ModelAdmin):
+    list_display = ('reward_no', 'user', 'timestamp')
+    list_filter = ('user', 'timestamp')
+    search_fields = ('user', 'timestamp')
+    ordering = ['timestamp']
+
+admin.site.register(Reward, RewardList)
+
+class KindnessMessageAdmin(admin.ModelAdmin):
+    list_display = ('message_id','from_user', 'to_user', 'body', 'created_date')
+    list_filter = ('from_user', 'to_user', 'created_date')
+    search_fields = ('from_user', 'to_user')
+    ordering = ['created_date']
+
+admin.site.register(KindnessMessage, KindnessMessageAdmin)

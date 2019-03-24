@@ -1,0 +1,22 @@
+{% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Email sent{% endblock %}
+
+{% block dash_content %}
+<div class="container">
+    <div class="col-9 offset-lg-0">
+        <div class="spacer-div-30">
+        </div>
+        <h1>Email confirmation</h1>
+        <p>Email sent to the following user's email accounts:</p>
+        {% for name in name_list %}
+            <p>{{ name }},</p>
+        {% endfor %}
+    </div>
+<!--Brent changed back button to match format-->
+    <a href="/users/" class="btn btn-fitgirl pull-right back-btn" >
+    <i class="fa fa-chevron-circle-left"></i>
+    <span class="return-txt"> &nbsp Return</span></a>
+{% endblock %}
+
+

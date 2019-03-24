@@ -1,0 +1,35 @@
+{% extends 'account/dashboard.html' %}
+
+
+{% block title %}Manage Inactivity{% endblock %}
+
+
+{% block dash_content %}
+<div class="container">
+<div class="spacer-div-30">
+  <ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+    <h1>
+      <a href="{% url 'users' %}" class="btn btn-fitgirl pull-right back-btn" >
+      <i class="fa fa-chevron-circle-left"></i>
+      <span class="return-txt"> &nbsp Return</span></a>
+      Manage Inactivity</h1>
+
+    <p>Set the number of days from the drop-down below to notify user about inactivity</p>
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <p><input type="submit" value="Submit">
+    <!--<a class="btn btn-fitgirl pull-right back-btn" href="{% url 'users' %}"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>-->
+    </form>
+
+</div>
+</div>
+{% endblock %}
+
+
+

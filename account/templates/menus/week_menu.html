@@ -1,23 +1,60 @@
 {% load menu_tags %}
 {% load wagtailcore_tags %}
+{% load useractivity %}
 <!--<div class="collapse" id="collapseExample">-->
 <div class="navbar-parent">
+    <div class="slider">
+            <!-- <span class="previous">&larr;</span> 
+            
+        <span class="next">&rarr;</span>  -->
+        
+        <a href="#" class="previous glossy_button">&#8249;</a>
+        <a href="#" class="next glossy_button">&#8250;</a>
     <nav class="navbar navbar-light bg-light" style="border:0">
+            <ul> 
         {% now "Y-m-d" as current_date %}
         {% for item in menu_items %}
             {% if item.specific.end_date and item.specific.start_date %}
+                {% is_week_done user item as done %}
+                <input type="hidden" value="{{ done }}">
+                <input type="hidden" value="{{ user }}">
+                <input type="hidden" value="{{ item }}">
+                <input type="hidden" value="{{ current_date }}">
                 {% if current_date > item.specific.end_date|date:"Y-m-d" %}
-                    <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                        <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>
-                    </li>
+                 {# Check if week has been completed. Change button color to a diferent color to represent completed weeks #}
+                    {% if done %}
+                        <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
+                                <i class="far fa-check-circle"></i> {{ item.text }}</a>
+                        </li>
+                    {% else %}
+                        <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
+                                <i class="far fa-circle"></i> {{ item.text }}</a>
+                        </li>
+                    {% endif %}
                 {% elif current_date < item.specific.start_date|date:"Y-m-d" %}
                     <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
-                        <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">{{ item.text }}</a>
+                        <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
+                            <i class="far fa-circle"></i> {{ item.text }}</a>
                     </li>
                 {% else %}
+                    {% if done %}
+                        <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded ">
+                                <i class="far fa-check-circle"></i> {{ item.text }}</a>
+                        </li>
+                    {% else %}
+                        <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
+                            <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded ">
+                                <i class="far fa-circle"></i> {{ item.text }}</a>
+                        </li>
+                    {% endif %}
+                    <!--
                     <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
                         <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded">{{ item.text }}</a>
                     </li>
+                    -->
                 {% endif %}
             {% else %}
                 <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
@@ -25,5 +62,7 @@
                 </li>
             {% endif %}
         {% endfor %}
+        </ul>
     </nav>
+</div>
 </div>

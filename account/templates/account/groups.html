@@ -1,0 +1,22 @@
+{% extends 'account/dashboard.html' %}
+{% block dash_content %}
+  {% if request.user.is_superuser %}
+<div class="container">
+    <div class="spacer-div-30"></div>
+    <h1 class="text-left">Select Program</h1>
+    <p> Choose the program from drop-down below: </p>
+    <form action="{% url 'group_email' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <select name="dropdown1">
+            {% for program in programs %}
+                <option>{{ program }}</option>
+            {% endfor %}
+        </select>
+        <div class="spacer-div-30"></div>
+        <p>
+        <input type="submit" value="Continue">
+        </p>
+    </form>
+</div>
+{% endif %}
+{% endblock %}

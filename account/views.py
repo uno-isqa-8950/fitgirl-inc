@@ -2,12 +2,16 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm
-from .forms import Profile,User, Program
-from .models import RegisterUser, Affirmations, Dailyquote
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm
+from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
+from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
+from week.forms import TemplateForm
+from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
-import re
-
+import re, csv
+import weasyprint
+from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
 from django.contrib.auth.models import User
@@ -16,8 +20,14 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from django.forms import ValidationError
-from datetime import datetime
-import datetime
+#from datetime import datetime, timedelta
+import pytz, datetime
+import wagtail
+from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.utils import timezone
+from wagtail.core.models import Page
 
 
 def user_login(request):
@@ -44,16 +54,53 @@ def user_login(request):
 @login_required
 def dashboard(request):
     today = datetime.date.today()
-
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
+    dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
+
+    programs = Program.objects.filter(program_start_date__lt=today).filter(program_end_date__gte=today)
+    for program in programs:
+        current_program = program.program_name
+        current_program_lower = current_program.lower()
+        gap_pos = current_program_lower.find(" ")
+        new_str = current_program_lower[0:gap_pos] + '-' + current_program_lower[gap_pos:]
+        new_str1 = new_str.replace(" ", "")
+
+    weeks = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
+    for this_week in weeks:
+        print(this_week.title)
+        todays_week = this_week.title.lower()
+        print(todays_week)
+        week_gap_pos = todays_week.find(" ")
+        new_week_str = todays_week[0:week_gap_pos] + '-' + todays_week[week_gap_pos:]
+        print(new_week_str)
+        new_week_str1 = new_week_str.replace(" ", "")
+
+    if request.user.is_staff:
+        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
+
+    return render(request,
+                  'account/dashboard.html',
+                  {'section': 'dashboard', 'dailyquote': dailyquote, 'new_str1': new_str1,
+                   'new_week_str1': new_week_str1})
+
+
+@login_required
+def login_success(request):
+    today = datetime.date.today()
+    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
     if request.user.is_staff:
         registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
-    return render(request,
-                  'account/dashboard.html',
-                  {'section': 'dashboard', 'dailyquote': dailyquote})
+    elif request.user.is_active:
+        current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
+        print(current_week)
+        return render(request,
+                      'account/current_week.html',
+                      {'current_week': current_week,
+                       'dailyquote': dailyquote})
 
 @login_required
 def userdashboard(request):
@@ -100,18 +147,19 @@ def handle_uploaded_file(request, name):
     for row in reader:
         try:
             if row[1] and row[2] and row[3]:
-                if re.match(r'^[0-9a-zA-Z_]{1,50}@[0-9a-zA-Z]{1,30}\.[0-9a-zA-Z]{1,3}$', row[1]):
+                if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
+                    num = len(User.objects.all().filter(email=row[1]))
                     if (len(User.objects.all().filter(email=row[1])) > 0):
-                        targetUser = User.objects.all().filter(email=row[1])[0]
-                        targetUser.is_active = True
-                        targetUser.save()
-                        targetProfile = targetUser.profile
-                        targetProfile.program = Program.objects.all().filter(program_name=name)[0]
-                        targetProfile.points = 0
-                        targetProfile.pre_assessment = 'No'
-                        targetProfile.post_assessment = 'No'
-                        targetProfile.save()
-                        count += 1
+                        # targetUser = User.objects.all().filter(email=row[1])[0]
+                        # targetUser.is_active = True
+                        # targetUser.save()
+                        # targetProfile = targetUser.profile
+                        # targetProfile.program = Program.objects.all().filter(program_name=name)[0]
+                        # targetProfile.points = 0
+                        # targetProfile.pre_assessment = 'No'
+                        # targetProfile.post_assessment = 'No'
+                        # targetProfile.save()
+                        existcount += 1             #hghanta: changes to get existing users count
 
                     else:
                         vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
@@ -119,7 +167,7 @@ def handle_uploaded_file(request, name):
                         alphabet = string.ascii_letters + string.digits
                         # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
                         theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
-                        theUser.set_password('fitgirl1')
+                        theUser.set_password('stayfit2019')
                         theUser.save()
                         profile = Profile.objects.create(user=theUser,
                                                          program=Program.objects.all().filter(program_name=name)[0])
@@ -127,7 +175,7 @@ def handle_uploaded_file(request, name):
                         form = PasswordResetForm({'email': theUser.email})
                         if form.is_valid():
                             request = HttpRequest()
-                            request.META['SERVER_NAME'] = 'empoweru.herokuapp.com'
+                            request.META['SERVER_NAME'] = 'www.empoweruomaha.com'
                             request.META['SERVER_PORT'] = '80'
                             form.save(
                                 request=request,
@@ -297,7 +345,7 @@ def edit(request):
             theProfile.profile_filled = True
             theProfile.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('edit')
+            return redirect('/pages/pre-assessment/')
         else:
             messages.warning(request, 'Please correct the errors below!')
     else:
@@ -308,7 +356,30 @@ def edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form,
                    'activated':activated})
+@login_required
+def admin_edit(request):
+    if request.method == 'POST':
+        # update
+        user_form = UserEditForm(instance=request.user,
+                                 data=request.POST)
+        admin_form = AdminEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
 
+        if user_form.is_valid() and admin_form.is_valid():
+            user_form.save()
+            admin_form.save()
+            theProfile = request.user.profile
+            theProfile.profile_filled = True
+            theProfile.save()
+            messages.success(request, 'Profile updated successfully')
+            return redirect('users')
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        # edit
+        user_form = UserEditForm(instance=request.user)
+        admin_form = AdminEditForm(instance=request.user.profile)
+
+    return render(request, 'account/admin_edit.html', {'user_form': user_form, 'admin_form': admin_form})
 
 
 
@@ -353,5 +424,483 @@ def archive(request):
                   'account/archive.html',
                   {'section': 'archive','form':form})
 
-def ssl_validate(request):
-    return HttpResponse("CvHnBeuXkxiUJmNHz7trjEsj50l7C_jw5Vlp8qBHers.3DCalQjZjVirxnL-bXRdyNdvMBxQqYlGWPZIul4oxMw")
+
+def group_email(request):
+    if request.method == 'GET':
+        form = EmailForm()
+        return render(request, "account/group_email.html", {'form': form})
+    else:
+        form = EmailForm()
+        template_form = TemplateForm()
+        list = request.POST.getlist('checks[]')
+        return render(request, "account/group_email.html", {'form': form, 'template_form': template_form, 'to_list': list})
+
+
+
+
+def send_group_email(request):
+    if request.method == 'GET':
+        return render(request, "account/group_email.html")
+    else:
+        template_form = TemplateForm(request.POST)
+        form = EmailForm(request.POST)
+        if form.is_valid() :
+            selection = request.POST.get('selection')
+            list = request.POST.get('to_list')
+            new = list.replace('[','').replace(']','').replace("'",'')
+            result = [x.strip() for x in new.split(',')]
+            from_email = 'capstone18FA@gmail.com'
+            subject = form.cleaned_data['subject']
+            name_list = []
+            if selection == 'text':
+                message = form.cleaned_data['message']
+                for user_email in result:
+                    send_mail(subject, message, from_email, [user_email])
+                    user = User.objects.get(username = user_email)
+                    name = user.first_name + " " + user.last_name
+                    name_list.append(name)
+                return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
+            elif template_form.is_valid() and selection == 'CMS content':
+                template = request.POST.get('templates')
+                field = template.replace('week.EmailTemplates.', '')
+                content = EmailTemplates.objects.get()
+                group_message = 'False'
+                user_inactivity = 'False'
+                rewards_notification = 'False'
+                if field == 'group_message':
+                    group_message = 'True'
+                    subject = content.subject_for_group
+                elif field == 'inactivity_message':
+                    user_inactivity = 'True'
+                    subject = content.subject_for_inactivity
+                elif field == 'rewards_message':
+                    rewards_notification = 'True'
+                    subject = content.subject_for_rewards_notification
+                html_message = render_to_string('account/group_email_template.html', {'content': content,
+                                                                                      'group_message': group_message,
+                                                                                      'user_inactivity': user_inactivity,
+                                                                                      'rewards_notification': rewards_notification})
+                plain_message = strip_tags(html_message)
+                for user_email in result:
+                    send_mail(subject, plain_message, from_email, [user_email], html_message=html_message)
+                    user = User.objects.get(username = user_email)
+                    name = user.first_name + " " + user.last_name
+                    name_list.append(name)
+                return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
+
+
+
+def email_individual(request,pk):
+    user_student = get_object_or_404(User,pk=pk)
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            #contact_email = form.cleaned_data['contact_email']
+            contact_email = user_student.email
+            message = form.cleaned_data['message']
+            from_email = 'capstone18FA@gmail.com'
+
+            try:
+                send_mail(subject, message, from_email, [contact_email])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return render(request,'account/email_individual_confirmation.html',{'contact_email': contact_email},{'user_student':user_student})
+    return render(request, 'account/email_individual.html', {'form': form,'user_student':user_student})
+
+
+
+@login_required
+def user_inactivity(request):
+    try:
+        user_inactive_days = Inactiveuser.objects.latest()
+        latest_date = user_inactive_days.set_days
+    except Inactiveuser.DoesNotExist:
+        latest_date = 7
+
+    if request.method == 'GET':
+        form = CronForm(initial={'days':latest_date})
+    else:
+        form = CronForm(request.POST,initial={'days':latest_date})
+        if form.is_valid():
+            inactive_days = form.cleaned_data['days']
+            days_data = Inactiveuser(set_days=inactive_days)
+            days_data.save()
+            messages.success(request,'User inactivity email notification period set successfully')
+            return redirect('user_inactivity')
+    return render(request,'account/user_inactivity.html',{'form':form})
+
+
+def rewards_notification(request):
+    try:
+        milestones = RewardsNotification.objects.latest()
+        set_point1 = milestones.Rewards_milestone_1
+        set_point2 = milestones.Rewards_milestone_2
+        set_point3 = milestones.Rewards_milestone_3
+        set_point4 = milestones.Rewards_milestone_4
+    except RewardsNotification.DoesNotExist:
+        set_point1 = 25
+        set_point2 = 50
+        set_point3 = 75
+        set_point4 = 100
+
+    if request.method == 'GET':
+        form = RewardsNotificationForm(initial={'Rewards_milestone_1':set_point1,'Rewards_milestone_2':set_point2,'Rewards_milestone_3':set_point3,'Rewards_milestone_4':set_point4})
+    else:
+        form = RewardsNotificationForm(request.POST,initial={'Rewards_milestone_1':set_point1,'Rewards_milestone_2':set_point2,'Rewards_milestone_3':set_point3,'Rewards_milestone_4':set_point4})
+        if form.is_valid():
+            Rewards_milestone_1 = form.cleaned_data['Rewards_milestone_1']
+            Rewards_milestone_2 = form.cleaned_data['Rewards_milestone_2']
+            Rewards_milestone_3 = form.cleaned_data['Rewards_milestone_3']
+            Rewards_milestone_4 = form.cleaned_data['Rewards_milestone_4']
+            rewards_notification_data = RewardsNotification(Rewards_milestone_1=Rewards_milestone_1,Rewards_milestone_2=Rewards_milestone_2,Rewards_milestone_3=Rewards_milestone_3,Rewards_milestone_4=Rewards_milestone_4)
+            rewards_notification_data.save()
+            messages.success(request,'Rewards email notification milestones set successfully')
+            return render(request,'account/rewards_notification.html',{'form':form})
+    return render(request,'account/rewards_notification.html',{'form':form})
+
+def manage_points(request):
+    if request.method == 'GET':
+        form = ManagePointForm()
+        return render(request, "account/managepoints.html", {'form': form})
+    else:
+        form = ManagePointForm()
+        list = request.POST.getlist('checks[]')
+        users = []
+        for email in list:
+            user1 = User.objects.get(username=email)
+            users.append(user1)
+        return render(request, "account/managepoints.html", {'form': form, 'users': users, 'to_list': list})
+
+def update_points(request):
+    if request.method == 'GET':
+        form = ManagePointForm()
+        return render(request, "account/managepoints.html", {'form': form})
+    else:
+        form = ManagePointForm(request.POST)
+        if form.is_valid():
+            list = request.POST.get('to_list')
+            new = list.replace('[','').replace(']','').replace("'",'')
+            result = [x.strip() for x in new.split(',')]
+            manage_points = form.cleaned_data['manage_points']
+            added_points = int(manage_points)
+            users = []
+            for user_email in result:
+                user = User.objects.get(username=user_email)
+                users.append(user.email)
+                point = user.profile.points
+                point += added_points
+                user.profile.points = point
+                user.profile.save()
+            messages.success(request, f'{added_points} points has been updated to {users}')
+            return redirect('users')
+
+
+def parameters_form(request):
+    if request.method == "POST":
+        form = ParametersForm(request.POST)
+        if form.is_valid():
+            rows = Parameters.objects.filter(current_values=True)
+            rows.update(current_values=False)
+            post = form.save(commit=False)
+            post.save()
+    else:
+        # Check if Parameters is populated. If not, add default row.
+        if Parameters.objects.filter(current_values=True).count() == 0:
+            parameters = Parameters()
+            parameters.physical_days_to_done = 1
+            parameters.nutrition_days_to_done = 1
+            parameters.current_values = True
+            parameters.save()
+        settings = Parameters.objects.get(current_values=True)
+        pdtd = settings.physical_days_to_done
+        ndtd = settings.nutrition_days_to_done
+
+        form = ParametersForm(
+            initial={'physical_days_to_done': pdtd,
+                     'nutrition_days_to_done': ndtd}
+        )
+    return render(request, 'account/parameters_edit.html', {'form': form})
+
+@login_required
+def cloneprogram(request):
+    if request.method == "POST":
+        form = ProgramClone(request.POST)
+        if form.is_valid():
+            new_start_date = str(form.cleaned_data['new_start_date'])
+            program_to_clone = form.cleaned_data['program_to_clone']
+            new_program = form.clean()['new_program']
+            local_timezone = pytz.timezone('America/Chicago')
+            plus_one_week = datetime.timedelta(weeks=1)
+            plus_one_day = datetime.timedelta(days=1)
+            date_fields = new_start_date.split('-')
+            new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=local_timezone)
+            new_program_slug = '-'.join(new_program.lower().split(' '))
+
+            page_title = Program.objects.filter(id=program_to_clone).first().program_name
+            page = Page.objects.filter(title=page_title).first()
+            page.copy(recursive=True, update_attrs={'slug': new_program_slug,
+                                                    'title': new_program,
+                                                    'draft_title': new_program})
+
+            page = Page.objects.filter(title=new_program).first()
+            page_depth = page.depth
+            weeks = [child for child in page.get_descendants() if child.depth == page_depth+1]
+            program_length = (len(weeks))
+
+            program = Program()
+            program.program_name = new_program
+            program.program_start_date = new_start_datetime
+            program.program_end_date = new_start_datetime + (plus_one_week * program_length) - plus_one_day
+            program.created_date = datetime.datetime.now(local_timezone)
+            program.updated_date = program.created_date
+            program.save()
+
+            for week in weeks:
+                week_number = re.match('Week (\d+)$', week.title)[1]
+                time_delta = (int(week_number) - 1) * plus_one_week
+                new_week_start_date = time_delta + new_start_datetime
+                new_week_end_date = new_week_start_date + plus_one_day * 6
+                week.weekpage.start_date = new_week_start_date
+                week.weekpage.end_date = new_week_end_date
+                week.weekpage.save()
+                for activity in week.get_children():
+                    print("Activity " + str(activity))
+                    for day in activity.get_children().type(PhysicalPostPage):
+                        print(week.title, str(day))
+                        print("start date " + str(day.physicalpostpage.start_date))
+
+                        if str(day) == 'Monday':
+                            day.physicalpostpage.start_date = new_week_start_date
+                            day.physicalpostpage.end_date = new_week_end_date
+                        elif str(day) == 'Tuesday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day
+                        elif str(day) == 'Wednesday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
+                        elif str(day) == 'Thursday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 3
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 3
+                        elif str(day) == 'Friday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
+                        else:
+                            print('Incorrect week title')
+
+                        day.physicalpostpage.save()
+            return redirect('createprogram')
+        else:
+            return render(request, 'account/cloneprogram.html', {'form': form})
+    else:
+        form = ProgramClone()
+        return render(request, 'account/cloneprogram.html', {'form': form})
+
+@login_required
+def analytics(request):
+    return render(request, 'account/analytics_home.html', {})
+
+@login_required
+def export_data(request):
+    if request.method == 'POST':
+
+        response = HttpResponse(content_type='text/csv')
+        post_data = request.POST
+        export_type = post_data['export_type']
+
+        if export_type == 'useractivity':
+            response['Content-Disposition'] = 'attachment; filename="useractivity.csv"'
+            rows = list(UserActivity.objects.all())
+            writer = csv.writer(response)
+
+            writer.writerow(['User', 'Program', 'Activity',
+                               'Week Number', 'Day of Week',
+                               'Points Earned', 'Date'])
+            for row in rows:
+                user = User.objects.get(id=row.user_id)
+                name = user.first_name + " " + user.last_name
+                program = Program.objects.get(id=row.program_id).program_name
+                writer_row = [name, program,
+                              row.Activity, row.Week,
+                              row.DayOfWeek, row.points_earned,
+                              row.creation_date]
+                writer.writerow(writer_row)
+        elif export_type == 'preassessment':
+            response['Content-Disposition'] = 'attachment; filename="pre-assessment.csv"'
+            assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
+            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            if len(rows) > 0:
+                writer = csv.writer(response)
+                writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    user = User.objects.get(id=row.user_id)
+                    name = user.first_name + " " + user.last_name
+                    #program = Program.objects.get(id=row.program_id).program_name
+                    writer.writerow([name, row.form_data, row.submit_time])
+        elif export_type == 'preassessment':
+            response['Content-Disposition'] = 'attachment; filename="post-assessment.csv"'
+            assesssment_page_id = Page.objects.filter(slug__contains="post-assessment").first().id
+            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            if len(rows) > 0:
+                writer = csv.writer(response)
+                writer.writerow(['User', 'Post-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    user = User.objects.get(id=row.user_id)
+                    name = user.first_name + " " + user.last_name
+                    # program = Program.objects.get(id=row.program_id).program_name
+                    writer.writerow([name, row.form_data, row.submit_time])
+        else:
+                response = HttpResponse(content_type='text/html', content="No data")
+        return response
+    else:
+        return HttpResponse('Invalid request')
+
+@login_required
+def rewards_redeem(request):
+    if request.method == "GET":
+        data = ServicePostPage.objects.get(page_ptr_id=10)
+        return render(request, 'rewards/reward_confirmation.html')
+    else:
+        points = request.POST.get('points')
+        service = request.POST.get('service')
+        point = int(points)
+        user1=User.objects.get(username=request.user.username)
+        if user1.profile.points < point:
+            print('cannot redeem')
+        else:
+            user1.profile.points -= point
+            user1.profile.save()
+            points_available = user1.profile.points
+            rewards = Reward.objects.create(user=user1, points_redeemed=point, service_used=service)
+            reward_number = rewards.reward_no
+            subject = 'Confirmation Rewards Redeemed - Redemption No.'.format(rewards.reward_no)
+            messages = 'Check the PDF attachment for your redemption number'
+            from_email = 'capstone18FA@gmail.com'
+            email = EmailMessage(subject, messages, from_email, [user1.email])
+            #genarate PDF
+            html = render_to_string('rewards/pdf.html',{'point': point, 'service': service,
+                                                                        'points_available': points_available,
+                                                                        'reward_number': reward_number})
+            out = BytesIO()
+            stylesheets = [weasyprint.CSS('https://fitgirl-empoweru-prod.s3.amazonaws.com/static/css/pdf.css')]
+            weasyprint.HTML(string=html).write_pdf(out,stylesheets=stylesheets)
+            email.attach('Redemption No. {}'.format(rewards.reward_no), out.getvalue(), 'application/pdf')
+            email.send()
+            return render(request, 'rewards/reward_confirmation.html', {'point': point, 'service': service,
+                                                                        'points_available': points_available,
+                                                                        'reward_number': reward_number})
+
+@login_required
+def viewRewards(request):
+    rewards = Reward.objects.all()
+    user = User.objects.get(username=request.user.username)
+    return render(request, 'rewards/viewRewards.html', {'rewards' : rewards, 'user': user})
+
+
+@login_required
+def Analytics_Dashboard(request):
+    return render(request,
+                  'account/Analytics_Dashboard.html',
+                  {'section': 'Analytics_Dashboard'})
+# analytics dashboard ends- srishty#
+
+def send_message(request):
+    if request.method == 'POST':
+        message = request.POST.get("message")
+        to = request.POST.get("user")
+        print(to)
+        # to = 'one@gmail.com'
+        from_user = request.user.username
+        KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
+        print(message)
+        messages.success(request, f'Message sent to: {to}')
+    return redirect('pages/kindness-card', {'section': 'send_message'})
+    # return render(request, 'week/kindness_card_page.html', {'section': 'send_message', 'page': page})
+
+def inbox(request):
+    if request.method == 'GET':
+        messages = KindnessMessage.objects.filter(to_user=request.user.username)
+        dict={}
+        for message in messages:
+            try:
+                dict[message.from_user].append(message.body)
+            except KeyError:
+                dict[message.from_user] = [message.body]
+
+        return render(request, 'kindnessCards/new.html', {'messages': messages, 'inbox': dict})
+
+@login_required()
+def edit_user(request,pk):
+    user = get_object_or_404(User, pk= pk)
+    print(user)
+    #user1 = get_object_or_404(Profile, profile.user_id )
+    user1 = Profile.objects.filter(user_id=pk).first()
+
+
+    if request.method == 'POST':
+        # update
+        form = UserEditForm(instance=user,data=request.POST,files=request.FILES)
+        form1 = ProfileEditForm(instance=user1,data=request.POST,files=request.FILES)
+
+        if form1.is_valid() and form.is_valid():
+            #user1.profile.photo = ProfileEditForm.cleaned_data['photo']
+            user = form.save(commit=False)
+            user1 = form1.save(commit=False)
+            user1.photo = form1.cleaned_data['photo']
+            print(user1.photo)
+            user.save()
+            user1.save()
+
+            messages.success(request, 'Profile updated successfully')
+            return redirect('users')
+
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        # edit
+        form = UserEditForm(instance=user)
+        form1 = ProfileEditForm(instance=user1)
+        return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
+    return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
+
+
+@login_required
+def signup(request):
+
+    if request.method == 'POST':
+        sign_form = SignUpForm(data=request.POST)
+
+        if sign_form.is_valid():
+
+            email = sign_form.cleaned_data['email']
+            username = email
+            first_name = sign_form.cleaned_data['first_name']
+            last_name = sign_form.cleaned_data['last_name']
+            password = 'stayfit2019'
+            today = datetime.date.today()
+            tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+
+            #programs = Program.objects.filter(program_start_date__lt=today).filter(program_end_date__gte=today)
+            programs = Program.objects.all().order_by('program_name')
+            print(programs)
+            theUser = User(username= username, email= email, first_name= first_name,
+                           last_name=last_name )
+            theUser.set_password('stayfit2019')
+            theUser.save()
+
+            profile = Profile.objects.create(user=theUser,
+                                             program=programs[0])
+            profile.save()
+
+            messages.success(request, 'A member is added successfully!')
+            return redirect('/account/users/')
+
+    else:
+
+        sign_form = SignUpForm()
+
+    return render(request, 'account/signupusers.html', {'sign_form': sign_form})

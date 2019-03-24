@@ -2,18 +2,35 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-<div class ="container">
-    <br>
-    <br>
-        <h1>{{ page.title }}</h1>
+<div class ="container question-page">
+        <h1>
+            <a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn">
+            <i class="fa fa-chevron-circle-left"></i>
+            <span class="return-txt"> &nbsp Return</span></a>
+            {{ page.title }}</h1>
 
         {% if user.is_authenticated and user.is_active or request.is_preview %}
             {% if form %}
-                <div>{{ page.intro|richtext }}</div>
+                <div>
+                    {{ page.intro|richtext }}
+                    <div class="col-sm-2 vertical-ad-banner">
+                            <div class="advertisement">
+                                    <a target="_blank" href="http://fitgirlinc.com/">
+                                <img src="/static/images/FITGIRLBANNER_AD.original.png">
+                                </a>
+                            </div>
+                            <div class="announcements">
+                                    <h2>Announcements</h2>
+                                      <div class="rich-text"><ol><li><b>Join us for EmpowerU!</b></li><li><b>Our 12 week empowerment classes are offered 2x a year for girls ages 8-13 years!</b></li><li><b>Become more physically active, working their way up to getting 60 minutes of exercise a day and staying active for life!</b></li><li><b>Develop and maintain self-respect, self-confidence, and a positive self-image.</b></li><li><b>Understand the connection between mind and body.</b></li></ol><p></p></div>
+                                  </div>
+                    </div>
+                </div>
+
                 <form action="{% pageurl page %}" method="POST">
 
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <input type="hidden" name="pageurl" value="{% pageurl page %}">
                     <br>
                     <br>
                     <input class="btn-md btn-fitgirl"  type="submit">
@@ -27,7 +44,7 @@
 <br>
 <br>
 <!--added btn-return - Brent-->
-<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right btn-return"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+<!--<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right btn-return"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>-->
     <style>
     body {
         background-color: #e3e3e3;

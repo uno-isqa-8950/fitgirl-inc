@@ -1,0 +1,24 @@
+{% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign up User {{ block.super }}{% endblock %}
+
+{% block dash_content %}
+    <div class="container">
+        <div class="contact">
+            <div class="spacer-div-30">
+            </div>
+
+  <h1 class="text-center">Sign Up User</h1>
+
+
+  <form method="post">
+    {% csrf_token %}
+
+      {{sign_form|crispy}}
+
+      <button type="submit" class="btn btn-pink"> Sign up</button>
+  </form>
+        </div>
+    </div>
+{% endblock %}

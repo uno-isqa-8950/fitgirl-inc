@@ -7,13 +7,18 @@
 
 {% block content %}
 
-<div class ="container">
-    <br>
-    <br>
-  <h1 style="text-align: center;">{{ page.title }}</h1>
+<div class ="container mental-art-post-page">
+  <h1>
+      <!--Brent added return button-->
+      <a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn">
+      <i class="fa fa-chevron-circle-left"></i>
+      <span class="return-txt"> &nbsp Return</span></a>
+      {{ page.title }}</h1>
+
+
     <h3 style="text-align: center;">{{ page.body|richtext }}</h3>
 <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
-        {% for post in page.get_children %}
+        {% for post in page.get_children.live %}
             {% image post.specific.display_image original as reward_image %}
     <div class="col-sm-4 mt-3">
                 <div class="card hoverable">
@@ -34,7 +39,7 @@
     <br>
     <br>
 <!--banner spcae:hghanta-->
-<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+<!--<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>-->
 <hr style="color: black; background: #333;">
     <!--Advertisement-->
     <div class="img-responsive horizontal-banner" style="text-align: center;">

@@ -1,0 +1,28 @@
+{% extends 'account/dashboard.html' %}
+{% load staticfiles %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block title %}Clone Program{% endblock %}
+{% block dash_content %}
+
+
+{% if request.user.is_superuser %}
+<div class="container col-md-6 col-sm-12">
+    <fieldset>
+        <legend>Clone a Program</legend>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-default" value="Submit" action="submit">Submit</button>
+        </form>
+    </fieldset>
+</div>
+
+{% else %}
+    <div class="container">
+    <h1>Error</h1>
+    </div>
+{% endif %}
+
+{% endblock %}

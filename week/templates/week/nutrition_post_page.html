@@ -1,39 +1,82 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load sidebar_data %}
+
 
 {% block content %}
-<div class ="container">
-    <br>
-    <br>
-  <h1> {{ page.intro|richtext }}</h1>
-<h5> TRY IT!</h5>
-{{ page.body|richtext }}
+{#    Nutritional Redesign - Aishwarya #}
+<div class ="container nutrition-post-page">
+  <h1>
+      <!--<a href="{{ page.get_parent.url }}" style="float:left" class="confetti-button back-btn btn btn-fitgirl pull-right"> Return</a>-->
+      <a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn">
+      <i class="fa fa-chevron-circle-left"></i>
+      <span class="return-txt"> &nbsp Return</span></a>
+      {{ page.title }}</h1>
+
+    <div class="container-description">{{ page.intro|richtext }}</div>
+    <!-- printing area starts here _Kelley -->
+    <div id="printableArea">
+    {{ page.body|richtext }}
 
 <!--<form action="{% pageurl page %}" method="POST">-->
  <!--{% csrf_token %}-->
 <!--{{form.as_p}}-->
   <!--<input type="submit">-->
 <!--</form>-->
-{{ page.morecontent|richtext}}
+        <div id="nutrition">
 
+            <div class ="nutrition-facts">
+                {{ page.facts|richtext}}
+            </div>
+            <div class="col-sm-2 vertical-ad-banner">
+                <div class="advertisement">
+                        <a target="_blank" href="http://fitgirlinc.com/">
+                    <img src="/static/images/FITGIRLBANNER_AD.original.png">
+                    </a>
+                </div>
+                <div class="announcements">
+                        <h2>Announcements</h2>
+                          <div class="rich-text"><ol><li><b>{% sidebar %}</b></li></ol></div>
+                      </div>
+            </div>
 
-{% for post in page.get_children %}
-<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
-    {% endfor %}
-<br>
-    {{ page.facts|richtext}}
+            <div class="nutrition-content">
+                {{ page.morecontent|richtext}}
+                
+                {% for post in page.get_children.live %}
+                <h2 class="dont-print-this"><a href="{% pageurl post %}">{{post.title}}</a></h2>
+                {% endfor %}
+            </div>
 
+    <!-- printing area ends here _Kelley -->
+        </div>
+
+    </div>
+    <script>
+    function printDiv(divName) {
+    $(".dont-print-this").css("display","none");  
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    $(".dont-print-this").css("display","block");
+}
+    </script>
+    <form>
+        <input class="print-button" type="button" value="Print Recipe" onClick="printDiv('printableArea')"/>
+    </form>
     <!--Added banner space:hghanta-->
- <br>
- <br>
-<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+<!--<a href="{{ page.get_parent.url }}"  class="btn btn-fitgirl pull-right"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>-->
 <hr style="color: black; background: #333;">
+
 <!--Advertisement-->
+{#    {{ page.facts|richtext}}#}
     <div class="img-responsive horizontal-banner" style="text-align: center;">
         <a target="_blank" href="{{ page.get_parent.specific.ad_url }}">
             {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
-                <img src="{{ ad_photo.url }}" class="img-fluid"/>
+            <img src="{{ ad_photo.url }}" class="img-fluid"/>
         </a>
     </div>
     <!--End Advertisement-->

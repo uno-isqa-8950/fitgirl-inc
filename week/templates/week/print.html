@@ -1,41 +1,40 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 
-{% block title %}Facts{% endblock %}
+{% block title %}{{ page.title }}{% endblock %}
 
 {% block content %}
-<div class ="container">
-<br>
-     <br>
-  <h1>{{ page.title }}</h1>
-  <div id="printableArea" class=intro"> {{page.body|richtext}}
-  </div>
-     <script>
-        function printDiv(divName){
+<div class="container">
+    <h1>
+      <a href="{{ page.get_parent.url }}" style="float:left" class="confetti-button back-btn btn btn-fitgirl pull-right"> Return</a>
+      {{ page.title }}
+    </h1>
+    <div id="printableArea" class=intro"> {{page.body|richtext}}
+    </div>
+    <script>
+        function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;
             document.body.innerHTML = printContents;
             window.print();
             document.body.innerHTML = originalContents;
-            }
+        }
     </script>
-    <br>
-    <br>
-  <form>
-      <input type="button" value="Print me!" onClick="printDiv('printableArea')"/>
-  </form>
 
-<!--<form>-->
-      <!--<input type="button" value="Print me!" onClick="window.print()"/>-->
-  <!--</form>-->
+    <form>
+        <input class="print-button" type="button" value="Print Page" onClick="printDiv('printableArea')"/>
+    </form>
 
-  {% for post in page.get_children %}
-<h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
-{% endfor %}
+    <!--<form>-->
+    <!--<input type="button" value="Print me!" onClick="window.print()"/>-->
+    <!--</form>-->
+
+    {% for post in page.get_children.live %}
+    <h2><a href="{% pageurl post %}">{{post.title}}</a></h2>
+    {% endfor %}
     <br>
     <br>
-<p><a href="{{ page.get_parent.url }}">Return</a></p>
-{% endblock %}
- </div>                                   
+    {% endblock %}
+</div>
                                   
 

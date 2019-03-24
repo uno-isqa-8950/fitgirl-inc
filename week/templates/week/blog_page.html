@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+
+<div class ="container">
+    <br>
+    <br>
+    <h1 style="text-align: center;">{{ page.title }}</h1>
+    <h3 style="text-align: center;"> {{ page.author}}</h3>
+    <h3 style="text-align: center;"> {{ page.date}}</h3>
+    <h3 class="image-alignable"> {{ page.body}}</h3>
+
+</div>
+
+
+{% endblock %}

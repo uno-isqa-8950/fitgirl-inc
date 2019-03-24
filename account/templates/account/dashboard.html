@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 
 {% block title %}Dashboard{% endblock %}
-<div class="container">
+<div class="container ">
     <div class="row">
 
 
@@ -14,24 +14,37 @@
         <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
         <div id="steps">
-            <div class="step done" data-desc="How It Works">1</div>
-            {% if request.path == "/edit/" %}
-                <div class="step active" data-desc="Update Profile">2</div>
-            {% elif request.path == "/pages/pre-assessment/" %}
-                <div class="step done" data-desc="Update Profile">2</div>
+            {% if request.path == "/dashboard/" %}
+                <div class="step active" data-desc="How It Works">1</div>
             {% else %}
-                <div class="step" data-desc="Update Profile">2</div>
+                <div class="step done" data-desc="How It Works">1</div>
+            {% endif %}
+            {% if request.path == "/pages/disclaimer/" %}
+                <div class="step active" data-desc="Disclaimer">2</div>  <!--Disclaimer added as step 2 - Tarun, hghanta-->
+            {% elif request.path == "/dashboard/" %}
+                <div class="step" data-desc="Disclaimer">2</div>
+            {% elif request.path == "/edit/" %}
+                <div class="step done" data-desc="Disclaimer">2</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Disclaimer">2</div>
+            {% endif %}
+            {% if request.path == "/edit/" %}
+                <div class="step active" data-desc="Update Profile">3</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Update Profile">3</div>
+            {% else %}
+                <div class="step" data-desc="Update Profile">3</div>
             {% endif %}
             {% if request.path == "/pages/pre-assessment/" %}
-                <div class="step active" data-desc="Take Pre-Assessment">3</div>
+                <div class="step active" data-desc="Take Pre-Assessment">4</div>
             {% else %}
-                <div class="step" data-desc="Take Pre-Assessment">3</div>
+                <div class="step" data-desc="Take Pre-Assessment">4</div>
             {% endif %}
-            <div class="step" data-desc="Complete">3</div>
+            <div class="step" data-desc="Complete">5</div>
         </div>
-        {% if request.path == "/" %}
-        <div class="container offset-lg-2 justify-content-between">
-          <div class="col-sm-9 ">
+        {% if request.path == "/dashboard/" %}
+        <div class="container justify-content-between">
+          <div class="col-sm-12 ">
 
 
             <h1>FITGirl, Inc.</h1>
@@ -62,7 +75,8 @@
                 <br>
                 <br>
 
-                 <a href="{% url 'edit' %}"  class="btn btn-fitgirl pull-right">Next &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+                 <a href="/pages/disclaimer/" class="btn btn-secondary pull-right">NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+              <!--Next button goes to disclaimer - Tarun-->
             </p>
 
 
@@ -109,7 +123,11 @@
                                         <div>
                                             <li class="nav-item">
                                                 <a href="{% url 'createprogram' %}" id="createProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
-                                                        class="fas fa-edit fa-fw"></i> Program </a>
+                                                        class="fas fa-folder-plus fa-fw"></i> Programs </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{% url 'cloneprogram' %}" id="cloneProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                        class="fas fa-clone fa-fw"></i> Clone Program </a>
                                             </li>
                                             <div>
                                                 <li class="nav-item">
@@ -121,11 +139,23 @@
                                                         <a href="{% url 'users' %}" id="users" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                             <i class="fas fa-female fa-fw"></i> Users </a>
                                                     </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'parameters' %}" id="parameters" class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Settings </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'rewards' %}" id="rewards" class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Manage Rewards </a>
+                                                    </li>
                                                     <div>
                                                         <div>
+                                                     <li class="nav-item">
+                                                        <a href="{% url 'analytics' %}" id="analytics" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                                class="fas fa-chart-bar fa-fw"></i> Analytics </a>
+                                                    </li>
                                                     <li class="nav-item">
                                                         <a href="{% url 'archive' %}" id="archive" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                            <i class="fas fa-female fa-fw"></i> Archive </a>
+                                                            <i class="fas fa-archive fa-fw"></i> Archive </a>
                                                     </li>
                                                     <div>
                                                     <li class="nav-item">
@@ -135,19 +165,27 @@
                                                         <div>
                                                     <li class="nav-item">
                                                         <a href="{% url 'django_frame' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
-                                                            <i class="fas fa-edit fa-fw"></i> Manage Site </a>
+                                                            <i class="fas fa-database fa-fw"></i> Manage Site </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'user_inactivity' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fab fa-font-awesome fa-fw"></i> User Inactivity </a>
+                                                    </li>
+                                                            <li class="nav-item">
+                                                        <a href="{% url 'rewards_notification' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fab fa-font-awesome fa-fw"></i> Rewards Notification</a>
                                                     </li>
                                                     <!-- <div>
                                                         <li class="nav-item">
                                                             <a class="nav-link" data-toggle="tab" href="#panel53" role="tab">Mental</a>
                                                     </div>
                                                     </li> -->
-                                    </ul>
-
+                                     </ul>
+                            </div>
+                        </div>
                             </div>
                         </div>
                         <div class="modal-footer justify-content-center">
-
                         </div>
                     </div>
                 </div>
@@ -189,8 +227,7 @@
 
                                                     <div>
                                                         <li class="nav-item">
-                                                    <a href="/pages/rewards/ " class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-thumbs-up"></i>
-                                                        Rewards</a>
+                                                    <a href="/pages/rewards/ " class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-thumbs-up"></i> Rewards</a>
                                                         </li>
                                  </ul>
                             </div>
@@ -207,9 +244,6 @@
 
 
     </div>
-
-    <br>
-    <br>
     <div id="userLandingContent1" style="min-height: calc(100vh - 260px);">
             <div id="userLandingContent2">
 
@@ -220,9 +254,9 @@
           <div class="row wow fadeIn">
             <!--Grid column-->
             <div class="col-md-12 mb-4 white-dark text-center wow fadeIn">
-              <h3 class="display-7 font-weight-bold white-dark mb-0 pt-md-1 pt-3">Welcome to <span class="animated fadeIn slower"> EmpowerU online!</span></h3>
+              <h3 class="display-7 font-weight-bold white-dark mb-0 pt-md-1 pt-3" style="padding:10px 0">Welcome to <span class="animated fadeIn slower"> EmpowerU online!</span></h3>
               <hr class="hr-dark my-1 w-75">
-              <h6 class="subtext-header animated fadeIn slower delay-1s mt-1 mb-0">
+                <h6 class="subtext-header animated fadeIn slower delay-1s mt-1 mb-0"></h6>
 
         
                   <p>Doesn't it feel great to move! Whether it’s stretching out in yoga or shooting hoops in the gym,
@@ -238,38 +272,38 @@
                 <br>
                 <div class="card-deck ">
                   <div class="card">
-                    <img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
-                    <div class="card-body bg-dark">
+                    <a href="/pages/{{ new_str1 }}/{{new_week_str1 }}/physical/"><img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
                         <h5 class="card-title" style="color:deeppink" ><b>Physical</b></h5>
                       <p class="card-text" style="color:white">Physical activity can lead to all kinds of benefits from better overall health to higher self-esteem to increased leadership skills.</p>
                     </div>
                   </div>
                   <div class="card">
-                    <img class="card-img-top" src="/media/images/nutritional.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
-                    <div class="card-body bg-dark">
+                    <a href="/pages/{{ new_str1 }}/{{ new_week_str1 }}/nutritional/"><img class="card-img-top" src="/media/images/nutritional.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
                         <h5 class="card-title"  style="color:deeppink"><b>Nutritional</b></h5>
                       <p class="card-text"style="color:white" >You have the right to feel good and be healthy. Choose food that fuels your body and boosts brain power!</p>
                     </div>
                   </div>
                   <div class="card">
-                    <img class="card-img-top"src="../../../media/images/shutterstock_280067543 (1).jpg"   alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
-                      <div class="card-body bg-dark">
+                    <a href="/pages/{{ new_str1 }}/{{ new_week_str1 }}/mental/"><img class="card-img-top"src="../../../media/images/shutterstock_280067543 (1).jpg"   alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
                         <h5 class="card-title" style="color:deeppink"><b>Mental</b></h5>
                       <p class="card-text" style="color:white">Learn to love who you are and find ways to stay calm in tough situations, crush limiting beliefs and become the person you were meant to be!</p>
                     </div>
                   </div>
                   <div class="card">
-                    <img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
-                    <div class="card-body bg-dark">
+                    <a href="/pages/{{ new_str1 }}/{{ new_week_str1 }}/relational/"><img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
                       <h5 class="card-title" style="color:deeppink" ><b>Relational</b></h5>
                       <p class="card-text" style="color:white" >Learn how to embrace differences in others, develop amazing friendships and work through difficult feelings.</p>
                     </div>
                   </div>
                 </div>
-            </div>
-
-
-            </div>
             <!--Grid column-->
           </div>
           <!--Grid row-->
@@ -305,6 +339,7 @@
 </div>
 </div>
 
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 <script>
 // window.onload = function() {
 //   window.setTimeout(fadeout, 8000); //8 seconds
