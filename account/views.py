@@ -10,7 +10,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
 import re, csv
-import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -356,6 +356,44 @@ def edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form,
                    'activated':activated})
+
+@login_required
+def user_edit(request):
+
+    activated = False
+    print(request.user.profile.profile_filled)
+    if(request.user.profile.profile_filled):
+        activated = True
+    else:
+        activated = False
+
+
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user,
+                                 data=request.POST)
+        profile_form = ProfileEditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            theProfile = request.user.profile
+            theProfile.profile_filled = True
+            theProfile.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('/dashboard')
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+    return render(request,
+                  'account/user_edit_profile.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form,
+                   'activated':activated})
+
+
 @login_required
 def admin_edit(request):
     if request.method == 'POST':
