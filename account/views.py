@@ -645,17 +645,19 @@ def cloneprogram(request):
                                                     'title': new_program,
                                                     'draft_title': new_program})
 
+            page = Page.objects.filter(title=new_program).first()
+            page_depth = page.depth
+            weeks = [child for child in page.get_descendants() if child.depth == page_depth+1]
+            program_length = (len(weeks))
+
             program = Program()
             program.program_name = new_program
             program.program_start_date = new_start_datetime
-            program.program_end_date = new_start_datetime + plus_one_week * 13 - plus_one_day
+            program.program_end_date = new_start_datetime + (plus_one_week * program_length) - plus_one_day
             program.created_date = datetime.datetime.now(local_timezone)
             program.updated_date = program.created_date
             program.save()
 
-            page = Page.objects.filter(title=new_program).first()
-            page_depth = page.depth
-            weeks = [child for child in page.get_descendants() if child.depth == page_depth+1]
             for week in weeks:
                 week_number = re.match('Week (\d+)$', week.title)[1]
                 time_delta = (int(week_number) - 1) * plus_one_week
@@ -689,9 +691,12 @@ def cloneprogram(request):
                             print('Incorrect week title')
 
                         day.physicalpostpage.save()
+            return redirect('createprogram')
+        else:
+            return render(request, 'account/cloneprogram.html', {'form': form})
     else:
         form = ProgramClone()
-    return render(request, 'account/cloneprogram.html', {'form': form})
+        return render(request, 'account/cloneprogram.html', {'form': form})
 
 @login_required
 def analytics(request):

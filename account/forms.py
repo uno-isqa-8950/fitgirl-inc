@@ -143,11 +143,15 @@ class ProgramClone(forms.Form):
 
         return my_program_list
 
-    program_to_clone = forms.ChoiceField(choices=program_list)
-    new_start_date = forms.DateField(widget=forms.SelectDateWidget)
-    new_program = forms.CharField(max_length=50, )
-    length_of_program = forms.IntegerField(max_value=18, min_value=1)
+    program_to_clone = forms.ChoiceField(choices=program_list,
+                                         label="Choose a Program to Clone",
+                                         )
+    new_start_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                   'type': 'date',
+                                                                   'placeholder': 'mm/dd/yyyy format'}))
+    new_program = forms.CharField(max_length=50,
+                                  label="Name of New Program")
 
-    fields = (program_to_clone, new_start_date, new_program, length_of_program)
+    fields = (program_to_clone, new_start_date, new_program)
 
 
