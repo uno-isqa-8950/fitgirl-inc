@@ -7,7 +7,7 @@ from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEdi
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
-from week.models import CustomFormSubmission
+from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
 import re, csv
 import weasyprint
@@ -20,8 +20,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from django.forms import ValidationError
-from datetime import datetime
-import datetime
+#from datetime import datetime, timedelta
+import pytz, datetime
 import wagtail
 from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
@@ -607,6 +607,13 @@ def parameters_form(request):
             post = form.save(commit=False)
             post.save()
     else:
+        # Check if Parameters is populated. If not, add default row.
+        if Parameters.objects.filter(current_values=True).count() == 0:
+            parameters = Parameters()
+            parameters.physical_days_to_done = 1
+            parameters.nutrition_days_to_done = 1
+            parameters.current_values = True
+            parameters.save()
         settings = Parameters.objects.get(current_values=True)
         pdtd = settings.physical_days_to_done
         ndtd = settings.nutrition_days_to_done
@@ -622,10 +629,74 @@ def cloneprogram(request):
     if request.method == "POST":
         form = ProgramClone(request.POST)
         if form.is_valid():
-            print(form.cleaned_data['new_start_date'], form.cleaned_data['program'])
+            new_start_date = str(form.cleaned_data['new_start_date'])
+            program_to_clone = form.cleaned_data['program_to_clone']
+            new_program = form.clean()['new_program']
+            local_timezone = pytz.timezone('America/Chicago')
+            plus_one_week = datetime.timedelta(weeks=1)
+            plus_one_day = datetime.timedelta(days=1)
+            date_fields = new_start_date.split('-')
+            new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=local_timezone)
+            new_program_slug = '-'.join(new_program.lower().split(' '))
+
+            page_title = Program.objects.filter(id=program_to_clone).first().program_name
+            page = Page.objects.filter(title=page_title).first()
+            page.copy(recursive=True, update_attrs={'slug': new_program_slug,
+                                                    'title': new_program,
+                                                    'draft_title': new_program})
+
+            page = Page.objects.filter(title=new_program).first()
+            page_depth = page.depth
+            weeks = [child for child in page.get_descendants() if child.depth == page_depth+1]
+            program_length = (len(weeks))
+
+            program = Program()
+            program.program_name = new_program
+            program.program_start_date = new_start_datetime
+            program.program_end_date = new_start_datetime + (plus_one_week * program_length) - plus_one_day
+            program.created_date = datetime.datetime.now(local_timezone)
+            program.updated_date = program.created_date
+            program.save()
+
+            for week in weeks:
+                week_number = re.match('Week (\d+)$', week.title)[1]
+                time_delta = (int(week_number) - 1) * plus_one_week
+                new_week_start_date = time_delta + new_start_datetime
+                new_week_end_date = new_week_start_date + plus_one_day * 6
+                week.weekpage.start_date = new_week_start_date
+                week.weekpage.end_date = new_week_end_date
+                week.weekpage.save()
+                for activity in week.get_children():
+                    print("Activity " + str(activity))
+                    for day in activity.get_children().type(PhysicalPostPage):
+                        print(week.title, str(day))
+                        print("start date " + str(day.physicalpostpage.start_date))
+
+                        if str(day) == 'Monday':
+                            day.physicalpostpage.start_date = new_week_start_date
+                            day.physicalpostpage.end_date = new_week_end_date
+                        elif str(day) == 'Tuesday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day
+                        elif str(day) == 'Wednesday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
+                        elif str(day) == 'Thursday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 3
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 3
+                        elif str(day) == 'Friday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
+                        else:
+                            print('Incorrect week title')
+
+                        day.physicalpostpage.save()
+            return redirect('createprogram')
+        else:
+            return render(request, 'account/cloneprogram.html', {'form': form})
     else:
         form = ProgramClone()
-    return render(request, 'account/cloneprogram.html', {'form': form})
+        return render(request, 'account/cloneprogram.html', {'form': form})
 
 @login_required
 def analytics(request):
@@ -716,7 +787,6 @@ def rewards_redeem(request):
                                                                         'reward_number': reward_number})
             out = BytesIO()
             stylesheets = [weasyprint.CSS('https://fitgirl-empoweru-prod.s3.amazonaws.com/static/css/pdf.css')]
-            # print(stylesheets)
             weasyprint.HTML(string=html).write_pdf(out,stylesheets=stylesheets)
             email.attach('Redemption No. {}'.format(rewards.reward_no), out.getvalue(), 'application/pdf')
             email.send()
