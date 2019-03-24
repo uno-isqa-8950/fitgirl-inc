@@ -651,3 +651,21 @@ class TestPage(Page):
         FieldPanel('description', classname="full"),
 
         ]
+
+# Siderbar content Page
+class SidebarContentPage(Page):
+    subject_for_announcement1 = models.CharField(max_length=10000, blank=True)
+    message_announcement1 = RichTextField(blank=True)
+    subject_for_announcement2 = models.CharField(max_length=10000,blank=True)
+    message_announcement2 = RichTextField(blank=True)
+    subject_for_announcement3 = models.CharField(max_length=10000, blank=True)
+    message_announcement3 = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('subject_for_announcement1', classname="full"),
+        FieldPanel('message_announcement1', classname="full"),
+        FieldPanel('subject_for_announcement2', classname="full"),
+        FieldPanel('message_announcement2', classname="full"),
+        FieldPanel('subject_for_announcement3', classname="full"),
+        FieldPanel('message_announcement3', classname="full"),
+    ]
