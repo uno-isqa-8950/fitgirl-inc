@@ -7,9 +7,10 @@ from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEdi
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
+from week.models import CustomFormSubmission
 from io import TextIOWrapper, StringIO
 import re, csv
-#import weasyprint
+import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -19,13 +20,15 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from django.forms import ValidationError
-from datetime import datetime
-import datetime
+from datetime import datetime, timedelta
+import pytz
 import wagtail
 from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
+from wagtail.core.models import Page
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -619,7 +622,62 @@ def cloneprogram(request):
     if request.method == "POST":
         form = ProgramClone(request.POST)
         if form.is_valid():
-            print(form.cleaned_data['new_start_date'], form.cleaned_data['program'])
+            new_start_date = str(form.cleaned_data['new_start_date'])
+            program_to_clone = form.cleaned_data['program_to_clone']
+            new_program = form.clean()['new_program']
+            local_timezone = pytz.timezone('America/Chicago')
+            plus_one_week = timedelta(weeks=1)
+            plus_one_day = timedelta(days=1)
+            date_fields = new_start_date.split('-')
+            new_start_datetime = datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=local_timezone)
+
+            program = Program()
+            program.program_name = new_program
+            program.program_start_date = new_start_datetime
+            program.program_end_date = new_start_datetime + plus_one_week * 13 - plus_one_day
+            program.created_date = datetime.now(local_timezone)
+            program.updated_date = program.created_date
+            program.save()
+
+            page = Page(id=program_to_clone)
+
+            weeks = page.children.type(WeekPage)
+            for week in weeks:
+                week_number = re.match('Week (\d+)$', week.title)[1]
+                time_delta = (int(week_number) - 1) * plus_one_week
+                new_week_start_date = time_delta + new_start_datetime
+                new_week_end_date = new_week_start_date + plus_one_day * 6
+                week.weekpage.start_date = new_week_start_date
+                week.weekpage.end_date = new_week_end_date
+                week.weekpage.save()
+                for activity in week.get_children():
+                    print("Activity " + str(activity))
+                    for day in activity.get_children().type(PhysicalPostPage):
+                        print(week.title, str(day))
+                        print("start date " + str(day.physicalpostpage.start_date))
+
+                        if str(day) == 'Monday':
+                            day.physicalpostpage.start_date = new_week_start_date
+                            day.physicalpostpage.end_date = new_week_end_date
+                        elif str(day) == 'Tuesday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day
+                        elif str(day) == 'Wednesday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
+                        elif str(day) == 'Thursday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 3
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 3
+                        elif str(day) == 'Friday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
+                        else:
+                            print('Incorrect week title')
+
+                        day.physicalpostpage.save()
+
+        return True
+
     else:
         form = ProgramClone()
     return render(request, 'account/cloneprogram.html', {'form': form})
@@ -713,6 +771,7 @@ def rewards_redeem(request):
                                                                         'reward_number': reward_number})
             out = BytesIO()
             stylesheets = [weasyprint.CSS('https://fitgirl-empoweru-prod.s3.amazonaws.com/static/css/pdf.css')]
+            # print(stylesheets)
             weasyprint.HTML(string=html).write_pdf(out,stylesheets=stylesheets)
             email.attach('Redemption No. {}'.format(rewards.reward_no), out.getvalue(), 'application/pdf')
             email.send()
@@ -737,9 +796,9 @@ def Analytics_Dashboard(request):
 def send_message(request):
     if request.method == 'POST':
         message = request.POST.get("message")
-        # to_name = request.POST.get("user")
-        # print(to_name)
-        to = 'one@gmail.com'
+        to = request.POST.get("user")
+        print(to)
+        # to = 'one@gmail.com'
         from_user = request.user.username
         KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
         print(message)
@@ -758,3 +817,37 @@ def inbox(request):
                 dict[message.from_user] = [message.body]
 
         return render(request, 'kindnessCards/new.html', {'messages': messages, 'inbox': dict})
+
+@login_required()
+def edit_user(request,pk):
+    user = get_object_or_404(User, pk= pk)
+    print(user)
+    #user1 = get_object_or_404(Profile, profile.user_id )
+    user1 = Profile.objects.filter(user_id=pk).first()
+
+
+    if request.method == 'POST':
+        # update
+        form = UserEditForm(instance=user,data=request.POST,files=request.FILES)
+        form1 = ProfileEditForm(instance=user1,data=request.POST,files=request.FILES)
+
+        if form1.is_valid() and form.is_valid():
+            #user1.profile.photo = ProfileEditForm.cleaned_data['photo']
+            user = form.save(commit=False)
+            user1 = form1.save(commit=False)
+            user1.photo = form1.cleaned_data['photo']
+            print(user1.photo)
+            user.save()
+            user1.save()
+
+            messages.success(request, 'Profile updated successfully')
+            return redirect('users')
+
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        # edit
+        form = UserEditForm(instance=user)
+        form1 = ProfileEditForm(instance=user1)
+        return render(request, 'account/edit_user.html', {'form1': form1,'form': form})
+    return render(request, 'account/edit_user.html', {'form1': form1,'form': form})
