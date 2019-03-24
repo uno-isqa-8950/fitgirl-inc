@@ -83,7 +83,7 @@
               <!--kindeness card tab ends -srishty-->
         </ul>
         <ul class="navbar-nav navbar-centre" style="margin-right: 6px; margin-top: -7px;">
-            <li class="nav-item ">
+            <!-- <li class="nav-item ">
                     <a class="nav-link" href="/pages/rewards/" style="position:relative;">
                      <img class="rewards-icon" alt="My Rewards" src="{% static 'images/iconfinder_badge_3688520.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
                       <span class="sr-only">(current)</span>
@@ -107,17 +107,61 @@
                      <img class="rewards-icon" alt="My Rewards" src="{% static 'images/bell-icon.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
                       <span class="sr-only">(current)</span>
                   </a>
-                  </li>
+                  </li> -->
 
             {% endif %}
         </ul>
           <ul class="navbar-nav navbar-right ">
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" >
-                        <img class="rounded-circle account-img" alt="Notifications" src="{% static 'images/bell-icon.png' %}" height="35" width="35">
+                        <img class="rounded-circle account-img" alt="Notifications" src="{% static 'images/bell-icon.png' %}" height="30" width="30">
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box" >
-                            <a class="dropdown-item" href='{% url 'admin_edit' %}'><i class="fas fa-user-shield fa-fw"></i> Edit Admin Profile</a>
+                    <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box notifications-dropdown-box" >
+                            <li class="nav-item ">
+                                    <a class="nav-link" href="/pages/rewards/" style="position:relative;">
+                                        <table>
+                                        <tr>
+                                                <td><img class="rewards-icon" alt="My Rewards" src="{% static 'images/iconfinder_badge_3688520.png' %}" height="40" width="40"/> </td>
+                                                <td> <span>You have {{ user.profile.points }} points. Click here for rewards.</span></td>
+                                        </tr>
+                                        </table>
+                                     <!-- <span class="rewards-notify">You have {{ user.profile.points }} points. Click here to check your rewards.</span> -->
+                                    
+                                      <span class="sr-only">(current)</span>
+                                  </a>
+                            </li>
+                            <div class="dropdown-divider"></div>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
+                                        <table>
+                                                <tr>
+                                                        <td><img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/></td>
+                                                        <td><span>You have {{ user.profile.points }} cards. Click here to view your kindness cards</span></td>
+                                                </tr>
+                                        </table>        
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <div class="dropdown-divider"></div>
+                            <li class="nav-item ">
+                                    <a class="nav-link" href="/pages/gallery/" style="position:relative;">
+                                        <table>
+                                                <tr>
+                                                        <td><img class="gallery-icon" alt="My Photo Gallery" src="{% static 'images/iconfinder_camera_1785207.png' %}" height="38" width="35" /></td>
+                                                        <td><span class="">Click here to view the {{ user.profile.points }} EmpowerU pictures.</span></td>
+                                                </tr>
+                                        </table>    
+                                        
+                                         
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                            <!-- <li class="nav-item">
+                                    <a class="nav-link" href="/pages/rewards/" style="position:relative;">
+                                     <img class="rewards-icon" alt="My Rewards" src="{% static 'images/bell-icon.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                                      <span class="sr-only">(current)</span>
+                                  </a>
+                                  </li> -->
                     </ul>
                 </li>
             <li class="dropdown ">
