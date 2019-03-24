@@ -29,6 +29,7 @@ from django.utils.html import strip_tags
 from django.utils import timezone
 from wagtail.core.models import Page
 
+
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -778,7 +779,6 @@ def rewards_redeem(request):
                                                                         'reward_number': reward_number})
             out = BytesIO()
             stylesheets = [weasyprint.CSS('https://fitgirl-empoweru-prod.s3.amazonaws.com/static/css/pdf.css')]
-            # print(stylesheets)
             weasyprint.HTML(string=html).write_pdf(out,stylesheets=stylesheets)
             email.attach('Redemption No. {}'.format(rewards.reward_no), out.getvalue(), 'application/pdf')
             email.send()

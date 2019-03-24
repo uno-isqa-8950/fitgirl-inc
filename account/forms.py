@@ -135,9 +135,11 @@ class ParametersForm(forms.ModelForm):
 
 class ProgramClone(forms.Form):
     program_list = list()
+    '''
     for item in Program.objects.all():
         tuple = (item.id, item.program_name)
         program_list.append(tuple)
+    '''
     program_to_clone = forms.ChoiceField(choices=program_list)
     new_start_date = forms.DateField(widget=forms.SelectDateWidget)
     new_program = forms.CharField(max_length=50, )
