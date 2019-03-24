@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm
-from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, ProgramClone
+from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, ProgramClone, SignUpForm
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
@@ -794,5 +794,43 @@ def edit_user(request,pk):
         # edit
         form = UserEditForm(instance=user)
         form1 = ProfileEditForm(instance=user1)
-        return render(request, 'account/edit_user.html', {'form1': form1,'form': form})
-    return render(request, 'account/edit_user.html', {'form1': form1,'form': form})
+        return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
+    return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
+
+
+@login_required
+def signup(request):
+
+    if request.method == 'POST':
+        sign_form = SignUpForm(data=request.POST)
+
+        if sign_form.is_valid():
+
+            email = sign_form.cleaned_data['email']
+            username = email
+            first_name = sign_form.cleaned_data['first_name']
+            last_name = sign_form.cleaned_data['last_name']
+            password = 'stayfit2019'
+            today = datetime.date.today()
+            tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+
+            #programs = Program.objects.filter(program_start_date__lt=today).filter(program_end_date__gte=today)
+            programs = Program.objects.all().order_by('program_name')
+            print(programs)
+            theUser = User(username= username, email= email, first_name= first_name,
+                           last_name=last_name )
+            theUser.set_password('stayfit2019')
+            theUser.save()
+
+            profile = Profile.objects.create(user=theUser,
+                                             program=programs[0])
+            profile.save()
+
+            messages.success(request, 'A member is added successfully!')
+            return redirect('/account/users/')
+
+    else:
+
+        sign_form = SignUpForm()
+
+    return render(request, 'account/signupusers.html', {'sign_form': sign_form})
