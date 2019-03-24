@@ -1,15 +1,31 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+
 {% block content %}
 
-    <form method="POST" class="useredit-form" enctype='multipart/form-data'>{% csrf_token %}
+<div class="container">
+<div class="spacer-div-50">
+
+    <form method="POST" class="useredit-form" enctype='multipart/form-data'>
+
+        {% csrf_token %}
     <h1>Edit Profile</h1>
 
+        <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user1.photo.url }}" onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="100" width="100" style="height: 100px;width: 100px">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.first_name }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
         {{ form |crispy }}
 
         {{ form1|crispy }}
 
         <button type="submit" class="save btn btn-pink ">Update</button>
+        </div>
     </form>
-
+</div>
+</div>
 {% endblock %}
