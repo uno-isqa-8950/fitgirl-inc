@@ -903,4 +903,8 @@ def signup(request):
 
         sign_form = SignUpForm()
 
+
     return render(request, 'account/signupusers.html', {'sign_form': sign_form})
+
+    
+
