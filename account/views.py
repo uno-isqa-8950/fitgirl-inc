@@ -7,7 +7,7 @@ from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEdi
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
-from week.models import CustomFormSubmission
+from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
 import re, csv
 import weasyprint
@@ -637,12 +637,25 @@ def cloneprogram(request):
             plus_one_day = datetime.timedelta(days=1)
             date_fields = new_start_date.split('-')
             new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=local_timezone)
+            new_program_slug = '-'.join(new_program.lower().split(' '))
 
-            program_to_clone_info = Program(id=int(program_to_clone))
-            program_to_clone_name = program_to_clone_info.program_name
-            page = Page(title=program_to_clone_name)
+            page_title = Program.objects.filter(id=program_to_clone).first().program_name
+            page = Page.objects.filter(title=page_title).first()
+            page.copy(recursive=True, update_attrs={'slug': new_program_slug,
+                                                    'title': new_program,
+                                                    'draft_title': new_program})
 
-            weeks = page.get_descendants()
+            program = Program()
+            program.program_name = new_program
+            program.program_start_date = new_start_datetime
+            program.program_end_date = new_start_datetime + plus_one_week * 13 - plus_one_day
+            program.created_date = datetime.datetime.now(local_timezone)
+            program.updated_date = program.created_date
+            program.save()
+
+            page = Page.objects.filter(title=new_program).first()
+            page_depth = page.depth
+            weeks = [child for child in page.get_descendants() if child.depth == page_depth+1]
             for week in weeks:
                 week_number = re.match('Week (\d+)$', week.title)[1]
                 time_delta = (int(week_number) - 1) * plus_one_week
@@ -676,16 +689,6 @@ def cloneprogram(request):
                             print('Incorrect week title')
 
                         day.physicalpostpage.save()
-
-        program = Program()
-        program.program_name = new_program
-        program.program_start_date = new_start_datetime
-        program.program_end_date = new_start_datetime + plus_one_week * 13 - plus_one_day
-        program.created_date = datetime.datetime.now(local_timezone)
-        program.updated_date = program.created_date
-        program.save()
-        return True
-
     else:
         form = ProgramClone()
     return render(request, 'account/cloneprogram.html', {'form': form})
