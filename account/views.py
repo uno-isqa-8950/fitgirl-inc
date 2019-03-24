@@ -3,14 +3,14 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm
-from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, ProgramClone, SignUpForm
+from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import TextIOWrapper, StringIO
 import re, csv
-import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random

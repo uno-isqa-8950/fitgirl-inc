@@ -132,7 +132,7 @@ class ParametersForm(forms.ModelForm):
         model = Parameters
         fields = ('physical_days_to_done', 'nutrition_days_to_done')
 
-
+'''
 class ProgramClone(forms.Form):
     program_list = list()
     for item in Program.objects.all():
@@ -144,7 +144,7 @@ class ProgramClone(forms.Form):
     length_of_program = forms.IntegerField(max_value=18, min_value=1)
 
     fields = (program_to_clone, new_start_date, new_program, length_of_program)
-
+'''
 class SignUpForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
