@@ -144,3 +144,12 @@ class ProgramClone(forms.Form):
     length_of_program = forms.IntegerField(max_value=18, min_value=1)
 
     fields = (program_to_clone, new_start_date, new_program, length_of_program)
+
+class SignUpForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30, required=True)
+    last_name = forms.CharField(max_length=30, required=True)
+    email = forms.EmailField(max_length=254, required=True)
+
+    class Meta:
+        model = User
+        fields = ('email','first_name', 'last_name')
