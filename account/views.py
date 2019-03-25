@@ -9,7 +9,7 @@ from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage,
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
-import re, csv
+import re, json
 import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
@@ -771,28 +771,40 @@ def export_data(request):
             rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
             if len(rows) > 0:
                 writer = csv.writer(response)
-                writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
+                #writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
 
                 for row in rows:
+                    row_data = list()
                     user = User.objects.get(id=row.user_id)
                     name = user.first_name + " " + user.last_name
-                    #program = Program.objects.get(id=row.program_id).program_name
-                    writer.writerow([name, row.form_data, row.submit_time])
-        elif export_type == 'preassessment':
+                    row_data.append(name)
+                    question_data = json.loads(row.form_data)
+                    for key in question_data:
+                        row_data.append(str(key))
+                        row_data.append(str(question_data[key]))
+                    row_data.append(row.submit_time.date())
+                    writer.writerow(row_data)
+            else:
+                response = HttpResponse(content_type='text/html', content="No data")
+        elif export_type == 'postassessment':
             response['Content-Disposition'] = 'attachment; filename="post-assessment.csv"'
             assesssment_page_id = Page.objects.filter(slug__contains="post-assessment").first().id
             rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
             if len(rows) > 0:
-                writer = csv.writer(response)
-                writer.writerow(['User', 'Post-assessment Data', 'Submission Time'])
-
-                for row in rows:
-                    user = User.objects.get(id=row.user_id)
-                    name = user.first_name + " " + user.last_name
-                    # program = Program.objects.get(id=row.program_id).program_name
-                    writer.writerow([name, row.form_data, row.submit_time])
-        else:
+                row_data = list()
+                user = User.objects.get(id=row.user_id)
+                name = user.first_name + " " + user.last_name
+                row_data.append(name)
+                question_data = json.loads(row.form_data)
+                for key in question_data:
+                    row_data.append(str(key))
+                    row_data.append(str(question_data[key]))
+                row_data.append(row.submit_time.date())
+                writer.writerow(row_data)
+            else:
                 response = HttpResponse(content_type='text/html', content="No data")
+        else:
+            response = HttpResponse(content_type='text/html', content="No data")
         return response
     else:
         return HttpResponse('Invalid request')
@@ -943,6 +955,4 @@ def signup(request):
 
 
     return render(request, 'account/signupusers.html', {'sign_form': sign_form})
-
-    
 
