@@ -956,5 +956,3 @@ def signup(request):
 
     return render(request, 'account/signupusers.html', {'sign_form': sign_form})
 
-
-
