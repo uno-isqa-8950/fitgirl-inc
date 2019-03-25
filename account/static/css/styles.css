@@ -2173,6 +2173,8 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
   margin: auto;
   position: relative;
   width: 80%;
+  height: 100%;
+  padding: 25px 10px;
 }
 
 .tabordion input[name="sections"] {
@@ -2190,8 +2192,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
   border:1px solid #fff;
   cursor: pointer;
   display: block;
-  font-size: 1.2em;
-  font-weight: bold;
+  font-size: 1em;
   padding: 15px 20px;
   position: relative;
   width: 20%;
