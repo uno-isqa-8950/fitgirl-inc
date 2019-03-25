@@ -134,13 +134,32 @@ class ParametersForm(forms.ModelForm):
 
 
 class ProgramClone(forms.Form):
-    program_list = list()
-    for item in Program.objects.all():
-        tuple = (item.id, item.program_name)
-        program_list.append(tuple)
-    program_to_clone = forms.ChoiceField(choices=program_list)
-    new_start_date = forms.DateField(widget=forms.SelectDateWidget)
-    new_program = forms.CharField(max_length=50, )
-    length_of_program = forms.IntegerField(max_value=18, min_value=1)
+    def program_list():
+        my_program_list = list()
 
-    fields = (program_to_clone, new_start_date, new_program, length_of_program)
+        for item in Program.objects.all():
+            tuple = (item.id, item.program_name)
+            my_program_list.append(tuple)
+
+        return my_program_list
+
+    program_to_clone = forms.ChoiceField(choices=program_list,
+                                         label="Choose a Program to Clone",
+                                         )
+    new_start_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                   'type': 'date',
+                                                                   'placeholder': 'mm/dd/yyyy format'}))
+    new_program = forms.CharField(max_length=50,
+                                  label="Name of New Program")
+
+    fields = (program_to_clone, new_start_date, new_program)
+
+
+class SignUpForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30, required=True)
+    last_name = forms.CharField(max_length=30, required=True)
+    email = forms.EmailField(max_length=254, required=True)
+
+    class Meta:
+        model = User
+        fields = ('email','first_name', 'last_name')

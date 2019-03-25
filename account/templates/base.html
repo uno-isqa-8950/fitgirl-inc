@@ -201,7 +201,7 @@
                     <a class="dropdown-item no-pointer" href="#">Program: {{ user.profile.program.program_name }}</a>
                     <div class="dropdown-divider"></div>
  
-                    <a class="dropdown-item" href="{% url 'edit' %}"><i class="fas fa-edit fa-fw"></i> Edit Profile</a>
+                    <a class="dropdown-item" href="{% url 'user_edit' %}"><i class="fas fa-edit fa-fw"></i> Edit Profile</a>
                     <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
                     <a class="dropdown-item logout-button" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
                     {% endif %}
@@ -373,7 +373,7 @@ $('a[href^="https://"]').attr('target', '_blank');
                 <hr />
                 <p>students consolidate their knowledge of grapheme-phoneme blends into larger units that recur in different words</p>
             </article>
-            
+
         </div>
     </div>
 </div>

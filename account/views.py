@@ -2,15 +2,15 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm
-from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, ProgramClone
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm, ProgramClone
+from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
-from week.models import CustomFormSubmission
+from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
 import re, csv
-#import weasyprint
+import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -20,8 +20,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from django.forms import ValidationError
-from datetime import datetime
-import datetime
+#from datetime import datetime, timedelta
+import pytz, datetime
 import wagtail
 from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
@@ -356,6 +356,44 @@ def edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form,
                    'activated':activated})
+
+@login_required
+def user_edit(request):
+
+    activated = False
+    print(request.user.profile.profile_filled)
+    if(request.user.profile.profile_filled):
+        activated = True
+    else:
+        activated = False
+
+
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user,
+                                 data=request.POST)
+        profile_form = ProfileEditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            theProfile = request.user.profile
+            theProfile.profile_filled = True
+            theProfile.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('/dashboard')
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+    return render(request,
+                  'account/user_edit_profile.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form,
+                   'activated':activated})
+
+
 @login_required
 def admin_edit(request):
     if request.method == 'POST':
@@ -607,6 +645,13 @@ def parameters_form(request):
             post = form.save(commit=False)
             post.save()
     else:
+        # Check if Parameters is populated. If not, add default row.
+        if Parameters.objects.filter(current_values=True).count() == 0:
+            parameters = Parameters()
+            parameters.physical_days_to_done = 1
+            parameters.nutrition_days_to_done = 1
+            parameters.current_values = True
+            parameters.save()
         settings = Parameters.objects.get(current_values=True)
         pdtd = settings.physical_days_to_done
         ndtd = settings.nutrition_days_to_done
@@ -622,10 +667,74 @@ def cloneprogram(request):
     if request.method == "POST":
         form = ProgramClone(request.POST)
         if form.is_valid():
-            print(form.cleaned_data['new_start_date'], form.cleaned_data['program'])
+            new_start_date = str(form.cleaned_data['new_start_date'])
+            program_to_clone = form.cleaned_data['program_to_clone']
+            new_program = form.clean()['new_program']
+            local_timezone = pytz.timezone('America/Chicago')
+            plus_one_week = datetime.timedelta(weeks=1)
+            plus_one_day = datetime.timedelta(days=1)
+            date_fields = new_start_date.split('-')
+            new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=local_timezone)
+            new_program_slug = '-'.join(new_program.lower().split(' '))
+
+            page_title = Program.objects.filter(id=program_to_clone).first().program_name
+            page = Page.objects.filter(title=page_title).first()
+            page.copy(recursive=True, update_attrs={'slug': new_program_slug,
+                                                    'title': new_program,
+                                                    'draft_title': new_program})
+
+            page = Page.objects.filter(title=new_program).first()
+            page_depth = page.depth
+            weeks = [child for child in page.get_descendants() if child.depth == page_depth+1]
+            program_length = (len(weeks))
+
+            program = Program()
+            program.program_name = new_program
+            program.program_start_date = new_start_datetime
+            program.program_end_date = new_start_datetime + (plus_one_week * program_length) - plus_one_day
+            program.created_date = datetime.datetime.now(local_timezone)
+            program.updated_date = program.created_date
+            program.save()
+
+            for week in weeks:
+                week_number = re.match('Week (\d+)$', week.title)[1]
+                time_delta = (int(week_number) - 1) * plus_one_week
+                new_week_start_date = time_delta + new_start_datetime
+                new_week_end_date = new_week_start_date + plus_one_day * 6
+                week.weekpage.start_date = new_week_start_date
+                week.weekpage.end_date = new_week_end_date
+                week.weekpage.save()
+                for activity in week.get_children():
+                    print("Activity " + str(activity))
+                    for day in activity.get_children().type(PhysicalPostPage):
+                        print(week.title, str(day))
+                        print("start date " + str(day.physicalpostpage.start_date))
+
+                        if str(day) == 'Monday':
+                            day.physicalpostpage.start_date = new_week_start_date
+                            day.physicalpostpage.end_date = new_week_end_date
+                        elif str(day) == 'Tuesday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day
+                        elif str(day) == 'Wednesday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
+                        elif str(day) == 'Thursday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 3
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 3
+                        elif str(day) == 'Friday':
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
+                        else:
+                            print('Incorrect week title')
+
+                        day.physicalpostpage.save()
+            return redirect('createprogram')
+        else:
+            return render(request, 'account/cloneprogram.html', {'form': form})
     else:
         form = ProgramClone()
-    return render(request, 'account/cloneprogram.html', {'form': form})
+        return render(request, 'account/cloneprogram.html', {'form': form})
 
 @login_required
 def analytics(request):
@@ -761,3 +870,79 @@ def inbox(request):
                 dict[message.from_user] = [message.body]
 
         return render(request, 'kindnessCards/new.html', {'messages': messages, 'inbox': dict})
+
+@login_required()
+def edit_user(request,pk):
+    user = get_object_or_404(User, pk= pk)
+    print(user)
+    #user1 = get_object_or_404(Profile, profile.user_id )
+    user1 = Profile.objects.filter(user_id=pk).first()
+
+
+    if request.method == 'POST':
+        # update
+        form = UserEditForm(instance=user,data=request.POST,files=request.FILES)
+        form1 = ProfileEditForm(instance=user1,data=request.POST,files=request.FILES)
+
+        if form1.is_valid() and form.is_valid():
+            #user1.profile.photo = ProfileEditForm.cleaned_data['photo']
+            user = form.save(commit=False)
+            user1 = form1.save(commit=False)
+            user1.photo = form1.cleaned_data['photo']
+            print(user1.photo)
+            user.save()
+            user1.save()
+
+            messages.success(request, 'Profile updated successfully')
+            return redirect('users')
+
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        # edit
+        form = UserEditForm(instance=user)
+        form1 = ProfileEditForm(instance=user1)
+        return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
+    return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
+
+
+@login_required
+def signup(request):
+
+    if request.method == 'POST':
+        sign_form = SignUpForm(data=request.POST)
+
+        if sign_form.is_valid():
+
+            email = sign_form.cleaned_data['email']
+            username = email
+            first_name = sign_form.cleaned_data['first_name']
+            last_name = sign_form.cleaned_data['last_name']
+            password = 'stayfit2019'
+            today = datetime.date.today()
+            tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+
+            #programs = Program.objects.filter(program_start_date__lt=today).filter(program_end_date__gte=today)
+            programs = Program.objects.all().order_by('program_name')
+            print(programs)
+            theUser = User(username= username, email= email, first_name= first_name,
+                           last_name=last_name )
+            theUser.set_password('stayfit2019')
+            theUser.save()
+
+            profile = Profile.objects.create(user=theUser,
+                                             program=programs[0])
+            profile.save()
+
+            messages.success(request, 'A member is added successfully!')
+            return redirect('/account/users/')
+
+    else:
+
+        sign_form = SignUpForm()
+
+
+    return render(request, 'account/signupusers.html', {'sign_form': sign_form})
+
+    
+

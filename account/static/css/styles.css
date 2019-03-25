@@ -2124,3 +2124,42 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     text-align: center;
 }
 
+/*Rewards pop ups Starts here - Aishwarya */
+#ModalReward .modal-dialog .modal-content .modal-header{
+    background: #FCC9B9;
+}
+.rewards-popup h5{
+    color: #ed217c;
+}
+#ModalRedeemSuccess .modal-dialog .modal-content .modal-header{
+    background: #FCC9B9;
+}
+#ModalRedeemFail .modal-dialog .modal-content .modal-header{
+    background: #FCC9B9;
+}
+#ModalRedeemSuccess form{
+    overflow: auto;
+    width: 100%;
+}
+/*Rewards pop ups Ends here - Aishwarya */
+
+/*Cecelia's Code */
+.useredit-form {
+    max-width: 739.075px;
+    line-height: 1;
+    margin-left: auto;
+    margin-right: auto;
+    background-clip: padding-box;
+    border-radius: 0.25rem;
+    width: 100%;
+    padding: 25px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#id_program_to_clone {
+    width: 100%;
+}
+
+#id_new_program {
+    width: 100%;
+}
