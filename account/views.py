@@ -866,8 +866,9 @@ def send_message(request):
         # to = 'one@gmail.com'
         from_user = request.user.username
         KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
-        print(message)
-        messages.success(request, f'Message sent to: {to}')
+        user = User.objects.get(username=to)
+        name = user.first_name + user.last_name
+        messages.success(request, f'Message sent to: {name}')
     return redirect('pages/kindness-card', {'section': 'send_message'})
     # return render(request, 'week/kindness_card_page.html', {'section': 'send_message', 'page': page})
 
@@ -876,10 +877,13 @@ def inbox(request):
         messages = KindnessMessage.objects.filter(to_user=request.user.username)
         dict={}
         for message in messages:
+            username = User.objects.get(username=message.from_user)
+            name = username.first_name + " " + username.last_name
             try:
-                dict[message.from_user].append(message.body)
+                dict[name].append(message.body)
             except KeyError:
-                dict[message.from_user] = [message.body]
+                dict[name] = [message.body]
+        print(dict)
 
         return render(request, 'kindnessCards/new.html', {'messages': messages, 'inbox': dict})
 
