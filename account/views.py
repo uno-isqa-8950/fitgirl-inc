@@ -2,14 +2,14 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm
-from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, ProgramClone, SignUpForm
+from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm, ProgramClone
+from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
-import re, csv
+import re, json
 import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
@@ -356,6 +356,44 @@ def edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form,
                    'activated':activated})
+
+@login_required
+def user_edit(request):
+
+    activated = False
+    print(request.user.profile.profile_filled)
+    if(request.user.profile.profile_filled):
+        activated = True
+    else:
+        activated = False
+
+
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user,
+                                 data=request.POST)
+        profile_form = ProfileEditForm(instance=request.user.profile,
+                                       data=request.POST,
+                                       files=request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            theProfile = request.user.profile
+            theProfile.profile_filled = True
+            theProfile.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('/dashboard')
+        else:
+            messages.warning(request, 'Please correct the errors below!')
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+    return render(request,
+                  'account/user_edit_profile.html',
+                  {'user_form': user_form,
+                   'profile_form': profile_form,
+                   'activated':activated})
+
+
 @login_required
 def admin_edit(request):
     if request.method == 'POST':
@@ -733,28 +771,40 @@ def export_data(request):
             rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
             if len(rows) > 0:
                 writer = csv.writer(response)
-                writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
+                #writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
 
                 for row in rows:
+                    row_data = list()
                     user = User.objects.get(id=row.user_id)
                     name = user.first_name + " " + user.last_name
-                    #program = Program.objects.get(id=row.program_id).program_name
-                    writer.writerow([name, row.form_data, row.submit_time])
-        elif export_type == 'preassessment':
+                    row_data.append(name)
+                    question_data = json.loads(row.form_data)
+                    for key in question_data:
+                        row_data.append(str(key))
+                        row_data.append(str(question_data[key]))
+                    row_data.append(row.submit_time.date())
+                    writer.writerow(row_data)
+            else:
+                response = HttpResponse(content_type='text/html', content="No data")
+        elif export_type == 'postassessment':
             response['Content-Disposition'] = 'attachment; filename="post-assessment.csv"'
             assesssment_page_id = Page.objects.filter(slug__contains="post-assessment").first().id
             rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
             if len(rows) > 0:
-                writer = csv.writer(response)
-                writer.writerow(['User', 'Post-assessment Data', 'Submission Time'])
-
-                for row in rows:
-                    user = User.objects.get(id=row.user_id)
-                    name = user.first_name + " " + user.last_name
-                    # program = Program.objects.get(id=row.program_id).program_name
-                    writer.writerow([name, row.form_data, row.submit_time])
-        else:
+                row_data = list()
+                user = User.objects.get(id=row.user_id)
+                name = user.first_name + " " + user.last_name
+                row_data.append(name)
+                question_data = json.loads(row.form_data)
+                for key in question_data:
+                    row_data.append(str(key))
+                    row_data.append(str(question_data[key]))
+                row_data.append(row.submit_time.date())
+                writer.writerow(row_data)
+            else:
                 response = HttpResponse(content_type='text/html', content="No data")
+        else:
+            response = HttpResponse(content_type='text/html', content="No data")
         return response
     else:
         return HttpResponse('Invalid request')
@@ -903,4 +953,8 @@ def signup(request):
 
         sign_form = SignUpForm()
 
+
     return render(request, 'account/signupusers.html', {'sign_form': sign_form})
+
+
+
