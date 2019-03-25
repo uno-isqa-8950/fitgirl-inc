@@ -4,7 +4,22 @@
 
 {% block content %}
 <div class="container">
-    {% for key, values in inbox.items %}
+        <div class="tabordion">
+                {% for key, values in inbox.items %}
+        
+        <section >
+          <input type="radio" name="sections" id="option" checked>
+          <label for="option">{{ key }}</label>
+          <article>
+            <h2>{{ key }}  says</h2>
+             {% for v in values %}
+                          <p class="received-kindness">{{v}}</p>
+                      {% endfor %}
+          </article>
+        </section>
+                      {% endfor %}
+          </div>
+    <!-- {% for key, values in inbox.items %}
         <ul>
             <li class="selected"><a href="index.html">{{ key }}</a></li>
         </ul>
@@ -19,7 +34,7 @@
                 {% endfor %}
             </article>
         </div>
-    {% endfor %}
+    {% endfor %} -->
 </div>
 {% endblock %}
 
