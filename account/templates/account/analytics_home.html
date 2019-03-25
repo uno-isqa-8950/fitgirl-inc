@@ -7,7 +7,7 @@
 {% block dash_content %}
     {% if request.user.is_superuser %}
     <div class="container">
-        <div id="analytics" class="container col-md-5 float-left">
+        <div id="analytics" class=" col-md-5 float-left">
             <div>
                 <form action="/export_data/" method="post">
                     {% csrf_token %}
@@ -26,7 +26,8 @@
                     <button class="btn btn-pink col-md-11" name="export_type" value="postassessment">Export Post-Assessment Data</button>
                 </form>
             </div>
-
+            <div class=" container col-md-6" >
+            </div>
         </div>
     </div>
         <!-- <div class="col-md-6 float-left">
