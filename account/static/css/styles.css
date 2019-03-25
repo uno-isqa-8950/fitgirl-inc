@@ -15,9 +15,9 @@
   }
   }
   @media (min-width: 768px){
-  /* .container,.fitgirlinc-footer-socialLinks,.navbar-parent {
+  .fitgirlinc-footer-socialLinks,.horizontal-banner {
       max-width: 720px;
-  } */
+  }
   .strength-images-array, .agility-images-array, .flexibility-images-array, .nutrition-images-array{
 
   }
@@ -1868,7 +1868,7 @@ background-image: linear-gradient(175deg, rgba(0,0,0,0) 95%, #8da389 95%),
                   linear-gradient(175deg, rgba(0,0,0,0) 70%, #74a6ae 70%),
                   linear-gradient( 85deg, rgba(0,0,0,0) 80%, #74a6ae 80%);
 }
-.fitgirlinc-footer-socialLinks{
+.fitgirlinc-footer-socialLinks,.horizontal-banner{
 margin: 0 auto;
 }
 
@@ -2162,4 +2162,117 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 
 #id_new_program {
     width: 100%;
+}
+
+
+
+.tabordion {
+  color: #333;
+  display: block;
+  font-family: arial, sans-serif;
+  margin: auto;
+  position: relative;
+  width: 80%;
+}
+
+.tabordion input[name="sections"] {
+  left: -9999px;
+  position: absolute;
+  top: -9999px;
+}
+
+.tabordion section {
+  display: block;
+}
+
+.tabordion section label {
+  background: #ccc;
+  border:1px solid #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 15px 20px;
+  position: relative;
+  width: 20%;
+  z-index:100;
+}
+
+.tabordion section article {
+  display: none;
+  left: 20%;
+  min-width: 300px;
+  padding: 0 0 0 21px;
+  position: absolute;
+  top: 0;
+}
+
+.tabordion section article:after {
+  background-color: #ccc;
+  bottom: 0;
+  content: "";
+  display: block;
+  left:-229px;
+  position: absolute;
+  top: 0;
+  /*width: 220px;*/
+  z-index:1;
+}
+
+.tabordion input[name="sections"]:checked + label {
+  background: #eee;
+  color: #bbb;
+}
+
+.tabordion input[name="sections"]:checked ~ article {
+  display: block;
+}
+
+
+@media (max-width: 533px) {
+
+
+  .tabordion {
+    width: 100%;
+  }
+
+  .tabordion section label {
+    font-size: 1em;
+    width: 160px;
+  }
+
+ .tabordion section article {
+    left: 200px;
+    min-width: 270px;
+  }
+
+  .tabordion section article:after {
+    background-color: #ccc;
+    bottom: 0;
+    content: "";
+    display: block;
+    left:-199px;
+    position: absolute;
+    top: 0;
+    width: 200px;
+
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+
+  .tabordion {
+    width: 96%;
+  }
+}
+
+
+@media (min-width: 1366px) {
+
+  .tabordion {
+    width: 100%;
+  }
 }
