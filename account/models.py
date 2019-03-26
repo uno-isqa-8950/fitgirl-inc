@@ -190,3 +190,16 @@ class KindnessMessage(models.Model):
 
     def __str__(self):
         return str(self.body)
+
+class RewardCategory(models.Model):
+    category = models.CharField(max_length=25, blank=False, null=False)
+    description = models.CharField(max_length=50, blank=True, null=True)
+    image = models.ImageField(upload_to='category_images/', blank=True)
+
+class RewardItem(models.Model):
+    item = models.CharField(max_length=25, blank=False, null=False)
+    description = models.CharField(max_length=50, blank=False, null=False)
+    category = models.ForeignKey(RewardCategory, on_delete=models.SET_NULL, blank=True, null=True)
+    points_needed = models.IntegerField(default=25)
+    qty_available = models.IntegerField(default=1)
+    image = models.ImageField(upload_to='reward_items/', blank=True)
