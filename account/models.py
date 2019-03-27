@@ -203,3 +203,10 @@ class RewardItem(models.Model):
     points_needed = models.IntegerField(default=25)
     qty_available = models.IntegerField(default=1)
     image = models.ImageField(upload_to='reward_items/', blank=True)
+
+class CloneProgramInfo(models.Model):
+    program_to_clone = models.CharField(max_length=25, blank=False, null=False)
+    new_start_date = models.DateField(blank=False, null=False)
+    new_program = models.CharField(max_length=25, null=False, blank=False)
+    active = models.BooleanField(default=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
