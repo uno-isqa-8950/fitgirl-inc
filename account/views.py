@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm, ProgramClone
 from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm
+from .forms import RewardItem, RewardCategory
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
@@ -759,19 +760,37 @@ def export_data(request):
             for row in rows:
                 user = User.objects.get(id=row.user_id)
                 name = user.first_name + " " + user.last_name
-                program = Program.objects.get(id=row.program_id).program_name
+                try:
+                    program = Program.objects.get(id=row.program_id).program_name
+                except AttributeError:
+                    program = ""
+
                 writer_row = [name, program,
                               row.Activity, row.Week,
                               row.DayOfWeek, row.points_earned,
                               row.creation_date]
                 writer.writerow(writer_row)
+
         elif export_type == 'preassessment':
             response['Content-Disposition'] = 'attachment; filename="pre-assessment.csv"'
-            assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
-            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            try:
+                assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
+                rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            except AttributeError:
+                rows = list()
+
             if len(rows) > 0:
                 writer = csv.writer(response)
+                header_data = ['User']
                 #writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    question_data = json.loads(row.form_data)
+                    for key in question_data:
+                        header_data.append(str(key))
+
+                header_data.append('Submission Time')
+                writer.writerow(header_data)
 
                 for row in rows:
                     row_data = list()
@@ -780,7 +799,6 @@ def export_data(request):
                     row_data.append(name)
                     question_data = json.loads(row.form_data)
                     for key in question_data:
-                        row_data.append(str(key))
                         row_data.append(str(question_data[key]))
                     row_data.append(row.submit_time.date())
                     writer.writerow(row_data)
@@ -788,23 +806,39 @@ def export_data(request):
                 response = HttpResponse(content_type='text/html', content="No data")
         elif export_type == 'postassessment':
             response['Content-Disposition'] = 'attachment; filename="post-assessment.csv"'
-            assesssment_page_id = Page.objects.filter(slug__contains="post-assessment").first().id
-            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            try:
+                assesssment_page_id = Page.objects.filter(slug__contains="post-assessment").first().id
+                rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            except AttributeError:
+                rows = list()
+
             if len(rows) > 0:
-                row_data = list()
-                user = User.objects.get(id=row.user_id)
-                name = user.first_name + " " + user.last_name
-                row_data.append(name)
-                question_data = json.loads(row.form_data)
-                for key in question_data:
-                    row_data.append(str(key))
-                    row_data.append(str(question_data[key]))
-                row_data.append(row.submit_time.date())
-                writer.writerow(row_data)
+                writer = csv.writer(response)
+                header_data = ['User']
+                # writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    question_data = json.loads(row.form_data)
+                    for key in question_data:
+                        header_data.append(str(key))
+
+                header_data.append('Submission Time')
+                writer.writerow(header_data)
+
+                for row in rows:
+                    row_data = list()
+                    user = User.objects.get(id=row.user_id)
+                    name = user.first_name + " " + user.last_name
+                    row_data.append(name)
+                    question_data = json.loads(row.form_data)
+                    for key in question_data:
+                        row_data.append(str(question_data[key]))
+                    row_data.append(row.submit_time.date())
+                    writer.writerow(row_data)
             else:
                 response = HttpResponse(content_type='text/html', content="No data")
         else:
-            response = HttpResponse(content_type='text/html', content="No data")
+            response = HttpResponse(content_type='text/html', content="Invalid Request")
         return response
     else:
         return HttpResponse('Invalid request')
@@ -956,5 +990,21 @@ def signup(request):
 
     return render(request, 'account/signupusers.html', {'sign_form': sign_form})
 
+@login_required
+def reward_category(request):
+    if request.method == 'POST':
+        form = RewardCategory(data=request.POST)
+    else:
+        form = RewardCategory()
+
+    return render(request, "account/reward_categories.html", {'form': form})
 
 
+@login_required
+def reward_item(request):
+    if request.method == 'POST':
+        form = RewardItem(data=request.POST)
+    else:
+        form = RewardItem()
+
+    return render(request, "account/reward_items.html", {'form': form})

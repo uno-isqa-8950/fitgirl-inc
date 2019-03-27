@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, Program, Parameters
+from .models import Profile, Program, Parameters, RewardCategory, RewardItem
 from django.utils.translation import gettext as _
 from datetime import date
 
@@ -164,3 +164,12 @@ class SignUpForm(forms.ModelForm):
         model = User
         fields = ('email','first_name', 'last_name')
 
+class RewardCategory(forms.ModelForm):
+    class Meta:
+        model = RewardCategory
+        fields = ('category', 'description', 'image')
+
+class RewardItem(forms.ModelForm):
+    class Meta:
+        model = RewardItem
+        fields = ('item', 'description', 'points_needed', 'qty_available', 'image', 'category')

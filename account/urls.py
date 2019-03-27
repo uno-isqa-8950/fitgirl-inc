@@ -21,6 +21,7 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('edit/', views.edit, name='edit'),
+    path('user_profile_edit/',views.user_edit, name='user_edit'),
     path('aboutus/', views.aboutus, name='aboutus'),
     # path('KindnessCard/', views.KindnessCard, name='KindnessCard'),
     path('users/', views.users, name='users'),
@@ -50,6 +51,8 @@ urlpatterns = [
     path('inbox/', views.inbox, name='inbox'),
     path('', views.send_message, name='send_message'),
     path('edit_user/<int:pk>/', views.edit_user, name='edit_user'),
-    path('signup/', views.signup, name='signup')
+    path('signup/', views.signup, name='signup'),
+    path('reward_item/', views.reward_item, name='reward_item'),
+    path('reward_category/', views.reward_category, name='reward_category'),
 
 ]
