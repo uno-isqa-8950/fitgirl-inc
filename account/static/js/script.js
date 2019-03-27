@@ -261,7 +261,16 @@ $( ".folder-icon" ).prependTo ( ".gallery-card-title .rich-text" );
        $( ".popup-name" ).text( kindness_name );
     })	
 	 
-
+    var kindness_section = $(".tabordion").children("section").length;
+    var kindness_section_children = $(".tabordion").children("section");
+//    alert(abc)
+    $( kindness_section_children ).each(function( index ) {
+    var i = index+1;
+        $(this).attr('id', 'section'+i);
+        $(this).find( "#option" ).attr('id', 'option'+i);
+        $(this).find( "label" ).attr('for', "option"+i);
+//  console.log( index + ": " + $( this ).text() );
+});
    
 });
 

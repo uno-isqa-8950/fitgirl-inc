@@ -1,0 +1,28 @@
+{% extends 'account/dashboard.html' %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block title %}Sidebar Content{% endblock %}
+
+{% block dash_content %}
+
+<div class ="container">
+
+    <h1 style="text-align: center;">This is how your announcement1 looks:</h1>
+    <div style="background: #ffffff; text-align: center;">
+        {{ page.message_announcement1|richtext }}
+    </div>
+    <div class="spacer-div-30">
+    </div>
+    <h1 style="text-align: center">This is how your announcement2 looks:</h1>
+    <div style="background: #ffffff; text-align: center;">
+        {{ page.message_announcement2|richtext }}
+    </div>
+    <h1 style="text-align: center">This is how your announcement3 looks:</h1>
+    <div style="background: #ffffff; text-align: center;">
+        {{ page.message_announcement3|richtext }}
+
+
+</div>
+</div>
+{% endblock %}
