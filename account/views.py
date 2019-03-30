@@ -1012,7 +1012,7 @@ def reward_item(request):
             else:
                 return HttpResponse("Error processing request")
         else:
-            form = RewardCategoryForm()
+            form = RewardItemForm()
             return render(request, "account/reward_items.html", {'form': form})
     else:
         return HttpResponseForbidden(request)
