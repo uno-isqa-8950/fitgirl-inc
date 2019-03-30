@@ -1,10 +1,10 @@
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm, ProgramClone
 from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm
-from .forms import RewardItem, RewardCategory
+from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
@@ -955,19 +955,25 @@ def signup(request):
 
 @login_required
 def reward_category(request):
-    if request.method == 'POST':
-        form = RewardCategory(data=request.POST)
+    if request.user.is_staff:
+        if request.method == 'POST':
+            form = RewardCategoryForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('/reward_category')
+            else:
+                return HttpResponse("Error processing request")
+        else:
+            form = RewardCategoryForm()
+            return render(request, "account/reward_categories.html", {'form': form})
     else:
-        form = RewardCategory()
-
-    return render(request, "account/reward_categories.html", {'form': form})
-
+        return HttpResponseForbidden(request)
 
 @login_required
 def reward_item(request):
     if request.method == 'POST':
-        form = RewardItem(data=request.POST)
+        form = RewardItemForm(data=request.POST)
     else:
-        form = RewardItem()
+        form = RewardItemForm()
 
     return render(request, "account/reward_items.html", {'form': form})

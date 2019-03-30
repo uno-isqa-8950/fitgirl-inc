@@ -192,17 +192,17 @@ class KindnessMessage(models.Model):
         return str(self.body)
 
 class RewardCategory(models.Model):
-    category = models.CharField(max_length=25, blank=False, null=False)
+    category = models.CharField(max_length=25, blank=False, null=False, unique=True)
     description = models.CharField(max_length=50, blank=True, null=True)
-    image = models.ImageField(upload_to='category_images/', blank=True)
+    category_image = models.ImageField(blank=True, default='reward_categories/default.jpg', upload_to='reward_categories/')
 
 class RewardItem(models.Model):
-    item = models.CharField(max_length=25, blank=False, null=False)
+    item = models.CharField(max_length=25, blank=False, null=False, unique=True)
     description = models.CharField(max_length=50, blank=False, null=False)
     category = models.ForeignKey(RewardCategory, on_delete=models.SET_NULL, blank=True, null=True)
     points_needed = models.IntegerField(default=25)
     qty_available = models.IntegerField(default=1)
-    image = models.ImageField(upload_to='reward_items/', blank=True)
+    reward_image = models.ImageField(blank=True, upload_to='reward_items/')
 
 class CloneProgramInfo(models.Model):
     program_to_clone = models.CharField(max_length=25, blank=False, null=False)
