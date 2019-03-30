@@ -30,7 +30,6 @@ from django.utils import timezone
 from wagtail.core.models import Page
 from django.db.models.signals import post_save, post_init, pre_save
 from django.dispatch import receiver
-from django.core import serializers
 
 @receiver(post_save, sender=Profile)
 def point_check(sender, instance, **kwargs):
@@ -880,11 +879,9 @@ def viewRewards(request):
 
 @login_required
 def Analytics_Dashboard(request):
-    jsondata = serializers.serialize('json', UserActivity.objects.all(), fields=('program', 'user', 'activity', 'week', 'day',
-                                                                                 'points_earned'))
     return render(request,
                   'account/Analytics_Dashboard.html',
-                  {'section': 'Analytics_Dashboard', 'jsondata': jsondata})
+                  {'section': 'Analytics_Dashboard'})
 # analytics dashboard ends- srishty#
 
 def send_message(request):
