@@ -1,0 +1,12 @@
+{% extends 'account/dashboard.html' %}
+{% block dash_content %}
+<div class="col-sm-9">
+
+    <h1>Reward Items</h1>
+    <p></p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+</div>
+{% endblock %}

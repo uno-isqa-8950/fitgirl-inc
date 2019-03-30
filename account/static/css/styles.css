@@ -2247,7 +2247,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
   overflow-y: auto;
   font-family: cursive;
 }
-article 
+article
 .received-kindness{
   border: 1px solid #cfcfcf;
   padding:  20px;
@@ -2301,4 +2301,8 @@ article
   .tabordion {
     width: 100%;
   }
+}
+
+#program_clone_message {
+    color: red;
 }
