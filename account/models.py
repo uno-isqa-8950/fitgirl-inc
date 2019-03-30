@@ -208,5 +208,6 @@ class CloneProgramInfo(models.Model):
     program_to_clone = models.CharField(max_length=25, blank=False, null=False)
     new_start_date = models.DateField(blank=False, null=False)
     new_program = models.CharField(max_length=25, null=False, blank=False)
+    user = models.ForeignKey(User, blank=False, null=True, on_delete=models.SET_NULL)
     active = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)

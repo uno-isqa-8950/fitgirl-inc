@@ -4,6 +4,7 @@ import datetime, pytz, re
 from account.models import Inactiveuser, CloneProgramInfo, Program
 from wagtail.core.models import Page
 from week.models import PhysicalPostPage
+from django.core.mail import send_mail
 
 
 def clone_program():
@@ -17,6 +18,7 @@ def clone_program():
             new_start_date = row.new_start_date
             program_to_clone = row.program_to_clone
             new_program = row.new_program
+            user = row.user_id
         except AttributeError:
             exit(1)
 
@@ -59,10 +61,10 @@ def clone_program():
                 week.weekpage.end_date = new_week_end_date
                 week.weekpage.save()
                 for activity in week.get_children():
-                    print("Activity " + str(activity))
+                    #print("Activity " + str(activity))
                     for day in activity.get_children().type(PhysicalPostPage):
-                        print(week.title, str(day))
-                        print("start date " + str(day.physicalpostpage.start_date))
+                        #print(week.title, str(day))
+                        #print("start date " + str(day.physicalpostpage.start_date))
 
                         if str(day) == 'Monday':
                             day.physicalpostpage.start_date = new_week_start_date
@@ -87,8 +89,18 @@ def clone_program():
             row.active = False
             row.save()
             program.save()
-        except:
-            print("An exception occurred")
+
+            from_email = 'capstone18fa@gmail.com'
+            content = 'Program ' + new_program + ' has been successfully created.'
+            subject = 'Program cloning complete'
+
+
+            user_obj = User.objects.get(id=user)
+            email = user_obj.email
+            send_mail(subject, content, from_email, [email])
+
+        except Exception as e:
+            print("An exception occurred ", e)
 
 
 class Command(BaseCommand):

@@ -668,6 +668,7 @@ def cloneprogram(request):
     if request.method == "POST":
         form = ProgramClone(request.POST)
         if form.is_valid():
+            user = request.user
             new_start_date = str(form.cleaned_data['new_start_date'])
             program_to_clone = form.cleaned_data['program_to_clone']
             new_program = form.clean()['new_program']
@@ -687,6 +688,7 @@ def cloneprogram(request):
                 new_program_info.new_program = new_program
                 new_program_info.new_start_date = new_start_datetime
                 new_program_info.active = True
+                new_program_info.user = user
                 new_program_info.save()
                 message = 'Your program is being created.  This will take several minutes. You will receive an email when the process is complete.'
 
