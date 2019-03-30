@@ -29,7 +29,33 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils import timezone
 from wagtail.core.models import Page
+from django.db.models.signals import post_save, post_init, pre_save
+from django.dispatch import receiver
 
+@receiver(post_save, sender=Profile)
+def point_check(sender, instance, **kwargs):
+    try:
+        obj = Profile.objects.get(pk=instance.pk)
+        milestones = RewardsNotification.objects.latest()
+        print(milestones)
+        set_point1 = milestones.Rewards_milestone_1
+        set_point2 = milestones.Rewards_milestone_2
+        set_point3 = milestones.Rewards_milestone_3
+        set_point4 = milestones.Rewards_milestone_4
+    except sender.DoesNotExist:
+        pass
+    else:
+        if obj.user.profile.points == set_point1 or obj.user.profile.points == set_point2 or obj.user.profile.points == set_point3 or obj.user.profile.points == set_point4:
+            rewards_notification = "True"
+            messages = EmailTemplates.objects.get()
+            subject = messages.subject_for_rewards_notification + ' :' + str(obj.user.profile.points)
+            html_message = render_to_string('account/group_email_template.html',
+                                            {'content': messages, 'rewards_notification': rewards_notification})
+            plain_message = strip_tags(html_message)
+            from_email = 'capstone18FA@gmail.com'
+            send_mail(subject, plain_message, from_email, [obj.user.email], html_message=html_message)
+        else:
+            pass
 
 def user_login(request):
     if request.method == 'POST':
@@ -863,8 +889,9 @@ def send_message(request):
         # to = 'one@gmail.com'
         from_user = request.user.username
         KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
-        print(message)
-        messages.success(request, f'Message sent to: {to}')
+        user = User.objects.get(username=to)
+        name = user.first_name + user.last_name
+        messages.success(request, f'Message sent to: {name}')
     return redirect('pages/kindness-card', {'section': 'send_message'})
     # return render(request, 'week/kindness_card_page.html', {'section': 'send_message', 'page': page})
 
@@ -873,10 +900,13 @@ def inbox(request):
         messages = KindnessMessage.objects.filter(to_user=request.user.username)
         dict={}
         for message in messages:
+            username = User.objects.get(username=message.from_user)
+            name = username.first_name + " " + username.last_name
             try:
-                dict[message.from_user].append(message.body)
+                dict[name].append(message.body)
             except KeyError:
-                dict[message.from_user] = [message.body]
+                dict[name] = [message.body]
+        print(dict)
 
         return render(request, 'kindnessCards/new.html', {'messages': messages, 'inbox': dict})
 
