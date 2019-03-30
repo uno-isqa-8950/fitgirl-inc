@@ -2298,3 +2298,7 @@ article
     width: 100%;
   }
 }
+
+#program_clone_message {
+    color: red;
+}

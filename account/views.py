@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm, ProgramClone
 from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm
 from .forms import RewardItem, RewardCategory
-from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
@@ -22,7 +22,7 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from django.forms import ValidationError
 #from datetime import datetime, timedelta
-import pytz, datetime
+import pytz, datetime, tzlocal
 import wagtail
 from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
@@ -671,68 +671,29 @@ def cloneprogram(request):
             new_start_date = str(form.cleaned_data['new_start_date'])
             program_to_clone = form.cleaned_data['program_to_clone']
             new_program = form.clean()['new_program']
-            local_timezone = pytz.timezone('America/Chicago')
-            plus_one_week = datetime.timedelta(weeks=1)
-            plus_one_day = datetime.timedelta(days=1)
+
             date_fields = new_start_date.split('-')
-            new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=local_timezone)
+            new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=tzlocal.get_localzone())
             new_program_slug = '-'.join(new_program.lower().split(' '))
 
-            page_title = Program.objects.filter(id=program_to_clone).first().program_name
-            page = Page.objects.filter(title=page_title).first()
-            page.copy(recursive=True, update_attrs={'slug': new_program_slug,
-                                                    'title': new_program,
-                                                    'draft_title': new_program})
+            if Page.objects.filter(slug=new_program_slug).count() > 0 \
+                    or Page.objects.filter(title=new_program).count() > 0:
+                message = "Error: A program with this name already exists"
+            elif CloneProgramInfo.objects.filter(new_program=new_program, active=True).count() > 0:
+                message = "Error: This program is already scheduled for setup"
+            else:
+                new_program_info = CloneProgramInfo()
+                new_program_info.program_to_clone = program_to_clone
+                new_program_info.new_program = new_program
+                new_program_info.new_start_date = new_start_datetime
+                new_program_info.active = True
+                new_program_info.save()
+                message = 'Your program is being created.  This will take several minutes. You will receive an email when the process is complete.'
 
-            page = Page.objects.filter(title=new_program).first()
-            page_depth = page.depth
-            weeks = [child for child in page.get_descendants() if child.depth == page_depth+1]
-            program_length = (len(weeks))
-
-            program = Program()
-            program.program_name = new_program
-            program.program_start_date = new_start_datetime
-            program.program_end_date = new_start_datetime + (plus_one_week * program_length) - plus_one_day
-            program.created_date = datetime.datetime.now(local_timezone)
-            program.updated_date = program.created_date
-            program.save()
-
-            for week in weeks:
-                week_number = re.match('Week (\d+)$', week.title)[1]
-                time_delta = (int(week_number) - 1) * plus_one_week
-                new_week_start_date = time_delta + new_start_datetime
-                new_week_end_date = new_week_start_date + plus_one_day * 6
-                week.weekpage.start_date = new_week_start_date
-                week.weekpage.end_date = new_week_end_date
-                week.weekpage.save()
-                for activity in week.get_children():
-                    print("Activity " + str(activity))
-                    for day in activity.get_children().type(PhysicalPostPage):
-                        print(week.title, str(day))
-                        print("start date " + str(day.physicalpostpage.start_date))
-
-                        if str(day) == 'Monday':
-                            day.physicalpostpage.start_date = new_week_start_date
-                            day.physicalpostpage.end_date = new_week_end_date
-                        elif str(day) == 'Tuesday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day
-                        elif str(day) == 'Wednesday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
-                        elif str(day) == 'Thursday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 3
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 3
-                        elif str(day) == 'Friday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
-                        else:
-                            print('Incorrect week title')
-
-                        day.physicalpostpage.save()
-            return redirect('createprogram')
+            return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
         else:
-            return render(request, 'account/cloneprogram.html', {'form': form})
+            message = 'Error: Invalid data'
+            return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
     else:
         form = ProgramClone()
         return render(request, 'account/cloneprogram.html', {'form': form})
