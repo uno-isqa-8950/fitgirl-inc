@@ -190,3 +190,24 @@ class KindnessMessage(models.Model):
 
     def __str__(self):
         return str(self.body)
+
+class RewardCategory(models.Model):
+    category = models.CharField(max_length=25, blank=False, null=False, unique=True)
+    description = models.CharField(max_length=50, blank=True, null=True)
+    category_image = models.ImageField(blank=True, default='reward_categories/default.jpg', upload_to='reward_categories/')
+
+class RewardItem(models.Model):
+    item = models.CharField(max_length=25, blank=False, null=False, unique=True)
+    description = models.CharField(max_length=50, blank=False, null=False)
+    category = models.ForeignKey(RewardCategory, on_delete=models.SET_NULL, blank=True, null=True)
+    points_needed = models.IntegerField(default=25)
+    qty_available = models.IntegerField(default=1)
+    reward_image = models.ImageField(blank=True, upload_to='reward_items/')
+
+class CloneProgramInfo(models.Model):
+    program_to_clone = models.CharField(max_length=25, blank=False, null=False)
+    new_start_date = models.DateField(blank=False, null=False)
+    new_program = models.CharField(max_length=25, null=False, blank=False)
+    user = models.ForeignKey(User, blank=False, null=True, on_delete=models.SET_NULL)
+    active = models.BooleanField(default=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)

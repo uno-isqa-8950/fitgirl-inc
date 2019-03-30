@@ -1,16 +1,17 @@
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm, ProgramClone
 from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm
-from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage
+from .forms import RewardItemForm, RewardCategoryForm
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
 import re, json
-import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -21,7 +22,7 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from django.forms import ValidationError
 #from datetime import datetime, timedelta
-import pytz, datetime
+import pytz, datetime, tzlocal
 import wagtail
 from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
@@ -34,27 +35,29 @@ from django.dispatch import receiver
 @receiver(post_save, sender=Profile)
 def point_check(sender, instance, **kwargs):
     try:
-        obj = Profile.objects.get(pk=instance.pk)
         milestones = RewardsNotification.objects.latest()
-        print(milestones)
+        obj = Profile.objects.get(pk=instance.pk)
         set_point1 = milestones.Rewards_milestone_1
         set_point2 = milestones.Rewards_milestone_2
         set_point3 = milestones.Rewards_milestone_3
         set_point4 = milestones.Rewards_milestone_4
-    except sender.DoesNotExist:
-        pass
+    except RewardsNotification.DoesNotExist:
+        obj = Profile.objects.get(pk=instance.pk)
+        set_point1 = 25
+        set_point2 = 50
+        set_point3 = 75
+        set_point4 = 100
+    if obj.user.profile.points == set_point1 or obj.user.profile.points == set_point2 or obj.user.profile.points == set_point3 or obj.user.profile.points == set_point4:
+        rewards_notification = "True"
+        messages = EmailTemplates.objects.get()
+        subject = messages.subject_for_rewards_notification + ' :' + str(obj.user.profile.points)
+        html_message = render_to_string('account/group_email_template.html',
+                                        {'content': messages, 'rewards_notification': rewards_notification})
+        plain_message = strip_tags(html_message)
+        from_email = 'capstone18FA@gmail.com'
+        send_mail(subject, plain_message, from_email, [obj.user.email], html_message=html_message)
     else:
-        if obj.user.profile.points == set_point1 or obj.user.profile.points == set_point2 or obj.user.profile.points == set_point3 or obj.user.profile.points == set_point4:
-            rewards_notification = "True"
-            messages = EmailTemplates.objects.get()
-            subject = messages.subject_for_rewards_notification + ' :' + str(obj.user.profile.points)
-            html_message = render_to_string('account/group_email_template.html',
-                                            {'content': messages, 'rewards_notification': rewards_notification})
-            plain_message = strip_tags(html_message)
-            from_email = 'capstone18FA@gmail.com'
-            send_mail(subject, plain_message, from_email, [obj.user.email], html_message=html_message)
-        else:
-            pass
+        pass
 
 def user_login(request):
     if request.method == 'POST':
@@ -693,71 +696,34 @@ def cloneprogram(request):
     if request.method == "POST":
         form = ProgramClone(request.POST)
         if form.is_valid():
+            user = request.user
             new_start_date = str(form.cleaned_data['new_start_date'])
             program_to_clone = form.cleaned_data['program_to_clone']
             new_program = form.clean()['new_program']
-            local_timezone = pytz.timezone('America/Chicago')
-            plus_one_week = datetime.timedelta(weeks=1)
-            plus_one_day = datetime.timedelta(days=1)
+
             date_fields = new_start_date.split('-')
-            new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=local_timezone)
+            new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]), tzinfo=tzlocal.get_localzone())
             new_program_slug = '-'.join(new_program.lower().split(' '))
 
-            page_title = Program.objects.filter(id=program_to_clone).first().program_name
-            page = Page.objects.filter(title=page_title).first()
-            page.copy(recursive=True, update_attrs={'slug': new_program_slug,
-                                                    'title': new_program,
-                                                    'draft_title': new_program})
+            if Page.objects.filter(slug=new_program_slug).count() > 0 \
+                    or Page.objects.filter(title=new_program).count() > 0:
+                message = "Error: A program with this name already exists"
+            elif CloneProgramInfo.objects.filter(new_program=new_program, active=True).count() > 0:
+                message = "Error: This program is already scheduled for setup"
+            else:
+                new_program_info = CloneProgramInfo()
+                new_program_info.program_to_clone = program_to_clone
+                new_program_info.new_program = new_program
+                new_program_info.new_start_date = new_start_datetime
+                new_program_info.active = True
+                new_program_info.user = user
+                new_program_info.save()
+                message = 'Your program is being created.  This will take several minutes. You will receive an email when the process is complete.'
 
-            page = Page.objects.filter(title=new_program).first()
-            page_depth = page.depth
-            weeks = [child for child in page.get_descendants() if child.depth == page_depth+1]
-            program_length = (len(weeks))
-
-            program = Program()
-            program.program_name = new_program
-            program.program_start_date = new_start_datetime
-            program.program_end_date = new_start_datetime + (plus_one_week * program_length) - plus_one_day
-            program.created_date = datetime.datetime.now(local_timezone)
-            program.updated_date = program.created_date
-            program.save()
-
-            for week in weeks:
-                week_number = re.match('Week (\d+)$', week.title)[1]
-                time_delta = (int(week_number) - 1) * plus_one_week
-                new_week_start_date = time_delta + new_start_datetime
-                new_week_end_date = new_week_start_date + plus_one_day * 6
-                week.weekpage.start_date = new_week_start_date
-                week.weekpage.end_date = new_week_end_date
-                week.weekpage.save()
-                for activity in week.get_children():
-                    print("Activity " + str(activity))
-                    for day in activity.get_children().type(PhysicalPostPage):
-                        print(week.title, str(day))
-                        print("start date " + str(day.physicalpostpage.start_date))
-
-                        if str(day) == 'Monday':
-                            day.physicalpostpage.start_date = new_week_start_date
-                            day.physicalpostpage.end_date = new_week_end_date
-                        elif str(day) == 'Tuesday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day
-                        elif str(day) == 'Wednesday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
-                        elif str(day) == 'Thursday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 3
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 3
-                        elif str(day) == 'Friday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
-                        else:
-                            print('Incorrect week title')
-
-                        day.physicalpostpage.save()
-            return redirect('createprogram')
+            return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
         else:
-            return render(request, 'account/cloneprogram.html', {'form': form})
+            message = 'Error: Invalid data'
+            return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
     else:
         form = ProgramClone()
         return render(request, 'account/cloneprogram.html', {'form': form})
@@ -785,19 +751,37 @@ def export_data(request):
             for row in rows:
                 user = User.objects.get(id=row.user_id)
                 name = user.first_name + " " + user.last_name
-                program = Program.objects.get(id=row.program_id).program_name
+                try:
+                    program = Program.objects.get(id=row.program_id).program_name
+                except AttributeError:
+                    program = ""
+
                 writer_row = [name, program,
                               row.Activity, row.Week,
                               row.DayOfWeek, row.points_earned,
                               row.creation_date]
                 writer.writerow(writer_row)
+
         elif export_type == 'preassessment':
             response['Content-Disposition'] = 'attachment; filename="pre-assessment.csv"'
-            assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
-            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            try:
+                assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
+                rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            except AttributeError:
+                rows = list()
+
             if len(rows) > 0:
                 writer = csv.writer(response)
+                header_data = ['User']
                 #writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    question_data = json.loads(row.form_data)
+                    for key in question_data:
+                        header_data.append(str(key))
+
+                header_data.append('Submission Time')
+                writer.writerow(header_data)
 
                 for row in rows:
                     row_data = list()
@@ -806,7 +790,6 @@ def export_data(request):
                     row_data.append(name)
                     question_data = json.loads(row.form_data)
                     for key in question_data:
-                        row_data.append(str(key))
                         row_data.append(str(question_data[key]))
                     row_data.append(row.submit_time.date())
                     writer.writerow(row_data)
@@ -814,23 +797,39 @@ def export_data(request):
                 response = HttpResponse(content_type='text/html', content="No data")
         elif export_type == 'postassessment':
             response['Content-Disposition'] = 'attachment; filename="post-assessment.csv"'
-            assesssment_page_id = Page.objects.filter(slug__contains="post-assessment").first().id
-            rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            try:
+                assesssment_page_id = Page.objects.filter(slug__contains="post-assessment").first().id
+                rows = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+            except AttributeError:
+                rows = list()
+
             if len(rows) > 0:
-                row_data = list()
-                user = User.objects.get(id=row.user_id)
-                name = user.first_name + " " + user.last_name
-                row_data.append(name)
-                question_data = json.loads(row.form_data)
-                for key in question_data:
-                    row_data.append(str(key))
-                    row_data.append(str(question_data[key]))
-                row_data.append(row.submit_time.date())
-                writer.writerow(row_data)
+                writer = csv.writer(response)
+                header_data = ['User']
+                # writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
+
+                for row in rows:
+                    question_data = json.loads(row.form_data)
+                    for key in question_data:
+                        header_data.append(str(key))
+
+                header_data.append('Submission Time')
+                writer.writerow(header_data)
+
+                for row in rows:
+                    row_data = list()
+                    user = User.objects.get(id=row.user_id)
+                    name = user.first_name + " " + user.last_name
+                    row_data.append(name)
+                    question_data = json.loads(row.form_data)
+                    for key in question_data:
+                        row_data.append(str(question_data[key]))
+                    row_data.append(row.submit_time.date())
+                    writer.writerow(row_data)
             else:
                 response = HttpResponse(content_type='text/html', content="No data")
         else:
-            response = HttpResponse(content_type='text/html', content="No data")
+            response = HttpResponse(content_type='text/html', content="Invalid Request")
         return response
     else:
         return HttpResponse('Invalid request')
@@ -986,3 +985,27 @@ def signup(request):
 
     return render(request, 'account/signupusers.html', {'sign_form': sign_form})
 
+@login_required
+def reward_category(request):
+    if request.user.is_staff:
+        if request.method == 'POST':
+            form = RewardCategoryForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('/reward_category')
+            else:
+                return HttpResponse("Error processing request")
+        else:
+            form = RewardCategoryForm()
+            return render(request, "account/reward_categories.html", {'form': form})
+    else:
+        return HttpResponseForbidden(request)
+
+@login_required
+def reward_item(request):
+    if request.method == 'POST':
+        form = RewardItemForm(data=request.POST)
+    else:
+        form = RewardItemForm()
+
+    return render(request, "account/reward_items.html", {'form': form})
