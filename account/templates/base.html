@@ -209,6 +209,8 @@
                         <!--<a class="dropdown-item" href="#">{{ user.get_short_name|capfirst }}</a>-->
                         <a class="dropdown-item no-pointer" href="#">{{ user.get_short_name|capfirst }}</a><span
                             class="user-dropdown"></span>
+                        <a class="dropdown-item no-pointer" href="#">Background: {{ user.profile.select_your_background_color_for_website }}</a><span
+                            class="user-dropdown"></span>
                         <!--<a class="dropdown-item"> href="#"{{ user.get_short_name|capfirst }}</a>-->
                         <a class="dropdown-item no-pointer" href="#">Program: {{ user.profile.program.program_name }}</a>
                         <div class="dropdown-divider"></div>
