@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm, ProgramClone
 from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm
 from .forms import RewardItemForm, RewardCategoryForm
-from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
@@ -835,19 +835,22 @@ def export_data(request):
         return HttpResponse('Invalid request')
 
 @login_required
-def rewards_redeem(request):
+def rewards_redeem(request, pk):
     if request.method == "GET":
-        data = ServicePostPage.objects.get(page_ptr_id=10)
+        #data = ServicePostPage.objects.get(page_ptr_id=10)
         return render(request, 'rewards/reward_confirmation.html')
     else:
-        points = request.POST.get('points')
-        service = request.POST.get('service')
+        item = RewardItem.objects.get(id=pk)
+        print(item.item)
+
+        points = item.points_needed
+        service = item.item
         point = int(points)
         user1=User.objects.get(username=request.user.username)
         if user1.profile.points < point:
             print('cannot redeem')
         else:
-            user1.profile.points -= point
+            user1.profile.points = 0
             user1.profile.save()
             points_available = user1.profile.points
             rewards = Reward.objects.create(user=user1, points_redeemed=point, service_used=service)
