@@ -199,6 +199,58 @@ class QuestionPage(AbstractForm):
 
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
+#Brent Created new page to improve bonus clicks
+
+class BonusQuestionFormField(AbstractFormField):
+    page = ParentalKey('BonusQuestionPage', on_delete=models.CASCADE, related_name='form_fields')
+
+class BonusQuestionPage(AbstractForm):
+    intro = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    thank_you_text = RichTextField(blank=True)
+    points_for_this_activity = models.IntegerField(blank=True, default=0)
+
+    content_panels = AbstractEmailForm.content_panels + [
+        FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
+        InlinePanel('form_fields', label="Form Fields"),
+        FieldPanel('points_for_this_activity', classname="title"),
+        FieldPanel('thank_you_text', classname="full"),
+    ]
+
+
+    def serve(self, request, *args, **kwargs):
+        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+            return render(
+                request,
+                self.template,
+                self.get_context(request)
+            )
+
+        return super().serve(request, *args, **kwargs)
+
+    def get_submission_class(self):
+        return CustomFormSubmission
+
+    def process_form_submission(self, form):
+        self.get_submission_class().objects.create(
+            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            page=self, user=form.user)
+        user1=User.objects.get(username=form.user.username)
+        print(user1.profile.points)
+        user1.profile.points += self.points_for_this_activity
+        user1.profile.save()
+        #print(form.user.username)
+        #print(user1.profile.points)
+        #user1.profile.bio = "yes"
+        #print(user1.profile.bio)
+        #user1.profile.save()
+
+        log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
+
+
+
 
 class CustomFormSubmission(AbstractFormSubmission):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='question_form')

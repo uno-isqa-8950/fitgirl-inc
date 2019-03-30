@@ -741,24 +741,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   padding: .5rem 1.3rem;
   font-size: .64rem;
   position: relative;
-  overflow: visible;
 }
-.slider .far{
-  position:absolute;  
-  top:-3px;
-  right:-3px;
-  color: #FFA500;
-    background: #FFA500;
-    border-radius: 6px;
+.slider .complete.fa-check{
+  color: lightgreen;
 }
-.slider .far.fa-check-circle{
-      position: absolute;
-    top: -3px;
-    right: -3px;
-    color: green;
-    background: green;
-    border-radius: 6px;
+.slider .fa-check{
+    color: orange;
+
 }
+
 .slider .previous{
   position: absolute;
   left: 0;
@@ -916,7 +907,7 @@ display: block;
 animation: bottomBubbles ease-in-out 0.75s forwards;
 }
 
-@keyframes 
+@keyframes
 topBubbles {  0% {
 background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
 }
@@ -929,7 +920,7 @@ background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
 }
 }
 
-@keyframes 
+@keyframes
 bottomBubbles {  0% {
 background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
 }
@@ -1066,7 +1057,7 @@ background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !i
 }
 .nutrition-facts .rich-text{
 overflow-y: auto;
-}     
+}
 .fancy {
 padding : 1em;
 width: 100%;
@@ -1105,7 +1096,7 @@ padding-bottom: 10px;}
   /* height: 400px; */
   border-radius: 15px;
   border: 1px solid grey;
-  display: inline-block;    
+  display: inline-block;
   background: #F2F2F2;
   /* width: 24%; */
   margin: 4.3px;
@@ -1162,10 +1153,9 @@ border-radius: 15px 15px 0 0;
 }
 #kindnessModal textarea{
   width: 100%;
-  min-height: 100px;
 }
 #kindnessModal .btn{
-  font-family: 'Amatic SC', cursive !important; 
+  font-family: 'Amatic SC', cursive !important;
 }
 .kindness-card .profile-picture img{
   border-radius: 60px;
@@ -1407,7 +1397,7 @@ canvas{
    margin: 0px;
    color: #000;
    font-size:18px;
-   
+
 }
 #vertical_tab_nav div article p{
    margin: 0px 0px 20px 0px;
@@ -1433,16 +1423,11 @@ canvas{
     font-size: 12px !important;
     margin-left: 8px;
     padding-left: 8px;
-    /* border-left: 1px solid grey; */
+    border-left: 1px solid grey;
 }
 .notifications-dropdown-box table tr td:first-child{
   border-left: none;
 
-}
-article h2{
-  margin: 30px 20px 20px 0px;
-  border-bottom: 1px solid grey;
-  font-size: 1.5rem;
 }
 
 
@@ -1733,10 +1718,6 @@ bottomBubbles {  0% {
   left: 0;
   width: 100%;
   height: 100%;
-}
-#coloring-app iframe html{
-   width:100%;
-   height:100%;
 }
 #coloring-app-att{
   text-align: center;
@@ -2184,8 +2165,6 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
   margin: auto;
   position: relative;
   width: 80%;
-  height: 100%;
-  padding: 25px 0px;
 }
 
 .tabordion input[name="sections"] {
@@ -2203,7 +2182,8 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
   border:1px solid #fff;
   cursor: pointer;
   display: block;
-  font-size: 1em;
+  font-size: 1.2em;
+  font-weight: bold;
   padding: 15px 20px;
   position: relative;
   width: 20%;
@@ -2232,29 +2212,15 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 }
 
 .tabordion input[name="sections"]:checked + label {
-  background: #ffb6c1;
-  color: black;
-    border: 1px solid grey;
+  background: #eee;
+  color: #bbb;
 }
 
 .tabordion input[name="sections"]:checked ~ article {
   display: block;
-  min-height: 500px;
-  max-height: 575px;
-  width: 80.75%;
-  background: #F6F6F6;
-  border-left: 1px solid #cfcfcf;
-  overflow-y: auto;
-  font-family: cursive;
 }
-article
-.received-kindness{
-  border: 1px solid #cfcfcf;
-  padding:  20px;
-  background: #BFD9DA;
-    opacity: 0.8;
-    margin-right: 20px;
-}
+
+
 @media (max-width: 533px) {
 
 
@@ -2301,8 +2267,4 @@ article
   .tabordion {
     width: 100%;
   }
-}
-
-#program_clone_message {
-    color: red;
 }
