@@ -1003,9 +1003,16 @@ def reward_category(request):
 
 @login_required
 def reward_item(request):
-    if request.method == 'POST':
-        form = RewardItemForm(data=request.POST)
+    if request.user.is_staff:
+        if request.method == 'POST':
+            form = RewardItemForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('/reward_item')
+            else:
+                return HttpResponse("Error processing request")
+        else:
+            form = RewardCategoryForm()
+            return render(request, "account/reward_items.html", {'form': form})
     else:
-        form = RewardItemForm()
-
-    return render(request, "account/reward_items.html", {'form': form})
+        return HttpResponseForbidden(request)

@@ -6,6 +6,10 @@
 <div class="datatable-container">
 <div class="spacer-div-30"></div>
     <h1 class="text-left"> All Users</h1>
+    <div class="reward_buttons">
+        <button> <a href="/reward_category">Manage Categories</button>
+        <button><a href="/reward_item">Manage Items</button>
+    </div>
     <ul class="messages">
         {% for message in messages %}
             <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
