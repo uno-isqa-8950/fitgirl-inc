@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .models import Profile, Program, Parameters, RewardCategory, RewardItem
 from django.utils.translation import gettext as _
 from datetime import date
+import re
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -163,6 +164,27 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email','first_name', 'last_name')
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        try:
+            match = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return email
+
+        raise forms.ValidationError('This email address is already in use. ')
+
+    def validate_email(self):
+        email = self.cleaned_data.get('email')
+        validemail = 0
+
+        if re.match(r'(^[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,}$)', email):
+            return email
+        else:
+            validemail += 1
+
+        raise forms.ValidationError('Please enter a valid email address.')
 
 
 class RewardCategoryForm(forms.ModelForm):
