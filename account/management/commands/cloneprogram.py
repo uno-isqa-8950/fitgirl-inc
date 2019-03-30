@@ -28,6 +28,7 @@ def clone_program():
         plus_one_day = datetime.timedelta(days=1)
         #date_fields = new_start_date.split('-')
         new_start_datetime = datetime.datetime(new_start_date.year, new_start_date.month, new_start_date.day,
+                                               hour=0, minute=0, second=1,
                                                tzinfo=local_timezone)
         new_program_slug = '-'.join(new_program.lower().split(' '))
 
