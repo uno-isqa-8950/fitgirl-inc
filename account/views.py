@@ -11,7 +11,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
 import re, json
-#import weasyprint
+import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -35,27 +35,29 @@ from django.dispatch import receiver
 @receiver(post_save, sender=Profile)
 def point_check(sender, instance, **kwargs):
     try:
-        obj = Profile.objects.get(pk=instance.pk)
         milestones = RewardsNotification.objects.latest()
-        print(milestones)
+        obj = Profile.objects.get(pk=instance.pk)
         set_point1 = milestones.Rewards_milestone_1
         set_point2 = milestones.Rewards_milestone_2
         set_point3 = milestones.Rewards_milestone_3
         set_point4 = milestones.Rewards_milestone_4
-    except sender.DoesNotExist:
-        pass
+    except RewardsNotification.DoesNotExist:
+        obj = Profile.objects.get(pk=instance.pk)
+        set_point1 = 25
+        set_point2 = 50
+        set_point3 = 75
+        set_point4 = 100
+    if obj.user.profile.points == set_point1 or obj.user.profile.points == set_point2 or obj.user.profile.points == set_point3 or obj.user.profile.points == set_point4:
+        rewards_notification = "True"
+        messages = EmailTemplates.objects.get()
+        subject = messages.subject_for_rewards_notification + ' :' + str(obj.user.profile.points)
+        html_message = render_to_string('account/group_email_template.html',
+                                        {'content': messages, 'rewards_notification': rewards_notification})
+        plain_message = strip_tags(html_message)
+        from_email = 'capstone18FA@gmail.com'
+        send_mail(subject, plain_message, from_email, [obj.user.email], html_message=html_message)
     else:
-        if obj.user.profile.points == set_point1 or obj.user.profile.points == set_point2 or obj.user.profile.points == set_point3 or obj.user.profile.points == set_point4:
-            rewards_notification = "True"
-            messages = EmailTemplates.objects.get()
-            subject = messages.subject_for_rewards_notification + ' :' + str(obj.user.profile.points)
-            html_message = render_to_string('account/group_email_template.html',
-                                            {'content': messages, 'rewards_notification': rewards_notification})
-            plain_message = strip_tags(html_message)
-            from_email = 'capstone18FA@gmail.com'
-            send_mail(subject, plain_message, from_email, [obj.user.email], html_message=html_message)
-        else:
-            pass
+        pass
 
 def user_login(request):
     if request.method == 'POST':
