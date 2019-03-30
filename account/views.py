@@ -949,7 +949,7 @@ def edit_user(request,pk):
 
 @login_required
 def signup(request):
-
+    programs = Program.objects.all()
     if request.method == 'POST':
         sign_form = SignUpForm(data=request.POST)
 
@@ -960,30 +960,37 @@ def signup(request):
             first_name = sign_form.cleaned_data['first_name']
             last_name = sign_form.cleaned_data['last_name']
             password = 'stayfit2019'
-            today = datetime.date.today()
-            tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
-            #programs = Program.objects.filter(program_start_date__lt=today).filter(program_end_date__gte=today)
-            programs = Program.objects.all().order_by('program_name')
-            print(programs)
+            selected_program = get_object_or_404(Program, pk=request.POST.get('programs'))
+
             theUser = User(username= username, email= email, first_name= first_name,
                            last_name=last_name )
             theUser.set_password('stayfit2019')
             theUser.save()
 
             profile = Profile.objects.create(user=theUser,
-                                             program=programs[0])
+                                             program=selected_program)
             profile.save()
 
-            messages.success(request, 'A member is added successfully!')
+            messages.success(request, f'{theUser.first_name} {theUser.last_name} has been added successfully!')
+            form = PasswordResetForm({'email': theUser.email})
+            if form.is_valid():
+                request = HttpRequest()
+                request.META['SERVER_NAME'] = 'www.empoweruomaha.com'
+                request.META['SERVER_PORT'] = '80'
+                form.save(
+                    request=request,
+                    from_email=settings.EMAIL_HOST_USER,
+                    subject_template_name='registration/new_user_subject.txt',
+                    email_template_name='registration/password_reset_newuser_email.html')
             return redirect('/account/users/')
 
     else:
 
         sign_form = SignUpForm()
 
+    return render(request, 'account/signupusers.html', {'sign_form': sign_form, 'programs': programs})
 
-    return render(request, 'account/signupusers.html', {'sign_form': sign_form})
 
 @login_required
 def reward_category(request):
