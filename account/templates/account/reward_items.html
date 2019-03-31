@@ -1,13 +1,143 @@
 {% extends 'account/dashboard.html' %}
+{% load rewards %}
 {% block dash_content %}
-<div class="col-sm-9">
+{% if request.user.is_superuser %}
 
-    <h1>Reward Items</h1>
-    <p></p>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+            <div class="container col-sm-9 reward-types-container">
+
+                <h1 class="text-left">Reward Items</h1>
+
+                <form method="post" enctype="multipart/form-data">
+                    {{ form.non_field_errors }}
+                    {% csrf_token %}
+                     <div class="reward-item col-sm-6">
+                         {{ form.item.errors }}
+                         {{ form.item.label_tag }}
+                         {{ form.item }}
+                     </div>
+                    <div class="reward-item col-sm-6">
+                        {{ form.description.errors }}
+                        {{ form.description.label_tag }}
+                        {{ form.description }}
+                    </div>
+                    <div class="reward-item col-sm-6">
+                        {{ form.points_needed.errors }}
+                        {{ form.points_needed.label_tag }}
+                        {{ form.points_needed }}
+                    </div>
+                    <div class="reward-item col-sm-6">
+                        {{ form.qty_available.errors }}
+                        {{ form.qty_available.label_tag }}
+                        {{ form.qty_available }}
+                    </div>
+                    <div class="reward-item col-sm-6">
+                        {{ form.category.errors }}
+                        {{ form.category.label_tag }}
+                        {{ form.category }}
+                    </div>
+                    <div class="reward-item col-sm-6">
+                        {{ form.reward_image.errors }}
+                        {{ form.reward_image.label_tag }}
+                        {{ form.reward_image }}
+                    </div>
+                    <div class="reward-item col-sm-6">
+                        <button type="submit">Add</button>
+                        <button onclick="location.href = '/reward_category';" class="float-right">Reward Categories</button>
+                    </div>
+                </form>
+
+            </div>
+
+    <div class="datatable-container">
+        <div class="spacer-div-30"></div>
+            <div class="col-sm-9">
+
+            {% all_reward_items as rewards %}
+            <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered" class="target">
+                <thead class="thead stylish-color text-white">
+                    <tr>
+                        <th class="th-lg">Item</th>
+                        <th class="th-lg">Description</th>
+                        <th class="th-lg">Points Needed</th>
+                        <th class="th-lg">Quantity</th>
+                        <th class="th-lg">Category</th>
+                        <th class="th-lg text-center">Image</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reward in rewards %}
+                    <tr class="hoverable">
+                        <td>{{ reward.item }}</td>
+                        <td>{{ reward.description }}</td>
+                        <td>{{ reward.points_needed }}</td>
+                        <td>{{ reward.qty_available }}</td>
+                        <td>{{ reward.category }}</td>
+                        <td><img src="{{ MEDIA_URL }}/{{ reward.reward_image }}" height="35"></td>
+                        <td><i onclick="delete_row({{ reward.id }})" class="fa fa-trash"></i></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+{% endif %}
+
+<script>
+  $(document).ready(function () {
+      $('#dtDynamicVerticalScroll').DataTable({
+          "order": [[4, "YES"]],
+          "responsive": true,
+          "scrollCollapse": true,
+          language: {
+              searchPlaceholder: "Search",
+              search: "",
+          }
+      });
+      $('.dataTables_length').addClass('bs-select');
+  });
+$(document).ready(function(){
+    $("#image1").remove()
+    $("#image2").remove()
+    $("#image3").remove()
+    $("#users").css("border","2px solid")
+    $("#users").css("background-color","#ed217c")
+    $("#users").css("color","#ffffff")
+    $("#users").css("border-color","black")
+ });
+
+let delete_row = function(x) {
+        alert("Delete row " + x);
+};
+
+</script>
+<style>
+    .dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+}
+
+form {
+    padding : 5px;
+}
+
+input {
+    width: 100%;
+    display: inline-block;
+}
+
+.reward-item {
+    float: left;
+}
+
+
+</style>
+
+
+    </div>
 </div>
+
 {% endblock %}
