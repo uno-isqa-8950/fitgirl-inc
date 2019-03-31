@@ -71,7 +71,7 @@
     function validate(val, item_id) {
         var points_for_service = document.getElementById("service_points").value;
         var output = document.getElementById('output');
-        output.innerHTML = val+' points will be deducted from your reward points. Are you sure you want to continue?';
+        output.innerHTML = val+'This will use all your available points. Are you sure you want to continue?';
         if ({{ user_data.profile.points }} < val){
             $('#ModalRedeemFail').modal('show');
             return false;
