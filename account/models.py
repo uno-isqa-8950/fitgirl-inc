@@ -190,6 +190,7 @@ class KindnessMessage(models.Model):
     body = models.CharField(max_length=500, blank=True, null=True)
     from_user = models.CharField(max_length=50, blank=False, null=False)
     to_user = models.CharField(max_length=50, blank=False, null=False)
+    read_message = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def created(self):
