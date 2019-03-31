@@ -2,20 +2,21 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load staticfiles %}
-{% load rewards %}
+{% load rewards %}  {# contains tags for rewards #}
+
 
 
 {% block content %}
+{% if request.user.is_active %}
     <div class ="container rewards-index-page">
 
-<!-- changes done for streched image- srishty -->
-
+{# List items available in a given category #}
     {% if request.GET.category %}
 
         {% category_name request.GET.category as cn %}
         {% reward_items request.GET.category as items %}
         <h1>{{ cn.category }}</h1>
-        <h3>{{ cn.description }}</h3>
+ <!--       <h3>{{ cn.description }}</h3>  -->
         <!--Card Content-->
         <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
             {% for item in items %}
@@ -33,7 +34,7 @@
             </div>
             {% endfor %}
         </div>
-    {% else %}
+    {% else %}    {# List catetories #}
         {% reward_categories as categories %}
         <h1 style="text-align: center;">{{ page.title }}</h1>
         <h3>{{ page.intro|richtext }}</h3>
@@ -49,14 +50,18 @@
                         <img class="card-img-top rewards-img " src="/media/{{ category.category_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
                         <div class="card-body bg-dark">
                             <h5 class="card-title"><b>{{ category.category }}</b></h5>
-                            <p class="card-text">{{ category.description }}</p>
+                        <!--    <p class="card-text">{{ category.description }}</p> -->
                         </div>
                     </a>
                 </div>
             </div>
             {% endfor %}
         </div>
-    {% endif %}
-
         </div>
+    {% endif %}
+{% else %}
+    <div class="container rewards-index-page col-md12 col-sm-12">
+        <h1>No such page</h1>
+    </div>
+{% endif %}
 {% endblock %}
