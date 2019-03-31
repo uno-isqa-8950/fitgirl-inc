@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load menu_tags %}
+{% load unread_messages %}
 
 
 <!DOCTYPE html>
@@ -86,7 +87,7 @@
                 <li class="nav-item ">
                     <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
                        href="/pages/kindness-card/">Kindness Card</a>
-                </li>
+
                 <!--kindeness card tab ends -srishty-->
             </ul>
             <ul class="navbar-nav navbar-centre">
@@ -137,7 +138,7 @@
                                         <td><img class="rewards-icon" alt="My Card"
                                                  src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}"
                                                  height="40" width="40"/></td>
-                                        <td><span>Click here to view your kindness cards</span></td>
+                                        <td><span>You have {% unread_message %} unread kindness cards</span></td>
                                     </tr>
                                 </table>
                                 <span class="sr-only">(current)</span>
