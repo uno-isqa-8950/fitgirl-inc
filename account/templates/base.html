@@ -5,215 +5,232 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap core CSS -->
     <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">-->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/addons/datatables.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="{% static 'css/soon.css' %}" rel="stylesheet">
-	<title>{% block title %}{% endblock %}</title>
-	<link href="{% static 'css/base.css' %}" rel="stylesheet">
-<!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<!-- <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
 </head>
 <body>
-    <div class="nav-wrapper grey darken-1">
+<div class="nav-wrapper grey darken-1">
     <nav class="navbar navbar-expand-lg navbar-dark grey darken-1  scrolling-navbar">
         <!--hghanta: redirect to dashboard on click empoweu logo, home-->
-      <a class="navbar-brand" href="/dashboard/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/></a>
-      {% if request.user.is_authenticated %}
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon "></span>
-		</button>
-      <div class="collapse navbar-collapse" id="navbarsDefault">
-        <ul class="navbar-nav mr-auto">
-            {% if request.user.is_superuser %}
-              <li class="nav-item">
-                <a class="nav-link hoverable" style="
+        <a class="navbar-brand" href="/dashboard/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
+                                                        height="40"/></a>
+        {% if request.user.is_authenticated %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault"
+                aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon "></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsDefault">
+            <ul class="navbar-nav mr-auto">
+                {% if request.user.is_superuser %}
+                <li class="nav-item">
+                    <a class="nav-link hoverable" style="
                 background-color: rgba(255,255,255,.1);
-            " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span class="sr-only">(current)</span></a>
-              </li>
-             <!--Adding new analytics dashboard starts --srishty-->
-             <li class="nav-item">
-                <a class="nav-link hoverable" style="
+            " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <!--Adding new analytics dashboard starts --srishty-->
+                <li class="nav-item">
+                    <a class="nav-link hoverable" style="
                 background-color: rgba(255,255,255,.1);
             " href="{% url 'Analytics_Dashboard' %}"> <i class="fas fa-book"></i> Analytics Dashboard </a>
-              </li>
-<!--Adding new analytics dashboard ends --srishty-->
+                </li>
+                <!--Adding new analytics dashboard ends --srishty-->
 
-            {% else %}
+                {% else %}
                 {% if user.profile.pre_assessment == "No" %}
                 {% else %}
-                  <!--<li class="nav-item ">-->
-                    <!--<a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>-->
-                  <!--</li>-->
-            <!-- Added home glyphicon to navbar_Kelley -->
-            <li class="nav-item ">
-                <a class="nav-link hoverable" href="/dashboard/" style="background-color: rgba(255,255,255,.1);">
-                    <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
-            </li>
-            <li class="nav-item ">
+                <!--<li class="nav-item ">-->
+                <!--<a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>-->
+                <!--</li>-->
+                <!-- Added home glyphicon to navbar_Kelley -->
+                <li class="nav-item ">
+                    <a class="nav-link hoverable" href="/dashboard/" style="background-color: rgba(255,255,255,.1);">
+                        <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
+                </li>
+                <li class="nav-item ">
                     <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
-                  </li>
+                </li>
                 {% endif %}
-            {% endif %}
-           {% if request.user.is_superuser %}
-          <li class="nav-item ">
-            <a class="nav-link hoverable " style="
+                {% endif %}
+                {% if request.user.is_superuser %}
+                <li class="nav-item ">
+                    <a class="nav-link hoverable " style="
             background-color: rgba(255,255,255,.1);" href="/users/"><i class="fa fa-female" aria-hidden="true"></i>Users</a>
-          </li>
-         {% else %}
-            <li class="nav-item ">
-            <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "/pages/about-fitgirl">About Us</a>
-            </li>
+                </li>
+                {% else %}
+                <li class="nav-item ">
+                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
+                       href="/pages/about-fitgirl">About Us</a>
+                </li>
                 <!--adding External Link Parent Resources_Srishty -->
-            <li class="nav-item ">
-                <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
-            </li>
-             <!--kindeness card tab starts -srishty-->
-            <li class="nav-item ">
-                <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "/pages/kindness-card/">Kindness Card</a>
-            </li>
-              <!--kindeness card tab ends -srishty-->
-        </ul>
-        <ul class="navbar-nav navbar-centre" style="margin-right: 6px; margin-top: -7px;">
-            <!-- <li class="nav-item ">
-                    <a class="nav-link" href="/pages/rewards/" style="position:relative;">
-                     <img class="rewards-icon" alt="My Rewards" src="{% static 'images/iconfinder_badge_3688520.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
-                      <span class="sr-only">(current)</span>
-                  </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
-                    <img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/>
-                    <span class="rewards-notify">{{ user.profile.points }}</span>
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
-            <li class="nav-item ">
-                    <a class="nav-link" href="/pages/gallery/" style="position:relative;">
-                        <img class="gallery-icon" alt="My Photo Gallery" src="{% static 'images/iconfinder_camera_1785207.png' %}" height="38" width="35"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                <li class="nav-item ">
+                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
+                       href="http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
+                </li>
+                <!--kindeness card tab starts -srishty-->
+                <li class="nav-item ">
+                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
+                       href="/pages/kindness-card/"> Send Kindness Card</a>
+                </li>
+                <!--kindeness card tab ends -srishty-->
+            </ul>
+            <ul class="navbar-nav navbar-centre">
+                <!-- <li class="nav-item ">
+                        <a class="nav-link" href="/pages/rewards/" style="position:relative;">
+                         <img class="rewards-icon" alt="My Rewards" src="{% static 'images/iconfinder_badge_3688520.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                          <span class="sr-only">(current)</span>
+                      </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
+                        <img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/>
+                        <span class="rewards-notify">{{ user.profile.points }}</span>
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-            <li class="nav-item">
-                    <a class="nav-link" href="/pages/rewards/" style="position:relative;">
-                     <img class="rewards-icon" alt="My Rewards" src="{% static 'images/bell-icon.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
-                      <span class="sr-only">(current)</span>
-                  </a>
-                  </li> -->
+                <li class="nav-item ">
+                        <a class="nav-link" href="/pages/gallery/" style="position:relative;">
+                            <img class="gallery-icon" alt="My Photo Gallery" src="{% static 'images/iconfinder_camera_1785207.png' %}" height="38" width="35"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="/pages/rewards/" style="position:relative;">
+                         <img class="rewards-icon" alt="My Rewards" src="{% static 'images/bell-icon.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                          <span class="sr-only">(current)</span>
+                      </a>
+                      </li> -->
 
-            {% endif %}
-        </ul>
-          <ul class="navbar-nav navbar-right ">
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav navbar-right ">
+                <li class="nav-item ">
+                    <a class="nav-link hoverable" href="/pages/rewards/"
+                       style="background-color: rgba(255,255,255,.1);">Reward Points: {{ user.profile.points }}<span
+                            class="sr-only">(current)</span></a>
+                </li>
                 <li class="dropdown ">
-                    <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" >
-                        <img class="rounded-circle account-img" alt="Notifications" src="{% static 'images/bell-icon.png' %}" height="30" width="30">
+                    <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown">
+                        <img class="rounded-circle account-img" alt="Notifications"
+                             src="{% static 'images/bell-icon.png' %}" height="30" width="30">
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box notifications-dropdown-box" >
-                            <li class="nav-item ">
-                                    <a class="nav-link" href="/pages/rewards/" style="position:relative;">
-                                        <table>
-                                        <tr>
-                                                <td><img class="rewards-icon" alt="My Rewards" src="{% static 'images/iconfinder_badge_3688520.png' %}" height="40" width="40"/> </td>
-                                                <td> <span>You have {{ user.profile.points }} points. Click here for rewards.</span></td>
-                                        </tr>
-                                        </table>
-                                     <!-- <span class="rewards-notify">You have {{ user.profile.points }} points. Click here to check your rewards.</span> -->
-                                    
-                                      <span class="sr-only">(current)</span>
-                                  </a>
-                            </li>
-                            <div class="dropdown-divider"></div>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
-                                        <table>
-                                                <tr>
-                                                        <td><img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/></td>
-                                                        <td><span>Click here to view your kindness cards</span></td>
-                                                </tr>
-                                        </table>        
-                                    <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <div class="dropdown-divider"></div>
-                            <li class="nav-item ">
-                                    <a class="nav-link" href="/pages/gallery/" style="position:relative;">
-                                        <table>
-                                                <tr>
-                                                        <td><img class="gallery-icon" alt="My Photo Gallery" src="{% static 'images/iconfinder_camera_1785207.png' %}" height="40" width="40" /></td>
-                                                        <td><span class="">Click here to view your EmpowerU Gallery.</span></td>
-                                                </tr>
-                                        </table>    
-                                        
-                                         
-                                        <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                            <!-- <li class="nav-item">
-                                    <a class="nav-link" href="/pages/rewards/" style="position:relative;">
-                                     <img class="rewards-icon" alt="My Rewards" src="{% static 'images/bell-icon.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
-                                      <span class="sr-only">(current)</span>
-                                  </a>
-                                  </li> -->
+                    <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box notifications-dropdown-box">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
+                                <table>
+                                    <tr>
+                                        <td><img class="rewards-icon" alt="My Card"
+                                                 src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}"
+                                                 height="40" width="40"/></td>
+                                        <td><span>Click here to view your kindness cards</span></td>
+                                    </tr>
+                                </table>
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <div class="dropdown-divider"></div>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/pages/gallery/" style="position:relative;">
+                                <table>
+                                    <tr>
+                                        <td><img class="gallery-icon" alt="My Photo Gallery"
+                                                 src="{% static 'images/iconfinder_camera_1785207.png' %}" height="40"
+                                                 width="40"/></td>
+                                        <td><span class="">Click here to view your EmpowerU Gallery.</span></td>
+                                    </tr>
+                                </table>
+
+
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                                <a class="nav-link" href="/pages/rewards/" style="position:relative;">
+                                 <img class="rewards-icon" alt="My Rewards" src="{% static 'images/bell-icon.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
+                                  <span class="sr-only">(current)</span>
+                              </a>
+                              </li> -->
                     </ul>
                 </li>
-            <li class="dropdown ">
-                <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" >
-                  {% if request.user.is_staff %}
-                      <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg" height="35" width="35">
-                  {% else %}
-                      <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30" width="30" style="height: 30px;width: 30px">
-                  {% endif %}
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box" >
-                    {% if request.user.is_superuser %}
-                    {% else %}
-{#                    <li class="card mx-2" style="width: 18rem;">#}
-                        <!-- <div class="card-body">
-                            <h5 class="card-title">Points Earned</h5>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                <li class="dropdown ">
+                    <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown">
+                        {% if request.user.is_staff %}
+                        <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg"
+                             height="35" width="35">
+                        {% else %}
+                        <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"
+                             onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30"
+                             width="30" style="height: 30px;width: 30px">
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box">
+                       <!-- {% if request.user.is_superuser %}
+                        {% else %}
+                        {#
+                        <li class="card mx-2" style="width: 18rem;">#}
+                            <!-- <div class="card-body">
+                                <h5 class="card-title">Points Earned</h5>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                  </div>
                               </div>
-                          </div> -->
-{#                    </li>#}
-                    {% endif %}
-                    {% if request.user.is_superuser %}
+                            {# 
+                        </li>
+                        #}
+                        {% endif %}-->
+                        {% if request.user.is_superuser %}
                         <a class="dropdown-item" href='{% url 'admin_edit' %}'><i class="fas fa-user-shield fa-fw"></i> Edit Admin Profile</a>
-                        <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
-                        <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
+                        <a class="dropdown-item" href='{% url "password_change" %}'><i
+                                class="fas fa-user-shield fa-fw"></i> Change Password</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i>
+                            Logout</a>
 
-                    {% else %}
-                    <!-- <li><a class="nav-link" href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>Edit Profile</a></li>
-                    <li><a class="nav-link" href="{% url "password_change" %}"><i class="fas fa-user-shield fa-fw"></i> Change Password</a></li>
-                    <li class="divider"></li>
-                    <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li> -->
-                    <!--user name added below and removed welcome--Srishty-->
-                    <!--<a class="dropdown-item" href="#">{{ user.get_short_name|capfirst }}</a>-->
-                    <a class="dropdown-item no-pointer" href="#">{{ user.get_short_name|capfirst }}</a><span class="user-dropdown"></span>
-                    <!--<a class="dropdown-item"> href="#"{{ user.get_short_name|capfirst }}</a>-->
-                    <a class="dropdown-item no-pointer" href="#">Program: {{ user.profile.program.program_name }}</a>
-                    <div class="dropdown-divider"></div>
- 
-                    <a class="dropdown-item" href="{% url 'user_edit' %}"><i class="fas fa-edit fa-fw"></i> Edit Profile</a>
-                    <a class="dropdown-item" href='{% url "password_change" %}'><i class="fas fa-user-shield fa-fw"></i> Change Password</a>
-                    <a class="dropdown-item logout-button" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
-                    {% endif %}
-                </ul>
-            </li>
-          </ul>
-      </div>
-      {% endif %}
+                        {% else %}
+                        <!-- <li><a class="nav-link" href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>Edit Profile</a></li>
+                        <li><a class="nav-link" href="{% url "password_change" %}"><i class="fas fa-user-shield fa-fw"></i> Change Password</a></li>
+                        <li class="divider"></li>
+                        <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li> -->
+                        <!--user name added below and removed welcome--Srishty-->
+                        <!--<a class="dropdown-item" href="#">{{ user.get_short_name|capfirst }}</a>-->
+                        <a class="dropdown-item no-pointer" href="#">{{ user.get_short_name|capfirst }}</a><span
+                            class="user-dropdown"></span>
+                        <a class="dropdown-item no-pointer" href="#">Background: {{ user.profile.select_your_background_color_for_website }}</a><span
+                            class="user-dropdown"></span>
+                        <!--<a class="dropdown-item"> href="#"{{ user.get_short_name|capfirst }}</a>-->
+                        <a class="dropdown-item no-pointer" href="#">Program: {{ user.profile.program.program_name }}</a>
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="{% url 'user_edit' %}"><i class="fas fa-edit fa-fw"></i> Edit
+                            Profile</a>
+                        <a class="dropdown-item" href='{% url "password_change" %}'><i
+                                class="fas fa-user-shield fa-fw"></i> Change Password</a>
+                        <a class="dropdown-item logout-button" href="{% url 'logout' %}"><i
+                                class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
+                        {% endif %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
     </nav>
-    </div>
- <header id="sub-header">
-  <div class="container-fluid">
+</div>
+<header id="sub-header">
+    <div class="container-fluid">
         <div class="row">
             {% if user.profile.pre_assessment == "yes" %}
             {% main_menu template="menus/program_menu.html" %}
@@ -221,104 +238,126 @@
         </div>
     </div>
     </div>
-  </div>
+    </div>
 
 </header>
-  <div id="container-fluid">
+<div id="container-fluid">
     {% block content %}
     {% endblock %}
     {% block body %}
     {% endblock %}
-  </div>
+</div>
 {% if request.user.is_superuser %}
-    {% else %}
+{% else %}
 {% if request.user.is_authenticated %}
-    <!--hghanta: changes for social media icons above footer-->
-    <div id="container" class="fitgirlinc-footer-socialLinks">
+<!--hghanta: changes for social media icons above footer-->
+<div id="container" class="fitgirlinc-footer-socialLinks">
     <div class="clear-left"></div>
     <div class="clear-right"></div>
-        <p>&nbsp;</p>
-        <a href="https://www.facebook.com/fitgirlinc/"  target="_blank"><img class="facebook" src="{% static 'images/socialMedia_icons/facebook.png' %}" alt="facebook" height="40"/></a>
-        <a href="https://www.instagram.com/fitgirlomaha/" target="_blank"><img class="instagram" src="{% static 'images/socialMedia_icons/instagram.png' %}" alt="instagram" height="40"/></a>
-        <a href="https://www.pinterest.com/fitgirlinc2015/" target="_blank"><img class="pinterest" src="{% static 'images/socialMedia_icons/pinterest.png' %}" alt="pinterest" height="40"/></a>
-        <a href="https://www.snapchat.com/add/fitgirlomaha" target="_blank"><img class="snapchat" src="{% static 'images/socialMedia_icons/snapchat.png' %}" alt="snapchat" height="40"/></a>
-        <a href="http://www.youtube.com/channel/UC9L3EfjfB-SvFACYR6moKRg" target="_blank"><img class="youtube" src="{% static 'images/socialMedia_icons/youtube_social_circle_red.png' %}" alt="youtube" height="40"/></a>
-    </div>
-    <div class="footer-wrapper grey darken-1">
+    <p>&nbsp;</p>
+    <a href="https://www.facebook.com/fitgirlinc/" target="_blank"><img class="facebook"
+                                                                        src="{% static 'images/socialMedia_icons/facebook.png' %}"
+                                                                        alt="facebook" height="40"/></a>
+    <a href="https://www.instagram.com/fitgirlomaha/" target="_blank"><img class="instagram"
+                                                                           src="{% static 'images/socialMedia_icons/instagram.png' %}"
+                                                                           alt="instagram" height="40"/></a>
+    <a href="https://www.pinterest.com/fitgirlinc2015/" target="_blank"><img class="pinterest"
+                                                                             src="{% static 'images/socialMedia_icons/pinterest.png' %}"
+                                                                             alt="pinterest" height="40"/></a>
+    <a href="https://www.snapchat.com/add/fitgirlomaha" target="_blank"><img class="snapchat"
+                                                                             src="{% static 'images/socialMedia_icons/snapchat.png' %}"
+                                                                             alt="snapchat" height="40"/></a>
+    <a href="http://www.youtube.com/channel/UC9L3EfjfB-SvFACYR6moKRg" target="_blank"><img class="youtube"
+                                                                                           src="{% static 'images/socialMedia_icons/youtube_social_circle_red.png' %}"
+                                                                                           alt="youtube"
+                                                                                           height="40"/></a>
+</div>
+<div class="footer-wrapper grey darken-1">
     <footer>
         <nav class="navbar navbar-expand-lg navbar-dark grey darken-1">
             <!--<div>-->
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000" style="width: 100%; text-align: center; display: inline-block; height: max-content;">
-                  <div class="carousel-inner" style="width: 100%; text-align: center; display: inline-block;">
-                      {% for quote in quotes %}
-                        <div class="carousel-item">
-                            <h2 align="center" style="font-size:15pt; color:#D3D3D3; font-family: Helvetica Neue,Helvetica,Arial,sans-serif; margin-top:5px;">{{ quote.quote }}</h2>
-                        </div>
-                      {% endfor %}
-                  </div>
-                  <h3 style="text-align:center"><a href="http://fitgirlinc.com/" target="_blank"><img src="{% static 'images/logologin.png' %}" alt="logo" height="40"/></a></h3>
-                  <!--<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">-->
-                    <!--<span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-                    <!--<span class="sr-only">Previous</span>-->
-                  <!--</a>-->
-                  <!--<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">-->
-                    <!--<span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-                    <!--<span class="sr-only">Next</span>-->
-                  <!--</a>-->
-<!--Disclaimer footer path - Tarun -->
-        <div class="disclaimer">
-        <a href="/pages/empoweru-disclaimer/"> Click here for Disclaimer</a>
-        </div>
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="10000"
+                 style="width: 100%; text-align: center; display: inline-block; height: max-content;">
+                <div class="carousel-inner" style="width: 100%; text-align: center; display: inline-block;">
+                    {% for quote in quotes %}
+                    <div class="carousel-item">
+                        <h2 align="center"
+                            style="font-size:15pt; color:#D3D3D3; font-family: Helvetica Neue,Helvetica,Arial,sans-serif; margin-top:5px;">
+                            {{ quote.quote }}</h2>
+                    </div>
+                    {% endfor %}
                 </div>
+                <h3 style="text-align:center"><a href="http://fitgirlinc.com/" target="_blank"><img
+                        src="{% static 'images/logologin.png' %}" alt="logo" height="40"/></a></h3>
+                <!--<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">-->
+                <!--<span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+                <!--<span class="sr-only">Previous</span>-->
+                <!--</a>-->
+                <!--<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">-->
+                <!--<span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+                <!--<span class="sr-only">Next</span>-->
+                <!--</a>-->
+                <!--Disclaimer footer path - Tarun -->
+                <div class="disclaimer">
+                    <a href="/pages/empoweru-disclaimer/"> Click here for Disclaimer</a>
+                </div>
+            </div>
             <!--</div>-->
         </nav>
     </footer>
-  </div>
-    
+</div>
+
 {% endif %}
 {% endif %}
-            <!-- SCRIPTS -->
-            <!-- JQuery -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-        <!-- MDB core JavaScript -->
-        <script src="{% static 'js/confetti.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/lightbox.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
-        <!-- <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
-        <script type="text/javascript" src="{% static 'js/soon.js' %}" ></script>   
-        <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script src="{% static 'js/confetti.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lightbox.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
+<!-- <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+<script type="text/javascript" src="{% static 'js/soon.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
 <script>
     $(document).ready(function () {
-$('#carouselExampleControls').find('.carousel-item').first().addClass('active');
-   // Code for toggling the timer
-var r = $("<input/>").attr({ type: "a", id: "field", class:"start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light confetti-button",value:"start timer",href:"#"});
-$(".strength-paragraphs").append(r);
-lightbox.option({		
-	      'resizeDuration': 200,		
-	      'wrapAround': true		
-	    })
+        $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
+        // Code for toggling the timer
+        var r = $("<input/>").attr({
+            type: "a",
+            id: "field",
+            class: "start-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light confetti-button",
+            value: "start timer",
+            href: "#"
+        });
+        $(".strength-paragraphs").append(r);
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true
+        })
 
-    lightbox.option({
-      'resizeDuration': 200,
-      'wrapAround': true
-    })
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true
+        })
 
-});
+    });
 
-    $(document).ready(function(){
-$('a[href^="http://"]').attr('target', '_blank');
-});
+    $(document).ready(function () {
+        $('a[href^="http://"]').attr('target', '_blank');
+    });
 
-    $(document).ready(function(){
-$('a[href^="https://"]').attr('target', '_blank');
-});
+    $(document).ready(function () {
+        $('a[href^="https://"]').attr('target', '_blank');
+    });
 
 </script>
 <style>
@@ -326,61 +365,69 @@ $('a[href^="https://"]').attr('target', '_blank');
         background-color: #e3e3e3;
     }
 </style>
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-                <div class="modal-header">
-                        <h4 class="modal-title" id="myLargeModalLabel">My Cards</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">My Cards</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
 
 
-<div class="container">
-    <div id="vertical_tab_nav">
+                <div class="container">
+                    <div id="vertical_tab_nav">
 
-        <ul>
-            <li class="selected"><a href="index.html">Pre-alphabetic</a></li>
-            <li><a href="index.html">Early Alphabetic</a></li>
-            <li><a href="index.html">Later Alphabetic</a></li>
-            <li><a href="index.html">Consolidated Alphabetic</a></li>
-        </ul>
+                        <ul>
+                            <li class="selected"><a href="index.html">Pre-alphabetic</a></li>
+                            <li><a href="index.html">Early Alphabetic</a></li>
+                            <li><a href="index.html">Later Alphabetic</a></li>
+                            <li><a href="index.html">Consolidated Alphabetic</a></li>
+                        </ul>
 
-        <div>
-            <article>
-                <h3 style="font-size:18px;">Pre-alphabetic</h3>
-                <hr />
-                <p>students read words by memorizing their visual features or guessing words from their context</p>
+                        <div>
+                            <article>
+                                <h3 style="font-size:18px;">Pre-alphabetic</h3>
+                                <hr/>
+                                <p>students read words by memorizing their visual features or guessing words from their
+                                    context</p>
 
-            </article>
+                            </article>
 
-            <article>
-                <h3 style="font-size:18px;">Early Alphabetic</h3>
-                <hr />
-                <p>students recognize some letters of the alphabet and can use them together with context to remember words by sight</p>
-            </article>
+                            <article>
+                                <h3 style="font-size:18px;">Early Alphabetic</h3>
+                                <hr/>
+                                <p>students recognize some letters of the alphabet and can use them together with
+                                    context to remember words by sight</p>
+                            </article>
 
-            <article>
-                <h3 style="font-size:18px;">Later Alphabetic</h3>
-                <hr />
-                <p>readers possess extensive working knowledge of the graphophonemic system, and they can use this knowledge to analyze fully the connections between graphemes and phonemes in words; they can decode unfamiliar words and store fully analyzed sight words in memory</p>
-            </article>
+                            <article>
+                                <h3 style="font-size:18px;">Later Alphabetic</h3>
+                                <hr/>
+                                <p>readers possess extensive working knowledge of the graphophonemic system, and they
+                                    can use this knowledge to analyze fully the connections between graphemes and
+                                    phonemes in words; they can decode unfamiliar words and store fully analyzed sight
+                                    words in memory</p>
+                            </article>
 
-            <article>
-                <h3 style="font-size:18px;">Consolidated Alphabetic</h3>
-                <hr />
-                <p>students consolidate their knowledge of grapheme-phoneme blends into larger units that recur in different words</p>
-            </article>
+                            <article>
+                                <h3 style="font-size:18px;">Consolidated Alphabetic</h3>
+                                <hr/>
+                                <p>students consolidate their knowledge of grapheme-phoneme blends into larger units
+                                    that recur in different words</p>
+                            </article>
 
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
     </div>
 </div>
-
-
-          </div>
-        </div>
-      </div>
 </body>
 </html>

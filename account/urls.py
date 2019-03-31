@@ -35,7 +35,7 @@ urlpatterns = [
     path('registerusers/', views.registerusers, name='registerusers'),
     path('userdashboard/', views.userdashboard, name='userdashboard'),
     path('cms_frame/', views.cms_frame, name='cms_frame'),
-    path('redeem-rewards/', views.rewards_redeem, name='redeem_rewards'),
+    path('redeem-rewards/<int:pk>/', views.rewards_redeem, name='redeem_rewards'),
     path('export_data/', views.export_data, name='export_data'),
     path('django_frame/', views.django_frame, name='django_frame'),
     path('profile/<int:pk>/', views.profile, name='profile'),
@@ -49,8 +49,10 @@ urlpatterns = [
     path('update_points/', views.update_points, name='update_points'),
     path('admin_edit/', views.admin_edit, name='admin_edit'),
     path('inbox/', views.inbox, name='inbox'),
-    path('/', views.send_message, name='send_message'),
+    path('', views.send_message, name='send_message'),
     path('edit_user/<int:pk>/', views.edit_user, name='edit_user'),
-    path('signup/', views.signup, name='signup')
+    path('signup/', views.signup, name='signup'),
+    path('reward_item/', views.reward_item, name='reward_item'),
+    path('reward_category/', views.reward_category, name='reward_category'),
 
 ]

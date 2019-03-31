@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, Program, Parameters
+from .models import Profile, Program, Parameters, RewardCategory, RewardItem
 from django.utils.translation import gettext as _
 from datetime import date
+import re
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -53,6 +54,15 @@ EVENT = (
     (1, _("8-10")),
     (2, _("11-13")),
 )
+
+BACKGROUND_CHOICES = [
+    ('pink','Pink'),
+    ('yellow','Yellow'),
+    ('green','Green'),
+    ('grey','Grey'),
+]
+
+
 class ProfileEditForm(forms.ModelForm):
     photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}),required=False)                            #Image field is optional --Shamrose
     bio = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
@@ -65,6 +75,7 @@ class ProfileEditForm(forms.ModelForm):
     day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
     school = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'School Name'}))
+    select_your_background_color_for_website = forms.ChoiceField(widget=forms.Select, choices=BACKGROUND_CHOICES)
 
 
     def clean_date_of_birth(self):
@@ -76,7 +87,7 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('photo','bio', 'secondary_email','other_email', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school')           # Added Photo to the Start --Shamrose
+        fields = ('photo','bio', 'secondary_email','other_email', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school','select_your_background_color_for_website')           # Added Photo to the Start --Shamrose
 
 
 class ProgramForm(forms.ModelForm):
@@ -163,3 +174,46 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email','first_name', 'last_name')
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        try:
+            match = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return email
+
+        raise forms.ValidationError('This email address is already in use. ')
+
+    def validate_email(self):
+        email = self.cleaned_data.get('email')
+        validemail = 0
+
+        if re.match(r'(^[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,}$)', email):
+            return email
+        else:
+            validemail += 1
+
+        raise forms.ValidationError('Please enter a valid email address.')
+
+
+class RewardCategoryForm(forms.ModelForm):
+    category_image = forms.ImageField(required=False)
+    category = forms.CharField(required=True)
+    description = forms.CharField(required=True)
+
+    class Meta:
+        model = RewardCategory
+        fields = ('category', 'description', 'category_image')
+
+
+class RewardItemForm(forms.ModelForm):
+    reward_image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'media'}), required=True)
+    item = forms.CharField(required=True)
+    description = forms.CharField(required=True)
+    points_needed = forms.IntegerField(required=True)
+    qty_available = forms.IntegerField(required=True)
+
+    class Meta:
+        model = RewardItem
+        fields = ('item', 'description', 'points_needed', 'qty_available', 'reward_image', 'category')

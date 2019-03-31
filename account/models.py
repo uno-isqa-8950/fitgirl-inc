@@ -16,6 +16,13 @@ EVENT = (
     (2, _("11-13")),
 )
 
+BACKGROUND_CHOICES = [
+    ('pink','Pink'),
+    ('yellow','Yellow'),
+    ('green','Green'),
+    ('grey','Grey'),
+]
+
 
 class Program(models.Model):
     #program_id = models.AutoField(null=False, primary_key=True)
@@ -84,6 +91,7 @@ class Profile(models.Model):
     school = models.CharField(max_length=50, blank=True, null=True)
     points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    select_your_background_color_for_website = models.CharField(max_length=50, choices=BACKGROUND_CHOICES, blank=False,null=True, default='pink')
     profile_filled = models.BooleanField(default=False)
     pre_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
     post_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
@@ -182,6 +190,7 @@ class KindnessMessage(models.Model):
     body = models.CharField(max_length=500, blank=True, null=True)
     from_user = models.CharField(max_length=50, blank=False, null=False)
     to_user = models.CharField(max_length=50, blank=False, null=False)
+    read_message = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def created(self):
@@ -190,3 +199,31 @@ class KindnessMessage(models.Model):
 
     def __str__(self):
         return str(self.body)
+
+class RewardCategory(models.Model):
+    category = models.CharField(max_length=25, blank=False, null=False, unique=True)
+    description = models.CharField(max_length=50, blank=True, null=True)
+    category_image = models.ImageField(blank=True, default='reward_categories/default.jpg', upload_to='reward_categories/')
+
+    def __str__(self):
+        return str(self.category)
+
+
+class RewardItem(models.Model):
+    item = models.CharField(max_length=25, blank=False, null=False, unique=True)
+    description = models.CharField(max_length=50, blank=False, null=False)
+    category = models.ForeignKey(RewardCategory, on_delete=models.SET_NULL, blank=True, null=True)
+    points_needed = models.IntegerField(default=25)
+    qty_available = models.IntegerField(default=1)
+    reward_image = models.ImageField(blank=True, upload_to='reward_items/')
+
+    def __str__(self):
+        return str(self.item)
+
+class CloneProgramInfo(models.Model):
+    program_to_clone = models.CharField(max_length=25, blank=False, null=False)
+    new_start_date = models.DateField(blank=False, null=False)
+    new_program = models.CharField(max_length=25, null=False, blank=False)
+    user = models.ForeignKey(User, blank=False, null=True, on_delete=models.SET_NULL)
+    active = models.BooleanField(default=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)

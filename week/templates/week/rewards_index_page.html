@@ -2,38 +2,66 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load staticfiles %}
+{% load rewards %}  {# contains tags for rewards #}
+
 
 
 {% block content %}
-
-<!-- changes done for streched image- srishty -->
+{% if request.user.is_active %}
     <div class ="container rewards-index-page">
-  <h1 style="text-align: center;">{{ page.title }}</h1>
-    <h3>{{ page.intro|richtext }}</h3>
-    <h3 style="text-align: center;">{{ page.description|richtext }}</h3>
-    <!--Card Content-->
-    <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
-        {% for post in reward_post_page %}
-            {% image post.specific.display_image original as reward_image %}
-        <div class="col-sm-4 mt-3">
-            <div class="card hoverable">
-                <a href ="{% pageurl post %}">
 
-                    <!-- changes done for streched image- srishty -->
-                    <img class="card-img-top rewards-img " src="{{ reward_image.url }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
-                    <div class="card-body bg-dark">
-                        <h5 class="card-title"><b>{{ post.title|richtext }}</b></h5>
-                        <p class="card-text">{{ post.specific.description|richtext }}</p>
-                    </div>
-                </a>
+{# List items available in a given category #}
+    {% if request.GET.category %}
+
+        {% category_name request.GET.category as cn %}
+        {% reward_items request.GET.category as items %}
+        <h1>{{ cn.category }}</h1>
+ <!--       <h3>{{ cn.description }}</h3>  -->
+        <!--Card Content-->
+        <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
+            {% for item in items %}
+            <div class="col-sm-4 mt-3">
+                <div class="card hoverable">
+                    <a href ="/redeem-rewards/{{ item.id }}">
+                        <!-- changes done for streched image- srishty -->
+                        <img class="card-img-top rewards-img " src="/media/{{ item.reward_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
+                        <div class="card-body bg-dark">
+                            <h5 class="card-title"><b>{{ item.item }}</b></h5>
+                            <p class="card-text">{{ item.description }}</p>
+                        </div>
+                    </a>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
+    {% else %}    {# List catetories #}
+        {% reward_categories as categories %}
+        <h1 style="text-align: center;">{{ page.title }}</h1>
+        <h3>{{ page.intro|richtext }}</h3>
+        <h3 style="text-align: center;">{{ page.description|richtext }}</h3>
+        <!--Card Content-->
+        <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
+            {% for category in categories %}
+            <div class="col-sm-4 mt-3">
+                <div class="card hoverable">
+                    <a href ="/pages/rewards?category={{ category.id }}">
 
-</br>
-</br>
-<!--<p><a href="{{ page.get_parent.url }}">Back</a></p>-->
-</div>
+                        <!-- changes done for streched image- srishty -->
+                        <img class="card-img-top rewards-img " src="/media/{{ category.category_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
+                        <div class="card-body bg-dark">
+                            <h5 class="card-title"><b>{{ category.category }}</b></h5>
+                        <!--    <p class="card-text">{{ category.description }}</p> -->
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+    {% endif %}
+{% else %}
+    <div class="container rewards-index-page col-md12 col-sm-12">
+        <h1>No such page</h1>
+    </div>
+{% endif %}
 {% endblock %}
-</div>
