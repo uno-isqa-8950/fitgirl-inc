@@ -200,7 +200,7 @@ class SignUpForm(forms.ModelForm):
 class RewardCategoryForm(forms.ModelForm):
     category_image = forms.ImageField(required=False)
     category = forms.CharField(required=True)
-    description = forms.CharField(required=False)
+    description = forms.CharField(required=True)
 
     class Meta:
         model = RewardCategory
@@ -210,7 +210,7 @@ class RewardCategoryForm(forms.ModelForm):
 class RewardItemForm(forms.ModelForm):
     reward_image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'media'}), required=True)
     item = forms.CharField(required=True)
-    description = forms.CharField(required=False)
+    description = forms.CharField(required=True)
     points_needed = forms.IntegerField(required=True)
     qty_available = forms.IntegerField(required=True)
 

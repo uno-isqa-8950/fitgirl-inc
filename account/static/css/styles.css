@@ -743,7 +743,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
   position: relative;
 }
 .slider .complete.fa-check{
-  color: lightgreen;
+  color: darkgreen;
 }
 .slider .fa-check{
     color: orange;

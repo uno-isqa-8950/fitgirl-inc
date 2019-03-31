@@ -11,7 +11,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
 import re, json
-#import weasyprint
+import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -31,6 +31,7 @@ from django.utils import timezone
 from wagtail.core.models import Page
 from django.db.models.signals import post_save, post_init, pre_save
 from django.dispatch import receiver
+from django.core import serializers
 
 @receiver(post_save, sender=Profile)
 def point_check(sender, instance, **kwargs):
@@ -849,19 +850,19 @@ def rewards_redeem(request, pk):
         return render(request, 'rewards/reward_confirmation.html')
     else:
         item = RewardItem.objects.get(id=pk)
-        print(item.item)
-
         points = item.points_needed
         service = item.item
         point = int(points)
-        user1=User.objects.get(username=request.user.username)
+        item.qty_available -= 1
+        item.save()
+        user1 = User.objects.get(username=request.user.username)
         if user1.profile.points < point:
             print('cannot redeem')
         else:
             user1.profile.points = 0
             user1.profile.save()
             points_available = user1.profile.points
-            rewards = Reward.objects.create(user=user1, points_redeemed=point, service_used=service)
+            rewards = Reward.objects.create(user=user1, points_redeemed=points, service_used=service)
             reward_number = rewards.reward_no
             subject = 'Confirmation Rewards Redeemed - Redemption No.'.format(rewards.reward_no)
             messages = 'Check the PDF attachment for your redemption number'
@@ -889,9 +890,11 @@ def viewRewards(request):
 
 @login_required
 def Analytics_Dashboard(request):
+    data = UserActivity.objects.all()
+    jsondata = serializers.serialize('json', data, fields=('program', 'user', 'activity', 'week', 'day', 'points_earned'))
     return render(request,
                   'account/Analytics_Dashboard.html',
-                  {'section': 'Analytics_Dashboard'})
+                  {'section': 'Analytics_Dashboard', 'jsondata':jsondata})
 # analytics dashboard ends- srishty#
 
 def send_message(request):
@@ -1021,7 +1024,7 @@ def reward_category(request):
                 return HttpResponse("Error processing request")
         else:
             form = RewardCategoryForm()
-            return render(request, "account/reward_categories.html", {'form': form})
+            return render(request, "account/reward_categories.html", {'form': form, 'MEDIA_URL': settings.MEDIA_URL})
     else:
         return HttpResponseForbidden(request)
 
@@ -1037,6 +1040,6 @@ def reward_item(request):
                 return HttpResponse("Error processing request")
         else:
             form = RewardItemForm()
-            return render(request, "account/reward_items.html", {'form': form})
+            return render(request, "account/reward_items.html", {'form': form, 'MEDIA_URL': settings.MEDIA_URL})
     else:
         return HttpResponseForbidden(request)
