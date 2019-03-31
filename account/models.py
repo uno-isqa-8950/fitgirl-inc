@@ -16,6 +16,13 @@ EVENT = (
     (2, _("11-13")),
 )
 
+BACKGROUND_CHOICES = [
+    ('pink','Pink'),
+    ('yellow','Yellow'),
+    ('green','Green'),
+    ('grey','Grey'),
+]
+
 
 class Program(models.Model):
     #program_id = models.AutoField(null=False, primary_key=True)
@@ -84,6 +91,7 @@ class Profile(models.Model):
     school = models.CharField(max_length=50, blank=True, null=True)
     points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    select_your_background_color_for_website = models.CharField(max_length=50, choices=BACKGROUND_CHOICES, blank=False,null=True, default='pink')
     profile_filled = models.BooleanField(default=False)
     pre_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
     post_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
@@ -182,6 +190,7 @@ class KindnessMessage(models.Model):
     body = models.CharField(max_length=500, blank=True, null=True)
     from_user = models.CharField(max_length=50, blank=False, null=False)
     to_user = models.CharField(max_length=50, blank=False, null=False)
+    read_message = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def created(self):

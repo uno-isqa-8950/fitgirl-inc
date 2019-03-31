@@ -1010,7 +1010,7 @@ def reward_category(request):
                 return HttpResponse("Error processing request")
         else:
             form = RewardCategoryForm()
-            return render(request, "account/reward_categories.html", {'form': form})
+            return render(request, "account/reward_categories.html", {'form': form, 'MEDIA_URL': settings.MEDIA_URL})
     else:
         return HttpResponseForbidden(request)
 
@@ -1026,6 +1026,6 @@ def reward_item(request):
                 return HttpResponse("Error processing request")
         else:
             form = RewardItemForm()
-            return render(request, "account/reward_items.html", {'form': form})
+            return render(request, "account/reward_items.html", {'form': form, 'MEDIA_URL': settings.MEDIA_URL})
     else:
         return HttpResponseForbidden(request)

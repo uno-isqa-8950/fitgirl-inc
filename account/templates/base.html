@@ -85,7 +85,7 @@
                 <!--kindeness card tab starts -srishty-->
                 <li class="nav-item ">
                     <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
-                       href="/pages/kindness-card/">Kindness Card</a>
+                       href="/pages/kindness-card/"> Send Kindness Card</a>
                 </li>
                 <!--kindeness card tab ends -srishty-->
             </ul>
@@ -208,6 +208,8 @@
                         <!--user name added below and removed welcome--Srishty-->
                         <!--<a class="dropdown-item" href="#">{{ user.get_short_name|capfirst }}</a>-->
                         <a class="dropdown-item no-pointer" href="#">{{ user.get_short_name|capfirst }}</a><span
+                            class="user-dropdown"></span>
+                        <a class="dropdown-item no-pointer" href="#">Background: {{ user.profile.select_your_background_color_for_website }}</a><span
                             class="user-dropdown"></span>
                         <!--<a class="dropdown-item"> href="#"{{ user.get_short_name|capfirst }}</a>-->
                         <a class="dropdown-item no-pointer" href="#">Program: {{ user.profile.program.program_name }}</a>

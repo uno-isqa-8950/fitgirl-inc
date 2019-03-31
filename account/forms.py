@@ -54,6 +54,15 @@ EVENT = (
     (1, _("8-10")),
     (2, _("11-13")),
 )
+
+BACKGROUND_CHOICES = [
+    ('pink','Pink'),
+    ('yellow','Yellow'),
+    ('green','Green'),
+    ('grey','Grey'),
+]
+
+
 class ProfileEditForm(forms.ModelForm):
     photo = forms.ImageField(widget=forms.FileInput(attrs={'class':'media'}),required=False)                            #Image field is optional --Shamrose
     bio = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','placeholder':' Write Something about yourself'}))
@@ -66,6 +75,7 @@ class ProfileEditForm(forms.ModelForm):
     day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
     school = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'School Name'}))
+    select_your_background_color_for_website = forms.ChoiceField(widget=forms.Select, choices=BACKGROUND_CHOICES)
 
 
     def clean_date_of_birth(self):
@@ -77,7 +87,7 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('photo','bio', 'secondary_email','other_email', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school')           # Added Photo to the Start --Shamrose
+        fields = ('photo','bio', 'secondary_email','other_email', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school','select_your_background_color_for_website')           # Added Photo to the Start --Shamrose
 
 
 class ProgramForm(forms.ModelForm):
@@ -190,7 +200,7 @@ class SignUpForm(forms.ModelForm):
 class RewardCategoryForm(forms.ModelForm):
     category_image = forms.ImageField(required=False)
     category = forms.CharField(required=True)
-    description = forms.CharField(required=False)
+    description = forms.CharField(required=True)
 
     class Meta:
         model = RewardCategory
@@ -200,7 +210,7 @@ class RewardCategoryForm(forms.ModelForm):
 class RewardItemForm(forms.ModelForm):
     reward_image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'media'}), required=True)
     item = forms.CharField(required=True)
-    description = forms.CharField(required=False)
+    description = forms.CharField(required=True)
     points_needed = forms.IntegerField(required=True)
     qty_available = forms.IntegerField(required=True)
 
