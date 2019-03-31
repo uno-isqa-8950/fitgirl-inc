@@ -14,10 +14,15 @@ def reward_categories():
 
 @register.simple_tag
 def reward_items(category):
-    items = RewardItem.objects.filter(category_id=category)
+    items = RewardItem.objects.filter(category_id=category, qty_available__gt=0)
     return items
 
 @register.simple_tag
 def category_name(category_id):
     categories = RewardCategory.objects.get(id=category_id)
     return categories
+
+@register.simple_tag
+def all_reward_items():
+    items = RewardItem.objects.all()
+    return items
