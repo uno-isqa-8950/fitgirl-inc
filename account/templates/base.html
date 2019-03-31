@@ -27,7 +27,7 @@
 <div class="nav-wrapper grey darken-1">
     <nav class="navbar navbar-expand-lg navbar-dark grey darken-1  scrolling-navbar">
         <!--hghanta: redirect to dashboard on click empoweu logo, home-->
-        <a class="navbar-brand" href="/dashboard/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
+        <a class="navbar-brand" href="/pages/userdashboard/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
                                                         height="40"/></a>
         {% if request.user.is_authenticated %}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault"
