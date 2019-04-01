@@ -36,7 +36,7 @@
                 {% elif current_date < item.specific.start_date|date:"Y-m-d" %}
                     <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
                         <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
-                            <i class="fas fa-check"></i> {{ item.text }}</a>
+                             {{ item.text }}</a>
                     </li>
                 {% else %}
                     {% if done %}

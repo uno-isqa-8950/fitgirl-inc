@@ -60,6 +60,14 @@ def point_check(sender, instance, **kwargs):
     else:
         pass
 
+'''
+@receiver(post_save, sender=KindnessMessage)
+def unread_message_check(sender, instance, **kwargs):
+    obj = KindnessMessage.objects.get(pk=instance.pk)
+    if obj.read_messages == False:
+        obj.read_messages.count()
+'''
+
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -910,13 +918,19 @@ def inbox(request):
         for message in messages:
             username = User.objects.get(username=message.from_user)
             name = username.first_name + " " + username.last_name
+            message.read_message = True
+            message.save()
             try:
                 dict[name].append(message.body)
             except KeyError:
                 dict[name] = [message.body]
         print(dict)
 
+
         return render(request, 'kindnessCards/new.html', {'messages': messages, 'inbox': dict})
+
+
+
 
 @login_required()
 def edit_user(request,pk):

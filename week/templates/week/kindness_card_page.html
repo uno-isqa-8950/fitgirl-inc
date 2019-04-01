@@ -52,9 +52,11 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
          <div class="modal-content">
           <div class="modal-header">
-           <h5 class="modal-title" id="exampleModalLongTitle">
-                 <a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>
-           </h5>
+           <h3 class="modal-title" id="exampleModalLongTitle">
+
+               <a class="navbar-brand" href="/"><label>Dear <span class="popup-name"></span>,</label></a>
+                 <!--<a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>-->
+           </h3>
            <button type="button" class="close remove-popup close_x" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
            </button>
@@ -62,8 +64,8 @@
           <form action="{% url 'send_message' %}" method="post">
               {% csrf_token %}
               <div class="modal-body kindness-modal-content">
-                  <label>Dear <span class="popup-name">Jane</span>,</label>
-                  <textarea name="message" maxlength="280"></textarea>
+                  <!--<label>Dear <span class="popup-name">Jane</span>,</label>-->
+                  <textarea name="message" maxlength="280" placeholder="Enter your Kindness message here"></textarea>
               </div>
               <div class="modal-footer text-center">
                <input type="submit" class="btn btn-secondary btn-pink affirmations_close_button" value="Send">
