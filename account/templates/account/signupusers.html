@@ -4,28 +4,37 @@
 {% block title %}Sign up User {{ block.super }}{% endblock %}
 
 {% block dash_content %}
+    <style>
+        ul#menu li {
+          display:inline;
+          margin: 0px;
+          padding: 0px;
+        }
+    </style>
+
     <div class="container">
         <div class="contact">
-            <div class="spacer-div-30">
-            </div>
+            <div class="spacer-div-30"></div>
 
-  <h1 class="text-center">Sign Up User</h1>
+            <h1 class="text-center">Sign Up User/s</h1>
 
+            <form method="post">
+                {% csrf_token %}
+                {{sign_form|crispy}}
+                <p>Program Name:</p>
+                <select name="programs" class="form-control">
+                    {% for program in programs %}
+                        <option value="{{ program.id }}">{{ program.program_name }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <ul id = "menu">
+                    <li><button type="submit" class="btn btn-pink"> Sign up</button></li>
+                    <li>--OR--</li>
+                    <li><a href="{% url 'registerusers' %}" class=" btn btn-pink"> Register Users CSV </a></li>
+                </ul>
 
-  <form method="post">
-    {% csrf_token %}
-
-      {{sign_form|crispy}}
-
-      <p>Program Name:</p>
-    <select name="programs" class="form-control">
-      {% for program in programs %}
-       <option value="{{ program.id }}">{{ program.program_name }}</option>
-      {% endfor %}
-
-</select><br>
-      <button type="submit" class="btn btn-pink"> Sign up</button>
-  </form>
+            </form>
         </div>
     </div>
 {% endblock %}
