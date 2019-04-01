@@ -2268,3 +2268,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
     width: 100%;
   }
 }
+
+.reward-types-container {
+        min-height: calc(75vh - 260px) !important;
+}
