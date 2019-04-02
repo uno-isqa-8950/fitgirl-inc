@@ -54,5 +54,6 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('reward_item/', views.reward_item, name='reward_item'),
     path('reward_category/', views.reward_category, name='reward_category'),
+    path('reward_category_edit/<int:pk>', views.reward_category_edit, name='reward_category_edit'),
 
 ]

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Edit Category</h1>
+    <form method="POST" class="useredit-form" enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ form |crispy }}
+        <button type="submit" class="save btn btn-pink ">Update</button>
+    </form>
+</div>
+
+{% endblock %}
