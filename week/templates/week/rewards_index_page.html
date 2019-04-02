@@ -75,7 +75,7 @@
         if ({{ user_data.profile.points }} < val){
             $('#ModalRedeemFail').modal('show');
             return false;
-            }
+        }
         else if ({{ user_data.profile.points }} >= val) {
             $('#ModalRedeemSuccess').modal('show');
             var test = document.getElementById('search-item-form');

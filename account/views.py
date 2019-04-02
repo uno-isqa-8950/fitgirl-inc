@@ -1019,12 +1019,40 @@ def reward_category(request):
             form = RewardCategoryForm(data=request.POST, files=request.FILES)
             if form.is_valid():
                 form.save()
+                cd = form.cleaned_data
+                category_name = cd['category']
+                messages.success(request, f'{category_name} category added')
+                return HttpResponseRedirect('/reward_category')
+            elif request.POST.get('category_id'):
+                category_id = int(request.POST.get('category_id'))
+                category = RewardCategory.objects.get(id=category_id)
+                category_name = category.category
+                RewardCategory.objects.filter(id=category_id).delete()
+                messages.success(request, f'{category_name} category deleted')
                 return HttpResponseRedirect('/reward_category')
             else:
                 return HttpResponse("Error processing request")
         else:
             form = RewardCategoryForm()
-            return render(request, "account/reward_categories.html", {'form': form, 'MEDIA_URL': settings.MEDIA_URL})
+            return render(request, "rewards/reward_categories.html", {'form': form, 'MEDIA_URL': settings.MEDIA_URL})
+    else:
+        return HttpResponseForbidden(request)
+
+@login_required
+def reward_category_edit(request, pk):
+    category = get_object_or_404(RewardCategory, id=pk)
+    if request.user.is_staff:
+        if request.method == 'POST':
+            form = RewardCategoryForm(instance=category, data=request.POST, files=request.FILES)
+            if form.is_valid():
+                form.save()
+                cd = form.cleaned_data
+                category_name = cd['category']
+                messages.success(request, f'{category_name} category updated')
+                return HttpResponseRedirect('/reward_category')
+        else:
+            form = RewardCategoryForm(instance=category)
+        return render(request, "rewards/reward_category_edit.html", {'form': form})
     else:
         return HttpResponseForbidden(request)
 
@@ -1040,6 +1068,6 @@ def reward_item(request):
                 return HttpResponse("Error processing request")
         else:
             form = RewardItemForm()
-            return render(request, "account/reward_items.html", {'form': form, 'MEDIA_URL': settings.MEDIA_URL})
+            return render(request, "rewards/reward_items.html", {'form': form, 'MEDIA_URL': settings.MEDIA_URL})
     else:
         return HttpResponseForbidden(request)

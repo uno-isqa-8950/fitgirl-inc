@@ -6,6 +6,11 @@
     <div class="datatable-container">
         <div class="spacer-div-30"></div>
             <div class="col-sm-12">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
                 <h1 class="text-left">Reward Categories</h1>
                 <div class="reward-category-form">
                 <form method="post" enctype="multipart/form-data">
@@ -34,11 +39,7 @@
                 </form>
                 </div>
             </div>
-            <ul class="messages">
-                {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
+
             {% reward_categories as rewards %}
             <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered" class="target">
                 <thead class="thead stylish-color text-white">
@@ -46,16 +47,17 @@
                         <th class="th-lg">Category</th>
                         <th class="th-lg">Description</th>
                         <th class="th-lg text-center">Image</th>
-                        <th></th>
+                        <th colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for reward in rewards %}
                     <tr class="hoverable">
                         <td>{{ reward.category }}</td>
-                        <td>{{ reward.description }}</td>
+                        <td>{{ reward.description }} {{ reward.id }}</td>
                         <td><img src="{{ MEDIA_URL }}/{{ reward.category_image }}" height="35"></img></td>
-                        <td><i onclick="delete_row({{ reward.id }})" class="fa fa-trash"></i></td>
+                        <td><a onclick="action_row({{ reward.id }}, 'delete')" class="fa fa-trash"></a></td>
+                        <td><a href="/reward_category_edit/{{ reward.id }}" class="fa fa-edit"></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -63,6 +65,17 @@
         </div>
 
 {% endif %}
+
+<script>
+    function action_row(reward_id, action) {
+        if (action = 'delete'){
+            $('#ModalRedeemSuccess').modal('show');
+            var test = document.getElementById('delete-reward-category');
+            test.value = reward_id;
+        }
+
+    }
+</script>
 
 <script>
   $(document).ready(function () {
@@ -107,6 +120,33 @@ float: left;
 </style>
 
 
+<div class="modal fade" id="ModalRedeemSuccess" tabindex="-1" role="dialog" aria-labelledby="ModalRedeemSuccess" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    <a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>
+                </h5>
+                <button type="button" class="close remove-popup" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                 <p>Are you sure you want to delete it?</p>
+            </div>
+            <div class="modal-footer text-center">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <input type="hidden" id="delete-reward-category" name="category_id" value="">
+                    <button type="submit" class="confirm btn btn-secondary btn-pink">CONFIRM</button>
+                    <button type="button" class="cancel btn btn-secondary btn-pink" data-dismiss="modal">NO, THANKS</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
 {% endblock %}
