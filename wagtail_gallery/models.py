@@ -65,12 +65,12 @@ class GalleryParentPage(RoutablePageMixin, Page):
         if ('year' in kwargs) and ('month' in kwargs):
             galleries = GalleryPage.objects.live().filter(first_published_at__year=kwargs['year'],
                                                           first_published_at__month=kwargs['month']).order_by(
-                '-first_published_at')
+                'first_published_at')
         elif 'year' in kwargs:
             galleries = GalleryPage.objects.live().filter(first_published_at__year=kwargs['year']).order_by(
-                '-first_published_at')
+                'first_published_at')
         else:
-            galleries = self.get_children().live().order_by('-first_published_at')
+            galleries = self.get_children().live().order_by('first_published_at')
         paginator = Paginator(galleries, 10)  # Show 10 resources per page
 
         page = request.GET.get('page')
@@ -97,14 +97,14 @@ class GalleryParentPage(RoutablePageMixin, Page):
             galleries = GalleryPage.objects.live().filter(categories__name__icontains=kwargs['category'])
             galleries = galleries.filter(first_published_at__year=kwargs['year'],
                                          first_published_at__month=kwargs['month']).order_by(
-                '-first_published_at')
+                'first_published_at')
         elif 'year' in kwargs:
             galleries = GalleryPage.objects.live().filter(categories__name__icontains=kwargs['category'])
             galleries = galleries.filter(first_published_at__year=kwargs['year']).order_by(
-                '-first_published_at')
+                'first_published_at')
         else:
             galleries = GalleryPage.objects.live().filter(categories__name__icontains=kwargs['category'])
-            galleries = galleries.order_by('-first_published_at')
+            galleries = galleries.order_by('first_published_at')
         paginator = Paginator(galleries, 10)  # Show 10 resources per page
 
         page = request.GET.get('page')
