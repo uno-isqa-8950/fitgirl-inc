@@ -4,42 +4,47 @@
 {% if request.user.is_superuser %}
 
     {% media_url as media_url %}
-    <div class="datatable-container">
-        <div class="spacer-div-30"></div>
-            <div class="col-sm-12">
-                <ul class="messages">
+           <div class="container col-sm-8 reward-types-container">
+
+               <ul class="messages">
                     {% for message in messages %}
                         <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                     {% endfor %}
                 </ul>
                 <h1 class="text-left">Reward Categories</h1>
                 <div class="reward-category-form">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" id="category-form" enctype="multipart/form-data">
                     {{ form.non_field_errors }}
                     {% csrf_token %}
-                     <div class="reward-category-item">
+                     <div class="reward-category-item col-sm-6 float-left">
                          {{ form.category.errors }}
                          {{ form.category.label_tag }}
                          {{ form.category }}
                      </div>
-                    <div class="reward-category-item">
+                    <div class="reward-category-item col-sm-6 float-left">
                         {{ form.description.errors }}
                         {{ form.description.label_tag }}
                         {{ form.description }}
                     </div>
-                    <div class="reward-category-item">
+                    <div class="reward-category-item col-sm-6 float-left">
                         {{ form.category_image.errors }}
                         {{ form.category_image.label_tag }}
                         {{ form.category_image }}
                     </div>
-                    <div class="reward-category-item">
-                        <button type="submit">Add</button>
-                        <button onclick="event.preventDefault(); location.href = '/reward_item';" class="float-right">Reward Items</button>
+                    <div class="reward-category-item col-sm-12 float-left">
+                        <button id="edit" type="submit" formaction="" class=""></button>
+                        <button type="submit" type="submit" class="btn btn-pink" id="add">Add</button>
+                        <button type="button" class="btn btn-pink" onclick="clear_form()">Clear</button>
+                        <button onclick="event.preventDefault(); location.href = '/reward_item';" class="btn btn-pink float-right">Reward Items</button>
 
                     </div>
                 </form>
                 </div>
             </div>
+
+    <div class="datatable-container">
+        <div class="spacer-div-30"></div>
+            <div class="col-sm-9">
 
             {% reward_categories as rewards %}
             <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered" class="target">
@@ -53,33 +58,27 @@
                 </thead>
                 <tbody>
                     {% for reward in rewards %}
-                    <tr class="hoverable">
-                        <td>{{ reward.category }}</td>
-                        <td>{{ reward.description }} {{ reward.id }}</td>
-                        <td><img src="{{ media_url }}{{ reward.category_image }}" height="35"></img></td>
+                    <tr class="hoverable" onclick="edit_item(event, {{ reward.id }})">
+                        <td id="category-{{ reward.id }}">{{ reward.category }}</td>
+                        <td id="description-{{ reward.id }}">{{ reward.description }}</td>
+                        <td><img src="{{ media_url }}{{ reward.category_image }}" height="35"></td>
                         <td><a onclick="action_row({{ reward.id }}, 'delete')" class="fa fa-trash"></a></td>
-                        <td><a href="/reward_category_edit/{{ reward.id }}" class="fa fa-edit"></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+    </div>
 
 {% endif %}
 
 <script>
-    function action_row(reward_id, action) {
-        if (action = 'delete'){
-            $('#ModalRedeemSuccess').modal('show');
-            var test = document.getElementById('delete-reward-category');
-            test.value = reward_id;
-        }
 
-    }
 </script>
 
 <script>
   $(document).ready(function () {
+      document.getElementById("edit").style.display = "none";
       $('#dtDynamicVerticalScroll').DataTable({
           "order": [[4, "YES"]],
           "responsive": true,
@@ -91,18 +90,43 @@
       });
       $('.dataTables_length').addClass('bs-select');
   });
-$(document).ready(function(){
-    $("#image1").remove()
-    $("#image2").remove()
-    $("#image3").remove()
-    $("#users").css("border","2px solid")
-    $("#users").css("background-color","#ed217c")
-    $("#users").css("color","#ffffff")
-    $("#users").css("border-color","black")
- });
 
-let delete_row = function(x) {
-        alert("Delete row " + x);
+function action_row(reward_id, action) {
+    if (action = 'delete'){
+        $('#ModalRedeemSuccess').modal('show');
+        var test = document.getElementById('delete-reward-category');
+        test.value = reward_id;
+    }
+}
+
+let edit_item = function(e, id) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log(e);
+    var test = document.getElementById('edit');
+    test.style.display = 'inline-block';
+    test.innerHTML = 'UPDATE';
+    test.className = 'btn btn-pink';
+    test.formAction = '/reward_category_edit/'+id;
+    document.getElementById("add").style.display = "none";
+    $('#id_category').val($('#category-'+id).text());
+    $('#id_description').val($('#description-'+id).text());
+    /*
+    let current_file = $('#image-'+id).attr('src');
+    $('#id_current_file img').attr('src', current_file);
+    $('#id_current_file').show();
+     */
+};
+
+let clear_form = function() {
+    $('#category-form').trigger('reset');
+    var test = document.getElementById('add');
+    test.style.display = 'inline-block';
+    test.innerHTML = 'ADD';
+    test.className = 'btn btn-pink';
+    test.formAction = '';
+    /* $('#id_current_file').hide(); */
+    document.getElementById("edit").style.display = "none";
 };
 
 </script>
@@ -117,6 +141,15 @@ float: left;
 
 .reward-category-form {
     padding-bottom: 10px;
+}
+
+form {
+    padding : 5px;
+}
+
+input {
+    width: 100%;
+    display: inline-block;
 }
 </style>
 
