@@ -1,5 +1,6 @@
 from django import template
-from account.models import RewardCategory, RewardItem
+from account.models import RewardCategory, RewardItem, Profile
+from django.conf import settings
 
 register = template.Library()
 
@@ -26,3 +27,16 @@ def category_name(category_id):
 def all_reward_items():
     items = RewardItem.objects.all()
     return items
+
+@register.simple_tag
+def media_url():
+    return settings.AWS_S3_CUSTOM_DOMAIN + settings.MEDIA_URL;
+
+@register.simple_tag
+def available_points(user):
+    try:
+        points = Profile.objects.get(user_id=user).points
+    except Exception as e:
+        print(e)
+        points = 0
+    return points

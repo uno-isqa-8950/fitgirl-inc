@@ -7,61 +7,134 @@
 
 
 {% block content %}
+    {% media_url as media_url %}
 {% if request.user.is_active %}
     <div class ="container rewards-index-page">
 
-{# List items available in a given category #}
-    {% if request.GET.category %}
+    <!-- {{ media_url }} -->
 
-        {% category_name request.GET.category as cn %}
-        {% reward_items request.GET.category as items %}
-        <h1>{{ cn.category }}</h1>
- <!--       <h3>{{ cn.description }}</h3>  -->
-        <!--Card Content-->
-        <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
-            {% for item in items %}
-            <div class="col-sm-4 mt-3">
-                <div class="card hoverable">
-                    <a href ="/redeem-rewards/{{ item.id }}">
-                        <!-- changes done for streched image- srishty -->
-                        <img class="card-img-top rewards-img " src="/media/{{ item.reward_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
-                        <div class="card-body bg-dark">
-                            <h5 class="card-title"><b>{{ item.item }}</b></h5>
-                            <p class="card-text">{{ item.description }}</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    {% else %}    {# List catetories #}
-        {% reward_categories as categories %}
-        <h1 style="text-align: center;">{{ page.title }}</h1>
-        <h3>{{ page.intro|richtext }}</h3>
-        <h3 style="text-align: center;">{{ page.description|richtext }}</h3>
-        <!--Card Content-->
-        <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
-            {% for category in categories %}
-            <div class="col-sm-4 mt-3">
-                <div class="card hoverable">
-                    <a href ="/pages/rewards?category={{ category.id }}">
+    {# List items available in a given category #}
+        {% if request.GET.category %}
 
-                        <!-- changes done for streched image- srishty -->
-                        <img class="card-img-top rewards-img " src="/media/{{ category.category_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
-                        <div class="card-body bg-dark">
-                            <h5 class="card-title"><b>{{ category.category }}</b></h5>
-                        <!--    <p class="card-text">{{ category.description }}</p> -->
+            {% category_name request.GET.category as cn %}
+            {% reward_items request.GET.category as items %}
+            <h1>{{ cn.category }}</h1>
+     <!--       <h3>{{ cn.description }}</h3>  -->
+            <!--Card Content-->
+            <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
+                {% for item in items %}
+                    <div class="col-sm-4 mt-3">
+                        <div class="card hoverable">
+                            <a href ="#" onclick="validate({{ item.points_needed }}, {{ item.id }});">
+                                <input type="hidden" name="points" id="service_points" value="{{ item.points_needed }}">
+                                <!-- changes done for streched image- srishty -->
+                                <img class="card-img-top rewards-img " src="{{ media_url }}{{ item.reward_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
+                                <div class="card-body bg-dark">
+                                    <h5 class="card-title"><b>{{ item.item }}</b></h5>
+                                    <p class="card-text">{{ item.description }}</p>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+        {% else %}    {# List catetories #}
+            {% reward_categories as categories %}
+            <h1 style="text-align: center;">{{ page.title }}</h1>
+            <h3>{{ page.intro|richtext }}</h3>
+            <h3 style="text-align: center;">{{ page.description|richtext }}</h3>
+            <!--Card Content-->
+            <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
+                {% for category in categories %}
+                    <div class="col-sm-4 mt-3">
+                        <div class="card hoverable">
+                            <a href ="/pages/rewards?category={{ category.id }}">
+
+                                <!-- changes done for streched image- srishty -->
+                                <img class="card-img-top rewards-img " src="{{ media_url }}{{ category.category_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
+                                <div class="card-body bg-dark">
+                                    <h5 class="card-title"><b>{{ category.category }}</b></h5>
+                                <!--    <p class="card-text">{{ category.description }}</p> -->
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="container rewards-index-page col-md12 col-sm-12">
+            <h1>No such page</h1>
         </div>
     {% endif %}
-{% else %}
-    <div class="container rewards-index-page col-md12 col-sm-12">
-        <h1>No such page</h1>
-    </div>
-{% endif %}
+
+
+    <script>
+
+    function validate(val, item_id) {
+        var points_for_service = document.getElementById("service_points").value;
+        var output = document.getElementById('output');
+        output.innerHTML = 'This will use all your available points. Are you sure you want to continue?';
+        if ({{ user_data.profile.points }} < val){
+            $('#ModalRedeemFail').modal('show');
+            return false;
+        }
+        else if ({{ user_data.profile.points }} >= val) {
+            $('#ModalRedeemSuccess').modal('show');
+            var test = document.getElementById('search-item-form');
+            test.action = '/redeem-rewards/'+item_id+'/';
+            return val;
+            }
+    }
+    </script>
+
+        <div>
+            <div class="modal fade" id="ModalRedeemFail" tabindex="-1" role="dialog" aria-labelledby="ModalRedeemFail" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                 <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">
+                        <a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>
+                  </h5>
+                  <button type="button" class="close remove-popup" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                 </div>
+                 <div class="modal-body">
+                      <p>You do not have enough points to redeem this reward :( </p>
+                 </div>
+                 <div class="modal-footer text-center">
+                  <button type="button" class="btn btn-secondary btn-pink" data-dismiss="modal">OK</button>
+                 </div>
+                </div>
+               </div>
+              </div>
+        <div class="modal fade" id="ModalRedeemSuccess" tabindex="-1" role="dialog" aria-labelledby="ModalRedeemSuccess" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                 <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">
+                        <a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>
+                  </h5>
+                  <button type="button" class="close remove-popup" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                 </div>
+                 <div class="modal-body">
+                      <p id="output"></p>
+                 </div>
+                 <div class="modal-footer text-center">
+                     <form action="/" name="search-item-form" id="search-item-form" method="POST">
+                         {% csrf_token %}
+
+                         <input type="hidden" name="service" value="{{ item.item }}">
+                         <button type="submit" class="confirm btn btn-secondary btn-pink">CONFIRM</button>
+                         <button type="button" class="cancel btn btn-secondary btn-pink" data-dismiss="modal">NO, THANKS</button>
+                     </form>
+                 </div>
+                </div>
+                </div>
+                </div>
+                </div>
+</div>
 {% endblock %}

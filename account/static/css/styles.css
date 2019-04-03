@@ -392,6 +392,13 @@ width: 100%;
     opacity: 0.7;
     width: 100%;
 }
+#kindnessModal label{
+font-family: 'Amatic SC', cursive !important;
+color:#212529;
+    font-weight: bold;
+    font-size: 30px;
+}
+
 /* increase X of the affirmations dialogue box- brent */
 .close_x{
 font-size: 55px;
@@ -422,12 +429,23 @@ font-size: 55px;
 #exampleModalCenter,#kindnessModal{
 font-weight: bold;
 }
-#exampleModalCenter .modal-content,#kindnessModal .modal-content {
+#exampleModalCenter .modal-content {
 background: url(../images/popup_bg.jpg);
 background-repeat:repeat;
 opacity: 0.95;
 font-family: 'Amatic SC', cursive !important;
 font-size: 40px;
+}
+/* kindness card popup- Srishty*/
+#kindnessModal .modal-content {
+background: url(../images/Cute-Hearts-are-Hanging-Background.jpg);
+background-repeat:no-repeat;
+background-size: contain;
+opacity: 0.95;
+font-family: 'Amatic SC', cursive !important;
+font-size: 40px;
+    background-color: #f4cdde;
+    background-size: 100% auto;
 }
 
 /* fixing the different image size issue in the physical exercises-starts here-karthik*/
@@ -1152,7 +1170,12 @@ border-radius: 15px 15px 0 0;
   margin: 0 auto;
 }
 #kindnessModal textarea{
-  width: 100%;
+      font-size: 26px;
+    width: 100%;
+        font-weight: bold;
+    min-height: 100px;
+        background: transparent;
+        padding-top: 100px;
 }
 #kindnessModal .btn{
   font-family: 'Amatic SC', cursive !important;
@@ -2267,4 +2290,8 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
   .tabordion {
     width: 100%;
   }
+}
+
+.reward-types-container {
+        min-height: calc(75vh - 260px) !important;
 }

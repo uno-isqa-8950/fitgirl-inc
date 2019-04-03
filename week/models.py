@@ -405,6 +405,7 @@ class RewardsIndexPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['reward_post_page'] = RewardsPostPage.objects.live()
+        context['user_data'] = User.objects.get(username=request.user.username)
         return context
 
 #Added this to convert HTML page into CMS - Brent
