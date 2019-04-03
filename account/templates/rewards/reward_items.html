@@ -79,7 +79,7 @@
                         <td id="points-{{ reward.id }}">{{ reward.points_needed }}</td>
                         <td id="qty-{{ reward.id }}">{{ reward.qty_available }}</td>
                         <td id="category-{{ reward.id }}">{{ reward.category }}</td>
-                        <td><img src="{{ MEDIA_URL }}/{{ reward.reward_image }}" height="35" id="category-{{ reward.id }}"></td>
+                        <td><img src="{{ MEDIA_URL }}{{ reward.reward_image }}" height="35" id="category-{{ reward.id }}"></td>
                         <td><a onclick="action_row({{ reward.id }}, 'delete')" class="fa fa-trash"></a></td>
                     </tr>
                     {% endfor %}

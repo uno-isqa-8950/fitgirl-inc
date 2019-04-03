@@ -30,7 +30,7 @@ def all_reward_items():
 
 @register.simple_tag
 def media_url():
-    return settings.MEDIA_URL
+    return settings.AWS_S3_CUSTOM_DOMAIN + settings.MEDIA_URL;
 
 @register.simple_tag
 def available_points(user):
