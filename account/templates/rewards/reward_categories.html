@@ -3,6 +3,7 @@
 {% block dash_content %}
 {% if request.user.is_superuser %}
 
+    {% media_url as media_url %}
     <div class="datatable-container">
         <div class="spacer-div-30"></div>
             <div class="col-sm-12">
@@ -55,7 +56,7 @@
                     <tr class="hoverable">
                         <td>{{ reward.category }}</td>
                         <td>{{ reward.description }} {{ reward.id }}</td>
-                        <td><img src="{{ MEDIA_URL }}{{ reward.category_image }}" height="35"></img></td>
+                        <td><img src="{{ media_url }}{{ reward.category_image }}" height="35"></img></td>
                         <td><a onclick="action_row({{ reward.id }}, 'delete')" class="fa fa-trash"></a></td>
                         <td><a href="/reward_category_edit/{{ reward.id }}" class="fa fa-edit"></a></td>
                     </tr>
