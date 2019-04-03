@@ -3,6 +3,7 @@
 {% block dash_content %}
 {% if request.user.is_superuser %}
 
+            {% media_url as media_url %}
             <div class="container col-sm-9 reward-types-container">
                 <ul class="messages">
                     {% for message in messages %}
