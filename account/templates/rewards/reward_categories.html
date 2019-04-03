@@ -55,7 +55,7 @@
                     <tr class="hoverable">
                         <td>{{ reward.category }}</td>
                         <td>{{ reward.description }} {{ reward.id }}</td>
-                        <td><img src="{{ MEDIA_URL }}/{{ reward.category_image }}" height="35"></img></td>
+                        <td><img src="{{ MEDIA_URL }}{{ reward.category_image }}" height="35"></img></td>
                         <td><a onclick="action_row({{ reward.id }}, 'delete')" class="fa fa-trash"></a></td>
                         <td><a href="/reward_category_edit/{{ reward.id }}" class="fa fa-edit"></a></td>
                     </tr>
