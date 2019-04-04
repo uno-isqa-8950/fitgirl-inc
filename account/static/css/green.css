@@ -1,0 +1,5 @@
+{% extends 'styles.css' %}
+
+body{
+ background-image: url(../images/gplay.png), linear-gradient(#56ab2f, #a8e063) !important;
+}

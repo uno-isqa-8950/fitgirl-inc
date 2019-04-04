@@ -19,6 +19,17 @@
     <link href="{% static 'css/lightbox.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="{% static 'css/soon.css' %}" rel="stylesheet">
+    {% if request.user.profile.select_your_background_color_for_website == 'pink' %}
+    <link href="{% static 'css/soon.css' %}" rel="stylesheet">
+    {% elif request.user.profile.select_your_background_color_for_website == 'yellow' %}
+    <link href="{% static 'css/yellow.css' %}" rel="stylesheet">
+    {% elif request.user.profile.select_your_background_color_for_website == 'green' %}
+    <link href="{% static 'css/green.css' %}" rel="stylesheet">
+    {% elif request.user.profile.select_your_background_color_for_website == 'orange' %}
+    <link href="{% static 'css/orange.css' %}" rel="stylesheet">
+    {% else %}
+    <link href="{% static 'css/blue.css' %}" rel="stylesheet">
+    {% endif %}
     <title>{% block title %}{% endblock %}</title>
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
     <!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
