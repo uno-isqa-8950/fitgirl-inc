@@ -722,3 +722,16 @@ class SidebarContentPage(Page):
         FieldPanel('subject_for_announcement3', classname="full"),
         FieldPanel('message_announcement3', classname="full"),
     ]
+
+#Announcement
+class AnnouncementAlertPage(Page):
+    announcements = RichTextField(blank=True)
+    start_date = models.DateTimeField("Start Date", null=True, blank=True)
+    end_date = models.DateTimeField("End Date", null=True, blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('announcements', classname="full"),
+        FieldPanel('start_date'),
+        FieldPanel('end_date'),
+
+    ]
