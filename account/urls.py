@@ -53,6 +53,7 @@ urlpatterns = [
     path('edit_user/<int:pk>/', views.edit_user, name='edit_user'),
     path('signup/', views.signup, name='signup'),
     path('reward_item/', views.reward_item, name='reward_item'),
+    path('reward_item_edit/<int:pk>', views.reward_item_edit, name='reward_item_edit'),
     path('reward_category/', views.reward_category, name='reward_category'),
     path('reward_category_edit/<int:pk>', views.reward_category_edit, name='reward_category_edit'),
     path('add_school/', views.add_school, name='add_school')
