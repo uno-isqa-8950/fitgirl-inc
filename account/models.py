@@ -71,13 +71,6 @@ class Dailyquote(models.Model):
     def __str__(self):
         return str(self.dailyquote)
 
-class School(models.Model):
-    school_id = models.AutoField(primary_key=True,blank=False,null=False)
-    school_name = models.CharField(max_length=25, blank=True, null=True)
-
-    def __str__(self):
-        return str(self.school_name)
-
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -95,7 +88,7 @@ class Profile(models.Model):
     day_phone = models.CharField(blank=True, null=True, max_length=13)
     eve_phone = models.CharField(blank=True, null=True, max_length=13)
     age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
-    school = models.ForeignKey(School, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    school = models.CharField(max_length=50, blank=True, null=True)
     points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
     select_your_background_color_for_website = models.CharField(max_length=50, choices=BACKGROUND_CHOICES, blank=False,null=True, default='pink')
@@ -237,5 +230,3 @@ class CloneProgramInfo(models.Model):
     user = models.ForeignKey(User, blank=False, null=True, on_delete=models.SET_NULL)
     active = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
-
-
