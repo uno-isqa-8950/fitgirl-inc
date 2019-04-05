@@ -29,6 +29,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('analytics_dashboard/', TemplateView.as_view(template_name='index.html'), name='index'),
     path('admin/', admin.site.urls),
+    path('api/', include('dashboard.urls')),
     path('account/', include('account.urls')),
     path('', include('account.urls')),
     #path('.well-known/',include('letsencrypt.urls')),

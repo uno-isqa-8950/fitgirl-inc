@@ -2,5 +2,7 @@
 db.sqlite3
 myvenv
 _pycache_
+node_modules/
+webpack-stats.json
 local_settings.py
 .idea/

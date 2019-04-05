@@ -754,6 +754,13 @@ def export_data(request):
             rows = list(UserActivity.objects.all())
             writer = csv.writer(response)
 
+            weeks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            total_points = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            # activity = {
+            #     weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            #     total_points: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            # }
+
             writer.writerow(['User', 'Program', 'Activity',
                                'Week Number', 'Day of Week',
                                'Points Earned', 'Date'])
@@ -765,12 +772,38 @@ def export_data(request):
                 except AttributeError:
                     program = ""
 
+                if row.Week == 1:
+                    total_points[0] += row.points_earned
+                elif row.Week == 2:
+                    total_points[1] += row.points_earned
+                elif row.Week == 3:
+                    total_points[2] += row.points_earned
+                elif row.Week == 4:
+                    total_points[3] += row.points_earned
+                elif row.Week == 5:
+                    total_points[4] += row.points_earned
+                elif row.Week == 6:
+                    total_points[5] += row.points_earned
+                elif row.Week == 7:
+                    total_points[6] += row.points_earned
+                elif row.Week == 8:
+                    total_points[7] += row.points_earned
+                elif row.Week == 9:
+                    total_points[8] += row.points_earned
+                elif row.Week == 10:
+                    total_points[9] += row.points_earned
+                elif row.Week == 11:
+                    total_points[10] += row.points_earned
+                elif row.Week == 12:
+                    total_points[11] += row.points_earned
+
                 writer_row = [name, program,
                               row.Activity, row.Week,
                               row.DayOfWeek, row.points_earned,
                               row.creation_date]
+                print(writer_row)
                 writer.writerow(writer_row)
-
+            return render(request, 'index.html', {'total_points': total_points, 'weeks': weeks})
         elif export_type == 'preassessment':
             response['Content-Disposition'] = 'attachment; filename="pre-assessment.csv"'
             try:
@@ -924,16 +957,13 @@ def inbox(request):
                 dict[name].append(message.body)
             except KeyError:
                 dict[name] = [message.body]
-        print(dict)
-
-
         return render(request, 'kindnessCards/new.html', {'messages': messages, 'inbox': dict})
 
 
 
 
 @login_required()
-def edit_user(request,pk):
+def edit_user(request, pk):
     user = get_object_or_404(User, pk= pk)
     print(user)
     #user1 = get_object_or_404(Profile, profile.user_id )
