@@ -3,27 +3,26 @@
 {% block title %}Kindness Cards{% endblock %}
 
 {% block content %}
-<div class="container">
-        <div class="tabordion">
-                {% for key, values in inbox.items %}
-        
-        <section >
-          <input type="radio" name="sections" id="option" checked>
-          <label for="option">{{ key }}</label>
-          <article>
-            <h2>{{ key }}  says</h2>
-             {% for v in values %}
-                          <p class="received-kindness">{{v}}</p>
-                      {% endfor %}
-          </article>
-        </section>
-                      {% endfor %}
-          </div>
+
+        <!--<div class="tabordion">-->
+                <!--{% for key, values in inbox.items %}-->
+
+        <!--<section >-->
+          <!--<input type="radio" name="sections" id="option" checked>-->
+          <!--<label for="option">{{ key }}</label>-->
+          <!--<article>-->
+            <!--<h2>{{ key }}  says</h2>-->
+             <!--{% for v in values %}-->
+                          <!--<p class="received-kindness">{{v}}</p>-->
+                      <!--{% endfor %}-->
+          <!--</article>-->
+        <!--</section>-->
+                      <!--{% endfor %}-->
+          <!--</div>-->
     <!-- {% for key, values in inbox.items %}
         <ul>
             <li class="selected"><a href="index.html">{{ key }}</a></li>
         </ul>
-
         <div>
             <article>
                 <h3 style="font-size:18px;">{{ key }}</h3>
@@ -35,7 +34,38 @@
             </article>
         </div>
     {% endfor %} -->
+
+<div class="container">
+<div class="wrap" id="wrap">
+  <div class="card card--inner">
+    <h2>Capstone</h2>
+    <img src="/static/images/heart.png">
+  </div>
+  <div class="card card--front back" onclick="openCard();"></div>
+  <div class="card card--front" onclick="openCard();">
+    <h2>Kindness Card<br>by</h2>
+  </div>
 </div>
+
+<button type="button" onclick="openCard();" id="button">Open Card</button>
+</div>
+<script>
+
+function openCard() {
+  var button = document.getElementById('button');
+
+  if(button.innerHTML == 'Open Card') {
+    button.innerHTML = 'Close Card';
+  } else {
+    button.innerHTML = 'Open Card';
+  }
+
+  var cards = document.querySelectorAll('.card');
+  for(var i = 0; i < cards.length; i++) {
+    cards[i].classList.toggle('open');
+  }
+}
+</script>
 {% endblock %}
 
 
