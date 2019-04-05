@@ -1,5 +1,5 @@
 {
-  "name": "django",
+  "name": "Django",
   "private": true,
   "scripts": {
     "pretest": "eslint django/ js_tests/admin/ js_tests/gis/",
@@ -9,46 +9,9 @@
     "npm": ">=1.3.0 <3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/plugin-transform-runtime": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
-    "@babel/runtime": "^7.4.3",
-    "axios": "^0.18.0",
-    "babel-loader": "^8.0.5",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "bootstrap-sass": "^3.4.1",
-    "css-loader": "^2.1.1",
-    "eslint": "^5.16.0",
+    "eslint": "^0.22.1",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
-    "grunt-contrib-qunit": "^1.2.0",
-    "jquery": "^3.3.1",
-    "node-sass": "^4.11.0",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "vue": "^2.6.10",
-    "vue-hot-reload-api": "^2.3.3",
-    "vue-loader": "^15.7.0",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.29.6",
-    "webpack-bundle-tracker": "^0.4.2-beta",
-    "webpack-cli": "^3.3.0"
-  },
-  "description": "FitGirl Inc",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/uno-isqa-8950/fitgirl-inc.git"
-  },
-  "author": "hghanta",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/uno-isqa-8950/fitgirl-inc/issues"
-  },
-  "homepage": "https://github.com/uno-isqa-8950/fitgirl-inc#readme",
-  "dependencies": {
-    "chart.js": "^2.8.0"
+    "grunt-contrib-qunit": "^1.2.0"
   }
 }
