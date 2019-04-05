@@ -274,3 +274,4 @@ $( ".folder-icon" ).prependTo ( ".gallery-card-title .rich-text" );
    
 });
 
+
