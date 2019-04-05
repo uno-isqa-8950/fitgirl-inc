@@ -63,6 +63,9 @@ INSTALLED_APPS = [
     'wagtail_gallery',
     'wagtail.contrib.routable_page',
     'django_social_share',
+    'webpack_loader',
+    'dashboard',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +86,7 @@ ROOT_URLCONF = 'empoweru.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'dashboard/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -203,6 +206,28 @@ EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'assets'),
+# )
+
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/', #deplomnet bundle
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
+
+# REST configuration
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    # ]
+}
+
 '''
 try:
     from empoweru.local_settings import *
