@@ -27,7 +27,7 @@
     <link href="{% static 'css/green.css' %}" rel="stylesheet">
     {% elif request.user.profile.select_your_background_color_for_website == 'orange' %}
     <link href="{% static 'css/orange.css' %}" rel="stylesheet">
-    {% else %}
+    {% elif request.user.profile.select_your_background_color_for_website == 'blue' %}
     <link href="{% static 'css/blue.css' %}" rel="stylesheet">
     {% endif %}
     <title>{% block title %}{% endblock %}</title>
