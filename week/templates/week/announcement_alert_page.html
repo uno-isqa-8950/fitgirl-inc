@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block title %}Announcements{% endblock %}
+
+{% block content %}
+
+<div class ="container">
+    <h1 style="text-align: center;">{{ page.title }}</h1>
+    <h3 style="text-align: center;"> {{ page.announcements|richtext }}</h3>
+    <!--Card Content-->
+    <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
+        {% for post in page.get_children.live %}
+
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+
