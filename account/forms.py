@@ -57,9 +57,10 @@ EVENT = (
 
 BACKGROUND_CHOICES = [
     ('pink','Pink'),
+    ('blue','Blue'),
     ('yellow','Yellow'),
     ('green','Green'),
-    ('grey','Grey'),
+    ('orange','Orange'),
 ]
 
 

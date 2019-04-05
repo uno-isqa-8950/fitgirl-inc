@@ -419,7 +419,7 @@ def user_edit(request):
             theProfile.profile_filled = True
             theProfile.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('/dashboard')
+            return redirect('/pages/userdashboard')
         else:
             messages.warning(request, 'Please correct the errors below!')
     else:
