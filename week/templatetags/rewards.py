@@ -9,7 +9,11 @@ register = template.Library()
 # if the requisite amount of activities have been completed
 @register.simple_tag
 def reward_categories():
-    categories = RewardCategory.objects.all()
+    items = RewardItem.objects.filter(qty_available__gt=0)
+    categories = set()
+    for item in items:
+        category = RewardCategory.objects.get(id=item.category_id)
+        categories.add(category)
     return categories
 
 
@@ -30,7 +34,7 @@ def all_reward_items():
 
 @register.simple_tag
 def media_url():
-    return settings.AWS_S3_CUSTOM_DOMAIN + settings.MEDIA_URL;
+    return settings.STATIC_URL + '..' + settings.MEDIA_URL
 
 @register.simple_tag
 def available_points(user):
