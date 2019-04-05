@@ -1,1 +1,1 @@
-web: node index.js gunicorn empoweru.wsgi:application --log-file -
+web: gunicorn empoweru.wsgi:application --log-file -
