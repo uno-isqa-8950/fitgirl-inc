@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 #import django_heroku
 import os
-import dj_database_url
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -113,30 +112,30 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd4l1c6j9agds8a',
-        'USER': 'faggntkypnkbfx',
-        'PASSWORD': 'a1dc530026b90258ca9cd5c6a9fff4ea2de41f0dc63f73dfdb094d8f3a8a3076',
-        'HOST': 'ec2-54-221-243-211.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd4br3qegmoba7s',
+#         'USER': 'vlpfizeviactfl',
+#         'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
+#         'HOST': 'ec2-23-21-171-249.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 
 # # ## Local Setting
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'vue2019',
-#         'USER': 'postgres',
-#         'PASSWORD': 'instructor1a',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'vue2019',
+        'USER': 'postgres',
+        'PASSWORD': 'instructor1a',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -173,8 +172,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -225,19 +222,6 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     # ]
 }
-
-
-# Update database configuration with $DATABASE_URL.
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-DATABASES['default'] = dj_database_url.config()
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-#STATICFILES_STORAGE =
-'whitenoise.django.GzipManifestStaticFilesStorage'
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 
 # try:
 #     from local_settings import *
