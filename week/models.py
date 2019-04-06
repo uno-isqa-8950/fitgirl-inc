@@ -578,9 +578,17 @@ class LandingIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
     additional = RichTextField(blank=True)
+    card_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
     physical= RichTextField(blank=True)
+    card_imageb = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                   related_name='+')
     nutritional= RichTextField(blank=True)
+    card_imagec = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                   related_name='+')
     mental= RichTextField(blank=True)
+    card_imaged = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                   related_name='+')
     relational= RichTextField(blank=True)
     physicaldesc = RichTextField(blank=True)
     nutritionaldesc = RichTextField(blank=True)
@@ -591,9 +599,13 @@ class LandingIndexPage(Page):
         FieldPanel('intro', classname="full"),
         FieldPanel('description', classname="full"),
         FieldPanel('additional', classname="full"),
+        ImageChooserPanel('card_image'),
         FieldPanel('physical', classname="full"),
+        ImageChooserPanel('card_imageb'),
         FieldPanel('nutritional', classname="full"),
+        ImageChooserPanel('card_imagec'),
         FieldPanel('mental', classname="full"),
+        ImageChooserPanel('card_imaged'),
         FieldPanel('relational', classname="full"),
         FieldPanel('physicaldesc', classname="full"),
         FieldPanel('nutritionaldesc', classname="full"),
