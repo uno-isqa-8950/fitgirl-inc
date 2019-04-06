@@ -23,13 +23,8 @@ from wagtail.core import urls as wagtail_urls
 from django.conf import settings
 from django.conf.urls.static import static
 
-from django.conf.urls import url
-from django.views.generic import TemplateView
-
 urlpatterns = [
-    path('analytics_dashboard/', TemplateView.as_view(template_name='index.html'), name='index'),
     path('admin/', admin.site.urls),
-    path('api/', include('dashboard.urls')),
     path('account/', include('account.urls')),
     path('', include('account.urls')),
     #path('.well-known/',include('letsencrypt.urls')),

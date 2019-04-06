@@ -1,7 +1,7 @@
 <html>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
         <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
-<body style="background-color:white;">
+<body style="background-color:grey;">
 
 <h1 align="center">Analytics Dashboard</h1>
 <p>{{ jsondata }}</p>
@@ -11,10 +11,10 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
-            label: 'Week',
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
