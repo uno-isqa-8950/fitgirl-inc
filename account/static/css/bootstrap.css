@@ -4923,7 +4923,13 @@ input[type="button"].btn-block {
   padding: 0.75rem 1.25rem;
   color: inherit;
 }
-
+.alert-dismissible .warning-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: -0.25rem 1.25rem;
+  color: inherit;
+}
 .alert-primary {
   color: #004085;
   background-color: #cce5ff;
@@ -5319,6 +5325,16 @@ input[type="button"].btn-block {
   color: #000;
   text-shadow: 0 1px 0 #fff;
   opacity: .5;
+}
+
+.warning-close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  /*opacity: .5;*/
 }
 
 .close:not(:disabled):not(.disabled) {
