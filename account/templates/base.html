@@ -259,7 +259,10 @@
         {% endif %}
     </nav>
 </div>
-<!--warning-->
+
+<!--warning announcement starts - Aishwarya-->
+{% if request.user.is_superuser %}
+{% else %}
 <div class="alert alert-info alert-dismissible" id="warning-alert" role="alert">
    <button aria-label="Close" class="close" data-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
        <h5> Link CMS page here with condition of start date & end date! </h5>
@@ -270,7 +273,9 @@
       <!---->
    <!--</div>-->
 <!--</div>-->
-<!--warning-->
+{% endif %}
+<!--warning announcement ends - Aishwarya-->
+
 <header id="sub-header">
     <div class="container-fluid">
         <div class="row">
