@@ -10,4 +10,5 @@ def unread_message(context):
     request = context['request']
     user = User.objects.get(email=request.user.email)
     unread_count = KindnessMessage.objects.filter(to_user=user).filter(read_message=False).count()
-    return {'unread_count':unread_count}
+    unread_message = KindnessMessage.objects.filter(to_user=user).filter(read_message=False)
+    return {'unread_count':unread_count,'unread_message':unread_message}

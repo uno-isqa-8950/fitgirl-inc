@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Kindness Cards{% endblock %}
+
+{% block content %}
+
+        <!--<div class="tabordion">-->
+                <!--{% for key, values in inbox.items %}-->
+
+        <!--<section >-->
+          <!--<input type="radio" name="sections" id="option" checked>-->
+          <!--<label for="option">{{ key }}</label>-->
+          <!--<article>-->
+            <!--<h2>{{ key }}  says</h2>-->
+             <!--{% for v in values %}-->
+                          <!--<p class="received-kindness">{{v}}</p>-->
+                      <!--{% endfor %}-->
+          <!--</article>-->
+        <!--</section>-->
+                      <!--{% endfor %}-->
+          <!--</div>-->
+    <!-- {% for key, values in inbox.items %}
+        <ul>
+            <li class="selected"><a href="index.html">{{ key }}</a></li>
+        </ul>
+        <div>
+            <article>
+                <h3 style="font-size:18px;">{{ key }}</h3>
+                <hr />
+                <p></p>
+                {% for v in values %}
+                    <p>{{v}}</p>
+                {% endfor %}
+            </article>
+        </div>
+    {% endfor %} -->
+
+{% for key,values in inbox.items %}
+<div class="container">
+<div class="wrap kindness" id="wrap">
+  <div class="kindnessCardContainer card--inner">
+{% for v in values %}
+    <h2>{{ v }}</h2>
+{#    <i class="fas fa-check">Check</i>#}
+
+    {% endfor %}
+    <img src="/static/images/heart.png">
+      <img class="rounded-circle account-img" src="{{ picture }}" onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="100" width="100" style="height: 100px;width: 100px" align="center">
+  </div>
+
+  <div class="kindnessCardContainer card--front back" onclick="openCard();"></div>
+  <div class="kindnessCardContainer card--front" onclick="openCard();">
+    <h2>Kindness Cards<br></h2>
+
+
+  </div>
+
+</div>
+
+<button type="button" onclick="openCard();" id="button">Open Card</button>
+</div>
+{% endfor %}
+<script>
+
+function openCard() {
+  var button = document.getElementById('button');
+
+  if(button.innerHTML == 'Open Card') {
+    button.innerHTML = 'Close Card';
+  } else {
+    button.innerHTML = 'Open Card';
+  }
+
+  var cards = document.querySelectorAll('.kindnessCardContainer');
+  for(var i = 0; i < cards.length; i++) {
+    cards[i].classList.toggle('open');
+  }
+}
+</script>
+
+
+
+{% endblock %}
+
+
