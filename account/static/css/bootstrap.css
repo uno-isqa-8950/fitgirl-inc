@@ -4920,7 +4920,7 @@ input[type="button"].btn-block {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 0.75rem 1.25rem;
+  padding: -0.25rem 1.25rem;
   color: inherit;
 }
 
@@ -5318,7 +5318,7 @@ input[type="button"].btn-block {
   line-height: 1;
   color: #000;
   text-shadow: 0 1px 0 #fff;
-  opacity: .5;
+  /*opacity: .5;*/
 }
 
 .close:not(:disabled):not(.disabled) {
