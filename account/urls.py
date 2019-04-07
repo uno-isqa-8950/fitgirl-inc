@@ -58,7 +58,7 @@ urlpatterns = [
     path('reward_item_edit/<int:pk>', views.reward_item_edit, name='reward_item_edit'),
     path('reward_category/', views.reward_category, name='reward_category'),
     path('reward_category_edit/<int:pk>', views.reward_category_edit, name='reward_category_edit'),
-    path('activity_data/', views.json_data, name='activity_data')
+    path('activity_data/', views.json_data, name='activity_data'),
     path('add_school/', views.add_school, name='add_school')
 
 ]
