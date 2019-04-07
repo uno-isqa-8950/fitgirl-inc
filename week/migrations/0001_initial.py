@@ -17,10 +17,10 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('wagtailimages', '0001_squashed_0021'),
         ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
         ('account', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('wagtailimages', '0001_squashed_0021'),
     ]
 
     operations = [
