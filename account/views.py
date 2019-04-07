@@ -1004,20 +1004,6 @@ def mark_read(request):
 #         return render(request,'kindnessCards/old.html',{'messages':messages, 'inbox':dict})
 #
 
-
-@login_required
-def read_kindness_message(request):
-    if request.method == 'GET':
-        messages = KindnessMessage.objects.filter(to_user=request.user.username)
-
-        for message in messages:
-            message.read_message = True
-            message.save()
-            #messages.success(request, 'You have read all the new messages!')
-            #return redirect('/pages/userdashboard')
-
-        return render(request,'kindnessCards/read_confirmation.html')
-
 @login_required()
 def edit_user(request,pk):
     user = get_object_or_404(User, pk= pk)
