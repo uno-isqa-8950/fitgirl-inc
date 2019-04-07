@@ -32,6 +32,7 @@ from wagtail.core.models import Page
 from django.db.models.signals import post_save, post_init, pre_save
 from django.dispatch import receiver
 from django.core import serializers
+from collections import defaultdict
 
 @receiver(post_save, sender=Profile)
 def point_check(sender, instance, **kwargs):
@@ -913,24 +914,95 @@ def send_message(request):
 
 def inbox(request):
     if request.method == 'GET':
-        messages = KindnessMessage.objects.filter(to_user=request.user.username)
-        dict={}
-        for message in messages:
+        all_messages = KindnessMessage.objects.filter(to_user=request.user.username)
+        unread_messages = all_messages.filter(read_message=False)
+        # user = User.objects.get(email=request.user.email)
+        # unread_message = KindnessMessage.objects.filter(to_user=user).filter(read_message=False)
+
+
+        dict_all = {}
+        dict_unread = {}
+        for message in unread_messages:
+            username = User.objects.get(username=message.from_user)
+            name = username.first_name + " " + username.last_name
+            # message.read_message = True
+            message.save()
+            try:
+                dict_unread[name].append(message.body)
+            except KeyError:
+                dict_unread[name] = [message.body]
+        for message in all_messages:
+            username = User.objects.get(username=message.from_user)
+            name = username.first_name + " " + username.last_name
+            # message.read_message = True
+            message.save()
+            try:
+                dict_all[name].append(message.body)
+            except KeyError:
+                dict_all[name] = [message.body]
+
+        return render(request, 'kindnessCards/new.html', {'messages': messages, 'all': dict_all, 'unread': dict_unread})
+
+def mark_read(request):
+    if request.method == 'GET':
+        print('inside mark_read')
+
+        all_messages = KindnessMessage.objects.filter(to_user=request.user.username)
+        unread_messages = all_messages.filter(read_message=False)
+        dict_all = {}
+        dict_unread = {}
+        for test_message in unread_messages:
+            username = User.objects.get(username=test_message.from_user)
+            name = username.first_name + " " + username.last_name
+            # message.read_message = True
+            try:
+                dict_unread[name].append(test_message.body)
+            except KeyError:
+                dict_unread[name] = [test_message.body]
+        for message in all_messages:
             username = User.objects.get(username=message.from_user)
             name = username.first_name + " " + username.last_name
             message.read_message = True
             message.save()
             try:
-                dict[name].append(message.body)
+                dict_all[name].append(message.body)
             except KeyError:
-                dict[name] = [message.body]
-        print(dict)
+                dict_all[name] = [message.body]
+        print(dict_unread)
+        return redirect('/inbox/')
+        # return render(request,
+        #               'kindnessCards/new.html',
+        #               {'messages': messages, 'all': dict_all, 'unread': dict_unread})
 
-
-        return render(request, 'kindnessCards/new.html', {'messages': messages, 'inbox': dict})
-
-
-
+# def inbox_unread(request):
+#     if request.method == 'GET':
+#         # user = User.objects.get(email=request.user.email)
+#         # unread_message = KindnessMessage.objects.filter(to_user=user).filter(read_message=False)
+#         # from_users = KindnessMessage.objects.filter(to_user=user).filter(read_message=False).values('from_user')
+#         # print(from_users)
+#         # print(unread_message)
+#         #from_users = KindnessMessage.objects.filter(from_user=)
+#         #print(from_users)
+#         messages = KindnessMessage.objects.filter(to_user=request.user.email).filter(read_message=False)
+#
+#         dict = {}
+#         photo = 'Photo'
+#         for message in messages:
+#             username = User.objects.get(username=message.from_user)
+#             name = username.first_name + " " + username.last_name
+#             picture = username.profile.photo.url
+#             #print(username.profile.photo.url)
+#             try:
+#                 dict[name].append(message.body)
+#                 dict['photo'].append(picture)
+#             except KeyError:
+#                 dict[name] = [message.body]
+#                 dict['photo'] = [picture]
+#         #print(dict)
+#                 #return render(request,'kindnessCards/old.html',{'messages':messages,'inbox':dict,'picture':picture})
+#         print(dict)
+#         return render(request,'kindnessCards/old.html',{'messages':messages, 'inbox':dict})
+#
 
 @login_required()
 def edit_user(request,pk):
