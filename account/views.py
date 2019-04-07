@@ -33,6 +33,35 @@ from django.db.models.signals import post_save, post_init, pre_save
 from django.dispatch import receiver
 from django.core import serializers
 from collections import defaultdict
+import django_tables2 as tables
+
+
+class ActivityTable(tables.Table):
+    week_no = tables.Column()
+    total_points = tables.Column()
+
+    # table = ActivityTable(data)
+@login_required
+def json_data(request):
+    activity_data = list(UserActivity.objects.all())
+    json_data = [{}]
+    for row in activity_data:
+        # print('week:', row.Week)
+        # print('points', row.points_earned)
+        if row.Week in json_data[0].keys():
+            points = json_data[0].get(row.Week)
+            updated_points = points + row.points_earned
+            # print('Old Week:', data[0])
+            # print('points to be added', row.points_earned)
+            json_data[0][row.Week] = updated_points
+            # print('New Week', data[0])
+        elif row.Week not in json_data[0].keys():
+            json_data[0][row.Week] = row.points_earned
+            # print('created:', data[0])
+    print(json_data)
+    return render(request, 'account/Analytics_Dashboard.html', {'json_data': json_data})
+    # table = ActivityTable(json_data)
+    # print(table.data['1'])
 
 @receiver(post_save, sender=Profile)
 def point_check(sender, instance, **kwargs):

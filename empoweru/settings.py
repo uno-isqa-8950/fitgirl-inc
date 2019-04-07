@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'wagtail_gallery',
     'wagtail.contrib.routable_page',
     'django_social_share',
+    'django_tables2',
 ]
 
 MIDDLEWARE = [
