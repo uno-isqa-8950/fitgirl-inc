@@ -49,6 +49,8 @@ urlpatterns = [
     path('update_points/', views.update_points, name='update_points'),
     path('admin_edit/', views.admin_edit, name='admin_edit'),
     path('inbox/', views.inbox, name='inbox'),
+    #path('new_messages/', views.inbox_unread, name='inbox_unread'),
+    path('messages/', views.mark_read, name='mark_read'),
     path('/', views.send_message, name='send_message'),
     path('edit_user/<int:pk>/', views.edit_user, name='edit_user'),
     path('signup/', views.signup, name='signup'),
@@ -56,5 +58,6 @@ urlpatterns = [
     path('reward_item_edit/<int:pk>', views.reward_item_edit, name='reward_item_edit'),
     path('reward_category/', views.reward_category, name='reward_category'),
     path('reward_category_edit/<int:pk>', views.reward_category_edit, name='reward_category_edit'),
+    path('add_school/', views.add_school, name='add_school')
 
 ]
