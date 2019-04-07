@@ -143,13 +143,13 @@
             <ul class="navbar-nav navbar-right ">
                 <li class="nav-item ">
                     <a class="nav-link hoverable" href="/pages/rewards/"
-                       style="background-color: rgba(255,255,255,.1);"><i class="fas fa-gift" style="padding-left: 5px;"></i>&nbspReward Points: {{ user.profile.points }}<span
+                       style="background-color: rgba(255,255,255,.1); top: -4px;"><i class="fas fa-gift" style="padding-left: 5px;"></i>&nbspReward Points: {{ user.profile.points }}<span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown">
-                        <img class="rounded-circle account-img" alt="Notifications"
-                             src="{% static 'images/bell-icon.png' %}" height="30" width="30">
+                        <img class="bell-account-img" alt="Notifications"
+                             src="{% static 'images/bell.png' %}" height="30" width="30">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box notifications-dropdown-box">
                         <li class="nav-item ">
@@ -181,12 +181,20 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
-                                <a class="nav-link" href="/pages/rewards/" style="position:relative;">
-                                 <img class="rewards-icon" alt="My Rewards" src="{% static 'images/bell-icon.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
-                                  <span class="sr-only">(current)</span>
-                              </a>
-                              </li> -->
+                        <div class="dropdown-divider"></div>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="" style="position:relative;">
+                                <table>
+                                    <tr>
+                                        <td><img class="announcement-icon" alt="Announcements"
+                                                 src="{% static 'images/iconfinder_sale_lineal_color_cnvrt-15_3827707.png' %}" height="37"
+                                                 width="40"/></td>
+                                        <td><span>Link sidebar announcement template tag here</span></td>
+                                    </tr>
+                                </table>
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="dropdown ">
@@ -251,6 +259,23 @@
         {% endif %}
     </nav>
 </div>
+
+<!--warning announcement starts - Aishwarya-->
+{% if request.user.is_superuser %}
+{% else %}
+<div class="alert alert-info alert-dismissible" id="warning-alert" role="alert">
+   <button aria-label="Close" class="warning-close" data-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
+       <h5> Link CMS page here with condition of start date & end date! </h5>
+</div>
+<!--<section class="container ct-isotope-gallery__container">-->
+<!--<div class="row">-->
+   <!--<div class="col-md-10 col-md-offset-1">-->
+      <!---->
+   <!--</div>-->
+<!--</div>-->
+{% endif %}
+<!--warning announcement ends - Aishwarya-->
+
 <header id="sub-header">
     <div class="container-fluid">
         <div class="row">
