@@ -7,8 +7,11 @@
 
 
 {% block content %}
+    {% media_url as media_url %}
 {% if request.user.is_active %}
     <div class ="container rewards-index-page">
+
+    <!-- {{ media_url }} -->
 
     {# List items available in a given category #}
         {% if request.GET.category %}
@@ -25,7 +28,7 @@
                             <a href ="#" onclick="validate({{ item.points_needed }}, {{ item.id }});">
                                 <input type="hidden" name="points" id="service_points" value="{{ item.points_needed }}">
                                 <!-- changes done for streched image- srishty -->
-                                <img class="card-img-top rewards-img " src="/media/{{ item.reward_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
+                                <img class="card-img-top rewards-img " src="{{ media_url }}{{ item.reward_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
                                 <div class="card-body bg-dark">
                                     <h5 class="card-title"><b>{{ item.item }}</b></h5>
                                     <p class="card-text">{{ item.description }}</p>
@@ -48,7 +51,7 @@
                             <a href ="/pages/rewards?category={{ category.id }}">
 
                                 <!-- changes done for streched image- srishty -->
-                                <img class="card-img-top rewards-img " src="/media/{{ category.category_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
+                                <img class="card-img-top rewards-img " src="{{ media_url }}{{ category.category_image }}" alt="Card image cap" style="width: 100%; height: 200px; object-fit: contain;"/>
                                 <div class="card-body bg-dark">
                                     <h5 class="card-title"><b>{{ category.category }}</b></h5>
                                 <!--    <p class="card-text">{{ category.description }}</p> -->

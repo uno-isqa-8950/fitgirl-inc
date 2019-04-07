@@ -3,39 +3,88 @@
 {% block title %}Kindness Cards{% endblock %}
 
 {% block content %}
-<div class="container">
+<div>
         <div class="tabordion">
-                {% for key, values in inbox.items %}
-        
-        <section >
-          <input type="radio" name="sections" id="option" checked>
-          <label for="option">{{ key }}</label>
-          <article>
-            <h2>{{ key }}  says</h2>
-             {% for v in values %}
-                          <p class="received-kindness">{{v}}</p>
-                      {% endfor %}
-          </article>
-        </section>
-                      {% endfor %}
-          </div>
-    <!-- {% for key, values in inbox.items %}
-        <ul>
-            <li class="selected"><a href="index.html">{{ key }}</a></li>
-        </ul>
+            {% for key, values in all.items %}
 
-        <div>
-            <article>
-                <h3 style="font-size:18px;">{{ key }}</h3>
-                <hr />
-                <p></p>
-                {% for v in values %}
-                    <p>{{v}}</p>
-                {% endfor %}
-            </article>
-        </div>
-    {% endfor %} -->
+                <section>
+                  <input type="radio" name="sections" id="option" checked>
+                  <label for="option">{{ key }}</label>
+                  <article>
+                    <h2>{{ key }}  says</h2>
+                     {% for v in values %}
+                        <p class="received-kindness">{{v}}</p>
+                      {% endfor %}
+                  </article>
+                </section>
+            {% endfor %}
+          </div>
+{#    {% for key, values in all.items %}#}
+{#        <ul>#}
+{#            <li class="selected"><a href="index.html">{{ key }}</a></li>#}
+{#        </ul>#}
+{#        <div>#}
+{#            <article>#}
+{#                <h3 style="font-size:18px;">{{ key }}</h3>#}
+{#                <hr />#}
+{#                <p></p>#}
+{#                {% for v in values %}#}
+{#                    <p>{{v}}</p>#}
+{#                {% endfor %}#}
+{#            </article>#}
+{#        </div>#}
+{#    {% endfor %}#}
 </div>
+
+<div class="container">
+<div class="wrap kindness" id="wrap">
+  <div class="kindnessCardContainer card--inner">
+    {% if unread.items %}
+        {% for name, message in unread.items %}
+            <u><i><label>{{ name }} says</label></i></u>
+            {% for v in message %}
+                <p>{{v}}</p>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <h6><i>You have no new messages</i></h6>
+{#        <img src="/static/images/heart.png">#}
+    {% endif %}
+
+  </div>
+
+  <div class="kindnessCardContainer card--front back" onclick="openCard();"></div>
+  <div class="kindnessCardContainer card--front" onclick="openCard();">
+    <h2>See new messages!</h2>
+  </div>
+</div>
+<form action="{% url 'mark_read' %}">
+    <button type="button" onclick="openCard();" id="button">Open Card</button>
+</form>
+</div>
+
+<script>
+
+function openCard() {
+  var button = document.getElementById('button');
+
+  if(button.innerHTML == 'Open Card') {
+      button.type = 'button';
+      button.innerHTML = 'Close Card';
+  } else if(button.innerHTML = 'Close Card') {
+      button.type = 'submit';
+      button.innerHTML = 'Open Card';
+  } else {
+        button.innerHTML = 'Open Card';
+  }
+
+  var cards = document.querySelectorAll('.kindnessCardContainer');
+  for(var i = 0; i < cards.length; i++) {
+    cards[i].classList.toggle('open');
+  }
+}
+</script>
+
 {% endblock %}
 
 
