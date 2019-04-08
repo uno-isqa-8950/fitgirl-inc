@@ -738,8 +738,8 @@ class SidebarContentPage(Page):
 #Announcement
 class AnnouncementAlertPage(Page):
     announcements = RichTextField(blank=True)
-    start_date = models.DateTimeField("Start Date", null=True, blank=True)
-    end_date = models.DateTimeField("End Date", null=True, blank=True)
+    start_date = models.DateField("Start Date", null=True, blank=True)
+    end_date = models.DateField("End Date", null=True, blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('announcements', classname="full"),

@@ -945,7 +945,7 @@ def send_message(request):
 
 def inbox(request):
     if request.method == 'GET':
-        all_messages = KindnessMessage.objects.filter(to_user=request.user.username)
+        all_messages = KindnessMessage.objects.filter(to_user=request.user.username).order_by('-message_id')
         unread_messages = all_messages.filter(read_message=False)
         # user = User.objects.get(email=request.user.email)
         # unread_message = KindnessMessage.objects.filter(to_user=user).filter(read_message=False)
