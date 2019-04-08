@@ -25,12 +25,12 @@
                 <input type="hidden" value="{{ item }}">
                 <input type="hidden" value="{{ current_date }}">
                             <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
-                                <i class="fas fa-check complete"></i> {{ item.text }}</a>
+                                <i class="fas fa-check complete"></i>&nbsp;{{ item.text }}</a>
                         </li>
                     {% else %}
                         <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
                             <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded disabled">
-                                <i class="fas fa-check"></i> {{ item.text }}</a>
+                                <i class="fas fa-check"></i>&nbsp; {{ item.text }}</a>
                         </li>
                     {% endif %}
                 {% elif current_date < item.specific.start_date|date:"Y-m-d" %}
@@ -42,12 +42,12 @@
                     {% if done %}
                         <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
                             <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded ">
-                                <i class="fas fa-check complete"></i> {{ item.text }}</a>
+                                <i class="fas fa-check complete"></i> &nbsp;{{ item.text }}</a>
                         </li>
                     {% else %}
                         <li class="{{ item.active_class }}{% if item.has_children_in_menu %} dropdown{% endif %} list-unstyled">
                             <a href="{{ item.href }}"  class="btn btn-sm btn-pink btn-rounded ">
-                                <i class="fas fa-check"></i> {{ item.text }}</a>
+                                <i class="fas fa-check"></i>&nbsp; {{ item.text }}</a>
                         </li>
                     {% endif %}
                     <!--

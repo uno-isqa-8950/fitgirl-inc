@@ -144,15 +144,22 @@
                 {% endif %}
             </ul>
             <ul class="navbar-nav navbar-right ">
-                <li class="nav-item admin-hide">
-                    <a class="nav-link hoverable" href="/pages/rewards/"
-                       style="background-color: rgba(255,255,255,.1); top: -4px;"><i class="fas fa-gift" style="padding-left: 5px;"></i>&nbspReward Points: {{ user.profile.points }}<span
-                            class="sr-only">(current)</span></a>
-                </li>
+                    <!-- <li class="nav-item admin-hide">
+                        <a class="nav-link hoverable" href="/pages/rewards/"
+                           style="background-color: rgba(255,255,255,.1); top: -4px;"><i class="fas fa-gift" style="padding-left: 5px;"></i>&nbspReward Points: {{ user.profile.points }}<span
+                                class="sr-only">(current)</span></a>
+                    </li> -->
+                    <li class="nav-item admin-hide">
+                        
+                    <a href="/pages/rewards/" class="dropdown-toggle avatar-menu">
+                            <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
+                        </a>
+                        <span class="notification-dot"> {{ user.profile.points }}</span>
+                    </li>
                 <li class="dropdown admin-hide">
-                    <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown">
-                        <img class="bell-account-img" alt="Notifications"
-                             src="{% static 'images/bell.png' %}" height="30" width="30">
+                    <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" style="position:relative">
+                        <img class="bell-account-img" alt="Notifications" src="{% static 'images/bell.png' %}" height="30" width="30">
+                             <!-- <span class="notification-dot"> {% unread_message %}</span> -->
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box notifications-dropdown-box">
                         <li class="nav-item ">
