@@ -405,7 +405,7 @@ def edit(request):
                                  data=request.POST)
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
-                                       files=request.FILES)
+                                       files=request.FILES, user=request.user)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -418,12 +418,13 @@ def edit(request):
             messages.warning(request, 'Please correct the errors below!')
     else:
         user_form = UserEditForm(instance=request.user)
-        profile_form = ProfileEditForm(instance=request.user.profile)
+        profile_form = ProfileEditForm(instance=request.user.profile, user=request.user)
+        # print(profile_form)
     return render(request,
                   'account/edit.html',
                   {'user_form': user_form,
                    'profile_form': profile_form,
-                   'activated':activated})
+                   'activated': activated})
 
 @login_required
 def user_edit(request):
@@ -441,7 +442,8 @@ def user_edit(request):
                                  data=request.POST)
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
-                                       files=request.FILES)
+                                       files=request.FILES, user=request.user)
+        print(user_form.is_valid(), profile_form.is_valid())
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -454,7 +456,7 @@ def user_edit(request):
             messages.warning(request, 'Please correct the errors below!')
     else:
         user_form = UserEditForm(instance=request.user)
-        profile_form = ProfileEditForm(instance=request.user.profile)
+        profile_form = ProfileEditForm(instance=request.user.profile, user=request.user)
     return render(request,
                   'account/user_edit_profile.html',
                   {'user_form': user_form,
