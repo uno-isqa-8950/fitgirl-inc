@@ -2314,7 +2314,7 @@ img {
   box-sizing: border-box;
 }
 
-h2 {
+.kindnessCardContainer h2 {
   font-family: "Dancing Script", serif;
   font-weight: normal;
   font-size: 45px;
@@ -2391,7 +2391,7 @@ h2 {
   transition: all 1s ease-in-out;
 }
 
-button {
+.kindness button {
   -webkit-appearance: none;
   background: #E53935;
   border: 5px solid #9f1815;
@@ -2404,12 +2404,12 @@ button {
   margin-top: 20px;
   box-shadow: 0 4px 2px rgba(0, 0, 0, 0.3);
 }
-button:active {
+.kindness button:active {
   border-bottom-width: 2px;
   margin-top: 23px;
   outline: none;
 }
-button:focus {
+.kindness button:focus {
   outline: none;
 }
 
@@ -2421,6 +2421,7 @@ button:focus {
     color: #fff;
     background: #1c1c1c;
     border-color: #000;
+    position: relative;
 }
 .alert-info {
     color: #31708f;
@@ -2434,12 +2435,13 @@ button:focus {
     border-radius: 0px;
 }
 .alert-dismissable .warning-close, .alert-dismissible .warning-close {
-    right: 12px;
+    right: 10px;
+    top:5px;
+    padding:5px;
+    margin: 0;
 }
 .alert-dismissable .warning-close, .alert-dismissible .warning-close {
-    position: relative;
-    top: -27px;
-    right: -15px;
+    position: absolute;
     color: inherit;
 }
 button.close {
@@ -2460,7 +2462,13 @@ button.close {
     /*opacity: .2;*/
     margin-right: 20px;
 }
-
+.unread-cards, .all-cards{
+  position: absolute;
+  right:0;
+}
+/* #warning-alert{
+ display: none;
+} */
 /*button .warning-close{*/
     /*-webkit-appearance: none;*/
   /*!*background: #E53935;*!*/
