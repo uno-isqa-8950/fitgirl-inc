@@ -93,10 +93,13 @@ class ProfileEditForm(forms.ModelForm):
 
     def __init__(self, user, *args, **kwargs):
         super(ProfileEditForm, self).__init__(*args, **kwargs)
-        school_name = user.profile.school #in future school should be linked to school table
-        school = School.objects.get(school_name=school_name)
-        school_id = school.school_id
-        self.initial['school'] = school_id
+        if user.profile.school:
+            school_name = user.profile.school #in future school should be linked to school table
+            school = School.objects.get(school_name=school_name)
+            school_id = school.school_id
+            self.initial['school'] = school_id
+        else:
+            pass
 
 
 class ProgramForm(forms.ModelForm):

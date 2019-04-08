@@ -1046,7 +1046,7 @@ def edit_user(request,pk):
     if request.method == 'POST':
         # update
         form = UserEditForm(instance=user,data=request.POST,files=request.FILES)
-        form1 = ProfileEditForm(instance=user1,data=request.POST,files=request.FILES)
+        form1 = ProfileEditForm(instance=user1,data=request.POST,files=request.FILES, user=user)
 
         if form1.is_valid() and form.is_valid():
             #user1.profile.photo = ProfileEditForm.cleaned_data['photo']
@@ -1065,7 +1065,7 @@ def edit_user(request,pk):
     else:
         # edit
         form = UserEditForm(instance=user)
-        form1 = ProfileEditForm(instance=user1)
+        form1 = ProfileEditForm(instance=user1, user=user)
         return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
     return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
 
