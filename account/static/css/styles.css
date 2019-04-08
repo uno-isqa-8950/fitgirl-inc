@@ -484,7 +484,8 @@ height: 100% !important;
 .rewards-index-page .rewards-img{
   width: 100%;
   height: 200px;
-  object-fit: contain !important;
+  /* object-fit: contain !important; */
+  object-fit: cover !important;
   }
 /*fixing the footer spacing issues-ends here-karthik*/
 
@@ -493,7 +494,8 @@ height: 100% !important;
 .extra-index-page .rewards-img{
   width: 100%;
   height: 200px;
-  object-fit: contain !important;
+  /* object-fit: contain !important; */
+  object-fit: cover !important;
   }
 
 /* added space on logout, reset done, change done - hghanta
@@ -1241,7 +1243,18 @@ iframe {
   background: url(../images/popup_bg.jpg);
   background-repeat: repeat;
 }
-
+li.nav-item{
+  position: relative;
+}
+.nav-item .notification-dot{
+  position: absolute;
+  background: red;
+  border-radius: 52px;
+  font-size: 9px;
+  color: white;
+  top: 0px;
+  right: 0;
+}
 /* tabs */
 /* custom inclusion of right, left and below tabs */
 
