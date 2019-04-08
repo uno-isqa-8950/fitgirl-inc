@@ -79,12 +79,18 @@ $(".nutrition-facts .rich-text").css("height",nutrition_height);
     $('.logout-button').click(function() {
         window.sessionStorage.clear();
     })
-    // Affirmations popup code ends here - Karthik
-// if($(".footer-from-disclaimer").length == 0){
-// }else{
-//
-//     $("#userLandingContent1").css("display","none")
-// }
+    
+    
+    
+    $('.warning-close').click(function() {
+        localStorage.setItem('checkalert', true); 
+    })
+    var v = localStorage.getItem('checkalert'); 
+    if (v == 'true') { // Check if it's equal to the string true
+     $("#warning-alert").hide();
+    } else {
+        $("#warning-alert").show();
+    }
 
 
     //Registration breadcrumb issue fix - karthik
@@ -94,6 +100,8 @@ $(".nutrition-facts .rich-text").css("height",nutrition_height);
         $(".step.step-1").removeClass("done");
         $(".step.step-1").addClass("active");
     }
+
+
 
 $( "#strength .rich-text img" ).wrapAll( "<div class='strength-images-array' />");
 $( "#agility .rich-text img" ).wrapAll( "<div class='agility-images-array' />");
@@ -149,6 +157,15 @@ console.log(slideCount);
     $('.next').click(function () {
         moveRight();
     });
+    $(".all-cards").click(function(){
+        $(".kindness").slideUp("slow");
+        $(".all-kindness-wrapper").slideDown();
+    })
+    $(".unread-cards").click(function(){
+        $(".kindness").slideDown();
+        $(".all-kindness-wrapper").slideUp("slow");
+    })
+
 
 /*BEGIN Swipe*/
 $(function() {			
@@ -214,8 +231,8 @@ $( ".nutrition-images-array" ).after( $(".nutrition-facts") );
 //     // $(".fitgirlinc-footer-socialLinks").addClass("nutrition-post-page container");
 // }
 
-if ($("#dtDynamicVerticalScroll, .trigger-admin").length > 0) {
-    $("body").addClass("admin-page")
+if ($("#dtDynamicVerticalScroll, .trigger-admin, .wagtail-wrapper").length > 0) {
+    $("body").addClass("admin-page");
 }
 if($("#canvas").length>0){
     $("body").attr('style', 'background-image: none !important');

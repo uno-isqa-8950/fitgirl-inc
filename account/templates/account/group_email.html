@@ -10,19 +10,43 @@
     <form action="{% url 'send_group_email' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <p>To: {{ to_list }}</p>
-        {{ form.subject|as_crispy_field }}
-        {{ form.message|as_crispy_field }}
-        <input type="hidden" name="to_list" value="{{ to_list }}">
         <p>Select which content to be sent:
             <ul>
                 <li><input type = "radio" name = "selection" value = "text" checked/> Message</li>
                 <li><input type = "radio" name = "selection" value = "CMS content" /> CMS template
+                    <span class="templates">
                         {{ template_form.templates }}
+                    </span>
                 </li>
             </ul>
         </p>
-        <p><a><input type="submit" value="Send E-mail"></a></p>
+        <div class="desc">
+            {{ form.subject|as_crispy_field }}
+            {{ form.message|as_crispy_field }}
+        </div>
+
+        <input type="hidden" name="to_list" value="{{ to_list }}">
+        <a><input type="submit" value="Send E-mail"></a>
     </form>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $("span.templates").hide();
+    $("input[name$='selection']").click(function() {
+        var test = $(this).val();
+        console.log(test);
+        if (test == 'CMS content'){
+            $("div.desc").hide();
+            $("span.templates").show();
+            return true;
+        }else if (test == 'text') {
+            $("div.desc").show();
+            $("span.templates").hide();
+            return true;
+        }
+    });
+});
+</script>
 {% endif %}
 {% endblock %}

@@ -1447,7 +1447,7 @@ canvas{
     font-size: 12px !important;
     margin-left: 8px;
     padding-left: 8px;
-    border-left: 1px solid grey;
+    /*border-left: 1px solid grey;*/
 }
 .notifications-dropdown-box table tr td:first-child{
   border-left: none;
@@ -2314,31 +2314,47 @@ img {
   box-sizing: border-box;
 }
 
-h2 {
-  font-family: "Dancing Script", serif;
-  font-weight: normal;
+.kindnessCardContainer h2 {
+  font-family: 'Amatic SC', cursive !important;
   font-size: 45px;
-  color: #009500;
+  color: yellow;
   text-align: center;
+  font-weight: bold;
 }
 
 .wrap {
   width: 350px;
-  height: 300px;
+  height: 500px;
   position: relative;
   transform: rotateX(30deg);
   transform-style: preserve-3d;
   box-shadow: 0 4px 2px rgba(0, 0, 0, 0.3);
 }
-
+.card-wrapper{
+  margin: 0;
+  background-color: #4CAF50;
+  /* background: radial-gradient(circle at center, rgba(50,50,50,1) 0%,rgba(14,14,14,1) 35%); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  perspective: 1000px;
+  background:  url(../images/kindnessbg.jpg) repeat;
+}
 .kindnessCardContainer {
   height: 100%;
   width: 100%;
   background-color: #fff;
   border-radius: 2px;
   position: relative;
-  border: 8px solid #B60003;
+  border: 5px solid #B60003;
   text-align: center;
+  font-family: 'Amatic SC', cursive !important;
+  font-weight: bold;
+  font-size: 20px;
+  background: url(../images/inner-card.jpg) repeat 100%;
+    color: yellow;
 }
 .card--front {
   display: flex;
@@ -2352,6 +2368,7 @@ h2 {
   z-index: 2;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  background: url(../images/inner-card.jpg) repeat 100%;
 }
 .card--front.open {
   transform: rotateY(-180deg);
@@ -2391,7 +2408,7 @@ h2 {
   transition: all 1s ease-in-out;
 }
 
-button {
+.kindness button {
   -webkit-appearance: none;
   background: #E53935;
   border: 5px solid #9f1815;
@@ -2404,11 +2421,242 @@ button {
   margin-top: 20px;
   box-shadow: 0 4px 2px rgba(0, 0, 0, 0.3);
 }
-button:active {
+.kindness button:active {
   border-bottom-width: 2px;
   margin-top: 23px;
   outline: none;
 }
-button:focus {
+.kindness button:focus {
   outline: none;
+}
+
+/*Warning Announcement starts - Aishwarya*/
+.alert {
+    margin-bottom: 0;
+    text-align: center;
+    padding: 8px;
+    color: #fff;
+    background: #1c1c1c;
+    border-color: #000;
+    position: relative;
+}
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 0px;
+}
+.alert-dismissable .warning-close, .alert-dismissible .warning-close {
+    right: 10px;
+    top:5px;
+    padding:5px;
+    margin: 0;
+}
+.alert-dismissable .warning-close, .alert-dismissible .warning-close {
+    position: absolute;
+    color: inherit;
+}
+button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+}
+.warning-close {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 0px 0 #fff;
+    filter: alpha(opacity=20);
+    /*opacity: .2;*/
+    margin-right: 20px;
+}
+.unread-cards, .all-cards{
+  position: absolute;
+  right:0;
+  top: 0; 
+  z-index: 100;
+}
+.all-kindness-wrapper{
+  display: none;
+}
+/* #warning-alert{
+ display: none;
+} */
+/*button .warning-close{*/
+    /*-webkit-appearance: none;*/
+  /*!*background: #E53935;*!*/
+  /*!*border: 5px solid #9f1815;*!*/
+  /*border-width: 0 0 5px;*/
+  /*padding: 10px 20px;*/
+  /*width: 30px;*/
+  /*text-align: center;*/
+  /*display: block;*/
+  /*transform: rotateX(30deg);*/
+  /*margin-top: 20px;*/
+  /*box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);*/
+/*}*/
+.alert p {
+    font-size: 16px;
+}
+.alert>p, .alert>ul {
+    margin-bottom: 0;
+}
+.alert a {
+    color: #00aeef;
+    font-size: 16px;
+}
+.alert {
+    margin-bottom: 0;
+    text-align: center;
+    padding: 8px;
+    color: #000000;
+    background: #fcfacf;
+    margin-bottom: 4px;
+    /*border-color: #000;*/
+}
+.admin-page .admin-hide{
+  display: none;
+}
+/*Warning Announcement ends - Aishwarya*/
+
+.bell-account-img {
+    border-radius: .25rem;
+    margin: 0 0.25em;
+}
+
+
+
+.tabordion {
+  color: #333;
+  display: block;
+  font-family: arial, sans-serif;
+  margin: auto;
+  position: relative;
+  width: 80%;
+  height: 100%;
+  padding: 25px 0px;
+}
+
+.tabordion input[name="sections"] {
+  left: -9999px;
+  position: absolute;
+  top: -9999px;
+}
+
+.tabordion section {
+  display: block;
+}
+
+.tabordion section label {
+  background: #ccc;
+  border:1px solid #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 1em;
+  padding: 15px 20px;
+  position: relative;
+  width: 20%;
+  z-index:100;
+}
+
+.tabordion section article {
+  display: none;
+  left: 20%;
+  min-width: 300px;
+  padding: 0 0 0 21px;
+  position: absolute;
+  top: 0;
+}
+
+.tabordion section article:after {
+  background-color: #ccc;
+  bottom: 0;
+  content: "";
+  display: block;
+  left:-229px;
+  position: absolute;
+  top: 0;
+  /*width: 220px;*/
+  z-index:1;
+}
+
+.tabordion input[name="sections"]:checked + label {
+  background: #ffb6c1;
+  color: black;
+    border: 1px solid grey;
+}
+
+.tabordion input[name="sections"]:checked ~ article {
+  display: block;
+  min-height: 500px;
+  max-height: 575px;
+  width: 81.8%;
+  background: #F6F6F6;
+  border-left: 1px solid #cfcfcf;
+  overflow-y: auto;
+  font-family: cursive;
+}
+article 
+.received-kindness{
+  border: 1px solid #cfcfcf;
+  padding:  20px;
+  background: #BFD9DA;
+    opacity: 0.8;
+    margin-right: 20px;
+}
+@media (max-width: 533px) {
+
+
+  .tabordion {
+    width: 100%;
+  }
+
+  .tabordion section label {
+    font-size: 1em;
+    width: 160px;
+  }
+
+ .tabordion section article {
+    left: 200px;
+    min-width: 270px;
+  }
+
+  .tabordion section article:after {
+    background-color: #ccc;
+    bottom: 0;
+    content: "";
+    display: block;
+    left:-199px;
+    position: absolute;
+    top: 0;
+    width: 200px;
+
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+
+  .tabordion {
+    width: 96%;
+  }
+}
+
+
+@media (min-width: 1366px) {
+
+  .tabordion {
+    width: 100%;
+  }
 }

@@ -75,7 +75,7 @@ class ProfileEditForm(forms.ModelForm):
     state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
     day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
-    school = forms.ModelChoiceField(widget=forms.Select,queryset=School.objects.all())
+    school = forms.ModelChoiceField(widget=forms.Select, queryset=School.objects.all())
     select_your_background_color_for_website = forms.ChoiceField(widget=forms.Select, choices=BACKGROUND_CHOICES)
 
 
@@ -88,7 +88,15 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('photo','bio', 'secondary_email','other_email', 'date_of_birth', 'city', 'state', 'zip', 'day_phone', 'age_group', 'school','select_your_background_color_for_website')           # Added Photo to the Start --Shamrose
+        fields = ('photo', 'bio', 'secondary_email', 'other_email', 'date_of_birth', 'city', 'state', 'zip', 'day_phone',
+                  'age_group', 'school', 'select_your_background_color_for_website')           # Added Photo to the Start --Shamrose
+
+    def __init__(self, user, *args, **kwargs):
+        super(ProfileEditForm, self).__init__(*args, **kwargs)
+        school_name = user.profile.school #in future school should be linked to school table
+        school = School.objects.get(school_name=school_name)
+        school_id = school.school_id
+        self.initial['school'] = school_id
 
 
 class ProgramForm(forms.ModelForm):
