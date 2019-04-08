@@ -34,42 +34,70 @@
                        <span style="color:white"><p class="card-text" style="color:white">{{ page.physicaldesc|richtext }}</p></span>
                     </div>
                   </div>
-                 <div class="card">
 
-                    <!--<a href="/"><img class="card-img-top" src="/media/images/nutritional.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">-->
-                    <!--</a>-->
+
+                <div class="card hoverable" >
+
+                        <a href="/pages/{% current_program %}/{% current_week %}/physical/"><img class="physical_card" style="object-fit: cover;">{% image page.card_image fill-300x200 %}
+                      </a>
+                    <!--a href="/"><img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">&ndash;&gt;-->
+                    <!--</a>&ndash;&gt;-->
+
+
                         <div class="card-body bg-dark">
                         <h5 class="card-title" style="color:deeppink" ><b>{{ page.nutritional|richtext }}</b></h5>
-                      <span style="color:white"><p class="card-text" style="color:white">{{ page.nutritionaldesc|richtext }}</p></span>
+                       <span style="color:white"><p class="card-text" style="color:white">{{ page.nutritionaldesc|richtext }}</p></span>
                     </div>
-                 </div>
-                 <div class="card">
-                        <!--{% image page.card_imagec fill-100x300 %}-->
-                    <a href="/pages/{% current_program %}/{% current_week %}/nutritional/"><img class="physical_card" style="object-fit: cover;">{% image page.card_imageb fill-300x200 %}
-                     </a>
+                  </div>
 
-                    <!--<a href="/"><img class="card-img-top" src="../../../media/images/shutterstock_280067543 (1).jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">-->
-                    <!--</a>-->
+
+                <div class="card hoverable" >
+
+                        <a href="/pages/{% current_program %}/{% current_week %}/nutritional/"><img class="physical_card" style="object-fit: cover;">{% image page.card_image fill-300x200 %}
+                      </a>
+                    <!--a href="/"><img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">&ndash;&gt;-->
+                    <!--</a>&ndash;&gt;-->
+
+
+                        <div class="card-body bg-dark">
+                        <h5 class="card-title" style="color:deeppink" ><b>{{ page.nutritional|richtext }}</b></h5>
+                       <span style="color:white"><p class="card-text" style="color:white">{{ page.nutritionaldesc|richtext }}</p></span>
+                    </div>
+                  </div>
+
+
+                <div class="card hoverable" >
+
+                        <a href="/pages/{% current_program %}/{% current_week %}/mental/"><img class="mental_card" style="object-fit: cover;">{% image page.card_image fill-300x200 %}
+                      </a>
+                    <!--a href="/"><img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">&ndash;&gt;-->
+                    <!--</a>&ndash;&gt;-->
+
+
                         <div class="card-body bg-dark">
                         <h5 class="card-title" style="color:deeppink" ><b>{{ page.mental|richtext }}</b></h5>
                        <span style="color:white"><p class="card-text" style="color:white">{{ page.mentaldesc|richtext }}</p></span>
                     </div>
-                 </div>
-                 <div class="card">
-                    <a href="/pages/{% current_program %}/{% current_week %}/mental/"><img class="mental_card">{% image page.card_imaged fill-300x200 %}
-                     </a>
+                  </div>
 
-                    <!--<a href="/"><img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">-->
-                    <!--</a>-->
+
+                <div class="card hoverable" >
+
+                        <a href="/pages/{% current_program %}/{% current_week %}/relational/"><img class="relational_card" style="object-fit: cover;">{% image page.card_image fill-300x200 %}
+                      </a>
+                    <!--a href="/"><img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">&ndash;&gt;-->
+                    <!--</a>&ndash;&gt;-->
+
+
                         <div class="card-body bg-dark">
                         <h5 class="card-title" style="color:deeppink" ><b>{{ page.relational|richtext }}</b></h5>
                        <span style="color:white"><p class="card-text" style="color:white">{{ page.relationaldesc|richtext }}</p></span>
                     </div>
-                 </div>
-                <div class="card">
-                    <a href="/pages/{% current_program %}/{% current_week %}/relational/"><img class="mental_card">{% image page.card_imaged fill-300x200 %}
-                     </a>
-            </div>
+                  </div>
+
+
+
+
         </div>
     </div>
 <!--<p><a href="{{ page.get_parent.url }}">Back</a></p>-->
