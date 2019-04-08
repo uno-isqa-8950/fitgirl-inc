@@ -1,7 +1,8 @@
 {% load staticfiles %}
 {% load menu_tags %}
+{% load sidebar_data %}
 {% load unread_messages %}
-
+{% load announcement_alert %}
 
 <!DOCTYPE html>
 <html>
@@ -189,7 +190,7 @@
                                         <td><img class="announcement-icon" alt="Announcements"
                                                  src="{% static 'images/iconfinder_sale_lineal_color_cnvrt-15_3827707.png' %}" height="37"
                                                  width="40"/></td>
-                                        <td><span>Link sidebar announcement template tag here</span></td>
+                                        <td><span>{% sidebar %}</span></td>
                                     </tr>
                                 </table>
                                 <span class="sr-only">(current)</span>
@@ -265,7 +266,7 @@
 {% else %}
 <div class="alert alert-info alert-dismissible" id="warning-alert" role="alert">
    <button aria-label="Close" class="warning-close" data-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
-       <h5> Link CMS page here with condition of start date & end date! </h5>
+       <h5> {% announcement_alert %}</h5>
 </div>
 <!--<section class="container ct-isotope-gallery__container">-->
 <!--<div class="row">-->
