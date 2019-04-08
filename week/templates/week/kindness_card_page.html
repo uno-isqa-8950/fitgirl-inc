@@ -65,7 +65,7 @@
               {% csrf_token %}
               <div class="modal-body kindness-modal-content">
                   <!--<label>Dear <span class="popup-name">Jane</span>,</label>-->
-                  <textarea name="message" maxlength="280" placeholder="Enter your Kindness message here"></textarea>
+                  <textarea required name="message" maxlength="280" placeholder="Enter your Kindness message here"></textarea>
               </div>
               <div class="modal-footer text-center">
                <input type="submit" class="btn btn-secondary btn-pink affirmations_close_button" value="Send">

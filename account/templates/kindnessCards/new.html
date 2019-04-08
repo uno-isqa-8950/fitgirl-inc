@@ -3,7 +3,10 @@
 {% block title %}Kindness Cards{% endblock %}
 
 {% block content %}
-<div class="container">
+
+
+<div class="container all-kindness-wrapper" style="position:relative">
+<a class=" btn unread-cards btn-pink ">Show Unread Cards</a>
         <div class="tabordion">
             {% for key, values in all.items %}
 
@@ -36,19 +39,30 @@
 {#    {% endfor %}#}
 </div>
 
-<div class="container">
+<div class="container kindness" style="position:relative;padding: 0;">
+    <a class=" btn all-cards btn-pink ">Show All My Cards</a>
+    <div class="card-wrapper">
 <div class="wrap kindness" id="wrap">
   <div class="kindnessCardContainer card--inner">
-    
+    <span style="
+    text-align: left;
+    float: left;
+    clear: right;
+    width: 100%;
+    margin-left: 20px;
+">Hi,</span>
       <ul>
     {% if unread.items %}
         {% for name, message in unread.items %}
           <li>
-            <u><i><label>{{ name }} says</label></i></u>
             {% for v in message %}
                 <p>{{v}}</p>
-              </li>
             {% endfor %}
+          
+            <u><i><label style="
+              text-align: right;
+          ">{{ name }}</label></i></u>
+          </li>
         {% endfor %}
     {% else %}
   </ul>
@@ -60,11 +74,16 @@
 
   <div class="kindnessCardContainer card--front back" onclick="openCard();"></div>
   <div class="kindnessCardContainer card--front" onclick="openCard();">
-    <h2>See new messages!</h2>
+    <h2>Kindness Cards!</h2>
   </div>
 </div>
+</div>
 <form action="{% url 'mark_read' %}">
-    <button type="button" onclick="openCard();" id="button">Open Card</button>
+    <button type="button" onclick="openCard();" id="button" style="
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 15px;
+">Open Card</button>
 </form>
 </div>
 
