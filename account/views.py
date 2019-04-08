@@ -405,7 +405,7 @@ def edit(request):
                                  data=request.POST)
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
-                                       files=request.FILES, user=request.user)
+                                       files=request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -418,13 +418,12 @@ def edit(request):
             messages.warning(request, 'Please correct the errors below!')
     else:
         user_form = UserEditForm(instance=request.user)
-        profile_form = ProfileEditForm(instance=request.user.profile, user=request.user)
-        # print(profile_form)
+        profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
                   'account/edit.html',
                   {'user_form': user_form,
                    'profile_form': profile_form,
-                   'activated': activated})
+                   'activated':activated})
 
 @login_required
 def user_edit(request):
@@ -442,8 +441,7 @@ def user_edit(request):
                                  data=request.POST)
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
-                                       files=request.FILES, user=request.user)
-        print(user_form.is_valid(), profile_form.is_valid())
+                                       files=request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -456,7 +454,7 @@ def user_edit(request):
             messages.warning(request, 'Please correct the errors below!')
     else:
         user_form = UserEditForm(instance=request.user)
-        profile_form = ProfileEditForm(instance=request.user.profile, user=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
                   'account/user_edit_profile.html',
                   {'user_form': user_form,
@@ -945,7 +943,7 @@ def send_message(request):
 
 def inbox(request):
     if request.method == 'GET':
-        all_messages = KindnessMessage.objects.filter(to_user=request.user.username).order_by('-message_id')
+        all_messages = KindnessMessage.objects.filter(to_user=request.user.username)
         unread_messages = all_messages.filter(read_message=False)
         # user = User.objects.get(email=request.user.email)
         # unread_message = KindnessMessage.objects.filter(to_user=user).filter(read_message=False)
@@ -1046,7 +1044,7 @@ def edit_user(request,pk):
     if request.method == 'POST':
         # update
         form = UserEditForm(instance=user,data=request.POST,files=request.FILES)
-        form1 = ProfileEditForm(instance=user1,data=request.POST,files=request.FILES, user=user)
+        form1 = ProfileEditForm(instance=user1,data=request.POST,files=request.FILES)
 
         if form1.is_valid() and form.is_valid():
             #user1.profile.photo = ProfileEditForm.cleaned_data['photo']
@@ -1065,7 +1063,7 @@ def edit_user(request,pk):
     else:
         # edit
         form = UserEditForm(instance=user)
-        form1 = ProfileEditForm(instance=user1, user=user)
+        form1 = ProfileEditForm(instance=user1)
         return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
     return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
 

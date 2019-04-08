@@ -82,15 +82,15 @@ $(".nutrition-facts .rich-text").css("height",nutrition_height);
     
     
     
-    $('.warning-close').click(function() {
-        localStorage.setItem('checkalert', true); 
-    })
-    var v = localStorage.getItem('checkalert'); 
-    if (v == 'true') { // Check if it's equal to the string true
-     $("#warning-alert").hide();
-    } else {
-        $("#warning-alert").show();
-    }
+    // $('.warning-close').click(function() {
+    //     localStorage.setItem('checkalert', true); 
+    // })
+    // var v = localStorage.getItem('checkalert'); 
+    // if ((v == 'true')||(v != null)) { // Check if it's equal to the string true
+    //  $("#warning-alert").hide();
+    // } else {
+    //     $("#warning-alert").show();
+    // }
 
 
     //Registration breadcrumb issue fix - karthik
