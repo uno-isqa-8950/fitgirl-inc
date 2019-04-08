@@ -101,6 +101,8 @@ $(".nutrition-facts .rich-text").css("height",nutrition_height);
         $(".step.step-1").addClass("active");
     }
 
+
+
 $( "#strength .rich-text img" ).wrapAll( "<div class='strength-images-array' />");
 $( "#agility .rich-text img" ).wrapAll( "<div class='agility-images-array' />");
 $( "#flexibility .rich-text img" ).wrapAll( "<div class='flexibility-images-array' />");
@@ -155,6 +157,15 @@ console.log(slideCount);
     $('.next').click(function () {
         moveRight();
     });
+    $(".all-cards").click(function(){
+        $(".kindness").slideUp("slow");
+        $(".all-kindness-wrapper").slideDown();
+    })
+    $(".unread-cards").click(function(){
+        $(".kindness").slideDown();
+        $(".all-kindness-wrapper").slideUp("slow");
+    })
+
 
 /*BEGIN Swipe*/
 $(function() {			
@@ -220,8 +231,8 @@ $( ".nutrition-images-array" ).after( $(".nutrition-facts") );
 //     // $(".fitgirlinc-footer-socialLinks").addClass("nutrition-post-page container");
 // }
 
-if ($("#dtDynamicVerticalScroll, .trigger-admin").length > 0) {
-    $("body").addClass("admin-page")
+if ($("#dtDynamicVerticalScroll, .trigger-admin, .wagtail-wrapper").length > 0) {
+    $("body").addClass("admin-page");
 }
 if($("#canvas").length>0){
     $("body").attr('style', 'background-image: none !important');
