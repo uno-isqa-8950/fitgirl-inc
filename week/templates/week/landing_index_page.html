@@ -3,6 +3,8 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load staticfiles %}
+{% load current_week %}
+{% load current_program %}
 
 
 {% block content %}
@@ -20,9 +22,9 @@
 
             <div class="card-deck ">
                   <div class="card hoverable" >
-                        {% image page.card_image fill-300x200 %}
 
-
+                        <a href="/pages/{% current_program %}/{% current_week %}/physical/"><img class="physical_card" style="object-fit: cover;">{% image page.card_image fill-300x200 %}
+                      </a>
                     <!--a href="/"><img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">&ndash;&gt;-->
                     <!--</a>&ndash;&gt;-->
 
@@ -33,7 +35,6 @@
                     </div>
                   </div>
                  <div class="card">
-                      {% image page.card_imageb fill-300x200 %}
 
                     <!--<a href="/"><img class="card-img-top" src="/media/images/nutritional.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">-->
                     <!--</a>-->
@@ -44,8 +45,8 @@
                  </div>
                  <div class="card">
                         <!--{% image page.card_imagec fill-100x300 %}-->
-                     {% image page.card_imagec fill-300x200 %}
-
+                    <a href="/pages/{% current_program %}/{% current_week %}/nutritional/"><img class="physical_card" style="object-fit: cover;">{% image page.card_imageb fill-300x200 %}
+                     </a>
 
                     <!--<a href="/"><img class="card-img-top" src="../../../media/images/shutterstock_280067543 (1).jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">-->
                     <!--</a>-->
@@ -55,9 +56,8 @@
                     </div>
                  </div>
                  <div class="card">
-                        <!--{% image page.card_imaged fill-100x300 %}-->
-                     {% image page.card_imaged fill-300x200 %}
-
+                    <a href="/pages/{% current_program %}/{% current_week %}/mental/"><img class="mental_card">{% image page.card_imaged fill-300x200 %}
+                     </a>
 
                     <!--<a href="/"><img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">-->
                     <!--</a>-->
