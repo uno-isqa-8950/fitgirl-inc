@@ -79,12 +79,18 @@ $(".nutrition-facts .rich-text").css("height",nutrition_height);
     $('.logout-button').click(function() {
         window.sessionStorage.clear();
     })
-    // Affirmations popup code ends here - Karthik
-// if($(".footer-from-disclaimer").length == 0){
-// }else{
-//
-//     $("#userLandingContent1").css("display","none")
-// }
+    
+    
+    
+    $('.warning-close').click(function() {
+        localStorage.setItem('checkalert', true); 
+    })
+    var v = localStorage.getItem('checkalert'); 
+    if (v == 'true') { // Check if it's equal to the string true
+     $("#warning-alert").hide();
+    } else {
+        $("#warning-alert").show();
+    }
 
 
     //Registration breadcrumb issue fix - karthik

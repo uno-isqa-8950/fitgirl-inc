@@ -3,7 +3,10 @@
 {% block title %}Kindness Cards{% endblock %}
 
 {% block content %}
-<div class="container">
+
+
+<div class="container" style="position:relative">
+<span class="unread-cards">Show Unread Cards</span>
         <div class="tabordion">
             {% for key, values in all.items %}
 
@@ -36,7 +39,8 @@
 {#    {% endfor %}#}
 </div>
 
-<div class="container">
+<div class="container kindness" style="position:relative">
+    <span class="all-cards">Show All My Cards</span>
 <div class="wrap kindness" id="wrap">
   <div class="kindnessCardContainer card--inner">
     
