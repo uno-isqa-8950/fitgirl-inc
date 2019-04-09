@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-#from .models import Profile, Program, Parameters, RewardCategory, RewardItem,School
-from .models import Profile, Program, Parameters, RewardCategory, RewardItem
+from .models import Profile, Program, Parameters, RewardCategory, RewardItem,School
+#from .models import Profile, Program, Parameters, RewardCategory, RewardItem
 from django.utils.translation import gettext as _
 from datetime import date
 import re
