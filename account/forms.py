@@ -76,7 +76,7 @@ class ProfileEditForm(forms.ModelForm):
     state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
     day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
-    #school = forms.ModelChoiceField(widget=forms.Select, queryset=School.objects.all())
+    school = forms.ModelChoiceField(widget=forms.Select, queryset=School.objects.all())
     select_your_background_color_for_website = forms.ChoiceField(widget=forms.Select, choices=BACKGROUND_CHOICES)
 
 
@@ -231,7 +231,7 @@ class RewardItemForm(forms.ModelForm):
         model = RewardItem
         fields = ('item', 'description', 'points_needed', 'qty_available', 'reward_image', 'category')
 
-        '''
+    
 class SchoolForm(forms.ModelForm):
     #school = forms.ModelMultipleChoiceField(queryset=School.objects.all())
     school_name = forms.CharField(max_length=30, required=True)
@@ -239,4 +239,4 @@ class SchoolForm(forms.ModelForm):
     class Meta:
         model = School
         fields = ('school_name',)
-'''
+
