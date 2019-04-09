@@ -16,6 +16,10 @@ def reward_categories():
         categories.add(category)
     return categories
 
+@register.simple_tag
+def all_reward_categories():
+    categories = RewardCategory.objects.all()
+    return categories
 
 @register.simple_tag
 def reward_items(category):
