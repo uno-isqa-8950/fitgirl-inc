@@ -231,6 +231,7 @@ class RewardItemForm(forms.ModelForm):
         model = RewardItem
         fields = ('item', 'description', 'points_needed', 'qty_available', 'reward_image', 'category')
 
+        '''
 class SchoolForm(forms.ModelForm):
     #school = forms.ModelMultipleChoiceField(queryset=School.objects.all())
     school_name = forms.CharField(max_length=30, required=True)
@@ -238,3 +239,4 @@ class SchoolForm(forms.ModelForm):
     class Meta:
         model = School
         fields = ('school_name',)
+'''
