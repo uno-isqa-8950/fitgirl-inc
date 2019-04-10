@@ -237,5 +237,5 @@ class Schools(models.Model):
     schools_name = models.CharField(max_length=25, blank=True, null=True)
 
     def __str__(self):
-        return str(self.school_name)
+        return str(self.schools_name)
 
