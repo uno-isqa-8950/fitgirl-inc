@@ -95,10 +95,10 @@ class ProfileEditForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(ProfileEditForm, self).__init__(*args, **kwargs)
         if user.profile.school:
-            school_name = user.profile.school #in future school should be linked to school table
-            school = School.objects.get(school_name=school_name)
-            school_id = school.school_id
-            self.initial['school'] = school_id
+            schools_name = user.profile.school #in future school should be linked to school table
+            schools = Schools.objects.get(schools_name=schools_name)
+            schools_id = schools.schools_id
+            self.initial['schools'] = schools_id
         else:
             pass
 
