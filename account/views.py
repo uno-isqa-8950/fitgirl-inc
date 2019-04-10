@@ -3,9 +3,9 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm, ProgramClone
-from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm,SchoolForm
+from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm,SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
-from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem,School
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem,Schools
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
@@ -1209,19 +1209,19 @@ def reward_item_edit(request, pk):
 
 @login_required
 def add_school(request):
-    addschool = School.objects.all()
+    addschool = Schools.objects.all()
     if request.method == 'POST':
-        form = SchoolForm(request.POST)
+        form = SchoolsForm(request.POST)
         if form.is_valid():
-            school = form.save(commit=False)
-            school.save()
+            schools = form.save(commit=False)
+            schools.save()
             messages.success(request, 'School added successfully')
             return redirect('add_school')
         else:
             messages.error(request, 'Error creating school. Retry!')
             # return HttpResponse('Error updating your profile!')
     else:
-        form = SchoolForm()
+        form = SchoolsForm()
         # print("Else")
         # profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,

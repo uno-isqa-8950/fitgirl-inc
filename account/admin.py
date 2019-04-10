@@ -3,7 +3,7 @@
 # Register your models here.
 from django.contrib import admin
 from .models import Program
-from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote,Inactiveuser,RewardsNotification, Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem,School
+from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote,Inactiveuser,RewardsNotification, Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem,Schools
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
@@ -107,8 +107,10 @@ class KindnessMessageAdmin(admin.ModelAdmin):
 
 admin.site.register(KindnessMessage, KindnessMessageAdmin)
 
-class SchoolAdmin(admin.ModelAdmin):
-    School = 'School'
-    list_display = ('school_name',)
 
-admin.site.register(School,SchoolAdmin)
+class SchoolsAdmin(admin.ModelAdmin):
+    Schools = 'Schools'
+    list_display = ('schools_name',)
+
+admin.site.register(Schools,SchoolsAdmin)
+
