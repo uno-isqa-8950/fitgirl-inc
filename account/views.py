@@ -1213,8 +1213,8 @@ def add_school(request):
     if request.method == 'POST':
         form = SchoolsForm(request.POST)
         if form.is_valid():
-            school = form.save(commit=False)
-            school.save()
+            schools = form.save(commit=False)
+            schools.save()
             messages.success(request, 'School added successfully')
             return redirect('add_school')
         else:
