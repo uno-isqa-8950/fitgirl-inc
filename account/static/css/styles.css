@@ -1246,7 +1246,7 @@ iframe {
 li.nav-item{
   position: relative;
 }
-.nav-item .notification-dot{
+.notification-dot{
   position: absolute;
   background: red;
   border-radius: 52px;
@@ -2672,4 +2672,8 @@ article
   .tabordion {
     width: 100%;
   }
+}
+
+.reward-types-container {
+        min-height: calc(75vh - 260px) !important;
 }
