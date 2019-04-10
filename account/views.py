@@ -1221,7 +1221,7 @@ def add_school(request):
             messages.error(request, 'Error creating school. Retry!')
             # return HttpResponse('Error updating your profile!')
     else:
-        form = SchoolForm()
+        form = SchoolsForm()
         # print("Else")
         # profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
