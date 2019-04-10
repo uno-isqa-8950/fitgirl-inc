@@ -1,5 +1,5 @@
 from django import template
-from account.models import RewardCategory, RewardItem, Profile
+from account.models import RewardCategory, RewardItem, Profile, Parameters
 from django.conf import settings
 
 register = template.Library()
@@ -48,3 +48,14 @@ def available_points(user):
         print(e)
         points = 0
     return points
+
+@register.simple_tag
+def are_rewards_active():
+    try:
+        settings = Parameters.objects.get(current_values=True)
+        active = settings.rewards_active
+    except AttributeError:
+        print('Error in are_rewards_active')
+        return False
+
+    return active
