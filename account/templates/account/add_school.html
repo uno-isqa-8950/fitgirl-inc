@@ -74,12 +74,12 @@ text-align: right;
         <div class="form-row">
           <div class="col">
             <div class="form-group">
-              <label for="SchoolName">School Name</label>
+              <label for="SchoolsName">School Name</label>
             </div>
           </div>
           <div class="col">
             <div class="form-group">
-              <input type="text" required class="form-control" name="school_name" id="InputSchoolName" placeholder="Enter School Name">
+              <input type="text" required class="form-control" name="schools_name" id="InputSchoolName" placeholder="Enter School Name">
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@ text-align: right;
     <tbody>
       {% for addschool in addschool%}
       <tr>
-        <td >{{ addschool.school_name}}</td>
+        <td >{{ addschool.schools_name}}</td>
 
       {% endfor %}
       </tr>

@@ -1246,7 +1246,7 @@ iframe {
 li.nav-item{
   position: relative;
 }
-.nav-item .notification-dot{
+.notification-dot{
   position: absolute;
   background: red;
   border-radius: 52px;

@@ -1,11 +1,11 @@
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm, ProgramClone
-from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm,SchoolForm
+from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm,SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
-from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem,School
+from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem,Schools
 from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
@@ -36,6 +36,7 @@ from collections import defaultdict
 import django_tables2 as tables
 
 
+
 class ActivityTable(tables.Table):
     week_no = tables.Column()
     total_points = tables.Column()
@@ -46,20 +47,14 @@ def json_data(request):
     activity_data = list(UserActivity.objects.all())
     json_data = [{}]
     for row in activity_data:
-        # print('week:', row.Week)
-        # print('points', row.points_earned)
         if row.Week in json_data[0].keys():
             points = json_data[0].get(row.Week)
             updated_points = points + row.points_earned
-            # print('Old Week:', data[0])
-            # print('points to be added', row.points_earned)
             json_data[0][row.Week] = updated_points
-            # print('New Week', data[0])
         elif row.Week not in json_data[0].keys():
             json_data[0][row.Week] = row.points_earned
-            # print('created:', data[0])
-    print(json_data)
-    return render(request, 'account/Analytics_Dashboard.html', {'json_data': json_data})
+    return JsonResponse(json_data[0])
+    # return render(request, 'account/Analytics_Dashboard.html', {'json_data': json_data})
     # table = ActivityTable(json_data)
     # print(table.data['1'])
 
@@ -720,15 +715,18 @@ def parameters_form(request):
             parameters = Parameters()
             parameters.physical_days_to_done = 1
             parameters.nutrition_days_to_done = 1
+            parameters.rewards_active = False
             parameters.current_values = True
             parameters.save()
         settings = Parameters.objects.get(current_values=True)
         pdtd = settings.physical_days_to_done
         ndtd = settings.nutrition_days_to_done
+        ra = settings.rewards_active
 
         form = ParametersForm(
             initial={'physical_days_to_done': pdtd,
-                     'nutrition_days_to_done': ndtd}
+                     'nutrition_days_to_done': ndtd,
+                     'rewards_active': ra}
         )
     return render(request, 'account/parameters_edit.html', {'form': form})
 
@@ -1209,19 +1207,19 @@ def reward_item_edit(request, pk):
 
 @login_required
 def add_school(request):
-    addschool = School.objects.all()
+    addschool = Schools.objects.all()
     if request.method == 'POST':
-        form = SchoolForm(request.POST)
+        form = SchoolsForm(request.POST)
         if form.is_valid():
-            school = form.save(commit=False)
-            school.save()
+            schools = form.save(commit=False)
+            schools.save()
             messages.success(request, 'School added successfully')
             return redirect('add_school')
         else:
             messages.error(request, 'Error creating school. Retry!')
             # return HttpResponse('Error updating your profile!')
     else:
-        form = SchoolForm()
+        form = SchoolsForm()
         # print("Else")
         # profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
