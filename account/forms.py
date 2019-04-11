@@ -154,7 +154,13 @@ class ContactForm(forms.Form):
 class ParametersForm(forms.ModelForm):
     class Meta:
         model = Parameters
-        fields = ('physical_days_to_done', 'nutrition_days_to_done')
+        fields = ('physical_days_to_done', 'nutrition_days_to_done', 'rewards_active')
+        labels = {
+            'physical_days_to_done': _('Number of Physical Days to Complete'),
+            'nutrition_days_to_done': _('Number of Nutrition Days to Complete'),
+            'rewards_active': _('Rewards Active?'),
+        }
+
 
 
 class ProgramClone(forms.Form):
