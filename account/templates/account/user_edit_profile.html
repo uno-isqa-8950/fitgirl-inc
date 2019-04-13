@@ -3,6 +3,7 @@
 {% block title %}Edit your account{% endblock %}
 
 {% block dash_content %}
+
 <div class="container registration-edit">
     {% if messages %}
   <ul class="messages">
@@ -11,17 +12,29 @@
     {% endfor %}
   </ul>
   {% endif %}
-    <div class="col-sm-9">
-      <h1 class="text-left">Edit your Profile</h1>
-      <h5>Fill out all the mandatory fields and save your profile to proceed</h5>
+    <div class="container">
+    <div class="spacer-div-50">
+
+      <h1 class="text-center" >Edit Profile</h1>
+
+      <h5 class="text-center">Fill out all the mandatory fields and save your profile to proceed</h5>
       <br>
       <br>
-        <div class="content-section">
-          <div class="media">
-            <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="100" width="100" style="height: 100px;width: 100px">
+        <form method="POST" class="useredit-form" enctype='multipart/form-data'>
+
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="150" width="150" style="height: 100px;width: 100px">
+
             <div class="media-body">
-              <h2 class="account-heading">{{ user.first_name }}</h2>
+                <div>
+                    <h2></h2>
+                </div>
+                <h2 class="account-heading"> {{ user.first_name }} {{ user.last_name }}</h2>
+
+               <div>
+               </div>
               <p class="text-secondary">{{ user.email }}</p>
+
             </div>
           </div>
           <form action="" method="POST" enctype="multipart/form-data">
@@ -40,7 +53,7 @@
         </div>
     </div>
 </div>
-    
+
 
 
 <script>
