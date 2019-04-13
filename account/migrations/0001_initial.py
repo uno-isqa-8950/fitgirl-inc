@@ -182,13 +182,7 @@ class Migration(migrations.Migration):
                 'get_latest_by': 'created_at',
             },
         ),
-        migrations.CreateModel(
-            name='Schools',
-            fields=[
-                ('schools_id', models.AutoField(primary_key=True, serialize=False)),
-                ('schools_name', models.CharField(blank=True, max_length=25, null=True)),
-            ],
-        ),
+        
         migrations.CreateModel(
             name='Testfield',
             fields=[
