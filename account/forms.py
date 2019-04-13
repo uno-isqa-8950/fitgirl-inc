@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, Program, Parameters, RewardCategory, RewardItem,School
+from .models import Profile, Program, Parameters, RewardCategory, RewardItem,Schools
 #from .models import Profile, Program, Parameters, RewardCategory, RewardItem
 from django.utils.translation import gettext as _
 from datetime import date
@@ -76,7 +76,7 @@ class ProfileEditForm(forms.ModelForm):
     state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
     day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
-    school = forms.ModelChoiceField(widget=forms.Select, queryset=School.objects.all())
+    school = forms.ModelChoiceField(widget=forms.Select, queryset=Schools.objects.all())
     select_your_background_color_for_website = forms.ChoiceField(widget=forms.Select, choices=BACKGROUND_CHOICES)
 
 
@@ -95,10 +95,10 @@ class ProfileEditForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(ProfileEditForm, self).__init__(*args, **kwargs)
         if user.profile.school:
-            school_name = user.profile.school #in future school should be linked to school table
-            school = School.objects.get(school_name=school_name)
-            school_id = school.school_id
-            self.initial['school'] = school_id
+            schools_name = user.profile.school #in future school should be linked to school table
+            schools = Schools.objects.get(schools_name=schools_name)
+            schools_id = schools.schools_id
+            self.initial['schools'] = schools_id
         else:
             pass
 
@@ -238,11 +238,11 @@ class RewardItemForm(forms.ModelForm):
         fields = ('item', 'description', 'points_needed', 'qty_available', 'reward_image', 'category')
 
     
-class SchoolForm(forms.ModelForm):
+class SchoolsForm(forms.ModelForm):
     #school = forms.ModelMultipleChoiceField(queryset=School.objects.all())
-    school_name = forms.CharField(max_length=30, required=True)
+    schools_name = forms.CharField(max_length=30, required=True)
 
     class Meta:
-        model = School
-        fields = ('school_name',)
+        model = Schools
+        fields = ('schools_name',)
 

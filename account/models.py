@@ -233,11 +233,10 @@ class CloneProgramInfo(models.Model):
     active = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
-class School(models.Model):
-    school_id = models.AutoField(primary_key=True,blank=False,null=False)
-    school_name = models.CharField(max_length=25, blank=True, null=True)
+class Schools(models.Model):
+    schools_id = models.AutoField(primary_key=True,blank=False,null=False)
+    schools_name = models.CharField(max_length=25, blank=True, null=True)
 
     def __str__(self):
-        return str(self.school_name)
+        return str(self.schools_name)
 
