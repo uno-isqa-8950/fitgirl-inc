@@ -31,7 +31,7 @@ from django.utils import timezone
 from wagtail.core.models import Page
 from django.db.models.signals import post_save, post_init, pre_save
 from django.dispatch import receiver
-from django.core import serializers
+from django.core import serializers, exceptions
 from collections import defaultdict
 import django_tables2 as tables
 
@@ -792,7 +792,7 @@ def export_data(request):
                 name = user.first_name + " " + user.last_name
                 try:
                     program = Program.objects.get(id=row.program_id).program_name
-                except AttributeError:
+                except exceptions.ObjectDoesNotExist:
                     program = ""
 
                 writer_row = [name, program,
@@ -814,10 +814,10 @@ def export_data(request):
                 header_data = ['User']
                 #writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
 
-                for row in rows:
-                    question_data = json.loads(row.form_data)
-                    for key in question_data:
-                        header_data.append(str(key))
+                #for row in rows:
+                question_data = json.loads(rows[0].form_data)
+                for key in question_data:
+                    header_data.append(str(key))
 
                 header_data.append('Submission Time')
                 writer.writerow(header_data)
@@ -847,10 +847,10 @@ def export_data(request):
                 header_data = ['User']
                 # writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
 
-                for row in rows:
-                    question_data = json.loads(row.form_data)
-                    for key in question_data:
-                        header_data.append(str(key))
+                # for row in rows:
+                question_data = json.loads(rows[0].form_data)
+                for key in question_data:
+                    header_data.append(str(key))
 
                 header_data.append('Submission Time')
                 writer.writerow(header_data)
