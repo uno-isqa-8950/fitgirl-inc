@@ -176,7 +176,6 @@ class Testfield(models.Model):
 class Parameters(models.Model):
     physical_days_to_done = models.IntegerField(default=1)
     nutrition_days_to_done = models.IntegerField(default=1)
-    rewards_active = models.BooleanField(default=False)
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
 
@@ -233,10 +232,11 @@ class CloneProgramInfo(models.Model):
     active = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
-class Schools(models.Model):
-    schools_id = models.AutoField(primary_key=True,blank=False,null=False)
-    schools_name = models.CharField(max_length=25, blank=True, null=True)
+ '''   
+class School(models.Model):
+    school_id = models.AutoField(primary_key=True,blank=False,null=False)
+    school_name = models.CharField(max_length=25, blank=True, null=True)
 
     def __str__(self):
-        return str(self.schools_name)
-
+        return str(self.school_name)
+'''

@@ -8,14 +8,13 @@
 
 {% block content %}
     {% media_url as media_url %}
-    {% are_rewards_active as rewards_active %}
 {% if request.user.is_active %}
     <div class ="container rewards-index-page">
 
     <!-- {{ media_url }} -->
 
     {# List items available in a given category #}
-        {% if request.GET.category and rewards_active %}
+        {% if request.GET.category %}
 
             {% category_name request.GET.category as cn %}
             {% reward_items request.GET.category as items %}

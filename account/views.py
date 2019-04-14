@@ -715,18 +715,15 @@ def parameters_form(request):
             parameters = Parameters()
             parameters.physical_days_to_done = 1
             parameters.nutrition_days_to_done = 1
-            parameters.rewards_active = False
             parameters.current_values = True
             parameters.save()
         settings = Parameters.objects.get(current_values=True)
         pdtd = settings.physical_days_to_done
         ndtd = settings.nutrition_days_to_done
-        ra = settings.rewards_active
 
         form = ParametersForm(
             initial={'physical_days_to_done': pdtd,
-                     'nutrition_days_to_done': ndtd,
-                     'rewards_active': ra}
+                     'nutrition_days_to_done': ndtd}
         )
     return render(request, 'account/parameters_edit.html', {'form': form})
 
