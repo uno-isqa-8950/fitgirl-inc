@@ -11,7 +11,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
 import re, json
-import weasyprint
+# import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -994,7 +994,7 @@ def inbox(request):
             username = User.objects.get(username=message.from_user)
             try:
                 photo = username.profile.photo.url
-            except username.profile.DoesNotExist:
+            except:
                 photo = ''
             name = username.first_name + " " + username.last_name
             try:
