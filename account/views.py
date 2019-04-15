@@ -994,7 +994,7 @@ def inbox(request):
             username = User.objects.get(username=message.from_user)
             try:
                 photo = username.profile.photo.url
-            except username.profile.DoesNotExist:
+            except:
                 photo = ''
             name = username.first_name + " " + username.last_name
             try:
