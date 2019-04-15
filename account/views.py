@@ -32,7 +32,7 @@ from wagtail.core.models import Page
 from django.db.models.signals import post_save, post_init, pre_save
 from django.dispatch import receiver
 from django.core import serializers, exceptions
-from collections import defaultdict
+from collections import defaultdict as dict_all
 import django_tables2 as tables
 
 
@@ -981,29 +981,25 @@ def inbox(request):
         unread_messages = all_messages.filter(read_message=False)
         # user = User.objects.get(email=request.user.email)
         # unread_message = KindnessMessage.objects.filter(to_user=user).filter(read_message=False)
-
-
         dict_all = {}
         dict_unread = {}
         for message in unread_messages:
             username = User.objects.get(username=message.from_user)
             name = username.first_name + " " + username.last_name
-            # message.read_message = True
-            message.save()
             try:
                 dict_unread[name].append(message.body)
             except KeyError:
                 dict_unread[name] = [message.body]
         for message in all_messages:
             username = User.objects.get(username=message.from_user)
+            photo = username.profile.photo.url
             name = username.first_name + " " + username.last_name
-            # message.read_message = True
-            message.save()
             try:
-                dict_all[name].append(message.body)
+                dict_all[name]['messages'].append(message.body)
             except KeyError:
-                dict_all[name] = [message.body]
-
+                dict_all[name] = {'messages': [message.body], 'photo': photo}
+                print(dict_all[name]['messages'])
+                print(dict_all)
         return render(request, 'kindnessCards/new.html', {'messages': messages, 'all': dict_all, 'unread': dict_unread})
 
 def mark_read(request):
