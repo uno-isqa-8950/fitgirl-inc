@@ -11,7 +11,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
 import re, json
-import weasyprint
+# import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -44,8 +44,42 @@ class ActivityTable(tables.Table):
     # table = ActivityTable(data)
 @login_required
 def json_data(request):
-    activity_data = list(UserActivity.objects.all())
+    assessment_json = [{}]
+    try:
+        assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
+        data = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+    except AttributeError:
+        data = list()
+    # for row in data:
+    #     print(row.keys())
+
+    header_data = list()
+    row_data = list()
+    count = 1
+    print(data)
+    for row in data:
+        question_data = json.loads(row.form_data)
+        for key in question_data:
+            if str(key) in assessment_json[0].keys():
+                if str(question_data[key]) not in assessment_json[0][str(key)].keys():
+                    assessment_json[0][str(key)]['label'] = str(question_data[key])
+                    assessment_json[0][str(key)].update({'value': 1})
+                elif str(question_data[key]) in assessment_json[0][str(key)].keys():
+                    assessment_json[0][str(key)]['value'] += 1
+            elif str(key) not in assessment_json[0].keys():
+                assessment_json[0][str(key)] = {}
+                if str(question_data[key]) not in assessment_json[0][str(key)].keys():
+                    assessment_json[0][str(key)]['label'] = str(question_data[key])
+                    assessment_json[0][str(key)].update({'value': 1})
+                    # print(assessment_json)
+                    # assessment_json[0]['value'] = count
+                elif str(question_data[key]) in assessment_json[0][str(key)].keys():
+                    assessment_json[0][str(key)]['value'] += 1
+                    # print(assessment_json)
+    print(assessment_json)
+    # print(row_data)
     json_data = [{}]
+    activity_data = list(UserActivity.objects.all())
     for row in activity_data:
         if row.Week in json_data[0].keys():
             points = json_data[0].get(row.Week)
