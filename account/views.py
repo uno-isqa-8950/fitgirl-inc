@@ -44,8 +44,42 @@ class ActivityTable(tables.Table):
     # table = ActivityTable(data)
 @login_required
 def json_data(request):
-    activity_data = list(UserActivity.objects.all())
+    assessment_json = [{}]
+    try:
+        assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
+        data = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
+    except AttributeError:
+        data = list()
+    # for row in data:
+    #     print(row.keys())
+
+    header_data = list()
+    row_data = list()
+    count = 1
+    print(data)
+    for row in data:
+        question_data = json.loads(row.form_data)
+        for key in question_data:
+            if str(key) in assessment_json[0].keys():
+                if str(question_data[key]) not in assessment_json[0][str(key)].keys():
+                    assessment_json[0][str(key)]['label'] = str(question_data[key])
+                    assessment_json[0][str(key)].update({'value': 1})
+                elif str(question_data[key]) in assessment_json[0][str(key)].keys():
+                    assessment_json[0][str(key)]['value'] += 1
+            elif str(key) not in assessment_json[0].keys():
+                assessment_json[0][str(key)] = {}
+                if str(question_data[key]) not in assessment_json[0][str(key)].keys():
+                    assessment_json[0][str(key)]['label'] = str(question_data[key])
+                    assessment_json[0][str(key)].update({'value': 1})
+                    # print(assessment_json)
+                    # assessment_json[0]['value'] = count
+                elif str(question_data[key]) in assessment_json[0][str(key)].keys():
+                    assessment_json[0][str(key)]['value'] += 1
+                    # print(assessment_json)
+    print(assessment_json)
+    # print(row_data)
     json_data = [{}]
+    activity_data = list(UserActivity.objects.all())
     for row in activity_data:
         if row.Week in json_data[0].keys():
             points = json_data[0].get(row.Week)
@@ -947,29 +981,25 @@ def inbox(request):
         unread_messages = all_messages.filter(read_message=False)
         # user = User.objects.get(email=request.user.email)
         # unread_message = KindnessMessage.objects.filter(to_user=user).filter(read_message=False)
-
-
         dict_all = {}
         dict_unread = {}
         for message in unread_messages:
             username = User.objects.get(username=message.from_user)
             name = username.first_name + " " + username.last_name
-            # message.read_message = True
-            message.save()
             try:
                 dict_unread[name].append(message.body)
             except KeyError:
                 dict_unread[name] = [message.body]
         for message in all_messages:
             username = User.objects.get(username=message.from_user)
+            photo = username.profile.photo.url
             name = username.first_name + " " + username.last_name
-            # message.read_message = True
-            message.save()
             try:
-                dict_all[name].append(message.body)
+                dict_all[name]['messages'].append(message.body)
             except KeyError:
-                dict_all[name] = [message.body]
-
+                dict_all[name] = {'messages': [message.body], 'photo': photo}
+                print(dict_all[name]['messages'])
+                print(dict_all)
         return render(request, 'kindnessCards/new.html', {'messages': messages, 'all': dict_all, 'unread': dict_unread})
 
 def mark_read(request):
