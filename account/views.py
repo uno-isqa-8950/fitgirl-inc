@@ -11,7 +11,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission, PhysicalPostPage
 from io import TextIOWrapper, StringIO
 import re, json
-import weasyprint
+# import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv, string, random
@@ -992,7 +992,10 @@ def inbox(request):
                 dict_unread[name] = [message.body]
         for message in all_messages:
             username = User.objects.get(username=message.from_user)
-            photo = username.profile.photo.url
+            if username.profile:
+                photo = username.profile.photo.url
+            else:
+                photo = ''
             name = username.first_name + " " + username.last_name
             try:
                 dict_all[name]['messages'].append(message.body)
