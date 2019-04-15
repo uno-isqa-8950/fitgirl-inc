@@ -32,7 +32,7 @@ from wagtail.core.models import Page
 from django.db.models.signals import post_save, post_init, pre_save
 from django.dispatch import receiver
 from django.core import serializers, exceptions
-from collections import defaultdict as dict_all
+from collections import defaultdict
 import django_tables2 as tables
 
 
