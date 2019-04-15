@@ -992,9 +992,9 @@ def inbox(request):
                 dict_unread[name] = [message.body]
         for message in all_messages:
             username = User.objects.get(username=message.from_user)
-            if username.profile:
+            try:
                 photo = username.profile.photo.url
-            else:
+            except username.profile.DoesNotExist:
                 photo = ''
             name = username.first_name + " " + username.last_name
             try:
