@@ -14,29 +14,16 @@
                   <input type="radio" name="sections" id="option" checked>
                   <label for="option">{{ key }}</label>
                   <article>
-                    <h2>{{ key }}  says</h2>
-                     {% for v in values %}
+                    <h2> <img class="rounded-circle account-img" src="{{ values.photo }}"
+                             onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="height: 50px;width: 50px"> {{ key }}</h2>
+                     {% for v in values.messages %}
                         <p class="received-kindness">{{v}}</p>
-                      {% endfor %}
+                     {% endfor %}
                   </article>
                 </section>
             {% endfor %}
           </div>
-{#    {% for key, values in all.items %}#}
-{#        <ul>#}
-{#            <li class="selected"><a href="index.html">{{ key }}</a></li>#}
-{#        </ul>#}
-{#        <div>#}
-{#            <article>#}
-{#                <h3 style="font-size:18px;">{{ key }}</h3>#}
-{#                <hr />#}
-{#                <p></p>#}
-{#                {% for v in values %}#}
-{#                    <p>{{v}}</p>#}
-{#                {% endfor %}#}
-{#            </article>#}
-{#        </div>#}
-{#    {% endfor %}#}
+
 </div>
 
 <div class="container kindness" style="position:relative;padding: 0;">

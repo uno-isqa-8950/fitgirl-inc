@@ -1,6 +1,7 @@
 from django import template
 from account.models import RewardCategory, RewardItem, Profile, Parameters
 from django.conf import settings
+from django.core import exceptions
 
 register = template.Library()
 
@@ -12,8 +13,11 @@ def reward_categories():
     items = RewardItem.objects.filter(qty_available__gt=0)
     categories = set()
     for item in items:
-        category = RewardCategory.objects.get(id=item.category_id)
-        categories.add(category)
+        try:
+            category = RewardCategory.objects.get(id=item.category_id)
+            categories.add(category)
+        except exceptions.ObjectDoesNotExist:
+            pass
     return categories
 
 @register.simple_tag
