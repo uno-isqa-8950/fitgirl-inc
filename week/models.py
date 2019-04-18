@@ -741,12 +741,17 @@ class SidebarContentPage(Page):
 #Announcement
 class AnnouncementAlertPage(Page):
     announcements = RichTextField(blank=True)
-    start_date = models.DateField("Start Date", null=True, blank=True)
-    end_date = models.DateField("End Date", null=True, blank=True)
+    # start_date = models.DateField("Start Date", null=True, blank=True)
+    # end_date = models.DateField("End Date", null=True, blank=True)
+    display_warning = models.BooleanField(
+        default=False, help_text='Check this box to display warning announcement on the website'
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('announcements', classname="full"),
-        FieldPanel('start_date'),
-        FieldPanel('end_date'),
+        FieldPanel('display_warning'),
+
+        # FieldPanel('start_date'),
+        # FieldPanel('end_date'),
 
     ]
