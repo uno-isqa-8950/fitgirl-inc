@@ -13,3 +13,4 @@ def announcement_alert():
         if alerts.display_warning == True:
             alert_data = alerts.announcements
             return {'alert_data':alert_data}
+
