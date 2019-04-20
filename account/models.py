@@ -110,9 +110,8 @@ class Profile(models.Model):
 
 
 class Inactiveuser(models.Model):
-    inactive_id = models.AutoField(primary_key=True,blank=False,null=False)
-    set_days = models.IntegerField(default=7,validators=[MaxValueValidator(31),MinValueValidator(1)])
-    #set_days = models.IntegerField(blank=False,null=False,default=1)
+    inactive_id = models.AutoField(primary_key=True, blank=False, null=False)
+    set_days = models.IntegerField(default=7, validators=[MaxValueValidator(31), MinValueValidator(1)])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     down_at = models.CharField(max_length=25, blank=True, null=True)
@@ -124,23 +123,14 @@ class Inactiveuser(models.Model):
         get_latest_by = 'created_at'
 
 
-    # @receiver(post_save, sender=User)
-    # def create_user_profile(sender, instance, created, **kwargs):
-    #     if created:
-    #         Profile.objects.create(user=instance)
-    #     instance.profile.save()
-    #
-    # @receiver(post_save, sender=User)
-    # def save_user_profile(sender, instance, **kwargs):
-    #     instance.profile.save()
-BOOL_CHOICES = [('Yes','yes'),('No','no')]
+BOOL_CHOICES = [('Yes', 'yes'), ('No', 'no')]
 
 class Reward(models.Model):
     reward_no = models.AutoField(null=False, primary_key=True)
     user = models.ForeignKey(User, related_name='rewards', on_delete=models.CASCADE)
     points_redeemed = models.IntegerField(blank=True, null=True)
     service_used = models.CharField(max_length=25, blank=True, null=True)
-    redeem_status= models.CharField(max_length=10, choices=BOOL_CHOICES, default='No', blank=False, null=True)
+    redeem_status = models.CharField(max_length=10, choices=BOOL_CHOICES, default='No', blank=False, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -166,13 +156,6 @@ class RewardsNotification(models.Model):
         get_latest_by = 'created_at'
 
 
-class Testfield(models.Model):
-    physical_days_to_done = models.IntegerField(default=1)
-    nutrition_days_to_done = models.IntegerField(default=1)
-    creation_date = models.DateTimeField(auto_now=True)
-    current_values = models.BooleanField(default=True)
-    test1 = models.CharField(max_length=25, blank=True, null=True)
-
 class Parameters(models.Model):
     physical_days_to_done = models.IntegerField(default=1)
     nutrition_days_to_done = models.IntegerField(default=1)
@@ -180,12 +163,6 @@ class Parameters(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
 
-class Testfield2(models.Model):
-    physical_to_done = models.IntegerField(default=1)
-    nutrition_days_to_done = models.IntegerField(default=1)
-    creation_date = models.DateTimeField(auto_now=True)
-    current_values = models.BooleanField(default=True)
-    test4 = models.CharField(max_length=25, blank=True, null=True)
 
 class KindnessMessage(models.Model):
     message_id = models.AutoField(null=False, primary_key=True)
