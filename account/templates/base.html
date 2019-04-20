@@ -250,9 +250,10 @@
 {% else %}
 <div class="alert alert-info alert-dismissible" id="warning-alert" role="alert">
    <button aria-label="Close" class="warning-close" data-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
-       <h5> {% announcement_alert %}</h5>
+       <h5> {%  announcement_alert %}</h5>
 </div>
-<!--<section class="container ct-isotope-gallery__container">-->
+
+        <!--<section class="container ct-isotope-gallery__container">-->
 <!--<div class="row">-->
    <!--<div class="col-md-10 col-md-offset-1">-->
       <!---->
@@ -398,6 +399,15 @@
         })
       
 
+    });
+
+    $(document).ready(function () {
+        if ("{% announcement_alert %}") {
+            $("#warning-alert").show();
+        }
+        else {
+            $("#warning-alert").hide();
+        }
     });
 
     $(document).ready(function () {
