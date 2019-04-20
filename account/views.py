@@ -44,6 +44,7 @@ class ActivityTable(tables.Table):
     # table = ActivityTable(data)
 @login_required
 def json_data(request):
+    json_data = {}
     assessment_json = [{}]
     try:
         assesssment_page_id = Page.objects.filter(slug__contains="pre-assessment").first().id
@@ -56,41 +57,23 @@ def json_data(request):
     header_data = list()
     row_data = list()
     count = 1
-    print(data)
     for row in data:
-        question_data = json.loads(row.form_data)
-        for key in question_data:
-            if str(key) in assessment_json[0].keys():
-                if str(question_data[key]) not in assessment_json[0][str(key)].keys():
-                    assessment_json[0][str(key)]['label'] = str(question_data[key])
-                    assessment_json[0][str(key)].update({'value': 1})
-                elif str(question_data[key]) in assessment_json[0][str(key)].keys():
-                    assessment_json[0][str(key)]['value'] += 1
-            elif str(key) not in assessment_json[0].keys():
-                assessment_json[0][str(key)] = {}
-                if str(question_data[key]) not in assessment_json[0][str(key)].keys():
-                    assessment_json[0][str(key)]['label'] = str(question_data[key])
-                    assessment_json[0][str(key)].update({'value': 1})
-                    # print(assessment_json)
-                    # assessment_json[0]['value'] = count
-                elif str(question_data[key]) in assessment_json[0][str(key)].keys():
-                    assessment_json[0][str(key)]['value'] += 1
-                    # print(assessment_json)
-    print(assessment_json)
-    # print(row_data)
-    json_data = [{}]
+        print(row)
+
+    array = []
+    week = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    activity = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     activity_data = list(UserActivity.objects.all())
+
     for row in activity_data:
-        if row.Week in json_data[0].keys():
-            points = json_data[0].get(row.Week)
-            updated_points = points + row.points_earned
-            json_data[0][row.Week] = updated_points
-        elif row.Week not in json_data[0].keys():
-            json_data[0][row.Week] = row.points_earned
-    return JsonResponse(json_data[0])
-    # return render(request, 'account/Analytics_Dashboard.html', {'json_data': json_data})
-    # table = ActivityTable(json_data)
-    # print(table.data['1'])
+        if row.Week != None:
+            activity[row.Week-1] += row.points_earned
+
+    for i in week:
+        array.append({'week': i, 'activity': activity[i-1]})
+    json_data.update({'useractivity': array})
+    return JsonResponse(json_data)
+
 
 @receiver(post_save, sender=Profile)
 def point_check(sender, instance, **kwargs):
@@ -937,7 +920,7 @@ def rewards_redeem(request, pk):
                                                                         'points_available': points_available,
                                                                         'reward_number': reward_number})
             out = BytesIO()
-            stylesheets = [weasyprint.CSS('https://fitgirl-empoweru-prod.s3.amazonaws.com/static/css/pdf.css')]
+            stylesheets = [weasyprint.CSS('https://s3.us-east-2.amazonaws.com/django-fitgirl/static/css/pdf.css')]
             weasyprint.HTML(string=html).write_pdf(out,stylesheets=stylesheets)
             email.attach('Redemption No. {}'.format(rewards.reward_no), out.getvalue(), 'application/pdf')
             email.send()

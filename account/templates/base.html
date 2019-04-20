@@ -43,7 +43,7 @@
 <body>
 <div class="nav-wrapper grey darken-1">
     <nav class="navbar navbar-expand-lg navbar-dark grey darken-1  scrolling-navbar">
-        <!--hghanta: redirect to dashboard on click empoweu logo, home-->
+
 
 
         {% if request.user.is_authenticated %}
@@ -55,165 +55,133 @@
         <div class="collapse navbar-collapse" id="navbarsDefault">
             <ul class="navbar-nav mr-auto">
                 {% if request.user.is_superuser %}
-                <a class="navbar-brand" href="/users/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
-                                                        height="40"/></a>
-                <li class="nav-item">
-                    <a class="nav-link hoverable" style="
-                background-color: rgba(255,255,255,.1);
-            " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span
-                            class="sr-only">(current)</span></a>
-                </li>
-                <!--Adding new analytics dashboard starts --srishty-->
-                <li class="nav-item">
-{#                    <a class="nav-link hoverable" style="#}
-{#                background-color: rgba(255,255,255,.1);#}
-{#            " href="{% url 'Analytics_Dashboard' %}"> <i class="fas fa-book"></i> Analytics Dashboard </a>#}
-                    <a class="nav-link hoverable" style="
-                background-color: rgba(255,255,255,.1);
-            " href="{% url 'activity_data' %}"> <i class="fas fa-book"></i> Analytics Dashboard </a>
-                </li>
-                <!--Adding new analytics dashboard ends --srishty-->
-
-                {% else %}
-                {% if user.profile.pre_assessment == "No" %}
-
-                {% else %}
-                <!--<li class="nav-item ">-->
-                <!--<a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>-->
-                <!--</li>-->
-                <!-- Added home glyphicon to navbar_Kelley -->
-                <a class="navbar-brand" href="/pages/userdashboard"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
-                                                        height="40"/></a>
-                <li class="nav-item ">
-                    <a class="nav-link hoverable" href="/pages/userdashboard" style="background-color: rgba(255,255,255,.1);">
-                        <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
-                </li>
-                {% endif %}
-                {% endif %}
-
-                {% if request.user.is_superuser %}
-
-                <li class="nav-item ">
-                    <a class="nav-link hoverable " style="
-            background-color: rgba(255,255,255,.1);" href="/users/"><i class="fa fa-female" aria-hidden="true"></i>Users</a>
-                </li>
-
-                {% else %}
-                <li class="nav-item ">
-                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
-                       href="/pages/about-fitgirl">About Us</a>
-                </li>
-                <!--adding External Link Parent Resources_Srishty -->
-                <li class="nav-item ">
-                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
-                       href="http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
-                </li>
-                <!--kindeness card tab starts -srishty-->
-                <li class="nav-item ">
-                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
-                       href="/pages/kindness-card/"> Send Kindness Card</a>
-                </li>
-
-                <!--kindeness card tab ends -srishty-->
-            </ul>
-            <ul class="navbar-nav navbar-centre">
-                <!-- <li class="nav-item ">
-                        <a class="nav-link" href="/pages/rewards/" style="position:relative;">
-                         <img class="rewards-icon" alt="My Rewards" src="{% static 'images/iconfinder_badge_3688520.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
-                          <span class="sr-only">(current)</span>
-                      </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
-                        <img class="rewards-icon" alt="My Card" src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}" height="40" width="40"/>
-                        <span class="rewards-notify">{{ user.profile.points }}</span>
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                        <a class="nav-link" href="/pages/gallery/" style="position:relative;">
-                            <img class="gallery-icon" alt="My Photo Gallery" src="{% static 'images/iconfinder_camera_1785207.png' %}" height="38" width="35"/> <span class="rewards-notify">{{ user.profile.points }}</span>
-                            <span class="sr-only">(current)</span>
-                        </a>
+                    <a class="navbar-brand" href="/users/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
+                                                            height="40"/></a>
+                    <li class="nav-item">
+                        <a class="nav-link hoverable" style="
+                    background-color: rgba(255,255,255,.1);
+                " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span
+                                class="sr-only">(current)</span></a>
                     </li>
-                <li class="nav-item">
-                        <a class="nav-link" href="/pages/rewards/" style="position:relative;">
-                         <img class="rewards-icon" alt="My Rewards" src="{% static 'images/bell-icon.png' %}" height="40" width="40"/> <span class="rewards-notify">{{ user.profile.points }}</span>
-                          <span class="sr-only">(current)</span>
-                      </a>
-                      </li> -->
+                    <!--Adding new analytics dashboard starts --srishty-->
+                    <li class="nav-item">
+    {#                    <a class="nav-link hoverable" style="#}
+    {#                background-color: rgba(255,255,255,.1);#}
+    {#            " href="{% url 'Analytics_Dashboard' %}"> <i class="fas fa-book"></i> Analytics Dashboard </a>#}
+                        <a class="nav-link hoverable" style="
+                    background-color: rgba(255,255,255,.1);
+                " href="{% url 'activity_data' %}"> <i class="fas fa-book"></i> Analytics Dashboard </a>
+                    </li>
+                    <!--Adding new analytics dashboard ends --srishty-->
+                    <li class="nav-item ">
+                        <a class="nav-link hoverable " style="
+                background-color: rgba(255,255,255,.1);" href="/users/"><i class="fa fa-female" aria-hidden="true"></i>Users</a>
+                    </li>
 
+                    {% else %}
+
+                    <!--<li class="nav-item ">-->
+                    <!--<a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>-->
+                    <!--</li>-->
+                    <!-- Added home glyphicon to navbar_Kelley -->
+                    <li class="nav-item ">
+                        <a class="navbar-brand" href="/pages/userdashboard"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
+                                                            height="40"/></a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link hoverable" href="/pages/userdashboard" style="background-color: rgba(255,255,255,.1);">
+                            <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
+                           href="/pages/about-fitgirl">About Us</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
+                           href="http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
+                    </li>
+                    {% if user.profile.pre_assessment == "yes" %}
+                        <li class="nav-item ">
+                            <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
+                               href="/pages/kindness-card/"> Send Kindness Card</a>
+                        </li>
+                    {% endif %}
                 {% endif %}
             </ul>
+        {% endif %}
+
+
             <ul class="navbar-nav navbar-right ">
                     <!-- <li class="nav-item admin-hide">
                         <a class="nav-link hoverable" href="/pages/rewards/"
                            style="background-color: rgba(255,255,255,.1); top: -4px;"><i class="fas fa-gift" style="padding-left: 5px;"></i>&nbspReward Points: {{ user.profile.points }}<span
                                 class="sr-only">(current)</span></a>
                     </li> -->
-                    <li class="nav-item admin-hide">
-                        
-                    <a href="/pages/rewards/" class="dropdown-toggle avatar-menu">
-                            <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
-                        </a>
-                        <span class="notification-dot"> {{ user.profile.points }}</span>
-                    </li>
-                <li class="dropdown admin-hide">
-                    <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" style="position:relative">
-                        <img class="bell-account-img" alt="Notifications" src="{% static 'images/bell.png' %}" height="30" width="30">
-                             <span class="notification-dot bell-notify" style="padding:5px;"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box notifications-dropdown-box">
-                        <li class="nav-item unread_false">
-                            <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
-                                <table>
-                                    <tr>
-                                        <td><img class="rewards-icon" alt="My Card"
-                                                 src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}"
-                                                 height="40" width="40"/></td>
-                                        <td><span>You have <span class="unread_number">{% unread_message %}</span> unread kindness cards</span></td>
-                                    </tr>
-                                </table>
-                                <span class="sr-only">(current)</span>
+                    {% if user.profile.pre_assessment == "yes" %}
+                        <li class="nav-item admin-hide">
+                            <a href="/pages/rewards/" class="dropdown-toggle avatar-menu">
+                                <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
                             </a>
+                            <span class="notification-dot"> {{ user.profile.points }}</span>
                         </li>
-                        <div class="dropdown-divider unread_false"></div>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="/pages/gallery/" style="position:relative;">
-                                <table>
-                                    <tr>
-                                        <td><img class="gallery-icon" alt="My Photo Gallery"
-                                                 src="{% static 'images/iconfinder_camera_1785207.png' %}" height="40"
-                                                 width="40"/></td>
-                                        <td><span class="">Click here to view your EmpowerU Gallery.</span></td>
-                                    </tr>
-                                </table>
+
+                        <li class="dropdown admin-hide">
+                            <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" style="position:relative">
+                                <img class="bell-account-img" alt="Notifications" src="{% static 'images/bell.png' %}" height="30" width="30">
+                                     <span class="notification-dot bell-notify" style="padding:5px;"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box notifications-dropdown-box">
+                                <li class="nav-item unread_false">
+                                    <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
+                                        <table>
+                                            <tr>
+                                                <td><img class="rewards-icon" alt="My Card"
+                                                         src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}"
+                                                         height="40" width="40"/></td>
+                                                <td><span>You have <span class="unread_number">{% unread_message %}</span> unread kindness cards</span></td>
+                                            </tr>
+                                        </table>
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <div class="dropdown-divider unread_false"></div>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="/pages/gallery/" style="position:relative;">
+                                        <table>
+                                            <tr>
+                                                <td><img class="gallery-icon" alt="My Photo Gallery"
+                                                         src="{% static 'images/iconfinder_camera_1785207.png' %}" height="40"
+                                                         width="40"/></td>
+                                                <td><span class="">Click here to view your EmpowerU Gallery.</span></td>
+                                            </tr>
+                                        </table>
 
 
-                                <span class="sr-only">(current)</span>
-                            </a>
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                                <div class="dropdown-divider"></div>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="" style="position:relative;">
+                                        <table>
+                                            <tr>
+                                                <td><img class="announcement-icon" alt="Announcements"
+                                                         src="{% static 'images/iconfinder_sale_lineal_color_cnvrt-15_3827707.png' %}" height="37"
+                                                         width="40"/></td>
+
+                                                    <td><span>{% sidebar %}</span></td>
+
+                                            </tr>
+                                        </table>
+                                        <span class="sr-only">(current)</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <div class="dropdown-divider"></div>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="" style="position:relative;">
-                                <table>
-                                    <tr>
-                                        <td><img class="announcement-icon" alt="Announcements"
-                                                 src="{% static 'images/iconfinder_sale_lineal_color_cnvrt-15_3827707.png' %}" height="37"
-                                                 width="40"/></td>
-                                        
-                                            <td><span>{% sidebar %}</span></td>
-                                        {% endif %}
-                                    </tr>
-                                </table>
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    {% endif %}
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown">
                         {% if request.user.is_staff %}
@@ -282,9 +250,10 @@
 {% else %}
 <div class="alert alert-info alert-dismissible" id="warning-alert" role="alert">
    <button aria-label="Close" class="warning-close" data-dismiss="alert" type="button"><span aria-hidden="true">×</span></button>
-       <h5> {% announcement_alert %}</h5>
+       <h5> {%  announcement_alert %}</h5>
 </div>
-<!--<section class="container ct-isotope-gallery__container">-->
+
+        <!--<section class="container ct-isotope-gallery__container">-->
 <!--<div class="row">-->
    <!--<div class="col-md-10 col-md-offset-1">-->
       <!---->
@@ -430,6 +399,15 @@
         })
       
 
+    });
+
+    $(document).ready(function () {
+        if ("{% announcement_alert %}") {
+            $("#warning-alert").show();
+        }
+        else {
+            $("#warning-alert").hide();
+        }
     });
 
     $(document).ready(function () {
