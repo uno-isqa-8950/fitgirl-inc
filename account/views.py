@@ -2,46 +2,34 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, HttpRes
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProfileEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm,RewardsNotificationForm,ManagePointForm, ParametersForm, ProgramClone
-from .forms import Profile,User, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm,SchoolsForm
+from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm, RewardsNotificationForm, ManagePointForm, ParametersForm, ProgramClone
+from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
-from .models import RegisterUser, Affirmations, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem,Schools
-from week.models import WeekPage, EmailTemplates, UserActivity, ServicePostPage, KindnessCardPage
+from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem, Schools
+from week.models import WeekPage, EmailTemplates, UserActivity
 from week.forms import TemplateForm
-from week.models import CustomFormSubmission, PhysicalPostPage
-from io import TextIOWrapper, StringIO
+from week.models import CustomFormSubmission
+from io import StringIO
 import re, json
 import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
-import csv, string, random
+import csv
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
-from django.forms import ValidationError
-#from datetime import datetime, timedelta
-import pytz, datetime, tzlocal
-import wagtail
-from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
+import datetime, tzlocal
+from django.core.mail import BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from django.utils import timezone
 from wagtail.core.models import Page
-from django.db.models.signals import post_save, post_init, pre_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core import serializers, exceptions
-from collections import defaultdict
-import django_tables2 as tables
 
 
-
-class ActivityTable(tables.Table):
-    week_no = tables.Column()
-    total_points = tables.Column()
-
-    # table = ActivityTable(data)
+# json data for analytics dashboard
 @login_required
 def json_data(request):
     json_data = {}
@@ -51,9 +39,6 @@ def json_data(request):
         data = list(CustomFormSubmission.objects.filter(page_id=assesssment_page_id))
     except AttributeError:
         data = list()
-    # for row in data:
-    #     print(row.keys())
-
     header_data = list()
     row_data = list()
     count = 1
@@ -74,8 +59,8 @@ def json_data(request):
     json_data.update({'useractivity': array})
     return JsonResponse(json_data)
 
-
-@receiver(post_save, sender=Profile)
+# to send emails to users who reach reward milestones
+@receiver(post_save, sender= Profile)
 def point_check(sender, instance, **kwargs):
     try:
         milestones = RewardsNotification.objects.latest()
@@ -102,14 +87,8 @@ def point_check(sender, instance, **kwargs):
     else:
         pass
 
-'''
-@receiver(post_save, sender=KindnessMessage)
-def unread_message_check(sender, instance, **kwargs):
-    obj = KindnessMessage.objects.get(pk=instance.pk)
-    if obj.read_messages == False:
-        obj.read_messages.count()
-'''
 
+#user login
 def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -130,42 +109,7 @@ def user_login(request):
         form = LoginForm()
     return render(request, 'account/login.html', {'form': form})
 
-
-@login_required
-def dashboard(request):
-    today = datetime.date.today()
-    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-
-    dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
-
-    programs = Program.objects.filter(program_start_date__lt=today).filter(program_end_date__gte=today)
-    for program in programs:
-        current_program = program.program_name
-        current_program_lower = current_program.lower()
-        gap_pos = current_program_lower.find(" ")
-        new_str = current_program_lower[0:gap_pos] + '-' + current_program_lower[gap_pos:]
-        new_str1 = new_str.replace(" ", "")
-
-    weeks = WeekPage.objects.filter(end_date__gte=today, start_date__lte=today)
-    for this_week in weeks:
-        print(this_week.title)
-        todays_week = this_week.title.lower()
-        print(todays_week)
-        week_gap_pos = todays_week.find(" ")
-        new_week_str = todays_week[0:week_gap_pos] + '-' + todays_week[week_gap_pos:]
-        print(new_week_str)
-        new_week_str1 = new_week_str.replace(" ", "")
-
-    if request.user.is_staff:
-        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
-        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
-
-    return render(request,
-                  'account/dashboard.html',
-                  {'section': 'dashboard', 'dailyquote': dailyquote, 'new_str1': new_str1,
-                   'new_week_str1': new_week_str1})
-
-
+# user's first page on login
 @login_required
 def login_success(request):
     today = datetime.date.today()
@@ -176,50 +120,35 @@ def login_success(request):
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     elif request.user.is_active:
         current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
-        print(current_week)
         return render(request,
                       'account/current_week.html',
                       {'current_week': current_week,
                        'dailyquote': dailyquote})
 
-@login_required
-def userdashboard(request):
-    return render(request,
-                  'account/userdashboard.html',
-                  {'section': 'userdashboard'})
-
+# admin - create program
 @login_required
 def createprogram(request):
     registeredPrograms = Program.objects.all()
     if request.method == 'POST':
         form = ProgramForm(request.POST)
         if form.is_valid():
-            #print ("program_form")
             program= form.save(commit=False)
-            #program.created_date = timezone.now()
             program.save()
             messages.success(request,'Program added successfully')
             return redirect('createprogram')
         else:
             messages.error(request, 'Error creating Program. Retry!')
-            #return HttpResponse('Error updating your profile!')
     else:
         form = ProgramForm()
-        #print("Else")
-        #profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
                   'account/createprogram.html',
                   {'section': 'createprogram','form':form,'registeredPrograms':registeredPrograms})
 
-
-# def validate_csv(value):
-#     if not value.name.endswith('.csv'):
-#         raise ValidationError('Invalid file type')
-
+# admin - signup users with csv upload
 def handle_uploaded_file(request, name):
     csvf = StringIO(request.FILES['file'].read().decode())
     reader = csv.reader(csvf, delimiter=',')
-    reader.__next__();
+    reader.__next__()
     count = 0
     failcount = 0
     existcount = 0
@@ -230,22 +159,10 @@ def handle_uploaded_file(request, name):
                 if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
                     num = len(User.objects.all().filter(email=row[1]))
                     if (len(User.objects.all().filter(email=row[1])) > 0):
-                        # targetUser = User.objects.all().filter(email=row[1])[0]
-                        # targetUser.is_active = True
-                        # targetUser.save()
-                        # targetProfile = targetUser.profile
-                        # targetProfile.program = Program.objects.all().filter(program_name=name)[0]
-                        # targetProfile.points = 0
-                        # targetProfile.pre_assessment = 'No'
-                        # targetProfile.post_assessment = 'No'
-                        # targetProfile.save()
-                        existcount += 1             #hghanta: changes to get existing users count
+                        existcount += 1
 
                     else:
                         vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
-                        current_site = get_current_site(request)
-                        alphabet = string.ascii_letters + string.digits
-                        # theUser = User(username=generate(), password = generate_temp_password(8), first_name = row[2],last_name = row[3], email =row[1])
                         theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
                         theUser.set_password('stayfit2019')
                         theUser.save()
@@ -270,16 +187,14 @@ def handle_uploaded_file(request, name):
             else:
                 failcount += 1
         except Exception as e:
-            print(e)
             existcount += 1
     return (count, failcount, existcount, emailcount)
 
-
+# get user name in base.html
 def get_short_name(self):
-    # The user is identified by their email address
     return self.first_name
 
-
+# admin - register users through csv upload
 @login_required
 def registerusers(request):
     if request.method == 'POST':
@@ -379,33 +294,19 @@ def registerusers(request):
         form = UploadFileForm()
     return render(request,
                   'account/registerusers.html',
-                  {'form' : form})
+                  {'form': form})
 
-def aboutus(request):
-    return render(request,
-                  'account/aboutus.html',
-                  {'section': 'aboutus'})
-
+# admin - all users table
 @login_required
 def users(request):
-    registeredUsers = User.objects.filter(is_superuser = False)
-    return render(request, 'account/viewUsers.html', {'registeredUsers' : registeredUsers})
+    registeredUsers = User.objects.filter(is_superuser=False)
+    return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
 
-@login_required
-def myprogram(request):
-    return render(request,
-                  'account/myprogram.html',
-                  {'section': 'myprogram'})
-@login_required
-def programs(request):
-    return render(request,
-                  'account/programs.html',
-                  {'section': 'programs'})
+# edit profile during registration
 @login_required
 def edit(request):
 
     activated = False
-    print(request.user.profile.profile_filled)
     if(request.user.profile.profile_filled):
         activated = True
     else:
@@ -431,23 +332,20 @@ def edit(request):
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile, user=request.user)
-        # print(profile_form)
     return render(request,
                   'account/edit.html',
                   {'user_form': user_form,
                    'profile_form': profile_form,
                    'activated': activated})
 
+# edit profile post registration
 @login_required
 def user_edit(request):
-
     activated = False
-    print(request.user.profile.profile_filled)
-    if(request.user.profile.profile_filled):
+    if request.user.profile.profile_filled:
         activated = True
     else:
         activated = False
-
 
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user,
@@ -455,7 +353,6 @@ def user_edit(request):
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
                                        files=request.FILES, user=request.user)
-        print(user_form.is_valid(), profile_form.is_valid())
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -473,17 +370,15 @@ def user_edit(request):
                   'account/user_edit_profile.html',
                   {'user_form': user_form,
                    'profile_form': profile_form,
-                   'activated':activated})
+                   'activated': activated})
 
-
+# admin - edit user profile
 @login_required
 def admin_edit(request):
     if request.method == 'POST':
-        # update
         user_form = UserEditForm(instance=request.user,
                                  data=request.POST)
         admin_form = AdminEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
-
         if user_form.is_valid() and admin_form.is_valid():
             user_form.save()
             admin_form.save()
@@ -495,32 +390,34 @@ def admin_edit(request):
         else:
             messages.warning(request, 'Please correct the errors below!')
     else:
-        # edit
         user_form = UserEditForm(instance=request.user)
         admin_form = AdminEditForm(instance=request.user.profile)
-
     return render(request, 'account/admin_edit.html', {'user_form': user_form, 'admin_form': admin_form})
 
 
-
+# admin - view user profile on icon click
 @login_required
-def profile(request,pk):
+def profile(request, pk):
     pro = Profile.objects.get(user_id=pk)
     return render(request,
                   'account/profile.html',
                   {'user': pro})
 
+# admin - CMS content
 @login_required
 def cms_frame(request):
     return render(request,
                   'account/cms_frame.html',
                   {'section': 'cms_frame'})
+
+# admin - django panel
 @login_required
 def django_frame(request):
     return render(request,
                   'account/django_frame.html',
                   {'section': 'django_frame'})
 
+# admin - archive users after the completion of the program
 @login_required
 def archive(request):
     if request.method == 'POST':
@@ -545,6 +442,7 @@ def archive(request):
                   {'section': 'archive','form':form})
 
 
+# Admin: Sending group email from the application
 def group_email(request):
     if request.method == 'GET':
         form = EmailForm()
@@ -554,9 +452,6 @@ def group_email(request):
         template_form = TemplateForm()
         list = request.POST.getlist('checks[]')
         return render(request, "account/group_email.html", {'form': form, 'template_form': template_form, 'to_list': list})
-
-
-
 
 def send_group_email(request):
     if request.method == 'GET':
@@ -603,22 +498,21 @@ def send_group_email(request):
                 plain_message = strip_tags(html_message)
                 for user_email in result:
                     send_mail(subject, plain_message, from_email, [user_email], html_message=html_message)
-                    user = User.objects.get(username = user_email)
+                    user = User.objects.get(username=user_email)
                     name = user.first_name + " " + user.last_name
                     name_list.append(name)
                 return render(request, "account/email_confirmation.html", {'name_list': name_list, 'form': form})
 
 
-
-def email_individual(request,pk):
-    user_student = get_object_or_404(User,pk=pk)
+# Admin: Send individual email from the application
+def email_individual(request, pk):
+    user_student = get_object_or_404(User, pk=pk)
     if request.method == 'GET':
         form = ContactForm()
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
             subject = form.cleaned_data['subject']
-            #contact_email = form.cleaned_data['contact_email']
             contact_email = user_student.email
             message = form.cleaned_data['message']
             from_email = 'capstone18FA@gmail.com'
@@ -627,11 +521,11 @@ def email_individual(request,pk):
                 send_mail(subject, message, from_email, [contact_email])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            return render(request,'account/email_individual_confirmation.html',{'contact_email': contact_email},{'user_student':user_student})
-    return render(request, 'account/email_individual.html', {'form': form,'user_student':user_student})
+            return render(request,'account/email_individual_confirmation.html', {'contact_email': contact_email}, {'user_student':user_student})
+    return render(request, 'account/email_individual.html', {'form': form, 'user_student': user_student})
 
 
-
+# Admin: Set the user inactivity days for sending the inactive emails
 @login_required
 def user_inactivity(request):
     try:
@@ -641,46 +535,19 @@ def user_inactivity(request):
         latest_date = 7
 
     if request.method == 'GET':
-        form = CronForm(initial={'days':latest_date})
+        form = CronForm(initial={'days': latest_date})
     else:
-        form = CronForm(request.POST,initial={'days':latest_date})
+        form = CronForm(request.POST,initial={'days': latest_date})
         if form.is_valid():
             inactive_days = form.cleaned_data['days']
             days_data = Inactiveuser(set_days=inactive_days)
             days_data.save()
             messages.success(request,'User inactivity email notification period set successfully')
             return redirect('user_inactivity')
-    return render(request,'account/user_inactivity.html',{'form':form})
+    return render(request, 'account/user_inactivity.html', {'form': form})
 
-
-def rewards_notification(request):
-    try:
-        milestones = RewardsNotification.objects.latest()
-        set_point1 = milestones.Rewards_milestone_1
-        set_point2 = milestones.Rewards_milestone_2
-        set_point3 = milestones.Rewards_milestone_3
-        set_point4 = milestones.Rewards_milestone_4
-    except RewardsNotification.DoesNotExist:
-        set_point1 = 25
-        set_point2 = 50
-        set_point3 = 75
-        set_point4 = 100
-
-    if request.method == 'GET':
-        form = RewardsNotificationForm(initial={'Rewards_milestone_1':set_point1,'Rewards_milestone_2':set_point2,'Rewards_milestone_3':set_point3,'Rewards_milestone_4':set_point4})
-    else:
-        form = RewardsNotificationForm(request.POST,initial={'Rewards_milestone_1':set_point1,'Rewards_milestone_2':set_point2,'Rewards_milestone_3':set_point3,'Rewards_milestone_4':set_point4})
-        if form.is_valid():
-            Rewards_milestone_1 = form.cleaned_data['Rewards_milestone_1']
-            Rewards_milestone_2 = form.cleaned_data['Rewards_milestone_2']
-            Rewards_milestone_3 = form.cleaned_data['Rewards_milestone_3']
-            Rewards_milestone_4 = form.cleaned_data['Rewards_milestone_4']
-            rewards_notification_data = RewardsNotification(Rewards_milestone_1=Rewards_milestone_1,Rewards_milestone_2=Rewards_milestone_2,Rewards_milestone_3=Rewards_milestone_3,Rewards_milestone_4=Rewards_milestone_4)
-            rewards_notification_data.save()
-            messages.success(request,'Rewards email notification milestones set successfully')
-            return render(request,'account/rewards_notification.html',{'form':form})
-    return render(request,'account/rewards_notification.html',{'form':form})
-
+# Admin: Add points to the selected users
+@login_required
 def manage_points(request):
     if request.method == 'GET':
         form = ManagePointForm()
@@ -694,6 +561,9 @@ def manage_points(request):
             users.append(user1)
         return render(request, "account/managepoints.html", {'form': form, 'users': users, 'to_list': list})
 
+
+# Admin: Update the points for the selected user
+@login_required
 def update_points(request):
     if request.method == 'GET':
         form = ManagePointForm()
@@ -727,7 +597,6 @@ def parameters_form(request):
             post = form.save(commit=False)
             post.save()
     else:
-        # Check if Parameters is populated. If not, add default row.
         if Parameters.objects.filter(current_values=True).count() == 0:
             parameters = Parameters()
             parameters.physical_days_to_done = 1
@@ -747,6 +616,8 @@ def parameters_form(request):
         )
     return render(request, 'account/parameters_edit.html', {'form': form})
 
+
+# admin: Clone a program to copy all the pages toa new program
 @login_required
 def cloneprogram(request):
     if request.method == "POST":
@@ -784,10 +655,41 @@ def cloneprogram(request):
         form = ProgramClone()
         return render(request, 'account/cloneprogram.html', {'form': form})
 
+# admin - set reward milestones
+def rewards_notification(request):
+    try:
+        milestones = RewardsNotification.objects.latest()
+        set_point1 = milestones.Rewards_milestone_1
+        set_point2 = milestones.Rewards_milestone_2
+        set_point3 = milestones.Rewards_milestone_3
+        set_point4 = milestones.Rewards_milestone_4
+    except RewardsNotification.DoesNotExist:
+        set_point1 = 25
+        set_point2 = 50
+        set_point3 = 75
+        set_point4 = 100
+
+    if request.method == 'GET':
+        form = RewardsNotificationForm(initial={'Rewards_milestone_1':set_point1,'Rewards_milestone_2':set_point2,'Rewards_milestone_3':set_point3,'Rewards_milestone_4':set_point4})
+    else:
+        form = RewardsNotificationForm(request.POST,initial={'Rewards_milestone_1':set_point1,'Rewards_milestone_2':set_point2,'Rewards_milestone_3':set_point3,'Rewards_milestone_4':set_point4})
+        if form.is_valid():
+            Rewards_milestone_1 = form.cleaned_data['Rewards_milestone_1']
+            Rewards_milestone_2 = form.cleaned_data['Rewards_milestone_2']
+            Rewards_milestone_3 = form.cleaned_data['Rewards_milestone_3']
+            Rewards_milestone_4 = form.cleaned_data['Rewards_milestone_4']
+            rewards_notification_data = RewardsNotification(Rewards_milestone_1=Rewards_milestone_1,Rewards_milestone_2=Rewards_milestone_2,Rewards_milestone_3=Rewards_milestone_3,Rewards_milestone_4=Rewards_milestone_4)
+            rewards_notification_data.save()
+            messages.success(request, 'Rewards email notification milestones set successfully')
+            return render(request, 'account/rewards_notification.html', {'form': form})
+    return render(request, 'account/rewards_notification.html', {'form': form})
+
+# admin - download csv page
 @login_required
 def analytics(request):
     return render(request, 'account/analytics_home.html', {})
 
+# admin - download csv files
 @login_required
 def export_data(request):
     if request.method == 'POST':
@@ -829,9 +731,6 @@ def export_data(request):
             if len(rows) > 0:
                 writer = csv.writer(response)
                 header_data = ['User']
-                #writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
-
-                #for row in rows:
                 question_data = json.loads(rows[0].form_data)
                 for key in question_data:
                     header_data.append(str(key))
@@ -862,9 +761,6 @@ def export_data(request):
             if len(rows) > 0:
                 writer = csv.writer(response)
                 header_data = ['User']
-                # writer.writerow(['User', 'Pre-assessment Data', 'Submission Time'])
-
-                # for row in rows:
                 question_data = json.loads(rows[0].form_data)
                 for key in question_data:
                     header_data.append(str(key))
@@ -890,10 +786,11 @@ def export_data(request):
     else:
         return HttpResponse('Invalid request')
 
+
+# user - redeem rewards and email with attachment
 @login_required
 def rewards_redeem(request, pk):
     if request.method == "GET":
-        #data = ServicePostPage.objects.get(page_ptr_id=10)
         return render(request, 'rewards/reward_confirmation.html')
     else:
         item = RewardItem.objects.get(id=pk)
@@ -904,7 +801,7 @@ def rewards_redeem(request, pk):
         item.save()
         user1 = User.objects.get(username=request.user.username)
         if user1.profile.points < point:
-            print('cannot redeem')
+            return HttpResponse("Do not have enough points")
         else:
             user1.profile.points = 0
             user1.profile.save()
@@ -915,8 +812,7 @@ def rewards_redeem(request, pk):
             messages = 'Check the PDF attachment for your redemption number'
             from_email = 'capstone18FA@gmail.com'
             email = EmailMessage(subject, messages, from_email, [user1.email])
-            #genarate PDF
-            html = render_to_string('rewards/pdf.html',{'point': point, 'service': service,
+            html = render_to_string('rewards/pdf.html', {'point': point, 'service': service,
                                                                         'points_available': points_available,
                                                                         'reward_number': reward_number})
             out = BytesIO()
@@ -928,13 +824,14 @@ def rewards_redeem(request, pk):
                                                                         'points_available': points_available,
                                                                         'reward_number': reward_number})
 
+# admin - view rewards
 @login_required
 def viewRewards(request):
     rewards = Reward.objects.all()
     user = User.objects.get(username=request.user.username)
-    return render(request, 'rewards/viewRewards.html', {'rewards' : rewards, 'user': user})
+    return render(request, 'rewards/viewRewards.html', {'rewards': rewards, 'user': user})
 
-
+# admin - Analytics dashboard
 @login_required
 def Analytics_Dashboard(request):
     data = UserActivity.objects.all()
@@ -942,22 +839,22 @@ def Analytics_Dashboard(request):
     return render(request,
                   'account/Analytics_Dashboard.html',
                   {'section': 'Analytics_Dashboard', 'jsondata':jsondata})
-# analytics dashboard ends- srishty#
 
+
+# user - send kindness message
+@login_required
 def send_message(request):
     if request.method == 'POST':
         message = request.POST.get("message")
         to = request.POST.get("user")
-        print(to)
-        # to = 'one@gmail.com'
         from_user = request.user.username
         KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
         user = User.objects.get(username=to)
         name = user.first_name + user.last_name
         messages.success(request, f'Message sent to: {name}')
     return redirect('pages/kindness-card', {'section': 'send_message'})
-    # return render(request, 'week/kindness_card_page.html', {'section': 'send_message', 'page': page})
 
+# user - read kindness message
 def inbox(request):
     if request.method == 'GET':
         all_messages = KindnessMessage.objects.filter(to_user=request.user.username).order_by('-message_id')
@@ -984,14 +881,12 @@ def inbox(request):
                 dict_all[name]['messages'].append(message.body)
             except KeyError:
                 dict_all[name] = {'messages': [message.body], 'photo': photo}
-                print(dict_all[name]['messages'])
-                print(dict_all)
         return render(request, 'kindnessCards/new.html', {'messages': messages, 'all': dict_all, 'unread': dict_unread})
 
+
+# user - mark read messages
 def mark_read(request):
     if request.method == 'GET':
-        print('inside mark_read')
-
         all_messages = KindnessMessage.objects.filter(to_user=request.user.username)
         unread_messages = all_messages.filter(read_message=False)
         dict_all = {}
@@ -999,7 +894,6 @@ def mark_read(request):
         for test_message in unread_messages:
             username = User.objects.get(username=test_message.from_user)
             name = username.first_name + " " + username.last_name
-            # message.read_message = True
             try:
                 dict_unread[name].append(test_message.body)
             except KeyError:
@@ -1013,77 +907,34 @@ def mark_read(request):
                 dict_all[name].append(message.body)
             except KeyError:
                 dict_all[name] = [message.body]
-        print(dict_unread)
         return redirect('/inbox/')
-        # return render(request,
-        #               'kindnessCards/new.html',
-        #               {'messages': messages, 'all': dict_all, 'unread': dict_unread})
 
-# def inbox_unread(request):
-#     if request.method == 'GET':
-#         # user = User.objects.get(email=request.user.email)
-#         # unread_message = KindnessMessage.objects.filter(to_user=user).filter(read_message=False)
-#         # from_users = KindnessMessage.objects.filter(to_user=user).filter(read_message=False).values('from_user')
-#         # print(from_users)
-#         # print(unread_message)
-#         #from_users = KindnessMessage.objects.filter(from_user=)
-#         #print(from_users)
-#         messages = KindnessMessage.objects.filter(to_user=request.user.email).filter(read_message=False)
-#
-#         dict = {}
-#         photo = 'Photo'
-#         for message in messages:
-#             username = User.objects.get(username=message.from_user)
-#             name = username.first_name + " " + username.last_name
-#             picture = username.profile.photo.url
-#             #print(username.profile.photo.url)
-#             try:
-#                 dict[name].append(message.body)
-#                 dict['photo'].append(picture)
-#             except KeyError:
-#                 dict[name] = [message.body]
-#                 dict['photo'] = [picture]
-#         #print(dict)
-#                 #return render(request,'kindnessCards/old.html',{'messages':messages,'inbox':dict,'picture':picture})
-#         print(dict)
-#         return render(request,'kindnessCards/old.html',{'messages':messages, 'inbox':dict})
-#
 
 @login_required()
-def edit_user(request,pk):
-    user = get_object_or_404(User, pk= pk)
-    print(user)
-    #user1 = get_object_or_404(Profile, profile.user_id )
+def edit_user(request, pk):
+    user = get_object_or_404(User, pk=pk)
     user1 = Profile.objects.filter(user_id=pk).first()
-
-
     if request.method == 'POST':
-        # update
-        form = UserEditForm(instance=user,data=request.POST,files=request.FILES)
-        form1 = ProfileEditForm(instance=user1,data=request.POST,files=request.FILES, user=user)
+        form = UserEditForm(instance=user, data=request.POST, files=request.FILES)
+        form1 = ProfileEditForm(instance=user1, data=request.POST, files=request.FILES, user=user)
 
         if form1.is_valid() and form.is_valid():
-            #user1.profile.photo = ProfileEditForm.cleaned_data['photo']
             user = form.save(commit=False)
             user1 = form1.save(commit=False)
             user1.photo = form1.cleaned_data['photo']
-            print(user1.photo)
             user.save()
             user1.save()
-
             messages.success(request, 'Profile updated successfully')
             return redirect('users')
-
         else:
             messages.warning(request, 'Please correct the errors below!')
     else:
-        # edit
         form = UserEditForm(instance=user)
         form1 = ProfileEditForm(instance=user1, user=user)
-        return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
-    return render(request, 'account/edit_user.html', {'form1': form1,'form': form,'user1':user1,'user':user})
+        return render(request, 'account/edit_user.html', {'form1': form1, 'form': form, 'user1': user1, 'user': user})
+    return render(request, 'account/edit_user.html', {'form1': form1, 'form': form, 'user1': user1, 'user': user})
 
-
+# admin - signup single user
 @login_required
 def signup(request):
     programs = Program.objects.all()
@@ -1091,24 +942,19 @@ def signup(request):
         sign_form = SignUpForm(data=request.POST)
 
         if sign_form.is_valid():
-
             email = sign_form.cleaned_data['email']
             username = email
             first_name = sign_form.cleaned_data['first_name']
             last_name = sign_form.cleaned_data['last_name']
             password = 'stayfit2019'
-
             selected_program = get_object_or_404(Program, pk=request.POST.get('programs'))
-
             theUser = User(username= username, email= email, first_name= first_name,
-                           last_name=last_name )
-            theUser.set_password('stayfit2019')
+                           last_name=last_name)
+            theUser.set_password(password)
             theUser.save()
-
             profile = Profile.objects.create(user=theUser,
                                              program=selected_program)
             profile.save()
-
             messages.success(request, f'{theUser.first_name} {theUser.last_name} has been added successfully!')
             form = PasswordResetForm({'email': theUser.email})
             if form.is_valid():
@@ -1121,14 +967,11 @@ def signup(request):
                     subject_template_name='registration/new_user_subject.txt',
                     email_template_name='registration/password_reset_newuser_email.html')
             return redirect('/account/users/')
-
     else:
-
         sign_form = SignUpForm()
-
     return render(request, 'account/signupusers.html', {'sign_form': sign_form, 'programs': programs})
 
-
+# admin - add reward category
 @login_required
 def reward_category(request):
     if request.user.is_staff:
@@ -1175,6 +1018,7 @@ def reward_category_edit(request, pk):
     else:
         return HttpResponseForbidden(request)
 
+# admin - add reward items
 @login_required
 def reward_item(request):
     if request.user.is_staff:
@@ -1221,6 +1065,7 @@ def reward_item_edit(request, pk):
     else:
         return HttpResponseForbidden(request)
 
+# admin - add school
 @login_required
 def add_school(request):
     addschool = Schools.objects.all()
@@ -1233,11 +1078,8 @@ def add_school(request):
             return redirect('add_school')
         else:
             messages.error(request, 'Error creating school. Retry!')
-            # return HttpResponse('Error updating your profile!')
     else:
         form = SchoolsForm()
-        # print("Else")
-        # profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request,
                   'account/add_school.html',
                   {'section': 'add_school', 'form': form, 'addschool': addschool})
