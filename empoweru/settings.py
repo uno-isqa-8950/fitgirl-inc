@@ -24,7 +24,7 @@ SECRET_KEY = 'xz@m8r3&j2kh@t+9^rxmrbvg+-c4dv5$_&*ru2d1n1jf$3(l_-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.localhost', '.herokuapp.com', 'www.empoweruomaha.com', 'cat.empoweruomaha.com']
 
 # Application definition
 
@@ -63,7 +63,9 @@ INSTALLED_APPS = [
     'wagtail_gallery',
     'wagtail.contrib.routable_page',
     'django_social_share',
-	'webpack_loader',
+    'webpack_loader',
+    'dashboard',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -103,28 +105,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'empoweru.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'd4br3qegmoba7s',
-#         'USER': 'vlpfizeviactfl',
-#         'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
-#         'HOST': 'ec2-23-21-171-249.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
-
 
 
 DATABASES = {
@@ -172,10 +154,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'assets'),
+)
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -215,6 +199,14 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 CLIENT_EMAIL = os.environ.get('CLIENT_EMAIL')
+
+# Weback loader
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/', #deplomnet bundle
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
