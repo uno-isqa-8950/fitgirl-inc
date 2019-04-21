@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
@@ -9,7 +10,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', views.login_success, name='login_success'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('Analytics_Dashboard/', views.Analytics_Dashboard, name='Analytics_Dashboard'),
+    # path('Analytics_Dashboard/', views.Analytics_Dashboard, name='Analytics_Dashboard'),
+    path('Analytics_Dashboard/', TemplateView.as_view(template_name='index.html'), name='Analytics_Dashboard'),
 
     path('parameters/', views.parameters_form, name='parameters'),
         # change password urls

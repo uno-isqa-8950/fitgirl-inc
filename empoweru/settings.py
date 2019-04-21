@@ -24,7 +24,7 @@ SECRET_KEY = 'xz@m8r3&j2kh@t+9^rxmrbvg+-c4dv5$_&*ru2d1n1jf$3(l_-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.localhost', '.herokuapp.com', 'www.empoweruomaha.com', 'cat.empoweruomaha.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -63,7 +63,7 @@ INSTALLED_APPS = [
     'wagtail_gallery',
     'wagtail.contrib.routable_page',
     'django_social_share',
-    'django_tables2',
+	'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +84,7 @@ ROOT_URLCONF = 'empoweru.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'dashboard/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -103,8 +103,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'empoweru.wsgi.application'
 
+
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd4br3qegmoba7s',
+#         'USER': 'vlpfizeviactfl',
+#         'PASSWORD': 'b618444e9e0c19346e23551420366942ed762f9b7d42024736cda9aebfbb5d6f',
+#         'HOST': 'ec2-23-21-171-249.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
+
 
 
 DATABASES = {
@@ -194,6 +214,7 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+CLIENT_EMAIL = os.environ.get('CLIENT_EMAIL')
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
