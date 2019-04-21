@@ -80,7 +80,7 @@ def point_check(sender, instance, **kwargs):
         rewards_notification = "True"
         messages = EmailTemplates.objects.get()
         subject = messages.subject_for_rewards_notification + ' :' + str(obj.user.profile.points)
-        html_message = render_to_string('account/templates/email/group_email_template.html',
+        html_message = render_to_string('email/group_email_template.html',
                                         {'content': messages, 'rewards_notification': rewards_notification})
         plain_message = strip_tags(html_message)
         send_mail(subject, plain_message, CLIENT_EMAIL, [obj.user.email], html_message=html_message)
@@ -446,16 +446,16 @@ def archive(request):
 def group_email(request):
     if request.method == 'GET':
         form = EmailForm()
-        return render(request, "account/templates/email/group_email.html", {'form': form})
+        return render(request, "email/group_email.html", {'form': form})
     else:
         form = EmailForm()
         template_form = TemplateForm()
         list = request.POST.getlist('checks[]')
-        return render(request, "account/templates/email/group_email.html", {'form': form, 'template_form': template_form, 'to_list': list})
+        return render(request, "email/group_email.html", {'form': form, 'template_form': template_form, 'to_list': list})
 
 def send_group_email(request):
     if request.method == 'GET':
-        return render(request, "account/templates/email/group_email.html")
+        return render(request, "email/group_email.html")
     else:
         template_form = TemplateForm(request.POST)
         form = EmailForm(request.POST)
@@ -473,7 +473,7 @@ def send_group_email(request):
                     user = User.objects.get(username = user_email)
                     name = user.first_name + " " + user.last_name
                     name_list.append(name)
-                return render(request, "account/templates/email/email_confirmation.html", {'name_list': name_list, 'form': form})
+                return render(request, "email/email_confirmation.html", {'name_list': name_list, 'form': form})
             elif template_form.is_valid() and selection == 'CMS content':
                 template = request.POST.get('templates')
                 field = template.replace('week.EmailTemplates.', '')
@@ -490,7 +490,7 @@ def send_group_email(request):
                 elif field == 'rewards_message':
                     rewards_notification = 'True'
                     subject = content.subject_for_rewards_notification
-                html_message = render_to_string('account/templates/email/group_email_template.html', {'content': content,
+                html_message = render_to_string('email/group_email_template.html', {'content': content,
                                                                                       'group_message': group_message,
                                                                                       'user_inactivity': user_inactivity,
                                                                                       'rewards_notification': rewards_notification})
@@ -500,7 +500,7 @@ def send_group_email(request):
                     user = User.objects.get(username=user_email)
                     name = user.first_name + " " + user.last_name
                     name_list.append(name)
-                return render(request, "account/templates/email/email_confirmation.html", {'name_list': name_list, 'form': form})
+                return render(request, "email/email_confirmation.html", {'name_list': name_list, 'form': form})
 
 
 # Admin: Send individual email from the application
@@ -518,8 +518,8 @@ def email_individual(request, pk):
                 send_mail(subject, message, CLIENT_EMAIL, [contact_email])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            return render(request, 'account/templates/email/email_individual_confirmation.html', {'contact_email': contact_email}, {'user_student':user_student})
-    return render(request, 'account/templates/email/email_individual.html', {'form': form, 'user_student': user_student})
+            return render(request, 'email/email_individual_confirmation.html', {'contact_email': contact_email}, {'user_student':user_student})
+    return render(request, 'email/email_individual.html', {'form': form, 'user_student': user_student})
 
 
 # Admin: Set the user inactivity days for sending the inactive emails
@@ -541,7 +541,7 @@ def user_inactivity(request):
             days_data.save()
             messages.success(request,'User inactivity email notification period set successfully')
             return redirect('user_inactivity')
-    return render(request, 'account/templates/email/user_inactivity.html', {'form': form})
+    return render(request, 'email/user_inactivity.html', {'form': form})
 
 # Admin: Add points to the selected users
 @login_required
@@ -684,7 +684,7 @@ def rewards_notification(request):
 # admin - download csv page
 @login_required
 def analytics(request):
-    return render(request, 'account/templates/analytics/analytics_home.html', {})
+    return render(request, 'analytics/analytics_home.html', {})
 
 # admin - download csv files
 @login_required
@@ -833,7 +833,7 @@ def Analytics_Dashboard(request):
     data = UserActivity.objects.all()
     jsondata = serializers.serialize('json', data, fields=('program', 'user', 'activity', 'week', 'day', 'points_earned'))
     return render(request,
-                  'account/templates/analytics/Analytics_Dashboard.html',
+                  'analytics/Analytics_Dashboard.html',
                   {'section': 'Analytics_Dashboard', 'jsondata':jsondata})
 
 

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 register = template.Library()
 
 
-@register.inclusion_tag('account/../templates/email/user_message.html', takes_context=True)
+@register.inclusion_tag('email/user_message.html', takes_context=True)
 def unread_message(context):
     request = context['request']
     user = User.objects.get(email=request.user.email)

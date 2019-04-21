@@ -23,7 +23,7 @@ def user_inactivity():
     content = EmailTemplates.objects.get()
     # print(content.subject_for_inactivity)
     subject = content.subject_for_inactivity
-    html_message = render_to_string('account/../../templates/other/../../templates/email/group_email_template.html',
+    html_message = render_to_string('email/group_email_template.html',
                                     {'content': content, 'user_inactivity': user_inactivity})
 
 
