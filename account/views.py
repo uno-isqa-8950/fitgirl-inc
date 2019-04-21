@@ -19,6 +19,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
+from empoweru.settings import CLIENT_EMAIL
 import datetime, tzlocal
 from django.core.mail import BadHeaderError, send_mail, EmailMessage
 from django.template.loader import render_to_string
@@ -82,8 +83,7 @@ def point_check(sender, instance, **kwargs):
         html_message = render_to_string('account/group_email_template.html',
                                         {'content': messages, 'rewards_notification': rewards_notification})
         plain_message = strip_tags(html_message)
-        from_email = 'capstone18FA@gmail.com'
-        send_mail(subject, plain_message, from_email, [obj.user.email], html_message=html_message)
+        send_mail(subject, plain_message, CLIENT_EMAIL, [obj.user.email], html_message=html_message)
     else:
         pass
 
@@ -464,13 +464,12 @@ def send_group_email(request):
             list = request.POST.get('to_list')
             new = list.replace('[','').replace(']','').replace("'",'')
             result = [x.strip() for x in new.split(',')]
-            from_email = 'capstone18FA@gmail.com'
             subject = form.cleaned_data['subject']
             name_list = []
             if selection == 'text':
                 message = form.cleaned_data['message']
                 for user_email in result:
-                    send_mail(subject, message, from_email, [user_email])
+                    send_mail(subject, message, CLIENT_EMAIL, [user_email])
                     user = User.objects.get(username = user_email)
                     name = user.first_name + " " + user.last_name
                     name_list.append(name)
@@ -497,7 +496,7 @@ def send_group_email(request):
                                                                                       'rewards_notification': rewards_notification})
                 plain_message = strip_tags(html_message)
                 for user_email in result:
-                    send_mail(subject, plain_message, from_email, [user_email], html_message=html_message)
+                    send_mail(subject, plain_message, CLIENT_EMAIL, [user_email], html_message=html_message)
                     user = User.objects.get(username=user_email)
                     name = user.first_name + " " + user.last_name
                     name_list.append(name)
@@ -515,10 +514,8 @@ def email_individual(request, pk):
             subject = form.cleaned_data['subject']
             contact_email = user_student.email
             message = form.cleaned_data['message']
-            from_email = 'capstone18FA@gmail.com'
-
             try:
-                send_mail(subject, message, from_email, [contact_email])
+                send_mail(subject, message, CLIENT_EMAIL, [contact_email])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return render(request,'account/email_individual_confirmation.html', {'contact_email': contact_email}, {'user_student':user_student})
@@ -810,8 +807,7 @@ def rewards_redeem(request, pk):
             reward_number = rewards.reward_no
             subject = 'Confirmation Rewards Redeemed - Redemption No.'.format(rewards.reward_no)
             messages = 'Check the PDF attachment for your redemption number'
-            from_email = 'capstone18FA@gmail.com'
-            email = EmailMessage(subject, messages, from_email, [user1.email])
+            email = EmailMessage(subject, messages, CLIENT_EMAIL, [user1.email])
             html = render_to_string('rewards/pdf.html', {'point': point, 'service': service,
                                                                         'points_available': points_available,
                                                                         'reward_number': reward_number})
