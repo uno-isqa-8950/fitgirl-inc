@@ -4,7 +4,7 @@
   "scripts": {
     "pretest": "eslint django/ js_tests/admin/ js_tests/gis/",
     "test": "grunt test --verbose",
-    "postinstall": "./node_modules/.bin/grunt build"
+    "postinstall": "./node_modules/.bin/gulp build"
   },
   "engines": {
     "node" : ">=0.10.3 <0.12",
