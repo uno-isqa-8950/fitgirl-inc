@@ -876,10 +876,8 @@ def inbox(request):
             name = username.first_name + " " + username.last_name
             try:
                 dict_all[name]['messages'].append({'body': message.body, 'date': date})
-                # dict_all[name]['messages']['date'].update(date)
             except KeyError:
                 dict_all[name] = {'messages': [{'body': message.body, 'date': date}], 'photo': photo}
-        print(dict_all)
         return render(request, 'kindnessCards/inbox.html', {'messages': messages, 'all': dict_all, 'unread': dict_unread})
 
 
