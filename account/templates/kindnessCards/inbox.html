@@ -36,7 +36,8 @@
       <ul>
           <li>
             {% for v in values.messages  %}
-                <p>{{v}}</p>
+                <!--<p>{{v}}</p>-->
+               <p class="received-kindness">{{v.body}}</p><span class="message-date">{{v.date}}</span>
             {% endfor %}
 
             <u><i><label for="option" style="z-index:1;width: auto;background: transparent;border: none;float: right;">{{ key }}</label></i></u>
