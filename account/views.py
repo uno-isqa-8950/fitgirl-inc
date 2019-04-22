@@ -21,7 +21,6 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.forms import PasswordResetForm
 from django.conf import settings
 from django.forms import ValidationError
-#from datetime import datetime, timedelta
 import pytz, datetime, tzlocal
 import wagtail
 from django.core.mail import send_mass_mail, BadHeaderError, send_mail, EmailMessage
