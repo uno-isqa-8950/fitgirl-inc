@@ -16,6 +16,8 @@ django-sekizai==0.10.0
 django-taggit==0.23.0
 django-treebeard==4.3
 djangocms-admin-style==1.2.8
+django-webpack-loader==0.6.0
+atomicwrites==1.3.0
 djangorestframework==3.8.2
 draftjs-exporter==2.1.5
 filebrowser-safe==0.5.0
@@ -47,6 +49,8 @@ django-storages==1.7.1
 python-decouple==3.1
 django-compressor
 django-tables2
+requests==2.19.1
+urllib3==1.23
 
 WeasyPrint==45
 cairocffi==0.9.0
