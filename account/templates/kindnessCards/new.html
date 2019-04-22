@@ -5,7 +5,7 @@
 {% block content %}
 
 
-<div class="container all-kindness-wrapper" style="position:relative">
+<div class="container all-kindness-wrapper" style="position: relative;height: 720px;">
 <a class=" btn unread-cards btn-pink ">Show Unread Cards</a>
         <div class="tabordion">
             {% for key, values in all.items %}
@@ -14,11 +14,51 @@
                   <input type="radio" name="sections" id="option" checked>
                   <label for="option">{{ key }}</label>
                   <article>
+                     <!--{% for v in values.messages %}-->
+                        <!--<p class="received-kindness">{{v}}</p>-->
+                     <!--{% endfor %}-->
+
+<div class="container" style="position:relative;padding: 0;">
+    <div class="card-wrapper">
+
                     <h2> <img class="rounded-circle account-img" src="{{ values.photo }}"
                              onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="height: 50px;width: 50px"> {{ key }}</h2>
-                     {% for v in values.messages %}
-                        <p class="received-kindness">{{v}}</p>
-                     {% endfor %}
+<div class="wrap kind-wrap" id="wrap">
+  <div class="kindnessCardContainer card--inner">
+      <div class="kindness-bg"></div>
+    <span style="
+    text-align: left;
+    float: left;
+    clear: right;
+    width: 100%;
+    margin-left: 20px;
+">Hi,</span>
+      <ul>
+          <li>
+            {% for v in values.messages  %}
+                <p>{{v}}</p>
+            {% endfor %}
+
+            <u><i><label for="option" style="z-index:1;width: auto;background: transparent;border: none;float: right;">{{ key }}</label></i></u>
+          </li>
+  </ul>
+  </div>
+  <div class="kindnessCardContainer card--front back" onclick="openCard();"></div>
+  <div class="kindnessCardContainer card--front" onclick="openCard();">
+  </div>
+</div>
+</div>
+    <button class="kdns-btn" type="button" onclick="openCard();" id="button" style="
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 15px;
+">Open Card</button>
+</div>
+
+
+
+
+
                   </article>
                 </section>
             {% endfor %}
@@ -29,8 +69,9 @@
 <div class="container kindness" style="position:relative;padding: 0;">
     <a class=" btn all-cards btn-pink ">Show All My Cards</a>
     <div class="card-wrapper">
-<div class="wrap kindness" id="wrap">
+<div class="wrap kindness kind-wrap" id="kind">
   <div class="kindnessCardContainer card--inner">
+      <div class="kindness-bg"></div>
     <span style="
     text-align: left;
     float: left;
@@ -74,22 +115,19 @@
 </div>
 
 <script>
-
 function openCard() {
-$("#wrap").css('margin-left','33%');
+$(".kind-wrap").css('margin-left','33%');
   var button = document.getElementById('button');
-
   if(button.innerHTML == 'Open Card') {
       button.type = 'button';
       button.innerHTML = 'Close Card';
   } else if(button.innerHTML = 'Close Card') {
-$("#wrap").css('margin-left','0');
+$(".kind-wrap").css('margin-left','0');
       button.type = 'submit';
       button.innerHTML = 'Open Card';
   } else {
         button.innerHTML = 'Open Card';
   }
-
   var cards = document.querySelectorAll('.kindnessCardContainer');
   for(var i = 0; i < cards.length; i++) {
     cards[i].classList.toggle('open');
