@@ -1,12 +1,15 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', views.login_success, name='login_success'),
-    path('Analytics_Dashboard/', views.Analytics_Dashboard, name='Analytics_Dashboard'),
+    # path('dashboard/', views.dashboard, name='dashboard'),
+    # path('Analytics_Dashboard/', views.Analytics_Dashboard, name='Analytics_Dashboard'),
+    path('Analytics_Dashboard/', TemplateView.as_view(template_name='index.html'), name='Analytics_Dashboard'),
     path('parameters/', views.parameters_form, name='parameters'),
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
