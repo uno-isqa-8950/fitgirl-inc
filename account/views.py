@@ -868,15 +868,16 @@ def inbox(request):
                 dict_unread[name] = [message.body]
         for message in all_messages:
             username = User.objects.get(username=message.from_user)
+            date = message.created_date.date()
             try:
                 photo = username.profile.photo.url
             except:
                 photo = ''
             name = username.first_name + " " + username.last_name
             try:
-                dict_all[name]['messages'].append(message.body)
+                dict_all[name]['messages'].append({'body': message.body, 'date': date})
             except KeyError:
-                dict_all[name] = {'messages': [message.body], 'photo': photo}
+                dict_all[name] = {'messages': [{'body': message.body, 'date': date}], 'photo': photo}
         return render(request, 'kindnessCards/inbox.html', {'messages': messages, 'all': dict_all, 'unread': dict_unread})
 
 
