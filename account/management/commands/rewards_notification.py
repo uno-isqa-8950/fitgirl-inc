@@ -17,7 +17,7 @@ def rewards_notification():
 
     subject = messages.subject_for_rewards_notification
 
-    html_message = render_to_string('account/group_email_template.html',
+    html_message = render_to_string('email/group_email_template.html',
                                     {'content': messages, 'rewards_notification': rewards_notification})
 
     plain_message = strip_tags(html_message)
