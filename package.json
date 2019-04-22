@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "node app",
-    "postinstall": "webpack -p --config ./webpack.config.js --progress",
+    "poststart": "npm prune --production",
     "pretest": "eslint django/ js_tests/admin/ js_tests/gis/",
     "test": "grunt test --verbose"
   },
