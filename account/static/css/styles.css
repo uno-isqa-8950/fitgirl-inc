@@ -2401,12 +2401,22 @@ img {
   backface-visibility: visible;
   -webkit-backface-visibility: visible;
 }
+.kindness-bg{
+position:absolute;
+width:100%;
+height:100%;
+opacity:0.2;
+z-index:-1;
+background: url(../images/KCard.jpg) repeat 100%;
+background-size: cover;
+}
 .card--inner {
   overflow: hidden;
-  padding: 15px;
   position: relative;
     overflow-y: auto;
-
+    background:transparent;
+        background: white;
+        z-index:-1
 }
 .card--inner::after {
   content: "";
@@ -2445,7 +2455,7 @@ img {
   transition: all 1s ease-in-out;
 }
 
-.kindness button {
+.kindness button,.kdns-btn {
   -webkit-appearance: none;
   background: #E53935;
   border: 5px solid #9f1815;
@@ -2634,15 +2644,15 @@ button.close {
 
 .tabordion input[name="sections"]:checked ~ article {
   display: block;
-  min-height: 500px;
-  max-height: 575px;
+  min-height: 600px;
   width: 81.8%;
   background: #F6F6F6;
   border-left: 1px solid #cfcfcf;
   overflow-y: auto;
   font-family: cursive;
+  padding-left:0;
 }
-article
+
 .received-kindness{
   border: 1px solid #cfcfcf;
   padding:  20px;

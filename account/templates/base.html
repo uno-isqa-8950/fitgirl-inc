@@ -305,22 +305,6 @@
     </footer>
 </div>
 
-<script>
-        $(document).ready(function () {
-            var unreadcards = $(".unread_number").html();
-            console.log(unreadcards);
-            if(unreadcards==0){
-                // alert(1)
-                $(".unread_false").hide();
-                $(".bell-notify").hide();
-            }else{
-                $(".unread_false").show();
-            }
-
-            // var warningval = $("#warning-alert h5").html();
-
-        });
-</script>
 {% endif %}
 {% endif %}
 <!-- SCRIPTS -->
@@ -336,11 +320,32 @@
 <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/lightbox.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.slimscroll.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
 <!-- <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
 <script type="text/javascript" src="{% static 'js/soon.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
+<script>
+        $(document).ready(function () {
+
+            $('.card--inner').slimScroll({
+                height:'513px'
+            });
+            var unreadcards = $(".unread_number").html();
+            console.log(unreadcards);
+            if(unreadcards==0){
+                // alert(1)
+                //$(".unread_false").hide();
+                $(".bell-notify").hide();
+            }else{
+                $(".unread_false").show();
+            }
+
+            // var warningval = $("#warning-alert h5").html();
+
+        });
+</script>
 <script>
     $(document).ready(function () {
         $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
