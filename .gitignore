@@ -4,4 +4,4 @@ myvenv
 _pycache_
 local_settings.py
 .idea/
-'node_modules' 
+node_modules
