@@ -1,65 +1,192 @@
 {% extends 'base.html' %}
 
-
 {% block title %}Kindness Cards{% endblock %}
 
-
 {% block content %}
-<div class="container">
-    <div id="vertical_tab_nav">
-
-        {% for key, values in inbox.items %}
-            <ul>
-                <li class="selected"><a href="index.html">{{ key }}</a></li>
-            </ul>
-
-            <div>
-                <article>
-                    <h3 style="font-size:18px;">{{ key }}</h3>
-                    <hr />
-                    <p></p>
-                    {% for v in values %}
-                        <p>{{v}}</p>
-                    {% endfor %}
-                </article>
-            </div>
-        {% endfor %}
 
 
-        <!--<ul>-->
-            <!--<li class="selected"><a href="index.html">Pre-alphabetic</a></li>-->
-            <!--<li><a href="index.html">Early Alphabetic</a></li>-->
-            <!--<li><a href="index.html">Later Alphabetic</a></li>-->
-            <!--<li><a href="index.html">Consolidated Alphabetic</a></li>-->
-        <!--</ul>-->
+<div class="container all-kindness-wrapper" style="position:relative">
+<a class=" btn unread-cards btn-pink ">Show Unread Cards</a>
+        <div class="tabordion">
+            {% for key, values in all.items %}
 
-        <!--<div>-->
-            <!--<article>-->
-                <!--<h3 style="font-size:18px;">Pre-alphabetic</h3>-->
-                <!--<hr />-->
-                <!--<p>students read words by memorizing their visual features or guessing words from their context</p>-->
+                <section>
+                  <input type="radio" name="sections" id="option" checked>
+                  <label for="option">{{ key }}</label>
+                  <article>
+                    <h2> <img class="rounded-circle account-img" src="{{ values.photo }}"
+                             onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="height: 50px;width: 50px"> {{ key }}</h2>
+                     {% for v in values.messages %}
+                        <p class="received-kindness">{{v}}</p>
+                     {% endfor %}
+                  </article>
+                </section>
+            {% endfor %}
+          </div>
 
-            <!--</article>-->
-
-            <!--<article>-->
-                <!--<h3 style="font-size:18px;">Early Alphabetic</h3>-->
-                <!--<hr />-->
-                <!--<p>students recognize some letters of the alphabet and can use them together with context to remember words by sight</p>-->
-            <!--</article>-->
-
-            <!--<article>-->
-                <!--<h3 style="font-size:18px;">Later Alphabetic</h3>-->
-                <!--<hr />-->
-                <!--<p>readers possess extensive working knowledge of the graphophonemic system, and they can use this knowledge to analyze fully the connections between graphemes and phonemes in words; they can decode unfamiliar words and store fully analyzed sight words in memory</p>-->
-            <!--</article>-->
-
-            <!--<article>-->
-                <!--<h3 style="font-size:18px;">Consolidated Alphabetic</h3>-->
-                <!--<hr />-->
-                <!--<p>students consolidate their knowledge of grapheme-phoneme blends into larger units that recur in different words</p>-->
-            <!--</article>-->
-
-        <!--</div>-->
-    </div>
 </div>
+
+<div class="container kindness" style="position:relative;padding: 0;">
+    <a class=" btn all-cards btn-pink ">Show All My Cards</a>
+    <div class="card-wrapper">
+<div class="wrap kindness" id="wrap">
+  <div class="kindnessCardContainer card--inner">
+    <span style="
+    text-align: left;
+    float: left;
+    clear: right;
+    width: 100%;
+    margin-left: 20px;
+">Hi,</span>
+      <ul>
+    {% if unread.items %}
+        {% for name, message in unread.items %}
+          <li>
+            {% for v in message %}
+                <p>{{v}}</p>
+            {% endfor %}
+          
+            <u><i><label style="
+              text-align: right;
+          ">{{ name }}</label></i></u>
+          </li>
+        {% endfor %}
+    {% else %}
+  </ul>
+        <h6><i>You have no new messages</i></h6>
+{#        <img src="/static/images/heart.png">#}
+    {% endif %}
+
+  </div>
+
+  <div class="kindnessCardContainer card--front back" onclick="openCard();"></div>
+  <div class="kindnessCardContainer card--front" onclick="openCard();">
+  </div>
+</div>
+</div>
+<form action="{% url 'mark_read' %}">
+    <button type="button" onclick="openCard();" id="button" style="
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 15px;
+">Open Card</button>
+</form>
+</div>
+
+<script>
+
+function openCard() {
+  var button = document.getElementById('button');
+
+  if(button.innerHTML == 'Open Card') {
+      button.type = 'button';
+      button.innerHTML = 'Close Card';
+  } else if(button.innerHTML = 'Close Card') {
+      button.type = 'submit';
+      button.innerHTML = 'Open Card';
+  } else {
+        button.innerHTML = 'Open Card';
+  }
+
+  var cards = document.querySelectorAll('.kindnessCardContainer');
+  for(var i = 0; i < cards.length; i++) {
+    cards[i].classList.toggle('open');
+  }
+}
+</script>
+<!-- <style>
+  
+  /* Style the tab */
+  .tab {
+    float: left;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: 300px;
+  }
+  
+  /* Style the buttons inside the tab */
+  .tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current "tab button" class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height: 300px;
+  }
+  </style>
+  </head>
+  <body>
+  
+  <h2>Vertical Tabs</h2>
+  <p>Click on the buttons inside the tabbed menu:</p>
+  
+  <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
+    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+  </div>
+  
+  <div id="London" class="tabcontent">
+    <h3>London</h3>
+    <p>London is the capital city of England.</p>
+  </div>
+  
+  <div id="Paris" class="tabcontent">
+    <h3>Paris</h3>
+    <p>Paris is the capital of France.</p> 
+  </div>
+  
+  <div id="Tokyo" class="tabcontent">
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+  </div>
+  
+  <script>
+  function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+  
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+  </script>
+      -->
+
 {% endblock %}
+
+
