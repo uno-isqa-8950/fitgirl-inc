@@ -1211,7 +1211,9 @@ iframe {
 }
 
 .message-date{
-    font-size: 10px;
+    font-size: 14px;
+    text-align: right;
+    float: right;
 }
 
 .kindness-container{
@@ -2337,7 +2339,8 @@ img {
   text-align: center;
   font-weight: bold;
 }
-
+.move{
+margin-left:42%}
 .wrap {
   width: 420px;
     height: 513px;
@@ -2653,7 +2656,7 @@ button.close {
   padding-left:0;
 }
 
-.received-kindness{
+/*.received-kindness{
   border: 1px solid #cfcfcf;
   padding:  20px;
   background: #BFD9DA;
@@ -2661,7 +2664,7 @@ button.close {
     margin-right: 20px;
   margin-bottom: 0;
   margin-top: 1rem;
-}
+}*/
 @media (max-width: 533px) {
 
 
