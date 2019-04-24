@@ -803,10 +803,12 @@ def rewards_redeem(request, pk):
             user1.profile.points = 0
             user1.profile.save()
             points_available = user1.profile.points
+            user_name = user1.first_name + ' ' + user1.last_name
             rewards = Reward.objects.create(user=user1, points_redeemed=points, service_used=service)
             reward_number = rewards.reward_no
+            messages = f'Congratulations {user_name}! Great job completing your EmpowerU assignments.' + '/n' + \
+                      'Please print and bring a copy of your reward on the last day of class to redeem your chosen gift card.'
             subject = 'Confirmation Rewards Redeemed - Redemption No.'.format(rewards.reward_no)
-            messages = 'Check the PDF attachment for your redemption number'
             email = EmailMessage(subject, messages, CLIENT_EMAIL, [user1.email])
             html = render_to_string('rewards/pdf.html', {'point': point, 'service': service,
                                                                         'points_available': points_available,
