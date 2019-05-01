@@ -64,6 +64,7 @@ class Migration(migrations.Migration):
             bases=('wagtailcore.page',),
         ),
         
+        
         migrations.CreateModel(
             name='CustomFormSubmission',
             fields=[
