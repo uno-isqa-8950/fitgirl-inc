@@ -503,7 +503,6 @@ height: 100% !important;
 width: 100%;
 height: 30px;
 }
-
 /* setting max-width wrappers */
 .nav-wrapper{
 width: 100%;
@@ -581,15 +580,15 @@ width: 100%;
 
  }
  .footer-wrapper{
-  bottom:0px; 
+  bottom:0px;
   width:100%;
   border-top: 4px solid #ed217c;
   border-bottom: 0px;
-  box-shadow: none; 
+  box-shadow: none;
   -webkit-box-shadow:none;
  }
  .footer-wrapper .navbar{
-  box-shadow: none; 
+  box-shadow: none;
   -webkit-box-shadow:none;
   border-bottom:none;
  }
@@ -659,8 +658,8 @@ background-image: url(../images/gplay.png), linear-gradient(#ed217c, #fbd0e3) !i
 }
 
  .physical-body #container-fluid{
-  /* background: #bc4e9c;  
-  background: -webkit-linear-gradient(to top, #f80759, #bc4e9c); 
+  /* background: #bc4e9c;
+  background: -webkit-linear-gradient(to top, #f80759, #bc4e9c);
   background: linear-gradient(to top, #f80759, #bc4e9c); */
  }
  .container.physical-post-page,.container.nutrition-post-page, .container.question-page,.fitgirlinc-footer-socialLinks{
@@ -746,13 +745,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
     margin: 15px 0;
   }
 /*Srishty*/
- 
+
   .physical-content{
     flex: 0 0 83.333333%;
     max-width: 83.333333%;
   }
 
-  
+
 .slider{ width:100%; max-width: 1253px;overflow: hidden; position: relative}
 .slider nav{    width: 2000px;}
 .slider ul{width: 1600px; padding-left:24px;margin-bottom:0;}
@@ -1209,6 +1208,12 @@ iframe {
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.message-date{
+    font-size: 14px;
+    text-align: right;
+    float: right;
 }
 
 .kindness-container{
@@ -2334,18 +2339,19 @@ img {
   text-align: center;
   font-weight: bold;
 }
-
+.move{
+margin-left:42%}
 .wrap {
-  width: 350px;
-  height: 500px;
+  width: 420px;
+    height: 513px;
   position: relative;
   transform: rotateX(30deg);
   transform-style: preserve-3d;
-  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.3);
+  /*box-shadow: 0 4px 2px rgba(0, 0, 0, 0.3); */
 }
 .card-wrapper{
   margin: 0;
-  background-color: #4CAF50;
+  /*background-color: #4CAF50; */
   /* background: radial-gradient(circle at center, rgba(50,50,50,1) 0%,rgba(14,14,14,1) 35%); */
   display: flex;
   flex-direction: column;
@@ -2353,8 +2359,9 @@ img {
   justify-content: center;
   height: 100vh;
   perspective: 1000px;
-  background:  url(../images/kindnessbg.jpg) repeat;
-}
+  background: url(../images/Newbackground.jpg) no-repeat;
+    background-size: cover;
+    }
 .kindnessCardContainer {
   height: 100%;
   width: 100%;
@@ -2365,9 +2372,11 @@ img {
   text-align: center;
   font-family: 'Amatic SC', cursive !important;
   font-weight: bold;
-  font-size: 20px;
-  background: url(../images/inner-card.jpg) repeat 100%;
-    color: yellow;
+  font-size: 33px;
+  background: url(../images/KCard.jpg) repeat 100%;
+    background-size: cover;
+    color: black;
+
 }
 .card--front {
   display: flex;
@@ -2381,19 +2390,47 @@ img {
   z-index: 2;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  background: url(../images/inner-card.jpg) repeat 100%;
+  /*background: url(../images/KCard.jpg) repeat 100%;
+    background-size: cover; */
+
 }
 .card--front.open {
   transform: rotateY(-180deg);
+  background: white;
+
 }
 .card--front.back {
   z-index: 0;
   backface-visibility: visible;
   -webkit-backface-visibility: visible;
 }
+.kindness-bg{
+position:absolute;
+width:100%;
+height:100%;
+opacity:0.2;
+z-index:-1;
+background: url(../images/KCard.jpg) repeat 100%;
+background-size: cover;
+}
 .card--inner {
   overflow: hidden;
-  padding: 15px;
+  position: relative;
+    overflow-y: auto;
+    background:transparent;
+        background: white;
+        z-index:-1
+}
+.card--inner::after {
+  content: "";
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: url(../images/KCard.jpg) repeat 100%;
+  position: absolute;
+  z-index: -1;
 }
 .card--inner h2 {
   font-size: 32px;
@@ -2421,7 +2458,7 @@ img {
   transition: all 1s ease-in-out;
 }
 
-.kindness button {
+.kindness button,.kdns-btn {
   -webkit-appearance: none;
   background: #E53935;
   border: 5px solid #9f1815;
@@ -2495,7 +2532,7 @@ button.close {
 .unread-cards, .all-cards{
   position: absolute;
   right:0;
-  top: 0; 
+  top: 0;
   z-index: 100;
 }
 .all-kindness-wrapper{
@@ -2610,22 +2647,24 @@ button.close {
 
 .tabordion input[name="sections"]:checked ~ article {
   display: block;
-  min-height: 500px;
-  max-height: 575px;
+  min-height: 600px;
   width: 81.8%;
   background: #F6F6F6;
   border-left: 1px solid #cfcfcf;
   overflow-y: auto;
   font-family: cursive;
+  padding-left:0;
 }
-article 
-.received-kindness{
+
+/*.received-kindness{
   border: 1px solid #cfcfcf;
   padding:  20px;
   background: #BFD9DA;
     opacity: 0.8;
     margin-right: 20px;
-}
+  margin-bottom: 0;
+  margin-top: 1rem;
+}*/
 @media (max-width: 533px) {
 
 

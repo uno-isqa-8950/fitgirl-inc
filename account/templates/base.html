@@ -44,203 +44,168 @@
 <div class="nav-wrapper grey darken-1">
     <nav class="navbar navbar-expand-lg navbar-dark grey darken-1  scrolling-navbar">
 
-
-
         {% if request.user.is_authenticated %}
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault"
-                aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon "></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarsDefault">
-            <ul class="navbar-nav mr-auto">
-                {% if request.user.is_superuser %}
-                    <a class="navbar-brand" href="/users/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
-                                                            height="40"/></a>
-                    <li class="nav-item">
-                        <a class="nav-link hoverable" style="
-                    background-color: rgba(255,255,255,.1);
-                " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span
-                                class="sr-only">(current)</span></a>
-                    </li>
-                    <!--Adding new analytics dashboard starts --srishty-->
-                    <li class="nav-item">
-    {#                    <a class="nav-link hoverable" style="#}
-    {#                background-color: rgba(255,255,255,.1);#}
-    {#            " href="{% url 'Analytics_Dashboard' %}"> <i class="fas fa-book"></i> Analytics Dashboard </a>#}
-                        <a class="nav-link hoverable" style="
-                    background-color: rgba(255,255,255,.1);
-                " href="{% url 'activity_data' %}"> <i class="fas fa-book"></i> Analytics Dashboard </a>
-                    </li>
-                    <!--Adding new analytics dashboard ends --srishty-->
-                    <li class="nav-item ">
-                        <a class="nav-link hoverable " style="
-                background-color: rgba(255,255,255,.1);" href="/users/"><i class="fa fa-female" aria-hidden="true"></i>Users</a>
-                    </li>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault"
+                    aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon "></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsDefault">
+                <ul class="navbar-nav mr-auto">
+                    {% if request.user.is_superuser %}
+                        <a class="navbar-brand" href="/users/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
+                                                                height="40"/></a>
+                        <li class="nav-item">
+                            <a class="nav-link hoverable" style="
+                        background-color: rgba(255,255,255,.1);
+                    " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link hoverable" style="
+                        background-color: rgba(255,255,255,.1);
+                    " href="/analytics_dashboard/"> <i class="fas fa-book"></i> Analytics Dashboard </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link hoverable " style="
+                    background-color: rgba(255,255,255,.1);" href="/users/"><i class="fa fa-female" aria-hidden="true"></i>Users</a>
+                        </li>
 
-                    {% else %}
+                        {% else %}
 
-                    <!--<li class="nav-item ">-->
-                    <!--<a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" data-toggle="modal" data-target="#fullHeightModalLeft">Menu</a>-->
-                    <!--</li>-->
-                    <!-- Added home glyphicon to navbar_Kelley -->
-                    <li class="nav-item ">
-                        <a class="navbar-brand" href="/pages/userdashboard"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
-                                                            height="40"/></a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link hoverable" href="/pages/userdashboard" style="background-color: rgba(255,255,255,.1);">
-                            <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
-                           href="/pages/about-fitgirl">About Us</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
-                           href="http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
-                    </li>
-                    {% if user.profile.pre_assessment == "yes" %}
+                        <li class="nav-item ">
+                            <a class="navbar-brand" href="/pages/userdashboard"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
+                                                                height="40"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link hoverable" href="/pages/userdashboard" style="background-color: rgba(255,255,255,.1);">
+                                <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
+                        </li>
                         <li class="nav-item ">
                             <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
-                               href="/pages/kindness-card/"> Send Kindness Card</a>
+                               href="/pages/about-fitgirl">About Us</a>
                         </li>
+                        <li class="nav-item ">
+                            <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
+                               href="http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
+                        </li>
+                        {% if user.profile.pre_assessment == "yes" %}
+                            <li class="nav-item ">
+                                <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
+                                   href="/pages/kindness-card/"> Send Kindness Card</a>
+                            </li>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            </ul>
-        {% endif %}
+                </ul>
+            {% endif %}
 
 
-            <ul class="navbar-nav navbar-right ">
-                    <!-- <li class="nav-item admin-hide">
-                        <a class="nav-link hoverable" href="/pages/rewards/"
-                           style="background-color: rgba(255,255,255,.1); top: -4px;"><i class="fas fa-gift" style="padding-left: 5px;"></i>&nbspReward Points: {{ user.profile.points }}<span
-                                class="sr-only">(current)</span></a>
-                    </li> -->
-                    {% if user.profile.pre_assessment == "yes" %}
-                        <li class="nav-item admin-hide">
-                            <a href="/pages/rewards/" class="dropdown-toggle avatar-menu">
-                                <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
-                            </a>
-                            <span class="notification-dot"> {{ user.profile.points }}</span>
-                        </li>
+                <ul class="navbar-nav navbar-right ">
+                        {% if user.profile.pre_assessment == "yes" %}
+                            <li class="nav-item admin-hide">
+                                <a href="/pages/rewards/" class="dropdown-toggle avatar-menu">
+                                    <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
+                                </a>
+                                <span class="notification-dot"> {{ user.profile.points }}</span>
+                            </li>
 
-                        <li class="dropdown admin-hide">
-                            <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" style="position:relative">
-                                <img class="bell-account-img" alt="Notifications" src="{% static 'images/bell.png' %}" height="30" width="30">
-                                     <span class="notification-dot bell-notify" style="padding:5px;"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box notifications-dropdown-box">
-                                <li class="nav-item unread_false">
-                                    <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
-                                        <table>
-                                            <tr>
-                                                <td><img class="rewards-icon" alt="My Card"
-                                                         src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}"
-                                                         height="40" width="40"/></td>
-                                                <td><span>You have <span class="unread_number">{% unread_message %}</span> unread kindness cards</span></td>
-                                            </tr>
-                                        </table>
-                                        <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                                <div class="dropdown-divider unread_false"></div>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="/pages/gallery/" style="position:relative;">
-                                        <table>
-                                            <tr>
-                                                <td><img class="gallery-icon" alt="My Photo Gallery"
-                                                         src="{% static 'images/iconfinder_camera_1785207.png' %}" height="40"
-                                                         width="40"/></td>
-                                                <td><span class="">Click here to view your EmpowerU Gallery.</span></td>
-                                            </tr>
-                                        </table>
+                            <li class="dropdown admin-hide">
+                                <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" style="position:relative">
+                                    <img class="bell-account-img" alt="Notifications" src="{% static 'images/bell.png' %}" height="30" width="30">
+                                         <span class="notification-dot bell-notify" style="padding:5px;"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box notifications-dropdown-box">
+                                    <li class="nav-item unread_false">
+                                        <a class="nav-link" href="{% url 'inbox' %}" style="position:relative;">
+                                            <table>
+                                                <tr>
+                                                    <td><img class="rewards-icon" alt="My Card"
+                                                             src="{% static 'images/iconfinder_Letter-love-card-valentines_day_4141626.png' %}"
+                                                             height="40" width="40"/></td>
+                                                    <td><span>You have <span class="unread_number">{% unread_message %}</span> unread kindness cards</span></td>
+                                                </tr>
+                                            </table>
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                    <div class="dropdown-divider unread_false"></div>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href="/pages/gallery/" style="position:relative;">
+                                            <table>
+                                                <tr>
+                                                    <td><img class="gallery-icon" alt="My Photo Gallery"
+                                                             src="{% static 'images/iconfinder_camera_1785207.png' %}" height="40"
+                                                             width="40"/></td>
+                                                    <td><span class="">Click here to view your EmpowerU Gallery.</span></td>
+                                                </tr>
+                                            </table>
 
 
-                                        <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href="" style="position:relative;">
+                                            <table>
+                                                <tr>
+                                                    <td><img class="announcement-icon" alt="Announcements"
+                                                             src="{% static 'images/iconfinder_sale_lineal_color_cnvrt-15_3827707.png' %}" height="37"
+                                                             width="40"/></td>
+
+                                                        <td><span>{% sidebar %}</span></td>
+
+                                                </tr>
+                                            </table>
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    <li class="dropdown ">
+                    {% if request.user.is_authenticated %}
+                        <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown">
+                            {% if request.user.is_staff %}
+                            <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg"
+                                 height="35" width="35">
+                            {% else %}
+                            <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"
+                                 onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30"
+                                 width="30" style="height: 30px;width: 30px">
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                        <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box">
+
+                            {% if request.user.is_superuser %}
+                                <a class="dropdown-item" href='{% url 'admin_edit' %}'><i class="fas fa-user-shield fa-fw"></i> Edit Admin Profile</a>
+                                <a class="dropdown-item" href='{% url "password_change" %}'><i
+                                        class="fas fa-user-shield fa-fw"></i> Change Password</a>
+                                <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i>
+                                Logout</a>
+                            {% else %}
+                                <a class="dropdown-item no-pointer" href="#">{{ user.get_short_name|capfirst }}</a><span
+                                    class="user-dropdown"></span>
+                                <a class="dropdown-item no-pointer" href="#">Background: {{ user.profile.select_your_background_color_for_website }}</a><span
+                                    class="user-dropdown"></span>
+                                <a class="dropdown-item no-pointer" href="#">Program: {{ user.profile.program.program_name }}</a>
                                 <div class="dropdown-divider"></div>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="" style="position:relative;">
-                                        <table>
-                                            <tr>
-                                                <td><img class="announcement-icon" alt="Announcements"
-                                                         src="{% static 'images/iconfinder_sale_lineal_color_cnvrt-15_3827707.png' %}" height="37"
-                                                         width="40"/></td>
 
-                                                    <td><span>{% sidebar %}</span></td>
-
-                                            </tr>
-                                        </table>
-                                        <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    {% endif %}
-                <li class="dropdown ">
-                    <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown">
-                        {% if request.user.is_staff %}
-                        <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg"
-                             height="35" width="35">
-                        {% else %}
-                        <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"
-                             onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30"
-                             width="30" style="height: 30px;width: 30px">
-                        {% endif %}
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right stylish-color arrow_box">
-                       <!-- {% if request.user.is_superuser %}
-                        {% else %}
-                        {#
-                        <li class="card mx-2" style="width: 18rem;">#}
-                            <!-- <div class="card-body">
-                                <h5 class="card-title">Points Earned</h5>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                  </div>
-                              </div>
-                            {# 
-                        </li>
-                        #}
-                        {% endif %}-->
-                        {% if request.user.is_superuser %}
-                        <a class="dropdown-item" href='{% url 'admin_edit' %}'><i class="fas fa-user-shield fa-fw"></i> Edit Admin Profile</a>
-                        <a class="dropdown-item" href='{% url "password_change" %}'><i
-                                class="fas fa-user-shield fa-fw"></i> Change Password</a>
-                        <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i>
-                            Logout</a>
-
-                        {% else %}
-                        <!-- <li><a class="nav-link" href="{% url 'edit' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fas fa-edit fa-fw"></i>Edit Profile</a></li>
-                        <li><a class="nav-link" href="{% url "password_change" %}"><i class="fas fa-user-shield fa-fw"></i> Change Password</a></li>
-                        <li class="divider"></li>
-                        <li><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-fw"></i> Logout</a></li> -->
-                        <!--user name added below and removed welcome--Srishty-->
-                        <!--<a class="dropdown-item" href="#">{{ user.get_short_name|capfirst }}</a>-->
-                        <a class="dropdown-item no-pointer" href="#">{{ user.get_short_name|capfirst }}</a><span
-                            class="user-dropdown"></span>
-                        <a class="dropdown-item no-pointer" href="#">Background: {{ user.profile.select_your_background_color_for_website }}</a><span
-                            class="user-dropdown"></span>
-                        <!--<a class="dropdown-item"> href="#"{{ user.get_short_name|capfirst }}</a>-->
-                        <a class="dropdown-item no-pointer" href="#">Program: {{ user.profile.program.program_name }}</a>
-                        <div class="dropdown-divider"></div>
-
-                        <a class="dropdown-item" href="{% url 'user_edit' %}"><i class="fas fa-edit fa-fw"></i> Edit
-                            Profile</a>
-                        <a class="dropdown-item" href='{% url "password_change" %}'><i
-                                class="fas fa-user-shield fa-fw"></i> Change Password</a>
-                        <a class="dropdown-item logout-button" href="{% url 'logout' %}"><i
-                                class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
-                        {% endif %}
-                    </ul>
-                </li>
-            </ul>
-        </div>
+                                <a class="dropdown-item" href="{% url 'user_edit' %}"><i class="fas fa-edit fa-fw"></i> Edit
+                                    Profile</a>
+                                <a class="dropdown-item" href='{% url "password_change" %}'><i
+                                        class="fas fa-user-shield fa-fw"></i> Change Password</a>
+                                <a class="dropdown-item logout-button" href="{% url 'logout' %}"><i
+                                        class="fas fa-sign-out-alt fa-fw"></i> Logout</a>
+                            {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
       
     </nav>
 </div>
@@ -340,22 +305,6 @@
     </footer>
 </div>
 
-<script>
-        $(document).ready(function () {
-            var unreadcards = $(".unread_number").html();
-            console.log(unreadcards);
-            if(unreadcards==0){
-                // alert(1)
-                $(".unread_false").hide();
-                $(".bell-notify").hide();
-            }else{
-                $(".unread_false").show();
-            }
-
-            // var warningval = $("#warning-alert h5").html();
-
-        });
-</script>
 {% endif %}
 {% endif %}
 <!-- SCRIPTS -->
@@ -371,11 +320,32 @@
 <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/lightbox.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.slimscroll.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
 <!-- <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
 <script type="text/javascript" src="{% static 'js/soon.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
+<script>
+        $(document).ready(function () {
+
+            $('.card--inner').slimScroll({
+                height:'513px'
+            });
+            var unreadcards = $(".unread_number").html();
+            console.log(unreadcards);
+            if(unreadcards==0){
+                // alert(1)
+                //$(".unread_false").hide();
+                $(".bell-notify").hide();
+            }else{
+                $(".unread_false").show();
+            }
+
+            // var warningval = $("#warning-alert h5").html();
+
+        });
+</script>
 <script>
     $(document).ready(function () {
         $('#carouselExampleControls').find('.carousel-item').first().addClass('active');
