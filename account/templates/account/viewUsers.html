@@ -3,10 +3,20 @@
 {% if request.user.is_superuser %}
 
 
+
 <div class="datatable-container">
     <div class="spacer-div-30"></div>
 
-      <h1 class="text-left"> All Users</h1>
+      <div>
+          <h1 class="text-left"> All Users</h1>
+          <div class="select">
+              <select name="programs" id="slct">
+                    {% for program in programs %}
+                        <option value="{{ program.id }}">{{ program.program_name }}</option>
+                    {% endfor %}
+              </select>
+          </div>
+      </div>
       <ul class="messages">
         {% for message in messages %}
         <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
