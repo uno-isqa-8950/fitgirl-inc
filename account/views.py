@@ -117,8 +117,8 @@ def login_success(request):
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
     if request.user.is_staff:
-        registeredUsers = User.objects.filter(is_superuser=False).order_by('-date_joined')
-        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers, 'programs': programs})
+        registeredUsers = User.objects.filter(is_superuser=False, is_active=True).order_by('-date_joined')
+        return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     elif request.user.is_active:
         current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
         return render(request,
@@ -301,8 +301,8 @@ def registerusers(request):
 @login_required
 def users(request):
     programs = Program.objects.all()
-    registeredUsers = User.objects.filter(is_superuser=False).order_by('-date_joined')
-    return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers, 'programs': programs })
+    registeredUsers = User.objects.filter(is_superuser=False, is_active=True).order_by('-date_joined')
+    return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
 
 # edit profile during registration
 @login_required

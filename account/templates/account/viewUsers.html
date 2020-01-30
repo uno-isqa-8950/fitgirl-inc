@@ -9,13 +9,13 @@
 
       <div>
           <h1 class="text-left"> All Users</h1>
-          <div class="select">
-              <select name="programs" id="slct">
-                    {% for program in programs %}
-                        <option value="{{ program.id }}">{{ program.program_name }}</option>
-                    {% endfor %}
-              </select>
-          </div>
+{#          <div class="select">#}
+{#              <select name="programs" id="slct">#}
+{#                    {% for program in programs %}#}
+{#                        <option value="{{ program.id }}">{{ program.program_name }}</option>#}
+{#                    {% endfor %}#}
+{#              </select>#}
+{#          </div>#}
       </div>
       <ul class="messages">
         {% for message in messages %}
