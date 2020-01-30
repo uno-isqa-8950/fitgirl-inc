@@ -1,0 +1,745 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <chance.jiang@gmail.com>, 2012.
+#   <chengwenge988@gmail.com>, 2012.
+# 王 充 <wjcroom@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2016-11-18 17:36+0800\n"
+"Last-Translator: Sebastián Ramírez Magrí <sebasmagri@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
+"mezzanine/language/zh_CN/)\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.8.9\n"
+
+#: admin.py:27
+msgid "This field is required if status is set to published."
+msgstr "发布前必须填写些项。"
+
+#: admin.py:47
+msgid "Meta data"
+msgstr "元数据"
+
+#: defaults.py:21
+msgid "Controls the ordering and grouping of the admin menu."
+msgstr "控制管理员面板中的菜单排序和分组。"
+
+#: defaults.py:24 models.py:275
+msgid "Content"
+msgstr "内容"
+
+#: defaults.py:25
+msgid "Media Library"
+msgstr "媒体库"
+
+#: defaults.py:26 templates/admin/login.html:43
+msgid "Site"
+msgstr "站点"
+
+#: defaults.py:27
+msgid "Users"
+msgstr "用户"
+
+#: defaults.py:33
+msgid "Unregister these models from the admin."
+msgstr "从管理员界面中注销此模块。"
+
+#: defaults.py:40
+msgid "Size of thumbnail previews for image fields in the admin interface."
+msgstr "管理员界面中图片字段缩略图大小。"
+
+#: defaults.py:48
+msgid "Akismet API Key"
+msgstr "Akismet API Key"
+
+#: defaults.py:49
+msgid ""
+"Key for http://akismet.com spam filtering service. Used for filtering "
+"comments and forms."
+msgstr ""
+"Key for http://akismet.com spam filtering service. Used for filtering "
+"comments and forms."
+
+#: defaults.py:57
+msgid "bit.ly access token"
+msgstr "bit.ly access token"
+
+#: defaults.py:58
+msgid "Access token for http://bit.ly URL shortening service."
+msgstr "在 http://bit.ly 短网址服务的Access token."
+
+#: defaults.py:65
+msgid ""
+"Mezzanine's caching uses a technique know as mint caching. This is where the "
+"requested expiry for a cache entry is stored with the cache entry in cache, "
+"and the real expiry used has the ``CACHE_SET_DELAY`` added to it. Then on a "
+"cache get, the store expiry is checked, and if it has past, the cache entry "
+"is set again, and no entry is returned. This tries to ensure that cache "
+"misses never occur, and if many clients were to get a cache miss at once, "
+"only one would actually need to re-generated the cache entry."
+msgstr ""
+"Mezzanine 的缓存使用的是 mint 缓存技术。也就是说缓存条目和其请求过期时间一同"
+"被记录在缓存系统中，在缓存条目真正过期后会被加上 ``CACHE_SET_DELAY``。当获取"
+"一个缓存条目的时候，首先检查缓存的条目是否过期，如果过期了，缓存条目会被会被"
+"重置，而且将不返回任何缓存条目。缓存系统将试图保证不会丢失命中，如果客户端发"
+"生多次未命中的情况，只需要重新生成缓存条目即可。"
+
+#: defaults.py:93
+msgid ""
+"A three item sequence, each containing a sequence of template tags used to "
+"render the admin dashboard."
+msgstr "一个三项目序列，每个都包含一个用于渲染管理仪表板的模板标签序列。"
+
+#: defaults.py:101
+msgid "Device specific template sub-directory to use as the default device."
+msgstr "指定默认设备终端使用特定模板的子目录。"
+
+#: defaults.py:109
+msgid ""
+"Mapping of device specific template sub-directory names to the sequence of "
+"strings that may be found in their user agents."
+msgstr "根据用户浏览器类型，映射特定浏览器的特定模板子目录名称的序列。"
+
+#: defaults.py:131
+msgid "If ``True``, website forms will use HTML5 features."
+msgstr "如果“True” ，站点FORMS使用 HTML5 特性。"
+
+#: defaults.py:138
+msgid ""
+"A sequence of fields that will be injected into Mezzanine's (or any "
+"library's) models. Each item in the sequence is a four item sequence. The "
+"first two items are the dotted path to the model and its field name to be "
+"added, and the dotted path to the field class to use for the field. The "
+"third and fourth items are a sequence of positional args and a dictionary of "
+"keyword args, to use when creating the field instance. When specifying the "
+"field class, the path ``django.models.db.`` can be omitted for regular "
+"Django model fields."
+msgstr ""
+"该列表会使得字段被插入到 Mezzanine(或者其他库) 的模型中。每一个列表项目包含四"
+"个部分，前两部分是形如 path.to.the.module的模型和字段名称，以及形如 path.to."
+"the.field.class 的类，第三部分和第四部分分别是用来创建实例的时候使用的顺序参"
+"数和字典参数。在指定第一部分字段的时候，如果是``django.models.db.`` 则可以不"
+"写。"
+
+#: defaults.py:153
+msgid "Google Analytics ID"
+msgstr "Google Analytics ID"
+
+#: defaults.py:155
+msgid "Google Analytics ID (http://www.google.com/analytics/)"
+msgstr "Google Analytics ID (http://www.google.com/analytics/)"
+
+#: defaults.py:161
+msgid ""
+"A sequence mapping host names to themes, allowing different templates to be "
+"served per HTTP hosts Each item in the sequence is a two item sequence, "
+"containing a host such as ``othersite.example.com``, and the name of an "
+"importable Python package for the theme. If the host is matched for a "
+"request, the templates directory inside the theme package will be first "
+"searched when loading templates."
+msgstr ""
+"主机名和主题影射的列表，允许在不同的HTTP 主机之间使用不同的主题，每一个列表项"
+"目包含两个部分，分别是主机名，例如``othersite.example.com``，和一个可以 "
+"import 的包含主题的python包。当主机名匹配的时候，会优先在制定的python包中寻找"
+"主题资源。"
+
+#: defaults.py:175
+msgid "Name of the jQuery file."
+msgstr "jQuery 的文件名。"
+
+#: defaults.py:176
+msgid "Name of the jQuery file found in mezzanine/core/static/mezzanine/js/"
+msgstr "jQuery 的文件名可以在 mezzanine/core/static/mezzanine/js/ 中找到"
+
+#: defaults.py:184
+msgid "Name of the jQuery UI file."
+msgstr "jQuery UI 的文件名。"
+
+#: defaults.py:185
+msgid "Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/"
+msgstr "jQuery UI 的文件名可以在 mezzanine/core/static/mezzanine/js/ 中找到"
+
+#: defaults.py:193
+msgid "Max paging links"
+msgstr "页面最大链接数"
+
+#: defaults.py:194
+msgid "Max number of paging links to display when paginating."
+msgstr "在分页显示时最多显示多少页面链接数，中间的链接会被隐藏。"
+
+#: defaults.py:201
+msgid "Media library per site"
+msgstr "每个站点设立独立的媒体库"
+
+#: defaults.py:202
+msgid ""
+"If ``True``, each site will use its own directory within the filebrowser "
+"media library."
+msgstr "如果 ``真``， 每一个站点将会拥有自己的独立的媒体库。"
+
+#: defaults.py:210
+msgid ""
+"Models that subclass ``Ownable`` and use the ``OwnableAdmin`` have their "
+"admin change-list records filtered down to records owned by the current "
+"user. This setting contains a sequence of models in the format ``app_label."
+"object_name``, that when subclassing ``Ownable``, will still show all "
+"records in the admin change-list interface, regardless of the current user."
+msgstr ""
+"基于``Ownable`` 或 ``OwnableAdmin`` 子类的模型的更改会被记录到当前用户的更改"
+"列表中。这个选项包含一个形如 path.to.model 的模型列表，在该列表中的模型如果继"
+"承自``Ownable`` 或 ``OwnableAdmin`` 将会被记录到管理员更改列表中，而不会被记"
+"载到当前用户的更改列表中。"
+
+#: defaults.py:222
+msgid ""
+"Dotted package path and class name of the widget to use for the "
+"``RichTextField``."
+msgstr "使用``RichTextField``的，形如 path.to.package 的控件。"
+
+#: defaults.py:230
+msgid ""
+"List of HTML tags that won't be stripped from ``RichTextField`` instances."
+msgstr "``RichTextField``内容中不会被移除的HTML标签。"
+
+#: defaults.py:246
+msgid ""
+"List of HTML attributes that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr "``RichTextField``内容中不会被移除的HTML属性。"
+
+#: defaults.py:264
+msgid ""
+"List of inline CSS styles that won't be stripped from ``RichTextField`` "
+"instances."
+msgstr "``RichTextField``内容中不会被移除的内联CSS样式的列表。"
+
+#: defaults.py:272
+msgid ""
+"Dotted path to the function to call on a ``RichTextField`` value before it "
+"is rendered to the template."
+msgstr "形如 path.to.function 的函数会在``RichTextField``渲染前被调用。"
+
+#: defaults.py:282
+msgid "High"
+msgstr "高"
+
+#: defaults.py:283
+msgid "Low (allows video, iframe, Flash, etc)"
+msgstr "低( 允许video,iframe,Flash等)"
+
+#: defaults.py:284
+msgid "No filtering"
+msgstr "不过滤"
+
+#: defaults.py:289
+msgid "Rich Text filter level"
+msgstr "Rich Text 过滤等级"
+
+#: defaults.py:290
+msgid ""
+"*Do not change this setting unless you know what you're doing.*\n"
+"\n"
+"When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and "
+"attributes are stripped from the content to protect against staff members "
+"intentionally adding code that could be used to cause problems, such as "
+"changing their account to a super-user with full access to the system.\n"
+"\n"
+"This setting allows you to change the level of filtering that occurs. "
+"Setting it to low will allow certain extra tags to be permitted, such as "
+"those required for embedding video. While these tags are not the main "
+"candidates for users adding malicious code, they are still considered "
+"dangerous and could potentially be mis-used by a particularly technical "
+"user, and so are filtered out when the filtering level is set to high.\n"
+"\n"
+"Setting the filtering level to no filtering, will disable all filtering, and "
+"allow any code to be entered by staff members, including script tags."
+msgstr ""
+"*请在确保您在知道这些设置的用处之前，不要修改下面的设置。*\n"
+"\n"
+"在一个富文本（Rich Text，所见即所得编辑器）内容中，不安全的HTML标签和属性会被"
+"从内容中移除，防止用户无意识的添加造成问题，例如使得用户获取超级用户的权限.\n"
+"\n"
+"这个设置允许用户可以改变这个过滤的等级。设置成低的时候，一些额外的标签会被允"
+"许，例如嵌入一个视频等。设置为高的时候，可以避免用户使用恶意代码。\n"
+"\n"
+"设置成无，我们强烈不建议您这样做，这样会导致所有的HTML标签都可以被嵌入执行，"
+"包括 script 标签。"
+
+#: defaults.py:313
+msgid ""
+"Sequence of models that will be provided by default as choices in the search "
+"form. Each model should be in the format ``app_label.model_name``. Only "
+"models that subclass ``mezzanine.core.models.Displayable`` should be used."
+msgstr ""
+"形如 path.to.model 的模型列表，这个列表会提供搜索框的默认内容。每一个列表项目"
+"都必须是``mezzanine.core.models.Displayable``的子类。"
+
+#: defaults.py:323
+msgid "Search results per page"
+msgstr "每页显示搜索结果的个数"
+
+#: defaults.py:324
+msgid "Number of results shown in the search results page."
+msgstr "每页显示搜索结果的个数"
+
+#: defaults.py:331
+msgid ""
+"A URL prefix for mounting all of Mezzanine's urlpatterns under. When using "
+"this, you'll also need to manually apply it to your project's root ``urls."
+"py`` module. The root ``urls.py`` module provided by Mezzanine's ``mezzanine-"
+"project`` command contains an example of this towards its end."
+msgstr ""
+"所有Mezzanine的URL模式的前缀。启用后，您将同时需要手动将此前缀应用于你项目根"
+"目录下的 'urls.py' 模块中。Mezzanine的 'mezzanine-project' 命令提供的根目录"
+"的 'urls.py' 模块包含此URL前缀的例子。"
+
+#: defaults.py:342
+msgid "Site Title"
+msgstr "站点标题"
+
+#: defaults.py:343
+msgid ""
+"Title that will display at the top of the site, and be appended to the "
+"content of the HTML title tags on every page."
+msgstr "标题将显示在站点的顶部，并且添加在每一个页的标题之后。"
+
+#: defaults.py:351
+msgid "Tagline"
+msgstr "副标题"
+
+#: defaults.py:352
+msgid "A tag line that will appear at the top of all pages."
+msgstr "副标题将显示在所有页面的顶部"
+
+#: defaults.py:354
+msgid "An open source content management platform."
+msgstr "一个开源的内容管理平台。"
+
+#: defaults.py:359
+msgid ""
+"Dotted Python path to the callable for converting strings into URL slugs. "
+"Defaults to ``mezzanine.utils.urls.slugify_unicode`` which allows for non-"
+"ascii URLS. Change to ``django.template.defaultfilters.slugify`` to use "
+"Django's slugify function, or something of your own if required."
+msgstr ""
+"形如 path.to.function 的函数用来创建URL英文缩略名（URL slugs），默认使用支持"
+"非ASSCII字符的``mezzanine.utils.urls.slugify_unicode``，可以改为``django."
+"template.defaultfilters.slugify``或者其它您需要的。"
+
+#: defaults.py:370
+msgid ""
+"Sequence of dotted Python paths to callable functions used for checking "
+"posted content (such as forms or comments) is spam. Each function should "
+"accept three arguments: the request object, the form object, and the URL "
+"that was posted from. Defaults to ``mezzanine.utils.views.is_spam_akismet`` "
+"which will use the http://akismet.com spam filtering service when the "
+"``AKISMET_API_KEY`` setting is configured."
+msgstr ""
+"形如 path.to.function 的函数列表用于确认内容（例如 表单 或者 评论等）是否是垃"
+"圾内容，函数必须接受三个参数： request 对象， form 对象， 提交的URL. 默认使用"
+"``mezzanine.utils.views.is_spam_akismet``，该函数使用http://akismet.com提供的"
+"垃圾过滤服务，必须配置``AKISMET_API_KEY``."
+
+#: defaults.py:383
+msgid "Enable SSL"
+msgstr "使用SSL"
+
+#: defaults.py:384
+msgid ""
+"If ``True``, users will be automatically redirected to HTTPS for the URLs "
+"specified by the ``SSL_FORCE_URL_PREFIXES`` setting."
+msgstr ""
+"如果 ``True``, 用户自动跳转到``SSL_FORCE_URL_PREFIXES`` 制定的HTTPS的 URLs."
+
+#: defaults.py:393
+msgid "Force Host"
+msgstr "强制主机"
+
+#: defaults.py:394
+msgid ""
+"Host name that the site should always be accessed via that matches the SSL "
+"certificate."
+msgstr "需要由SSL签证才能可使用的主机名。"
+
+#: defaults.py:412
+msgid ""
+"If ``True``, only URLs specified by the ``SSL_FORCE_URL_PREFIXES`` setting "
+"will be accessible over SSL, and all other URLs will be redirected back to "
+"HTTP if accessed over HTTPS."
+msgstr ""
+"如果``True``，只有“SSL_FORCE_URL_PREFIXES”中设定的URL采用SSL访问，和所有其他"
+"的HTTPS的URL将被重定向到HTTP。"
+
+#: defaults.py:422
+msgid "List of words which will be stripped from search queries."
+msgstr "需要被移除的搜索关键。"
+
+#: defaults.py:479
+msgid "Tag Cloud Sizes"
+msgstr "标签云大小"
+
+#: defaults.py:480
+msgid "Number of different sizes for tags when shown as a cloud."
+msgstr "标签云中不同大小 的标签个数。"
+
+# this item need revise later.
+#: defaults.py:487
+msgid "Sequence of setting names available within templates."
+msgstr "在模版中允许使用的设置名称列表"
+
+#: defaults.py:502
+msgid ""
+"Directory name to store thumbnails in, that will be created relative to the "
+"original image's directory."
+msgstr "存放缩略图的路径，将与原始图像路径一致"
+
+#: defaults.py:510
+msgid ""
+"URL for the JavaScript file (relative to ``STATIC_URL``) that handles "
+"configuring TinyMCE when the default ``RICHTEXT_WIDGET_CLASS`` is used."
+msgstr ""
+"当使用默认的``RICHTEXT_WIDGET_CLASS``的时候， 用来设置TinyMCE的 JavaScript 脚"
+"本的 URL (相对于``STATIC_URL``)。"
+
+#: defaults.py:519
+msgid ""
+"Dict mapping file field names in the format ``app_label.model_name."
+"field_name`` to the Python dotted path to function names that will be used "
+"for the file field's ``upload_to`` argument."
+msgstr ""
+"形如 path.to.dict 的字典映射，该字典是从 path.model.field_name 到 函数的映射 "
+"用来处理文件上传的参数。"
+
+#: defaults.py:535
+msgid ""
+"If ``True``, the south application will be automatically added to the "
+"``INSTALLED_APPS`` setting."
+msgstr "如果``True``,  south 就用自动添加到 ``INSTALLED_APPS`` 设置项。"
+
+#: fields.py:37
+#, python-format
+msgid "Could not import the value of settings.RICHTEXT_WIDGET_CLASS: %s"
+msgstr "不能导入 settings.RICHTEXT_WIDGET_CLASS:%s"
+
+#: forms.py:84 models.py:317
+msgid "Order"
+msgstr "顺序"
+
+#: models.py:56 models.py:110
+msgid "Title"
+msgstr "标题"
+
+#: models.py:57
+msgid "URL"
+msgstr "URL"
+
+#: models.py:58
+msgid "Leave blank to have the URL auto-generated from the title."
+msgstr "如需从标题自动生成URL则留空。"
+
+#: models.py:100
+msgid "View on site"
+msgstr "在站点查看"
+
+#: models.py:112
+msgid ""
+"Optional title to be used in the HTML title tag. If left blank, the main "
+"title field will be used."
+msgstr "可选标题。如果留空，将使用站点主标题。"
+
+#: models.py:114
+msgid "Description"
+msgstr "概述"
+
+#: models.py:115
+msgid "Generate description"
+msgstr "生成概述"
+
+#: models.py:116
+msgid ""
+"If checked, the description will be automatically generated from content. "
+"Uncheck if you want to manually set a custom description."
+msgstr "选中此项，根据内容自动产生概述。不选中则需要手动输入概述。"
+
+#: models.py:119
+msgid "Keywords"
+msgstr "关键字"
+
+#: models.py:176
+msgid "Draft"
+msgstr "草稿"
+
+#: models.py:177
+msgid "Published"
+msgstr "已发布"
+
+#: models.py:188
+msgid "Status"
+msgstr "状态"
+
+#: models.py:190
+msgid "With Draft chosen, will only be shown for admin users on the site."
+msgstr "如选择草稿，只有站点的管理员可见。"
+
+#: models.py:192 models.py:225
+msgid "Published from"
+msgstr "发布自"
+
+#: models.py:193
+msgid "With Published chosen, won't be shown until this time"
+msgstr "如选择 已发布, 将在此时间后显示"
+
+#: models.py:195
+msgid "Expires on"
+msgstr "过期自"
+
+#: models.py:196
+msgid "With Published chosen, won't be shown after this time"
+msgstr "如选择 已发布，此时间后将不显示"
+
+#: models.py:199
+msgid "Show in sitemap"
+msgstr "在网站地图上显示"
+
+#: models.py:402 models.py:422
+msgid "Author"
+msgstr "作者"
+
+#: models.py:425
+msgid "Sites"
+msgstr "站点"
+
+#: models.py:428
+msgid "Site permission"
+msgstr "站点权限"
+
+#: models.py:429
+msgid "Site permissions"
+msgstr "站点权限"
+
+#: views.py:87
+msgid "Permission denied"
+msgstr "权限不足"
+
+#: views.py:115 templates/includes/search_form.html:11
+msgid "Everything"
+msgstr "全部"
+
+#: templates/base.html:121
+msgid "Powered by"
+msgstr "Powered by"
+
+#: templates/base.html:124
+msgid "and"
+msgstr "和"
+
+#: templates/base.html:127
+msgid "Theme by"
+msgstr "主题作者"
+
+#: templates/base.html:130
+msgid "View Mobile Site"
+msgstr " 手机版"
+
+#: templates/index.html:4 templates/index.html.py:5 templates/index.html:8
+#: templates/search_results.html:10 templates/admin/index.html:15
+msgid "Home"
+msgstr "首页"
+
+#: templates/index.html:12
+msgid ""
+"\n"
+"<h2>Congratulations!</h2>\n"
+"<p>\n"
+"    Welcome to your new Mezzanine powered website.\n"
+"    Here are some quick links to get you started:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">Log in to the admin interface</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html"
+"\">Creating custom page types</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">Modifying HTML templates</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin"
+"\">Changing this homepage</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">Other frequently asked questions</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">Full list of settings</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">Deploying "
+"to a production server</a></li>\n"
+"</ul>\n"
+msgstr ""
+"\n"
+"<h2>恭喜!</h2>\n"
+"<p>\n"
+"    欢迎使用由您创建的基于 Mezzanine 的网络站点.\n"
+"    这里有以下快速开始供您参考:\n"
+"</p>\n"
+"<ul>\n"
+"    <li><a href=\"/admin/\">登陆后台管理</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/content-architecture.html\">"
+"如何创建一个自定义页面</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#templates\">如何修改模板</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin\">如何修改"
+"本页</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/frequently-asked-questions."
+"html\">其他常见问题</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/configuration.html#default-"
+"settings\">设置列表</a></li>\n"
+"    <li><a href=\"http://mezzanine.jupo.org/docs/deployment.html\">部署服务</"
+"a></li>\n"
+"</ul>\n"
+
+#: templates/search_results.html:5 templates/search_results.html.py:6
+#: templates/search_results.html:13
+msgid "Search Results"
+msgstr "查找结果"
+
+#: templates/search_results.html:20
+#, python-format
+msgid ""
+"\n"
+"No results were found in %(search_type)s matching your query: %(query)s\n"
+msgstr ""
+"\n"
+"没有在 %(search_type)s 中找到 %(query)s 的内容\n"
+
+#: templates/search_results.html:24
+#, python-format
+msgid ""
+"\n"
+"Showing %(start)s to %(end)s of %(total)s results in %(search_type)s "
+"matching your query: %(query)s\n"
+msgstr ""
+"\n"
+"一共在 %(search_type)s 中找到  %(query)s 共 %(total)s 条内容，当前显示 第 "
+"%(start)s条 到 第%(end)s 条：\n"
+"\n"
+
+#: templates/search_results.html:35
+msgid "read more"
+msgstr "更多"
+
+#: templates/admin/base_site.html:34
+msgid "View site"
+msgstr "查看站点"
+
+#: templates/admin/index.html:17 templates/admin/includes/dropdown_menu.html:4
+msgid "Dashboard"
+msgstr "控制面板"
+
+#: templates/admin/login.html:21
+msgid "You don't have permission to access the admin for this site."
+msgstr "您没有权限访问后台管理页面。"
+
+#: templates/admin/login.html:28
+msgid "Username or email:"
+msgstr "用户名或邮箱账户："
+
+#: templates/admin/login.html:32
+msgid "Password:"
+msgstr "密码："
+
+#: templates/admin/login.html:37
+msgid "Interface:"
+msgstr "界面："
+
+#: templates/admin/login.html:40 templates/includes/editable_toolbar.html:7
+#: templates/includes/editable_toolbar.html:9
+msgid "Admin"
+msgstr "管理"
+
+#: templates/admin/login.html:47
+msgid "Log in"
+msgstr "登录"
+
+#: templates/admin/login.html:50
+msgid "Forgot password?"
+msgstr "忘记密码了吗？"
+
+#: templates/admin/includes/app_list.html:20
+msgid "Add"
+msgstr "添加"
+
+#: templates/admin/includes/app_list.html:27
+msgid "Change"
+msgstr "修改"
+
+#: templates/admin/includes/dynamic_inline_stacked.html:6
+#: templates/admin/includes/dynamic_inline_tabular.html:6
+msgid "Add another"
+msgstr "新增另一个"
+
+#: templates/admin/includes/recent_actions.html:4
+msgid "Recent Actions"
+msgstr "最近动作"
+
+#: templates/admin/includes/recent_actions.html:5
+msgid "My Actions"
+msgstr "我的动作"
+
+#: templates/admin/includes/recent_actions.html:9
+msgid "None available"
+msgstr "没有可用的"
+
+#: templates/errors/404.html:6
+msgid "Page not found"
+msgstr "页面未找到"
+
+#: templates/errors/404.html:10
+msgid "The page you requested does not exist."
+msgstr "您请求的页面没找到。"
+
+#: templates/errors/500.html:6
+msgid "Error"
+msgstr "错误"
+
+#: templates/errors/500.html:10
+msgid "Sorry, an error occurred."
+msgstr "抱歉，出现错误。"
+
+#: templates/includes/editable_form.html:16
+msgid "Save"
+msgstr "保存"
+
+#: templates/includes/editable_form.html:17
+msgid "Cancel"
+msgstr "取消"
+
+#: templates/includes/editable_form.html:25
+msgid "Edit"
+msgstr "编辑"
+
+#: templates/includes/editable_toolbar.html:11
+msgid "Log out"
+msgstr "注销"
+
+#: templates/includes/pagination.html:8
+msgid "Page"
+msgstr "页面"
+
+#: templates/includes/pagination.html:8
+msgid "of"
+msgstr "的"
+
+#: templates/includes/search_form.html:4
+msgid "Search"
+msgstr "搜索"
+
+#: templates/includes/search_form.html:22
+msgid "Go"
+msgstr "继续"

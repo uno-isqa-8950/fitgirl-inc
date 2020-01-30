@@ -1,0 +1,307 @@
+# Translation file for mezzanine
+# Copyright (C) 2017
+# This file is distributed under the same license as the mezzanine package.
+#
+# Translators:
+# andreyivankov <andrey.ivankov@gmail.com>, 2013
+# andreyivankov <andrey.ivankov@gmail.com>, 2013
+# Dmitry Falk <tfalc@mail.ru>, 2012
+# Elrengil <yagleb@mail.ru>, 2013
+# Alexander Paramonov <alex@paramono.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-25 02:23+0300\n"
+"PO-Revision-Date: 2013-11-09 20:20+0000\n"
+"Last-Translator: Alexander Paramonov <alex@paramono.com>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
+"language/ru/)\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: generic/admin.py:24 generic/models.py:75
+msgid "User"
+msgstr "Пользователь"
+
+#: generic/defaults.py:27
+msgid "Accounts required for commenting"
+msgstr "Требовать учетную запись"
+
+#: generic/defaults.py:28
+msgid "If ``True``, users must log in to comment."
+msgstr ""
+"Если ``True``, то пользователи должны войти под своей учетной записью, чтобы "
+"оставлять комментарии."
+
+#: generic/defaults.py:35
+msgid "Disqus shortname"
+msgstr "Логин Disqus"
+
+#: generic/defaults.py:36
+msgid "Shortname for the http://disqus.com comments service."
+msgstr "Логин на сервисе комментариев http://disqus.com"
+
+#: generic/defaults.py:44
+msgid "Disqus public key"
+msgstr "Публичный ключ Disqus"
+
+#: generic/defaults.py:45
+msgid "Public key for http://disqus.com developer API"
+msgstr "Публичный ключ API для сервиса комментариев http://disqus.com"
+
+#: generic/defaults.py:52
+msgid "Disqus secret key"
+msgstr "Секретный ключ Disqus"
+
+#: generic/defaults.py:53
+msgid "Secret key for http://disqus.com developer API"
+msgstr "Секретный ключ API для сервиса комментариев http://disqus.com"
+
+#: generic/defaults.py:60
+msgid "Auto-approve comments"
+msgstr "Автоутверждение комментариев"
+
+#: generic/defaults.py:61
+msgid "If ``True``, built-in comments are approved by default."
+msgstr "Если ``True``, то комментарии утверждаются автоматически."
+
+#: generic/defaults.py:69
+msgid ""
+"Dotted path to the function to call on a comment's value before it is "
+"rendered to the template."
+msgstr ""
+"Разделённый точками до функции, которую нужно вызвать на строке комментария "
+"прежде, чем он будет отрендерен в шаблоне"
+
+#: generic/defaults.py:77
+msgid "Comment notification email addresses"
+msgstr "Адреса электронной почты для уведомлений о комментариях"
+
+#: generic/defaults.py:78
+msgid ""
+"A comma separated list of email addresses that will receive an email "
+"notification each time a new comment is posted on the site."
+msgstr ""
+"Список адресов электронной почты, разделенных запятыми, которые будут "
+"получать уведомление по электронной почте каждый раз при появлении новых "
+"комментариев на сайте."
+
+#: generic/defaults.py:87
+msgid "Admin comments"
+msgstr "Комментарии в панели управления"
+
+#: generic/defaults.py:88
+msgid "Number of latest comments shown in the admin dashboard."
+msgstr "Количество последних комментариев, отображаемых в панели управления."
+
+#: generic/defaults.py:96
+msgid "Show unapproved comments"
+msgstr "Показывать неподтверждённые комментарии"
+
+#: generic/defaults.py:97
+msgid ""
+"If ``True``, comments that have ``is_public`` unchecked will still be "
+"displayed, but replaced with a ``waiting to be approved`` message."
+msgstr ""
+"Если ``True``, то неопубликованные комментарии будут отображаться, но при "
+"этом будут заменены на надпись ``ожидает подтверждения``"
+
+#: generic/defaults.py:106
+msgid "Show removed comments"
+msgstr "Показывать удалённые комментарии"
+
+#: generic/defaults.py:107
+msgid ""
+"If ``True``, comments that have ``removed`` checked will still be displayed, "
+"but replaced with a ``removed`` message."
+msgstr ""
+"Если ``True``, то удалённые комментарии продолжат отображаться, но при этом "
+"будут заменены на надпись ``Удалено``"
+
+#: generic/defaults.py:116
+msgid "If ``True``, comments can be rated."
+msgstr "Если ``True``, комментарии могут быть оценены."
+
+#: generic/defaults.py:123
+msgid "The form class to use for adding new comments."
+msgstr "Класс формы, которую использовать для добавления новых комментариев."
+
+#: generic/defaults.py:131
+msgid "Accounts required for rating"
+msgstr "Учетные записи необходимы для оценки рейтинга"
+
+#: generic/defaults.py:132
+msgid ""
+"If ``True``, users must log in to rate content such as blog posts and "
+"comments."
+msgstr ""
+"Если ``True``, то пользователи должны войти под своей учетной записью, чтобы "
+"иметь возможность оценивать содержимое сайта."
+
+#: generic/defaults.py:140
+msgid "A sequence of integers that are valid ratings."
+msgstr "Список чисел, используемых для оценки."
+
+#: generic/forms.py:96
+msgid "Name"
+msgstr "Имя"
+
+#: generic/forms.py:96
+msgid "required"
+msgstr "обязательно"
+
+#: generic/forms.py:98
+msgid "Email"
+msgstr "Email"
+
+#: generic/forms.py:99
+msgid "required (not published)"
+msgstr "обязательно (не публикуется)"
+
+#: generic/forms.py:100
+msgid "Website"
+msgstr "Веб-сайт"
+
+#: generic/forms.py:100
+msgid "optional"
+msgstr "необязательно"
+
+#: generic/forms.py:173
+msgid "New comment for: "
+msgstr "Новый комментарий:"
+
+#: generic/forms.py:219
+msgid "Already rated."
+msgstr "Уже оценено."
+
+#: generic/models.py:31
+msgid "By the blog author"
+msgstr "По автору блога"
+
+#: generic/models.py:34 generic/models.py:139
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: generic/models.py:39 generic/models.py:66
+#: generic/templates/generic/includes/comments.html:25
+msgid "Comment"
+msgstr "Комментарий"
+
+#: generic/models.py:40 generic/templates/generic/includes/comments.html:3
+msgid "Comments"
+msgstr "Комментарии"
+
+#: generic/models.py:79
+msgid "View on site"
+msgstr "Посмотреть на сайте"
+
+#: generic/models.py:99 generic/models.py:110
+msgid "Keyword"
+msgstr "Ключевое слово"
+
+#: generic/models.py:100
+msgid "Keywords"
+msgstr "Ключевые слова"
+
+#: generic/models.py:128
+msgid "Value"
+msgstr "Значение"
+
+#: generic/models.py:129
+msgid "Rating date"
+msgstr "Дата оценки"
+
+#: generic/models.py:136
+msgid "Rater"
+msgstr "Оценщик"
+
+#: generic/models.py:140
+msgid "Ratings"
+msgstr "Рейтинг"
+
+#: generic/templates/admin/includes/recent_comments.html:4
+msgid "Recent Comments"
+msgstr "Последние комментарии"
+
+#: generic/templates/admin/includes/recent_comments.html:22
+#: generic/templates/generic/includes/comment.html:22
+#: generic/templates/generic/includes/comment.html:59
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "%(sometime)s назад"
+
+#: generic/templates/email/comment_notification.html:6
+msgid "A new comment has been posted on"
+msgstr "Новый комментарий был опубликован"
+
+#: generic/templates/email/comment_notification.html:10
+#, python-format
+msgid ""
+"\n"
+"    At %(submit_date)s %(user_name)s wrote:\n"
+"    "
+msgstr ""
+"\n"
+"    %(submit_date)s %(user_name)s написал:\n"
+"    "
+
+#: generic/templates/email/comment_notification.txt:7
+#, python-format
+msgid ""
+"\n"
+"At %(submit_date)s %(user_name)s wrote:\n"
+msgstr ""
+"\n"
+"%(submit_date)s %(user_name)s написал:\n"
+
+#: generic/templates/generic/includes/comment.html:30
+msgid "Link"
+msgstr "Ссылка"
+
+#: generic/templates/generic/includes/comment.html:33
+#: generic/templates/generic/includes/comment.html:49
+msgid "Reply"
+msgstr "Ответ"
+
+#: generic/templates/generic/includes/comment.html:55
+msgid "Comment deleted"
+msgstr "Комментарий удалён"
+
+#: generic/templates/generic/includes/comment.html:57
+msgid "Comment awaiting approval"
+msgstr "Комментарий ожидает подтверждения"
+
+#: generic/templates/generic/includes/comment.html:71
+msgid "There are currently no comments"
+msgstr "Пока комментариев нет"
+
+#: generic/templates/generic/includes/comments.html:17
+msgid "New Comment"
+msgstr "Новый комментарий"
+
+#: generic/templates/generic/includes/rating.html:5
+msgid "Current rating"
+msgstr "Текущий рейтинг"
+
+#: generic/templates/generic/includes/rating.html:7
+msgid "Currently unrated"
+msgstr "Ещё не оценен"
+
+#: generic/templates/generic/includes/rating.html:17
+msgid "Rate"
+msgstr "Оценить"
+
+#: generic/views.py:71
+msgid ""
+"You must be logged in. Please log in or sign up to complete this action."
+msgstr ""
+"Вы должны войти под своей учетной записью. Пожалуйста, войдите или "
+"зарегистрируйтесь, чтобы завершить это действие."
+
+#~ msgid "ago"
+#~ msgstr "назад"

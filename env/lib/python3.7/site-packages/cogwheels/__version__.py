@@ -1,0 +1,8 @@
+__title__ = 'django-cogwheels'
+__description__ = 'A consistent, user-friendly solution for adding app-specific settings your Django package, reusable app or framework.'
+__url__ = 'https://github.com/ababic/django-cogwheels/'
+__version__ = '0.2'
+__author__ = 'Andy Babic'
+__author_email__ = 'andyjbabic@gmail.com'
+__license__ = 'MIT'
+__copyright__ = 'Copyright 2018 Andy Babic'

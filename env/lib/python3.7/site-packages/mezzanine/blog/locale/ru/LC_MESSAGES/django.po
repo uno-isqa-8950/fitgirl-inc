@@ -1,0 +1,232 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# eigrad <andrew@ei-grad.ru>, 2011
+# andreyivankov <andrey.ivankov@gmail.com>, 2013
+# andreyivankov <andrey.ivankov@gmail.com>, 2013
+# Dmitry Falk <tfalc@mail.ru>, 2012
+# eigrad <andrew@ei-grad.ru>, 2011
+# Elrengil <yagleb@mail.ru>, 2013
+# Alexander Paramonov <alex@paramono.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-25 02:23+0300\n"
+"PO-Revision-Date: 2013-11-09 20:10+0000\n"
+"Last-Translator: Alexander Paramonov <alex@paramono.com>\n"
+"Language-Team: Russian (http://www.transifex.com/projects/p/mezzanine/"
+"language/ru/)\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: blog/admin.py:22
+msgid "Other posts"
+msgstr "Другие записи"
+
+#: blog/defaults.py:22
+msgid "Enable featured images in blog posts"
+msgstr "Включает изображение для записей"
+
+#: blog/defaults.py:37
+msgid "Blog post URL date format"
+msgstr "Формат даты в URL блоговой записи"
+
+#: blog/defaults.py:38
+msgid ""
+"A string containing the value ``year``, ``month``, or ``day``, which "
+"controls the granularity of the date portion in the URL for each blog post. "
+"Eg: ``year`` will define URLs in the format /blog/yyyy/slug/, while ``day`` "
+"will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string "
+"means the URLs will only use the slug, and not contain any portion of the "
+"date at all."
+msgstr ""
+"Строка, содержащая значение ``year``, ``month``, или ``day``, которая "
+"контролирует степень детализации фрагмента с датой в URL для каждой записи в "
+"блоге. Напр. ``year`` задаст ссылкам формат /blog/yyyy/slug/, а  ``day`` "
+"задаст формат /blog/yyyy/mm/dd/slug/. Пустая строка означает, что ссылки "
+"будут использовать только слаг, и не будут содержать в себе дату"
+
+#: blog/defaults.py:50
+msgid "Blog posts per page"
+msgstr "Количество записей на странице"
+
+#: blog/defaults.py:51
+msgid "Number of blog posts shown on a blog listing page."
+msgstr "Количество записей, отображаемых в списке на одной странице."
+
+#: blog/defaults.py:58
+msgid "Blog posts RSS limit"
+msgstr "RSS лимит для записей блога"
+
+#: blog/defaults.py:59
+msgid ""
+"Number of most recent blog posts shown in the RSS feed. Set to ``None`` to "
+"display all blog posts in the RSS feed."
+msgstr ""
+"Количество последних записей блога, которые будут отображаться в RSS канале. "
+"Установите `` None `` для отображения всех записей в RSS канале."
+
+#: blog/defaults.py:67
+msgid "Slug of the page object for the blog."
+msgstr "Внутренний URL главной страницы блога"
+
+#: blog/models.py:21 blog/templates/blog/includes/filter_panel.html:43
+msgid "Categories"
+msgstr "Категории"
+
+#: blog/models.py:23
+msgid "Allow comments"
+msgstr "Разрешить комментарии"
+
+#: blog/models.py:25 blog/templates/blog/blog_post_detail.html:43
+#: blog/templates/blog/blog_post_list.html:136
+msgid "Comments"
+msgstr "Комментарии"
+
+#: blog/models.py:26
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: blog/models.py:27
+msgid "Featured Image"
+msgstr "Главное изображение"
+
+#: blog/models.py:31 blog/templates/blog/blog_post_detail.html:119
+msgid "Related posts"
+msgstr "Похожие записи"
+
+#: blog/models.py:36
+msgid "Blog post"
+msgstr "Запись в блоге"
+
+#: blog/models.py:37
+msgid "Blog posts"
+msgstr "Записи в блоге"
+
+#: blog/models.py:73
+msgid "Blog Category"
+msgstr "Категория блога"
+
+#: blog/models.py:74
+msgid "Blog Categories"
+msgstr "Категории блога"
+
+#: blog/templates/admin/includes/quick_blog.html:18
+msgid "Quick Blog"
+msgstr "Быстрая запись"
+
+#: blog/templates/admin/includes/quick_blog.html:27
+msgid "Save Draft"
+msgstr "Сохранить черновик"
+
+#: blog/templates/blog/blog_post_detail.html:29
+#: blog/templates/blog/blog_post_list.html:85
+msgid "Posted by"
+msgstr "Написал(а)"
+
+#: blog/templates/blog/blog_post_detail.html:33
+#: blog/templates/blog/blog_post_list.html:97
+#, python-format
+msgid "%(sometime)s ago"
+msgstr "%(sometime)s назад"
+
+#: blog/templates/blog/blog_post_detail.html:46
+#: blog/templates/blog/blog_post_list.html:140
+#, python-format
+msgid "%(comments_count)s comment"
+msgid_plural "%(comments_count)s comments"
+msgstr[0] "%(comments_count)s комментарий"
+msgstr[1] "%(comments_count)s комментария"
+msgstr[2] "%(comments_count)s комментариев"
+
+#: blog/templates/blog/blog_post_detail.html:74
+#: blog/templates/blog/blog_post_list.html:121
+#: blog/templates/blog/includes/filter_panel.html:56
+msgid "Tags"
+msgstr "Теги"
+
+#: blog/templates/blog/blog_post_detail.html:93
+msgid "Share on Twitter"
+msgstr "Опубликовать в Twitter"
+
+#: blog/templates/blog/blog_post_detail.html:94
+msgid "Share on Facebook"
+msgstr "Опубликовать в Facebook"
+
+#: blog/templates/blog/blog_post_list.html:4
+#: blog/templates/blog/blog_post_list.html:22
+msgid "Blog"
+msgstr "Блог"
+
+#: blog/templates/blog/blog_post_list.html:31
+msgid "Tag:"
+msgstr "Тег:"
+
+#: blog/templates/blog/blog_post_list.html:33
+msgid "Category:"
+msgstr "Категория:"
+
+#: blog/templates/blog/blog_post_list.html:37
+msgid "Author:"
+msgstr "Автор:"
+
+#: blog/templates/blog/blog_post_list.html:50
+msgid "Viewing posts tagged"
+msgstr "Просмотр записей с тегом"
+
+#: blog/templates/blog/blog_post_list.html:52
+msgid "Viewing posts for the category"
+msgstr "Просмотр записей в категории"
+
+#: blog/templates/blog/blog_post_list.html:54
+msgid "Viewing posts from"
+msgstr "Просмотр записей за"
+
+#: blog/templates/blog/blog_post_list.html:57
+msgid "Viewing posts by"
+msgstr "Просмотр записей от"
+
+#: blog/templates/blog/blog_post_list.html:91
+msgid "in"
+msgstr "в"
+
+#: blog/templates/blog/blog_post_list.html:130
+msgid "read more"
+msgstr "читать далее"
+
+#: blog/templates/blog/includes/filter_panel.html:6
+msgid "Recent Posts"
+msgstr "Последние записи"
+
+#: blog/templates/blog/includes/filter_panel.html:27
+msgid "Archive"
+msgstr "Архив"
+
+#: blog/templates/blog/includes/filter_panel.html:72
+msgid "Authors"
+msgstr "Авторы"
+
+#: blog/templates/blog/includes/filter_panel.html:84
+msgid "Feeds"
+msgstr "Ленты"
+
+#: blog/templates/blog/includes/filter_panel.html:86
+#: blog/templates/blog/includes/filter_panel.html:90
+#: blog/templates/blog/includes/filter_panel.html:94
+#: blog/templates/blog/includes/filter_panel.html:98
+msgid "RSS"
+msgstr "RSS"
+
+#: blog/templates/blog/includes/filter_panel.html:87
+#: blog/templates/blog/includes/filter_panel.html:91
+#: blog/templates/blog/includes/filter_panel.html:95
+#: blog/templates/blog/includes/filter_panel.html:99
+msgid "Atom"
+msgstr "Atom"

@@ -1,0 +1,106 @@
+{% extends 'wagtail_gallery/gallery_base.html' %}
+{% load wagtailcore_tags wagtailimages_tags social_share i18n %}
+
+{% block main %}
+    <h1 class="title">{{ page.title }}</h1>
+    <hr>
+    {{ page.body|richtext }}
+    <br>
+
+    <div class="card-columns">
+        {% for gallery in galleries %}
+            {#            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">#}
+            <div class="card ">
+                <div class="card-header card-header-image">
+                    {% image gallery.specific.gallery_image.all.0.image fill-600x400-c100 as header_image %}
+                    <img class="card-img-top img-fluid" alt="{{ gallery.title }}" src="{{ header_image.url }}">
+                </div>
+                <div class="card-body">
+
+                    <h5 class="card-title">{{ gallery.title }}</h5>
+                    <!--This includes the admin, date, tages and categories beneath the picture-->
+                    <div class="card-subtitle">
+                        <ul class="list-inline">
+                            {% if gallery.specific.categories.all %}
+                                <li class="list-inline-item">
+                                    <i class="fas fa-folder-open"></i>
+                                    {% for categ in gallery.specific.categories.all %}
+                                        {{ categ|capfirst }}
+                                    {% endfor %}
+                                </li>
+                            {% endif %}
+                            <li class="list-inline-item">
+                                <i class="fas fa-calendar"></i>
+                                {{ gallery.first_published_at|date:"DATE_FORMAT" }}
+                            </li>
+                            <li class="list-inline-item">
+                                <i class="fas fa-hashtag"></i>
+                                {{ gallery.specific.gallery_image.count }}
+                            </li>
+                        </ul>
+                    </div>
+                    <!--This includes the excerpt in the card-->
+                    <div class="card-text">
+                        {% if gallery.specific.description %}
+                            {{ gallery.specific.description }}
+                        {% else %}
+                            <p>{% trans "No description available" %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-footer">
+
+                    <li class="list-inline-item">
+                        {% post_to_facebook gallery.url '<span><div class="circle-badge"><i class="fab fa-facebook-f"></i>   </div></span>' %}
+
+                    </li>
+                    <li class="list-inline-item">
+                        {% post_to_twitter gallery.title gallery.url '<span><div class="circle-badge"><i class="fab fa-twitter"></i></div></span>' %}
+                    </li>
+                    <li class="list-inline-item">
+                        {% post_to_gplus gallery.url '<span><div class="circle-badge"><i class="fab fa-google-plus-g"></i></div></span>' %}
+                    </li>
+                    <a class='ml-auto' style="font-size: large"
+                       href="{{ gallery.url }}"><i class="fas fa-angle-double-right"></i></a>
+                </div>
+            </div>
+            {#            </div>#}
+        {% endfor %}
+    </div>
+
+
+
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+            {% if galleries.has_previous %}
+                <li>
+                    <a class="page-link" href="?page={{ galleries.previous_page_number }}"><i
+                            class="fa fa-angle-left"></i></a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
+                </li>
+            {% endif %}
+
+            {% for page_num in galleries.paginator.page_range %}
+                <li {% if page_num == galleries.number %} class="page-item active"{% endif %} class="page-item">
+                    <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                </li>
+            {% endfor %}
+
+            {% if galleries.has_next %}
+                <li>
+                    <a class="page-link" href="?page={{ galleries.next_page_number }}"><i
+                            class="fa fa-angle-right"></i></a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <br>
+{% endblock %}

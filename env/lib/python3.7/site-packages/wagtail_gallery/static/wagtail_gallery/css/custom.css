@@ -1,0 +1,11 @@
+.circle-badge {
+    height: 25px;
+    width: 25px;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 25px;
+    background: #BBBBBB;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}

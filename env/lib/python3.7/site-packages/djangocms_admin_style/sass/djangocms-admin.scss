@@ -1,0 +1,40 @@
+/*!
+ * @copyright: https://github.com/divio/djangocms-admin-style
+ */
+
+//##############################################################################
+// IMPORT SETTINGS
+@import "settings/all";
+@import "mixins/all";
+
+@import "libs/_html5-boilerplate.scss";
+@include html5-boilerplate;
+
+//##############################################################################
+// IMPORT COMPONENTS
+@import "components/base";
+@import "components/iconography";
+@import "components/icons";
+@import "components/modal";
+@import "components/sideframe";
+@import "components/forms";
+@import "components/tables";
+@import "components/changelist";
+@import "components/cmsplaceholders";
+@import "components/content";
+@import "components/dialog";
+@import "components/dashboard";
+@import "components/login";
+@import "components/header";
+@import "components/filer";
+@import "components/footer";
+@import "components/shortcuts";
+@import "components/drag-and-drop";
+@import "components/cms-update";
+@import "components/django-nested-admin";
+
+//##############################################################################
+// IMPORT MOBILE
+@media only screen and (max-width: 768px), print {
+    @import "components/mobile";
+}

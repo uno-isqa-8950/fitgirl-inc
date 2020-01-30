@@ -1,0 +1,127 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Simen Heggestøyl <simen@e5r.no>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-05 07:20-0430\n"
+"PO-Revision-Date: 2016-11-11 14:52+0100\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/"
+"mezzanine/language/nb/)\n"
+"Language: nb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: Simen Heggestøyl <simen@e5r.no>\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: __init__.py:16
+msgid "User"
+msgstr "Bruker"
+
+#: __init__.py:17
+msgid "List"
+msgstr ""
+
+#: __init__.py:18
+msgid "Search"
+msgstr "Søk"
+
+#: defaults.py:21
+msgid "Default Twitter Query Type"
+msgstr ""
+
+#: defaults.py:22
+msgid ""
+"Type of query that will be used to retrieve tweets for the default Twitter "
+"feed."
+msgstr ""
+
+#: defaults.py:31
+msgid "Default Twitter Query"
+msgstr ""
+
+#: defaults.py:32
+msgid "Twitter query to use for the default query type."
+msgstr ""
+
+#: defaults.py:39
+msgid "Default Number of Tweets"
+msgstr "Standard antall Tweets"
+
+#: defaults.py:40
+msgid "Number of tweets to display in the default Twitter feed."
+msgstr "Antall Tweets som vises i Twitterstrømmen."
+
+#: models.py:27
+msgid "Type"
+msgstr "Type"
+
+#: models.py:29
+msgid "Value"
+msgstr "Verdi"
+
+#: models.py:33
+msgid "Twitter query"
+msgstr ""
+
+#: models.py:34
+msgid "Twitter queries"
+msgstr "Twitter-spørringer"
+
+#: models.py:102
+msgid "Twitter ID"
+msgstr "Twitter ID"
+
+#: models.py:103
+msgid "Date/time"
+msgstr "Dato/tid"
+
+#: models.py:104
+msgid "Message"
+msgstr "Melding"
+
+#: models.py:105
+msgid "Profile image URL"
+msgstr "Nettadresse for profilbilde"
+
+#: models.py:106
+msgid "User name"
+msgstr "Brukernavn"
+
+#: models.py:107
+msgid "Full name"
+msgstr "Fullt navn"
+
+#: models.py:109
+msgid "Profile image URL (Retweeted by)"
+msgstr "Nettadresse for profilbilde (Retweeted av)"
+
+#: models.py:111
+msgid "User name (Retweeted by)"
+msgstr "Brukernavn (Retweeted av)"
+
+#: models.py:113
+msgid "Full name (Retweeted by)"
+msgstr "Fullt navn (Retweeted av)"
+
+#: models.py:119
+msgid "Tweet"
+msgstr "Tweet"
+
+#: models.py:120
+msgid "Tweets"
+msgstr "Tweets"
+
+#: templates/twitter/tweets.html:7
+msgid "Recent Tweets"
+msgstr "Nylige Tweets"
+
+#: templates/twitter/tweets.html:20
+msgid "ago"
+msgstr "siden"

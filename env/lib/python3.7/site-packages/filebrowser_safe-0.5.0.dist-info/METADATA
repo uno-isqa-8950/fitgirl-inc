@@ -1,0 +1,38 @@
+Metadata-Version: 2.0
+Name: filebrowser-safe
+Version: 0.5.0
+Summary: A snapshot of the filebrowser_3 branch of django-filebrowser, packaged as a dependency for the Mezzanine CMS for Django.
+Home-page: http://github.com/stephenmcd/filebrowser-safe
+Author: Stephen McDonald
+Author-email: stephen.mc@gmail.com
+License: UNKNOWN
+Description-Content-Type: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+
+Overview
+========
+
+filebrowser_safe is a permanent fork of 
+`FileBrowser asset manager <http://code.google.com/p/django-filebrowser/>`_ 
+for `Django <http://www.djangoproject.com/>`_, to be referenced as a 
+dependency for the `Mezzanine CMS for Django <http://mezzanine.jupo.org/>`_.
+
+At the time of filebrowser_safe's creation, FileBrowser was incorrectly 
+packaged on `PyPI <http://pypi.python.org/pypi>`_, and had also dropped 
+compatibility with Django 1.1 -- filebrowser_safe was therefore created to 
+address these specific issues.
+
+For further details, see 
+`Why are Grappelli and Filebrowser Forked? <http://mezzanine.jupo.org/docs/frequently-asked-questions.html#grappelli-filebrowser-forks>`_.
+
+Development
+===========
+
+You can test your local branch against the latest mezzanine development version by running `./test.sh`.
+
+

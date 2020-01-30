@@ -3,7 +3,7 @@
     :width="500"
     :height="300"
     :labels="['Jan', 'Feb', 'Mar', 'Apr', 'May']"
-    :datasets="[1,2,3,4,5]"
+    :datasets="[1,2,3,4,5,6]"
   ></bar-chart>
 </template>
 <script>

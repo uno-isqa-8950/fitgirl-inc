@@ -1,0 +1,83 @@
+{% load menu_tags %}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Wagtailmenus Test</title>
+        <style>
+            .active > a {
+                color: yellowgreen;
+            }
+            .ancestor > a {
+                color: green;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <header role="banner">
+            <div class="container">
+
+                <a class="logo" href="/" title="Go to home page">Wagtailmenus Test</a>
+
+                <nav role="navigation" class="navbar-default nav-main">
+
+                    <h4>Main Menu (show_multiple_levels=False)</h4>
+                    <div id="main-menu-one-level">
+                        {% main_menu show_multiple_levels=False %}
+                    </div>
+                    
+                    <h4>Main Menu (max_levels=2)</h4>
+                    <div id="main-menu-two-levels">
+                        {% main_menu max_levels=2 use_specific=3 %}
+                    </div>
+
+                    <h4>Main Menu (max_levels=3)</h4>
+                    <div id="main-menu-three-levels">
+                        {% main_menu max_levels=3 %}
+                    </div>
+
+                    <h4>Main Menu (sub_menu_templates)</h4>
+                    <div id="main-menu-sub-menu-templates">
+                        {% main_menu max_levels=3 sub_menu_templates='menus/sub_menu_level_2.html, menus/sub_menu_level_3.html' %}
+                    </div>
+
+                    <h4>Main Menu (use_absolute_page_urls=True)</h4>
+                    <div id="main-menu-absolute-url">
+                        {% main_menu use_absolute_page_urls=True %}
+                    </div>
+
+                </nav>
+
+                <div id="nav-contact">
+                    {% flat_menu 'contact' show_multiple_levels=False show_menu_heading=False %}
+                </div>
+
+            </div>
+        </header>
+
+        <main role="main">
+
+            <div class="container content">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+
+        <footer role="contentinfo">
+            <div class="container">
+                <div id="nav-footer">
+                    {% flat_menu 'footer' apply_active_classes=True %}
+                    {% flat_menu 'made-up-menu' %}
+                </div>
+
+                <div id="nav-footer-absolute-urls">
+                    {% flat_menu 'footer' use_absolute_page_urls=True %}
+                </div>
+                <p class="rkh"><a href="http://www.rkh.co.uk/" target="_blank" title="Web design and development, Leicester">Website by Rock Kitchen Harris</a></p>
+            </div>
+        </footer>
+
+    </body>
+</html>

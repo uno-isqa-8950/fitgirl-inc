@@ -1,0 +1,4 @@
+pytz>=2015.2
+
+[taggit]
+django-taggit>=0.20

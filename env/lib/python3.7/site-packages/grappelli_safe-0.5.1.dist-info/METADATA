@@ -1,0 +1,33 @@
+Metadata-Version: 2.0
+Name: grappelli-safe
+Version: 0.5.1
+Summary: A snapshot of the grappelli_2 branch of django-grappelli, packaged as a dependency for the Mezzanine CMS for Django.
+Home-page: http://github.com/stephenmcd/grappelli-safe/
+Author: Stephen McDonald
+Author-email: stephen.mc@gmail.com
+License: BSD 3-clause
+Description-Content-Type: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+
+Overview
+========
+
+grappelli_safe is a permanent fork of 
+`Grappelli admin skin <http://code.google.com/p/django-grappelli/>`_ for 
+`Django <http://www.djangoproject.com/>`_, to be referenced as a 
+dependency for the `Mezzanine CMS for Django <http://mezzanine.jupo.org/>`_.
+
+At the time of grappelli_safe's creation, Grappelli was incorrectly 
+packaged on `PyPI <http://pypi.python.org/pypi>`_, and had also dropped 
+compatibility with Django 1.1 -- grappelli_safe was therefore created to 
+address these specific issues.
+
+For further details, see 
+`Why are Grappelli and Filebrowser Forked? <http://mezzanine.jupo.org/docs/frequently-asked-questions.html#grappelli-filebrowser-forks>`_.
+
+

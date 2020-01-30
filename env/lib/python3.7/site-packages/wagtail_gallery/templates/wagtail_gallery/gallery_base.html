@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static i18n %}
+<html>
+<head>
+     <link rel="stylesheet" href="{% static 'wagtail_gallery/css/all.css' %}" type="text/css"/>
+     <link rel="stylesheet" href="{% static 'wagtail_gallery/css/bootstrap.min.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'wagtail_gallery/css/custom.css' %}" type="text/css"/>
+    <script src="{% static 'wagtail_gallery/js/jquery.min.js' %}"></script>
+    <script src="{% static 'wagtail_gallery/js/bootstrap.bundle.min.js' %}"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-8 col-md-9">
+{% block main %}
+
+{% endblock main %}
+        </div>
+
+        <div class="col-sm-4 col-md-3">
+
+            <h3>{% trans "Categories" %}</h3>
+            <hr>
+            <ul class="list-inline" style="font-size: large;">
+                {% for categ in page.get_categories %}
+                    <li class="list-inline-item">
+                        <a href="{{ page.get_gallery_base_url }}category/{{ categ.name|lower }}/">
+                            {{ categ.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <h3>
+                {% trans "Archive" %}
+            </h3>
+            <hr>
+            <ul class="list-unstyled">
+                {% regroup archives by date|date:"Y" as year_list %}
+                {% for year in year_list %}
+                    <li class="list-item dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            {{ year.grouper }}
+                        </a>
+                        <div class="dropdown-menu">
+                            {% regroup year.list by date|date:"M" as month_list %}
+                            {% for month in month_list reversed %}
+                                <a class="dropdown-item"
+                                   href="{{ page.get_gallery_base_url }}{{ month.list.0.date|date:"Y/m" }}">
+                                    {{ month.grouper }}
+
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</body>
+</html>

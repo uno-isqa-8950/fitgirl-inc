@@ -11,7 +11,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
 import re, json
-import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv
@@ -864,6 +864,9 @@ def inbox(request):
         for message in unread_messages:
             username = User.objects.get(username=message.from_user)
             name = username.first_name + " " + username.last_name
+            message.read_message = True
+            message.save()
+
             try:
                 dict_unread[name].append(message.body)
             except KeyError:
@@ -871,6 +874,7 @@ def inbox(request):
         for message in all_messages:
             username = User.objects.get(username=message.from_user)
             date = message.created_date.date()
+
             try:
                 photo = username.profile.photo.url
             except:
@@ -888,20 +892,26 @@ def mark_read(request):
     if request.method == 'GET':
         all_messages = KindnessMessage.objects.filter(to_user=request.user.username)
         unread_messages = all_messages.filter(read_message=False)
+
         dict_all = {}
         dict_unread = {}
         for test_message in unread_messages:
             username = User.objects.get(username=test_message.from_user)
             name = username.first_name + " " + username.last_name
+            #test_message.read_message = True
+            #test_message.save()
             try:
                 dict_unread[name].append(test_message.body)
             except KeyError:
                 dict_unread[name] = [test_message.body]
+
+
         for message in all_messages:
             username = User.objects.get(username=message.from_user)
             name = username.first_name + " " + username.last_name
-            message.read_message = True
-            message.save()
+            #message.read_message = True
+            #message.save()
+
             try:
                 dict_all[name].append(message.body)
             except KeyError:

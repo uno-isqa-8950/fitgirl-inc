@@ -1,0 +1,34 @@
+{% extends 'wagtail_gallery/gallery_base.html' %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block main %}
+
+    <link rel="stylesheet" href="{% static 'wagtail_gallery/css/lightbox.min.css' %}" type="text/css"/>
+    <script src="{% static 'wagtail_gallery/js/lightbox.min.js' %}"></script>
+
+    <script>
+        lightbox.option({
+            'alwaysShowNavOnTouchDevices': true,
+            'wrapAround': true
+        })
+    </script>
+
+    <h1 class="title">{{ page.title }}</h1>
+    <hr>
+    {{ page.body|richtext }}
+    <br>
+    <div class="row text-center text-lg-left">
+        {% for img in page.gallery_image.all %}
+            {% image img.image fill-400x300-c100 as header_image %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                <a class="d-block mb-4 h-100" href="{{ img.image.file.url }}" data-lightbox="{{ page.title }}"
+                   data-title="{{ img.description }}">
+                    <img class="img-raised rounded img-fluid" src="{{ header_image.url }}">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-24 15:56+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:21
+msgid "Text to appear on gallery root page"
+msgstr "Teks wat verskyn op die gallery vader bladsy"
+
+#: models.py:21 models.py:156
+msgid "Body"
+msgstr "Liggaam"
+
+#: models.py:39
+msgid "Gallery Root Page"
+msgstr "Gallery Vader Bladsy"
+
+#: models.py:156
+msgid "Body of text on page"
+msgstr "Liggaam van teks op die bladsy"
+
+#: models.py:157
+msgid "Short description of gallery"
+msgstr "Kort beskrywing van die gallery"
+
+#: models.py:158 models.py:214 models.py:241
+msgid "Description"
+msgstr "Beskrywing"
+
+#: models.py:160
+msgid "Categories relevant to gallery"
+msgstr "Kategorieë relevant aan die gallery"
+
+#: models.py:160 models.py:166 templates/gallery/gallery_base.html:13
+#: wagtail_hooks.py:17
+msgid "Categories"
+msgstr "Kategorieë"
+
+#: models.py:168
+msgid "Gallery image"
+msgstr "Gallery foto"
+
+#: models.py:189 wagtail_hooks.py:8 wagtail_hooks.py:24
+msgid "Gallery"
+msgstr "Gallery"
+
+#: models.py:221
+msgid "Image"
+msgstr "Foto"
+
+#: models.py:231
+msgid "Category name"
+msgstr "Kategorie naam"
+
+#: models.py:238
+msgid "Parent category"
+msgstr "Ouer kategorie"
+
+#: models.py:251
+msgid "Parent category cannot be self."
+msgstr "Ouer kategorie kannie self wees nie"
+
+#: models.py:253
+msgid "Cannot have circular Parents."
+msgstr ""
+
+#: models.py:262
+msgid "Gallery Category"
+msgstr "Gallery Kategorie"
+
+#: models.py:263
+msgid "Gallery Categories"
+msgstr "Gallery Kategorieë"
+
+#: models.py:267
+msgid "Category"
+msgstr "Kategorie"
+
+#: templates/gallery/gallery_base.html:26
+msgid "Archive"
+msgstr "Argief"
+
+#: templates/gallery/gallery_parent_page.html:47
+msgid "No description available"
+msgstr "Geen beskrywing beskikbaar nie"
