@@ -180,7 +180,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
+#AWS_DEFAULT_ACL = None
 LOGIN_REDIRECT_URL = 'login_success'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
@@ -202,9 +202,10 @@ EMAIL_USE_TLS = True
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+'''
+try:
+    from empoweru.local_settings import *
+except ImportError:
+    raise Exception("A local_settings.py file is required to run this project")
 
-# try:
-#     from local_settings import *
-# except ImportError:
-#     pass
+'''
