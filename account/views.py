@@ -871,6 +871,8 @@ def inbox(request):
         for message in all_messages:
             username = User.objects.get(username=message.from_user)
             date = message.created_date.date()
+            message.read_message = True
+            message.save()
             try:
                 photo = username.profile.photo.url
             except:
