@@ -46,7 +46,7 @@ django-storages==1.7.1
 python-decouple==3.1
 django-compressor
 django-tables2
-requests==2.19.1
+requests==2.20.0
 urllib3==1.24.2
 
 
