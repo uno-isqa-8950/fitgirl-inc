@@ -112,11 +112,12 @@ def user_login(request):
 # user's first page on login
 @login_required
 def login_success(request):
+    programs = Program.objects.all()
     today = datetime.date.today()
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
     if request.user.is_staff:
-        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        registeredUsers = User.objects.filter(is_superuser=False, is_active=True).order_by('-date_joined')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     elif request.user.is_active:
         current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
@@ -299,7 +300,8 @@ def registerusers(request):
 # admin - all users table
 @login_required
 def users(request):
-    registeredUsers = User.objects.filter(is_superuser=False)
+    programs = Program.objects.all()
+    registeredUsers = User.objects.filter(is_superuser=False, is_active=True).order_by('-date_joined')
     return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
 
 # edit profile during registration
@@ -358,6 +360,7 @@ def user_edit(request):
             profile_form.save()
             theProfile = request.user.profile
             theProfile.profile_filled = True
+
             theProfile.save()
             messages.success(request, 'Profile updated successfully!')
             return redirect('/pages/userdashboard')
@@ -893,6 +896,8 @@ def inbox(request):
         for message in all_messages:
             username = User.objects.get(username=message.from_user)
             date = message.created_date.date()
+            message.read_message = True
+            message.save()
             try:
                 photo = username.profile.photo.url
             except:
