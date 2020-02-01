@@ -22,11 +22,10 @@ def clone_program():
         except AttributeError:
             exit(1)
 
-
         local_timezone = pytz.timezone('America/Chicago')
         plus_one_week = datetime.timedelta(weeks=1)
         plus_one_day = datetime.timedelta(days=1)
-        #date_fields = new_start_date.split('-')
+        # date_fields = new_start_date.split('-')
         new_start_datetime = datetime.datetime(new_start_date.year, new_start_date.month, new_start_date.day,
                                                hour=0, minute=0, second=1,
                                                tzinfo=local_timezone)
@@ -35,7 +34,6 @@ def clone_program():
         try:
             page_title = Program.objects.filter(id=program_to_clone).first().program_name
             page = Page.objects.filter(title=page_title).first()
-
 
             page.copy(recursive=True, update_attrs={'slug': new_program_slug,
                                                     'title': new_program,
@@ -62,10 +60,10 @@ def clone_program():
                 week.weekpage.end_date = new_week_end_date
                 week.weekpage.save()
                 for activity in week.get_children():
-                    #print("Activity " + str(activity))
+                    # print("Activity " + str(activity))
                     for day in activity.get_children().type(PhysicalPostPage):
-                        #print(week.title, str(day))
-                        #print("start date " + str(day.physicalpostpage.start_date))
+                        # print(week.title, str(day))
+                        # print("start date " + str(day.physicalpostpage.start_date))
 
                         if str(day) == 'Monday':
                             day.physicalpostpage.start_date = new_week_start_date
@@ -95,7 +93,6 @@ def clone_program():
             content = 'Program ' + new_program + ' has been successfully created.'
             subject = 'Program cloning complete'
 
-
             user_obj = User.objects.get(id=user)
             email = user_obj.email
             send_mail(subject, content, from_email, [email])
@@ -107,4 +104,3 @@ def clone_program():
 class Command(BaseCommand):
     def handle(self, **options):
         clone_program()
-
