@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm, RewardsNotificationForm, ManagePointForm, ParametersForm, ProgramClone
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
-from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem, Schools
+from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile
 from week.models import WeekPage, EmailTemplates, UserActivity
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
@@ -424,11 +424,33 @@ def archive(request):
         form = programArchiveForm(request.POST)
         if form.is_valid():
             theProgram =  Program.objects.all().filter(program_name = form.cleaned_data['programs'])[0]
-            profiles =Profile.objects.all().filter(program = theProgram)
+            print(theProgram)
+            users = User.objects.all().filter(is_superuser=False)
+            for user in users:
+                print(user)
+                print(user.profile.pre_assessment)
+                user.profile.pre_assessment = 'No'
+                user.profile.points = 0
+                print(user.profile.points)
+                print(user.profile.pre_assessment)
+                user.profile.save()
+            print(users)
+            profiles = Profile.objects.all()
+            #profiles =Profile.objects.all().filter(program = theProgram)
+            print(profiles)
             for theProfile in profiles:
+                theProfile.pre_assessment = 'No'
+                theProfile.points = 0
                 if(theProfile.user.is_superuser == False):
                     theUser = theProfile.user
+                    #print(theUser)
                     theUser.is_active = False
+                    theProfile.pre_assessment = 'No'
+                    #print(theProfile)
+                    #print('pre-assessment')
+
+                    theProfile.points = 0
+                    #print('points')
                     theUser.save()
             messages.success(request, 'Users archived successfully')
             return redirect('archive')
