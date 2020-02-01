@@ -44,6 +44,7 @@ class Program(models.Model):
     def __str__(self):
         return str(self.program_name)
 
+
 class RegisterUser(models.Model):
     email = models.EmailField(blank=True, null=None)
     first_name = models.CharField(max_length=50, default=None)
