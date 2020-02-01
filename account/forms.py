@@ -76,7 +76,7 @@ class ProfileEditForm(forms.ModelForm):
     state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
     day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
     age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
-    school = forms.ModelChoiceField(widget=forms.Select, queryset=Schools.objects.all())
+    school = forms.ModelChoiceField(widget=forms.Select, queryset=Schools.objects.all(), empty_label=None)
     select_your_background_color_for_website = forms.ChoiceField(widget=forms.Select, choices=BACKGROUND_CHOICES)
 
 
