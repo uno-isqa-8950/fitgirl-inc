@@ -104,13 +104,13 @@
 
 
                 <ul class="navbar-nav navbar-right ">
-                        {% if user.profile.pre_assessment == "yes" %}
-                            <li class="nav-item admin-hide">
+                       {% if user.profile.pre_assessment == "yes" %}
+                           <li class="nav-item admin-hide">
                                 <a href="/pages/rewards/" class="dropdown-toggle avatar-menu">
-                                    <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
-                                </a>
-                                <span class="notification-dot"> {{ user.profile.points }}</span>
-                            </li>
+                                   <!-- <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
+
+                                <span class="notification-dot"> {{ user.profile.points }}</span>-->
+
 
                             <li class="dropdown admin-hide">
                                 <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" style="position:relative">
@@ -193,6 +193,8 @@
                                 <a class="dropdown-item no-pointer" href="#">Background: {{ user.profile.select_your_background_color_for_website }}</a><span
                                     class="user-dropdown"></span>
                                 <a class="dropdown-item no-pointer" href="#">Program: {{ user.profile.program.program_name }}</a>
+                                <a class="dropdown-item no-pointer" href="#" ><img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">My Points: {{ user.profile.points}}</a>
+
                                 <div class="dropdown-divider"></div>
 
                                 <a class="dropdown-item" href="{% url 'user_edit' %}"><i class="fas fa-edit fa-fw"></i> Edit
@@ -206,7 +208,7 @@
                     </li>
                 </ul>
             </div>
-      
+
     </nav>
 </div>
 
@@ -367,7 +369,7 @@
             'resizeDuration': 200,
             'wrapAround': true
         })
-      
+
 
     });
 
