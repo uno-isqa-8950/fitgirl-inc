@@ -435,19 +435,24 @@ def archive(request):
             users = User.objects.all().filter(is_superuser=False)
 
             for user in users:
+                print('Inside for')
+                print(type(user.profile.program))
+                if user.profile.profile_filled == True:
+                    if  str(user.profile.program) == str(selected_program.program_name):
+                        print('Inside if')
+                        print('user.profile.program')
+                        print(user.profile.program)
+                        print(user)
+                        print(user.profile.pre_assessment)
+                        user.is_active = False
+                        user.profile.pre_assessment = 'No'
+                        user.profile.points = 0
+                        print(user.profile.points)
+                        print(user.profile.pre_assessment)
+                        user.save()
+                        user.profile.save()
+                       
                 
-                if  str(user.profile.program) == str(selected_program.program_name):
-                    
-                    user.is_active = False
-                    user.profile.pre_assessment = 'No'
-                    user.profile.points = 0
-                    
-                    user.save()
-                    user.profile.save()
-            #print(users)
-            #profiles = Profile.objects.all()
-            #profiles =Profile.objects.all().filter(program = theProgram)
-            #print(profiles)
             '''
 
             profiles =Profile.objects.all().filter(program = theProgram)
