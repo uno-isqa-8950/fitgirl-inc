@@ -456,15 +456,13 @@ def archive(request):
             #profiles =Profile.objects.all().filter(program = theProgram)
             #print(profiles)
             '''
-=======
             profiles =Profile.objects.all().filter(program = theProgram)
->>>>>>> 2181714dd75bf7d6e330721aec00bbe4217cdc3c
             for theProfile in profiles:
                 if(theProfile.user.is_superuser == False):
                     theUser = theProfile.user
                     theUser.is_active = False
                     theUser.save()
-                    '''
+            '''
             messages.success(request, 'Users archived successfully')
             return redirect('archive')
         else:
