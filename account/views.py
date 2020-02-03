@@ -11,7 +11,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
 import re, json
-import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv
@@ -427,20 +427,35 @@ def archive(request):
         form = programArchiveForm(request.POST)
         if form.is_valid():
             theProgram =  Program.objects.all().filter(program_name = form.cleaned_data['programs'])[0]
-            print(theProgram)
+            selected_program = Program.objects.get(program_name=theProgram)
+            print(selected_program.id)
+            programs = Program.objects.all()
+            print(programs)
+
+            print(selected_program)
+            print(type(selected_program.id))
             users = User.objects.all().filter(is_superuser=False)
+
             for user in users:
-                print(user)
-                print(user.profile.pre_assessment)
-                user.profile.pre_assessment = 'No'
-                user.profile.points = 0
-                print(user.profile.points)
-                print(user.profile.pre_assessment)
-                user.profile.save()
-            print(users)
-            profiles = Profile.objects.all()
+                print('Inside for')
+                print(type(user.profile.program))
+                if  str(user.profile.program) == str(selected_program.program_name):
+                    print('Inside if')
+                    print('user.profile.program')
+                    print(user.profile.program)
+                    print(user)
+                    print(user.profile.pre_assessment)
+                    user.is_active = False
+                    user.profile.pre_assessment = 'No'
+                    user.profile.points = 0
+                    print(user.profile.points)
+                    print(user.profile.pre_assessment)
+                    user.profile.save()
+            #print(users)
+            #profiles = Profile.objects.all()
             #profiles =Profile.objects.all().filter(program = theProgram)
-            print(profiles)
+            #print(profiles)
+            '''
             for theProfile in profiles:
                 theProfile.pre_assessment = 'No'
                 theProfile.points = 0
@@ -455,6 +470,7 @@ def archive(request):
                     theProfile.points = 0
                     #print('points')
                     theUser.save()
+                    '''
             messages.success(request, 'Users archived successfully')
             return redirect('archive')
         else:
