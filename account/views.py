@@ -438,33 +438,32 @@ def archive(request):
             for user in users:
                 print('Inside for')
                 print(type(user.profile.program))
-                if  str(user.profile.program) == str(selected_program.program_name):
-                    print('Inside if')
-                    print('user.profile.program')
-                    print(user.profile.program)
-                    print(user)
-                    print(user.profile.pre_assessment)
-                    user.is_active = False
-                    user.profile.pre_assessment = 'No'
-                    user.profile.points = 0
-                    print(user.profile.points)
-                    print(user.profile.pre_assessment)
-                    user.save()
-                    user.profile.save()
-            #print(users)
+                if user.profile.profile_filled == True:
+                    if  str(user.profile.program) == str(selected_program.program_name):
+                        print('Inside if')
+                        print('user.profile.program')
+                        print(user.profile.program)
+                        print(user)
+                        print(user.profile.pre_assessment)
+                        user.is_active = False
+                        user.profile.pre_assessment = 'No'
+                        user.profile.points = 0
+                        print(user.profile.points)
+                        print(user.profile.pre_assessment)
+                        user.save()
+                        user.profile.save()
+                #print(users)
             #profiles = Profile.objects.all()
             #profiles =Profile.objects.all().filter(program = theProgram)
             #print(profiles)
-            '''
-=======
-            profiles =Profile.objects.all().filter(program = theProgram)
->>>>>>> 2181714dd75bf7d6e330721aec00bbe4217cdc3c
-            for theProfile in profiles:
-                if(theProfile.user.is_superuser == False):
-                    theUser = theProfile.user
-                    theUser.is_active = False
-                    theUser.save()
-                    '''
+
+
+#            profiles =Profile.objects.all().filter(program = theProgram)
+ #           for theProfile in profiles:
+  #              if(theProfile.user.is_superuser == False):
+   #                 theUser = theProfile.user
+    #                theUser.is_active = False
+    #                theUser.save()
             messages.success(request, 'Users archived successfully')
             return redirect('archive')
         else:
