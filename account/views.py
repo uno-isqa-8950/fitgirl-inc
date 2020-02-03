@@ -427,12 +427,10 @@ def archive(request):
         form = programArchiveForm(request.POST)
         if form.is_valid():
             theProgram =  Program.objects.all().filter(program_name = form.cleaned_data['programs'])[0]
-<<<<<<< HEAD
             selected_program = Program.objects.get(program_name=theProgram)
             print(selected_program.id)
             programs = Program.objects.all()
             print(programs)
-
             print(selected_program)
             print(type(selected_program.id))
             users = User.objects.all().filter(is_superuser=False)
