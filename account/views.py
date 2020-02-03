@@ -435,7 +435,6 @@ def archive(request):
             users = User.objects.all().filter(is_superuser=False)
 
             for user in users:
-<<<<<<< HEAD
                 print('Inside for')
                 print(type(user.profile.program))
                 if user.profile.profile_filled == True:
@@ -452,32 +451,8 @@ def archive(request):
                         print(user.profile.pre_assessment)
                         user.save()
                         user.profile.save()
-                #print(users)
-            #profiles = Profile.objects.all()
-            #profiles =Profile.objects.all().filter(program = theProgram)
-            #print(profiles)
-
-
-#            profiles =Profile.objects.all().filter(program = theProgram)
- #           for theProfile in profiles:
-  #              if(theProfile.user.is_superuser == False):
-   #                 theUser = theProfile.user
-    #                theUser.is_active = False
-    #                theUser.save()
-=======
+                       
                 
-                if  str(user.profile.program) == str(selected_program.program_name):
-                    
-                    user.is_active = False
-                    user.profile.pre_assessment = 'No'
-                    user.profile.points = 0
-                    
-                    user.save()
-                    user.profile.save()
-            #print(users)
-            #profiles = Profile.objects.all()
-            #profiles =Profile.objects.all().filter(program = theProgram)
-            #print(profiles)
             '''
 
             profiles =Profile.objects.all().filter(program = theProgram)
@@ -487,7 +462,6 @@ def archive(request):
                     theUser.is_active = False
                     theUser.save()
             '''
->>>>>>> ff4951fbb8ad5883c395bdbda44eb2b60d00264f
             messages.success(request, 'Users archived successfully')
             return redirect('archive')
         else:
