@@ -450,6 +450,7 @@ def archive(request):
                     user.profile.points = 0
                     print(user.profile.points)
                     print(user.profile.pre_assessment)
+                    user.save()
                     user.profile.save()
             #print(users)
             #profiles = Profile.objects.all()
