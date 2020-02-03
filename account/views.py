@@ -5,13 +5,13 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm, RewardsNotificationForm, ManagePointForm, ParametersForm, ProgramClone
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
-from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile
+from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem, Schools, Program
 from week.models import WeekPage, EmailTemplates, UserActivity
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
 import re, json
-#import weasyprint
+import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv
@@ -427,6 +427,7 @@ def archive(request):
         form = programArchiveForm(request.POST)
         if form.is_valid():
             theProgram =  Program.objects.all().filter(program_name = form.cleaned_data['programs'])[0]
+<<<<<<< HEAD
             selected_program = Program.objects.get(program_name=theProgram)
             print(selected_program.id)
             programs = Program.objects.all()
@@ -457,19 +458,13 @@ def archive(request):
             #profiles =Profile.objects.all().filter(program = theProgram)
             #print(profiles)
             '''
+=======
+            profiles =Profile.objects.all().filter(program = theProgram)
+>>>>>>> 2181714dd75bf7d6e330721aec00bbe4217cdc3c
             for theProfile in profiles:
-                theProfile.pre_assessment = 'No'
-                theProfile.points = 0
                 if(theProfile.user.is_superuser == False):
                     theUser = theProfile.user
-                    #print(theUser)
                     theUser.is_active = False
-                    theProfile.pre_assessment = 'No'
-                    #print(theProfile)
-                    #print('pre-assessment')
-
-                    theProfile.points = 0
-                    #print('points')
                     theUser.save()
                     '''
             messages.success(request, 'Users archived successfully')
@@ -482,6 +477,7 @@ def archive(request):
     return render(request,
                   'account/archive.html',
                   {'section': 'archive','form':form})
+
 
 # Admin: Sending group email from the application
 def group_email(request):
