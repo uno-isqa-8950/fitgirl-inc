@@ -14,7 +14,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 EVENT = (
     (1, _("8-10")),
     (2, _("11-13")),
-
 )
 
 BACKGROUND_CHOICES = [
@@ -44,7 +43,6 @@ class Program(models.Model):
 
     def __str__(self):
         return str(self.program_name)
-
 
 class RegisterUser(models.Model):
     email = models.EmailField(blank=True, null=None)
@@ -218,4 +216,3 @@ class Schools(models.Model):
 
     def __str__(self):
         return str(self.schools_name)
-
