@@ -12,9 +12,17 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 EVENT = (
-    (1, _("8-10")),
-    (2, _("11-13")),
 
+(1, _("8")),
+(2, _("9")),
+(3, _("8")),
+(4, _("10")),
+(5, _("11")),
+(6, _("12")),
+(7, _("13")),
+(8, _("14")),
+(9, _("15")),
+(10, _("16")),
 )
 
 BACKGROUND_CHOICES = [
@@ -23,6 +31,7 @@ BACKGROUND_CHOICES = [
     ('yellow','Yellow'),
     ('green','Green'),
     ('orange','Orange'),
+
 ]
 
 
@@ -90,7 +99,7 @@ class Profile(models.Model):
     country = models.CharField(max_length=25, blank=True, null=True)
     day_phone = models.CharField(blank=True, null=True, max_length=13)
     eve_phone = models.CharField(blank=True, null=True, max_length=13)
-    age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
+    Age = models.IntegerField(choices=EVENT, blank=False, null=True)
     school = models.CharField(max_length=50, blank=True, null=True)
     points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
