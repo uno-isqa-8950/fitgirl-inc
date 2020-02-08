@@ -13,9 +13,9 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 EVENT = (
 
-(1, _("8")),
-(2, _("9")),
-(3, _("8")),
+(1, _("7")),
+(2, _("8")),
+(3, _("9")),
 (4, _("10")),
 (5, _("11")),
 (6, _("12")),
@@ -23,6 +23,8 @@ EVENT = (
 (8, _("14")),
 (9, _("15")),
 (10, _("16")),
+
+
 )
 
 BACKGROUND_CHOICES = [
