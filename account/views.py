@@ -437,6 +437,7 @@ def archive(request):
             for user in users:
                 print('Inside for')
                 print(type(user.profile.program))
+
                 #if user.profile.profile_filled == True:
                 if  str(user.profile.program) == str(selected_program.program_name):
                     print('Inside if')
@@ -451,7 +452,6 @@ def archive(request):
                     print(user.profile.pre_assessment)
                     user.save()
                     user.profile.save()
-
                 
             '''
 
