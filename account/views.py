@@ -444,7 +444,7 @@ def archive(request):
                         print(user.profile.program)
                         print(user)
                         print(user.profile.pre_assessment)
-                        #user.is_active = False
+                        user.is_active = False
                         user.profile.pre_assessment = 'No'
                         user.profile.points = 0
                         print(user.profile.points)
