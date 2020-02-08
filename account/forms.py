@@ -49,20 +49,12 @@ class UploadFileForm(forms.Form):
 
     file = forms.FileField(label=" Choose the CSV file")
 
+
+
 EVENT = (
-
-(1, _("7")),
-(2, _("8")),
-(3, _("9")),
-(4, _("10")),
-(5, _("11")),
-(6, _("12")),
-(7, _("13")),
-(8, _("14")),
-(9, _("15")),
-(10, _("16")),
+    (1, _("8-10")),
+    (2, _("11-13")),
 )
-
 
 BACKGROUND_CHOICES = [
     ('pink','Pink'),
@@ -83,7 +75,7 @@ class ProfileEditForm(forms.ModelForm):
     city = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
     state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
     day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
-    Age = forms.ChoiceField(widget=forms.Select, choices=EVENT)
+    age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
     school = forms.ModelChoiceField(widget=forms.Select, queryset=Schools.objects.all(), empty_label=None)
     select_your_background_color_for_website = forms.ChoiceField(widget=forms.Select, choices=BACKGROUND_CHOICES)
 
@@ -97,7 +89,8 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('photo', 'bio', 'secondary_email', 'other_email', 'date_of_birth', 'city', 'state', 'zip', 'day_phone','Age', 'school', 'select_your_background_color_for_website')  # Added Photo to the Start --Shamrose
+        fields = ('photo', 'bio', 'secondary_email', 'other_email', 'date_of_birth', 'city', 'state', 'zip', 'day_phone',
+                  'age_group', 'school', 'select_your_background_color_for_website')           # Added Photo to the Start --Shamrose
 
     def __init__(self, user, *args, **kwargs):
         super(ProfileEditForm, self).__init__(*args, **kwargs)

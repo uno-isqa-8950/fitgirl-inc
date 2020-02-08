@@ -121,7 +121,27 @@
 
                     </div>
                     <br>
+                    <div class="form-row">
+                        <div class="col">
 
+
+                            <div >
+
+                                <p><span class="fas fa-user" style="font-size:20px;color:#ec407a"></span>
+
+                                    {% if user.age_group  == 1 %}
+                                Age Group: 8-10
+                                {% elif user.age_group  == 2 %}
+                                Age Group: 11-13
+                                {% else %}
+                                Age Group: {{ user.age_group }}
+
+                                {% endif %}
+
+                                </p>
+
+                            </div>
+                        </div>
 
                         <!-- Newsletter -->
                         <div class="col">
@@ -180,7 +200,7 @@
                         <td>{{ user.state }}</td>
                         <td>{{  user.day_phone }}</td>
                         <td>{{ user.eve_phone }}</td>
-                        <td>{{ user.Age }}</td>
+                        <td>{{ user.age_group }}</td>
                         <td>{{ user.school }}</td>
                       </tr>
         </tbody>
@@ -199,7 +219,7 @@
         <p>State: {{ user.state }}</p>
         <p>Day Phone: {{ user.day_phone }}</p>
         <p>Eve Phone: {{ user.eve_phone }}</p>
-        <p>Age Group:  {{ user.age }}</p>
+        <p>Age Group:  {{ user.age_group }}</p>
         <p>School: {{ user.school }}</p> -->
 
 
