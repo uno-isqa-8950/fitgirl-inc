@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm,CronForm, RewardsNotificationForm, ManagePointForm, ParametersForm, ProgramClone
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
-from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem, Schools
+from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem, Schools, Program
 from week.models import WeekPage, EmailTemplates, UserActivity
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
@@ -112,11 +112,12 @@ def user_login(request):
 # user's first page on login
 @login_required
 def login_success(request):
+    programs = Program.objects.all()
     today = datetime.date.today()
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
     if request.user.is_staff:
-        registeredUsers = User.objects.filter(is_superuser=False).order_by('-is_active')
+        registeredUsers = User.objects.filter(is_superuser=False, is_active=True).order_by('-date_joined')
         return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
     elif request.user.is_active:
         current_week = WeekPage.objects.live().filter(end_date__gte=today, start_date__lte=today)
@@ -299,7 +300,8 @@ def registerusers(request):
 # admin - all users table
 @login_required
 def users(request):
-    registeredUsers = User.objects.filter(is_superuser=False)
+    programs = Program.objects.all()
+    registeredUsers = User.objects.filter(is_superuser=False, is_active=True).order_by('-date_joined')
     return render(request, 'account/viewUsers.html', {'registeredUsers': registeredUsers})
 
 # edit profile during registration
@@ -358,6 +360,7 @@ def user_edit(request):
             profile_form.save()
             theProfile = request.user.profile
             theProfile.profile_filled = True
+
             theProfile.save()
             messages.success(request, 'Profile updated successfully!')
             return redirect('/pages/userdashboard')
@@ -424,12 +427,41 @@ def archive(request):
         form = programArchiveForm(request.POST)
         if form.is_valid():
             theProgram =  Program.objects.all().filter(program_name = form.cleaned_data['programs'])[0]
+            selected_program = Program.objects.get(program_name=theProgram)
+           
+            programs = Program.objects.all()
+            
+            
+            users = User.objects.all().filter(is_superuser=False)
+
+            for user in users:
+                print('Inside for')
+                print(type(user.profile.program))
+
+                #if user.profile.profile_filled == True:
+                if  str(user.profile.program) == str(selected_program.program_name):
+                    print('Inside if')
+                    print('user.profile.program')
+                    print(user.profile.program)
+                    print(user)
+                    print(user.profile.pre_assessment)
+                    user.is_active = False
+                    user.profile.pre_assessment = 'No'
+                    user.profile.points = 0
+                    print(user.profile.points)
+                    print(user.profile.pre_assessment)
+                    user.save()
+                    user.profile.save()
+                
+            '''
+
             profiles =Profile.objects.all().filter(program = theProgram)
             for theProfile in profiles:
                 if(theProfile.user.is_superuser == False):
                     theUser = theProfile.user
                     theUser.is_active = False
                     theUser.save()
+            '''
             messages.success(request, 'Users archived successfully')
             return redirect('archive')
         else:
@@ -871,6 +903,8 @@ def inbox(request):
         for message in all_messages:
             username = User.objects.get(username=message.from_user)
             date = message.created_date.date()
+            message.read_message = True
+            message.save()
             try:
                 photo = username.profile.photo.url
             except:
