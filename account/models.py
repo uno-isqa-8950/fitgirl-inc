@@ -219,3 +219,12 @@ class Schools(models.Model):
     def __str__(self):
         return str(self.schools_name)
 
+class Statements(models.Model):
+    mission = models.CharField(max_length=500, blank=True, null=True)
+    vision = models.CharField(max_length=500, blank=True, null=True)
+    values = models.CharField(max_length=500, blank=True, null=True)
+
+
+    def __str__(self):
+        return str(self.mission)
+

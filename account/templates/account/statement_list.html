@@ -1,0 +1,41 @@
+{% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Statements {{ block.super }}{% endblock %}
+
+{% block dash_content %}
+    <style>
+        ul#menu li {
+          display:inline;
+          margin: 0px;
+          padding: 0px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="contact">
+            <div class="spacer-div-30"></div>
+            <form method="POST" class="statementedit-form" enctype='multipart/form-data'>
+
+
+            <h1 class="text-center">Statements</h1>
+
+            <form method="post">
+                {% csrf_token %}
+                {% for statement in statements %}
+                <p>Statements:</p>
+                        <p>{{ statement.mission| default_if_none:"&nbsp;" }}</p>
+                        <p>{{ statement.vision| default_if_none:"&nbsp;" }}</p>
+                        <p>{{ statement.values| default_if_none:"&nbsp;" }}</p>
+                    {% endfor %}
+                {{ form |crispy }}
+
+        <button type="submit" class="save btn btn-pink ">Update</button>
+                <br>
+                <ul id = "menu">
+                </ul>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
