@@ -165,7 +165,7 @@ def handle_uploaded_file(request, name):
                     else:
                         vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
                         theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
-                        theUser.set_password('stayfit2019')
+                        theUser.set_password('stayfit2020')
                         theUser.save()
                         profile = Profile.objects.create(user=theUser,
                                                          program=Program.objects.all().filter(program_name=name)[0])
@@ -979,7 +979,7 @@ def signup(request):
             username = email
             first_name = sign_form.cleaned_data['first_name']
             last_name = sign_form.cleaned_data['last_name']
-            password = 'stayfit2019'
+            password = 'stayfit2020'
             selected_program = get_object_or_404(Program, pk=request.POST.get('programs'))
             theUser = User(username= username, email= email, first_name= first_name,
                            last_name=last_name)
