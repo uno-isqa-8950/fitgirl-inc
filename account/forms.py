@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, Program, Parameters, RewardCategory, RewardItem,Schools
+from .models import Profile, Program, Parameters, RewardCategory, RewardItem,Schools, Statements
 #from .models import Profile, Program, Parameters, RewardCategory, RewardItem
 from django.utils.translation import gettext as _
 from datetime import date
@@ -245,3 +245,11 @@ class SchoolsForm(forms.ModelForm):
         model = Schools
         fields = ('schools_name',)
 
+
+class StatementEditForm(forms.ModelForm):
+    mission = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter mission statement'}), max_length=500, required=False)
+    vision = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter vision statement'}), max_length=500, required=False)
+    values = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter values statement'}), max_length=500, required=False)
+    class Meta:
+        model = Statements
+        fields = ('mission','vision', 'values')
