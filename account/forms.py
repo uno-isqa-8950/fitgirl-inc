@@ -97,8 +97,9 @@ class ProfileEditForm(forms.ModelForm):
         if user.profile.school:
             schools_name = user.profile.school #in future school should be linked to school table
             schools = Schools.objects.get(schools_name=schools_name)
-            schools_id = schools.schools_id
-            self.initial['schools'] = schools_id
+            # commented out below lines - to resolve ticket 1157
+            #schools_id = schools.id
+            #self.initial['schools'] = schools_id
         else:
             pass
 
@@ -239,7 +240,7 @@ class RewardItemForm(forms.ModelForm):
     
 class SchoolsForm(forms.ModelForm):
     #school = forms.ModelMultipleChoiceField(queryset=School.objects.all())
-    schools_name = forms.CharField(max_length=30, required=True)
+    #schools_name = forms.CharField(max_length=30, required=True)
 
     class Meta:
         model = Schools
