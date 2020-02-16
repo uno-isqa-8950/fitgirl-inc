@@ -374,6 +374,31 @@
     });
 
     $(document).ready(function () {
+        $('#carouselExampleControls').find('.carousel-item').first().addClass('disable');
+        // Code for toggling the timer
+        var r = $("<input/>").attr({
+            type: "a",
+            id: "field",
+            class: "pause-timer btn btn-sm btn-pink btn-rounded waves-effect waves-light confetti-button",
+            value: "pause timer",
+            href: "#"
+        });
+        $(".strength-paragraphs").append(r);
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true
+        })
+
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true
+        })
+
+
+    });
+
+
+    $(document).ready(function () {
         if ("{% announcement_alert %}") {
             $("#warning-alert").show();
         }
