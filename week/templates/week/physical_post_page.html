@@ -92,8 +92,6 @@
         function doCount(){
             var timer2 = "{{ page.timer_for_this_activity|safe }}";
             var interval = setInterval(function() {
-
-
                 var timer = timer2.split(':');
                 //by parsing integer, I avoid all extra string processing
                 var minutes = parseInt(timer[0], 10);
