@@ -247,9 +247,9 @@ class SchoolsForm(forms.ModelForm):
 
 
 class StatementEditForm(forms.ModelForm):
-    mission = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter mission statement'}), max_length=500, required=False)
-    vision = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter vision statement'}), max_length=500, required=False)
-    values = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter values statement'}), max_length=500, required=False)
+    mission = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter mission statement'}), max_length=255, required=False)
+    vision = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter vision statement'}), max_length=255, required=False)
+    values = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter values statement'}), max_length=255, required=False)
     class Meta:
         model = Statements
         fields = ('mission','vision', 'values')

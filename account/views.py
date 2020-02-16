@@ -6,12 +6,12 @@ from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, program
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm, StatementEditForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Statements
-from week.models import WeekPage, EmailTemplates, UserActivity
+from week.models import WeekPage, EmailTemplates, UserActivity, StatementPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
 import re, json
-import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv
@@ -90,7 +90,7 @@ def point_check(sender, instance, **kwargs):
 
 #user login
 def user_login(request):
-    statements = Statements.objects.all()
+    statements = StatementPage.objects.all()
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -1120,16 +1120,15 @@ def add_school(request):
 
 @login_required()
 def statement_list(request):
-    statements = Statements.objects.all()
-    form = StatementEditForm()
-    if request.method == 'POST':
-        statements.delete()
-        form = StatementEditForm(data=request.POST or None, files=request.FILES)
-        if form.is_valid():
-            statements = form.save()
-            statements.save()
-            messages.success(request, 'Statements updated successfully')
-            return redirect('statement_list')
-        else:
-            form - StatementEditForm()
-    return render (request, 'account/statement_list.html', {'form':form, 'statements': statements})
+    statements = StatementPage.objects.all()
+    #form = StatementEditForm()
+    #if request.method == 'POST':
+    #    form = StatementEditForm(data=request.POST or None, files=request.FILES)
+    #    if form.is_valid():
+     #       statements = form.save()
+      #      statements.save()
+    #        messages.success(request, 'Statements updated successfully')
+     #       return redirect('users')
+    #    else:
+       #     form - StatementEditForm()
+    return render (request, 'account/statement_list.html', { 'statements': statements})

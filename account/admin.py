@@ -114,4 +114,4 @@ class SchoolsAdmin(admin.ModelAdmin):
 
 admin.site.register(Schools,SchoolsAdmin)
 
-admin.site.register(Statements)
+#admin.site.register(Statements)

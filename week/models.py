@@ -15,7 +15,7 @@ from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField, A
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from account.forms import User
 from wagtail.images.edit_handlers import ImageChooserPanel
-from account.models import Profile, Program
+from account.models import Profile, Program, Statements
 
 
 class AboutUsIndexPage(Page):
@@ -632,3 +632,25 @@ class AnnouncementAlertPage(Page):
         FieldPanel('display_warning'),
 
     ]
+
+class StatementPage(Page):
+    mission = models.CharField(max_length=200, blank=True)
+    vision = models.CharField(max_length=200, blank = True)
+    values = models.CharField(max_length=200, blank=True)
+
+
+    content_panels = Page.content_panels + [
+        FieldPanel('mission'),
+        FieldPanel('vision'),
+        FieldPanel('values'),
+    ]
+
+
+
+
+
+
+
+
+
+
