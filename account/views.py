@@ -160,7 +160,29 @@ def handle_uploaded_file(request, name):
                 if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
                     num = len(User.objects.all().filter(email=row[1]))
                     if (len(User.objects.all().filter(email=row[1])) > 0):
-                        existcount += 1
+                        users = User.objects.all().filter(is_superuser=False).filter(email=row[1])
+                        for user in  users:
+                            user.is_active = True
+                            print(user.is_active)
+                            user.set_password('stayfit2020')
+                            print(user.set_password)
+                            print(user)
+                            user.save()
+                            print(user.is_active)
+                            profile = Profile.objects.update(points=0,pre_assessment='No', program=Program.objects.all().filter(program_name=name)[0])
+                            print(profile)
+                            profile.save()
+                            form = PasswordResetForm({'email': user.email})
+                            if form.is_valid():
+                                request = HttpRequest()
+                                request.META['SERVER_NAME'] = 'www.empoweruomaha.com'
+                                request.META['SERVER_PORT'] = '80'
+                                form.save(
+                                request=request,
+                                from_email=settings.EMAIL_HOST_USER,
+                                subject_template_name='registration/new_user_subject.txt',
+                                email_template_name='registration/password_reset_newuser_email.html')
+                            existcount += 1
 
                     else:
                         vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
