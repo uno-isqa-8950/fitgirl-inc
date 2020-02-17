@@ -632,3 +632,28 @@ class AnnouncementAlertPage(Page):
         FieldPanel('display_warning'),
 
     ]
+class Disclaimerlink(Page):
+    disclaimer = RichTextField(blank=True)
+    disclaimer2 = models.CharField(max_length=10000, blank=True, )
+    disclaimer3 = models.CharField(max_length=10000, blank=True, )
+    disclaimer4 = models.CharField(max_length=10000, blank=True, )
+    disclaimer5 = models.CharField(max_length=10000, blank=True, )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('disclaimer', classname="full"),
+        FieldPanel('disclaimer2', classname="full"),
+        FieldPanel('disclaimer3', classname="full"),
+        FieldPanel('disclaimer4', classname="full"),
+        FieldPanel('disclaimer5', classname="full"),
+    ]
+
+class StatementsPage(Page):
+    mission = models.CharField(max_length=200, blank=True, )
+    vision = models.CharField(max_length=200, blank=True, )
+    values = models.CharField(max_length=200, blank=True, )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('mission'),
+        FieldPanel('vision'),
+        FieldPanel('values'),
+    ]

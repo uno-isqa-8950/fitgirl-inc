@@ -8,12 +8,12 @@ from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm
 from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
     CloneProgramInfo, RewardCategory, RewardItem, Schools, Program
-from week.models import WeekPage, EmailTemplates, UserActivity
+from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
 import re, json
-import weasyprint
+#import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv
@@ -100,6 +100,7 @@ def point_check(sender, instance, **kwargs):
 
 # user login
 def user_login(request):
+    statements = StatementsPage.objects.all()
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -110,14 +111,14 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated successfully')
+                    return redirect('login_sucess')
                 else:
-                    return HttpResponse('Disabled account')
+                    return redirect('login')
             else:
-                return HttpResponse('Invalid login')
+                return redirect('login')
     else:
         form = LoginForm()
-    return render(request, 'account/login.html', {'form': form})
+    return render(request, 'account/login.html', {'form': form, 'statements': statements})
 
 
 # user's first page on login

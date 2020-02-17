@@ -1,13 +1,156 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>EmpowerU</title>
 
-{% block title %}Login{% endblock %}
+  <!-- Font Awesome -->
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>    
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="apple-touch-icon" href="{% static 'favicon.ico' %}">
+<link rel="apple-touch-startup-image" href="{% static 'favicon.ico' %}">
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>    
+<!-- Bootstrap core CSS -->
 
-{% block content %}
-  <h1>Login</h1>
-  <p>Please, use the following form to login:</p>
-  <form action="." method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <p><input type="submit" value="Login"></p>
-  </form>
-{% endblock %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/css/mdb.min.css" rel="stylesheet">
+<link href="{% static 'css/login.css' %}" rel="stylesheet">
+</head>
+
+
+
+<body>
+ <!-- Main navigation -->
+<header>
+    <!--Navbar-->
+    <div class="nav-wrapper grey darken-1">
+    <nav class="navbar navbar-expand-lg navbar-dark grey darken-1 scrolling-navbar">
+      <a class="navbar-brand" href="#">
+         <img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo" height="40"/>
+      </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <!-- <div class="container"> commented to remove the space between Empower you and About us-->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+          <ul class="navbar-nav mr-auto">
+              <!-- Added home glyphicon to navbar_Kelley -->
+            <li class="nav-item ">
+                <a class="nav-link hoverable" href="#" style="background-color: rgba(255,255,255,.1);">
+                    <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
+            </li>
+            <li class="nav-item ">
+                    <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
+                  </li>
+              <li class="nav-item active">
+              <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href="/pages/about-fitgirl">About Us</a>
+              </li>
+              <li class="nav-item active">
+              <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);" href= "http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      <!-- </div> -->
+    </nav>
+    </div>
+    <!-- Navbar -->
+    <!-- Full Page Intro -->
+
+<!--     <div class="background-image" style="background: url({%  static 'images/lgo.jpg' %} ) no-repeat; background-size: 100%;"> -->
+      <!-- Mask & flexbox options-->
+      <div class=" d-flex justify-content-center align-items-center">
+        <!-- Content -->
+        <div class="container">
+          <!--Grid row-->
+          <div class="row pt-lg-5 mt-lg-5">
+            <!--Grid column-->
+            <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-center text-md-left wow fadeInLeft" data-wow-delay="0.3s">
+              <h1 class="display-4 font-weight-bold"><img src="{% static 'images/logologin.png' %}" alt="logo" height="100"/></h1>
+              <hr class="hr-dark">{% for statement in statements %}
+              <h6 class="mb-3 text-dark">{{ statement.mission|default_if_none:"&nbsp;"  }}
+              </h6>
+                <h6 class="mb-3 text-dark">{{ statement.vision|default_if_none:"&nbsp;"  }}
+              </h6>
+                <h6 class="mb-3 text-dark">{{ statement.values|default_if_none:"&nbsp;"  }}
+              </h6>
+                {% endfor %}
+            </div>
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="col-md-6 col-xl-5 mb-4">
+              <!--Form-->
+              <form class="card wow fadeInRight" data-wow-delay="0.3s" method="POST" action="">{% csrf_token %}
+                <div class="card-body z-depth-2">
+                  <!--Header-->
+                  <div class="text-center">
+                    <h3 class="dark-grey-text">
+                      <strong>Login</strong>
+                      {% if form.errors %}
+                  		<div class="alert alert-danger">
+                		<strong><p>Incorrect username or password</p></strong>
+            			</div>
+                    {% endif%}
+                    </h3>
+                    <hr>
+                  </div>
+                  <!--Body-->
+                  <div class="md-form">
+                    <i class="fa fa-user prefix grey-text"></i>
+                    <input type="text" id="form3" name="username" class="form-control">
+                    <label for="form3">Username</label>
+                  </div>
+                  <div class="md-form">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" id="form2" name="password" class="form-control">
+                    <label for="form2">Enter Password</label>
+                  </div>
+
+                  <div class="text-center mt-3">
+                    <button class="btn btn-fitgirl" type="submit" value="login">Login</button>
+                    <hr>
+                      <p><a href="{% url 'password_reset' %}">Forgotten your password?</a></p>
+                  </div>
+                </div>
+              </form>
+              <!--/.Form-->
+            </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
+        </div>
+        <!-- Content -->
+      </div>
+      <!-- Mask & flexbox options-->
+    </div>
+    <!-- Full Page Intro -->
+  </header>
+  <!-- Main navigation -->
+
+
+
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/js/mdb.min.js"></script>
+<!-- Custom JS Scripts -->
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+
+<script> new WOW().init();
+</script>
+</body>
+
+</html>
