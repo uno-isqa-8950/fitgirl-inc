@@ -130,13 +130,15 @@
                                 <p><span class="fas fa-user" style="font-size:20px;color:#ec407a"></span>
 
                                     {% if user.age_group  == 1 %}
-                                Age Group: 8-10
-                                {% elif user.age_group  == 2 %}
-                                Age Group: 11-13
-                                {% else %}
-                                Age Group: {{ user.age_group }}
+                                        Age Group: 8-10
+                                    {% elif user.age_group  == 2 %}
+                                        Age Group: 11-13
+                                     {% elif user.age_group  == 3 %}
+                                        Age Group: 14-16
+                                    {% else %}
+                                    Age Group: {{ user.age_group }}
 
-                                {% endif %}
+                                    {% endif %}
 
                                 </p>
 
