@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load staticfiles %}
-{% load wagtailcore_tags %}
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -76,14 +74,9 @@
             <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-center text-md-left wow fadeInLeft" data-wow-delay="0.3s">
               <h1 class="display-4 font-weight-bold"><img src="{% static 'images/logologin.png' %}" alt="logo" height="100"/></h1>
               <hr class="hr-dark">
-              <!--<h6 class="mb-3 text-dark">The mission of FITGirl, Inc. is to empower young girls as they develop and mature by demonstrating positive lifestyle choices; physical, mental, relational and nutritional.
-              </h6>-->
-                <h6 class="mb-3 text-dark"> {{  page.mission| default_if_none:"&nbsp;" }}
+              <h6 class="mb-3 text-dark">The mission of FITGirl, Inc. is to empower young girls as they develop and mature by demonstrating positive lifestyle choices; physical, mental, relational and nutritional.
               </h6>
-                <h6 class="mb-3 text-dark"> {{  page.vision| default_if_none:"&nbsp;" }}
-              </h6>
-                <h6 class="mb-3 text-dark"> {{  page.values| default_if_none:"&nbsp;" }}
-              </h6>
+
             </div>
             <!--Grid column-->
             <!--Grid column-->
