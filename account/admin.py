@@ -2,13 +2,19 @@
 
 # Register your models here.
 from django.contrib import admin
-from .models import Program
+from .models import Program, CloneProgramInfo
 from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote,Inactiveuser,RewardsNotification, Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem,Schools
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
 
 # Register your models here.
+class CloneProgramInfoList(admin.ModelAdmin):
+    list_display = ('program_to_clone', 'new_start_date', 'new_program', 'active', 'created_at')
+
+
+admin.site.register(CloneProgramInfo)
+
 
 class ProgramList(admin.ModelAdmin):
     list_display = ('program_name', 'program_start_date', 'program_end_date')

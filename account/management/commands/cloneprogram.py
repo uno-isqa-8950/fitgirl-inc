@@ -22,10 +22,11 @@ def clone_program():
         except AttributeError:
             exit(1)
 
+
         local_timezone = pytz.timezone('America/Chicago')
         plus_one_week = datetime.timedelta(weeks=1)
         plus_one_day = datetime.timedelta(days=1)
-        # date_fields = new_start_date.split('-')
+        #date_fields = new_start_date.split('-')
         new_start_datetime = datetime.datetime(new_start_date.year, new_start_date.month, new_start_date.day,
                                                hour=0, minute=0, second=1,
                                                tzinfo=local_timezone)
@@ -34,6 +35,7 @@ def clone_program():
         try:
             page_title = Program.objects.filter(id=program_to_clone).first().program_name
             page = Page.objects.filter(title=page_title).first()
+
 
             page.copy(recursive=True, update_attrs={'slug': new_program_slug,
                                                     'title': new_program,
@@ -60,26 +62,26 @@ def clone_program():
                 week.weekpage.end_date = new_week_end_date
                 week.weekpage.save()
                 for activity in week.get_children():
-                    # print("Activity " + str(activity))
+                    #print("Activity " + str(activity))
                     for day in activity.get_children().type(PhysicalPostPage):
-                        # print(week.title, str(day))
-                        # print("start date " + str(day.physicalpostpage.start_date))
+                        #print(week.title, str(day))
+                        #print("start date " + str(day.physicalpostpage.start_date))
 
                         if str(day) == 'Monday':
                             day.physicalpostpage.start_date = new_week_start_date
-                            day.physicalpostpage.end_date = new_week_end_date * 6
+                            day.physicalpostpage.end_date = new_week_end_date
                         elif str(day) == 'Tuesday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 5
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 5
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day
                         elif str(day) == 'Wednesday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
                         elif str(day) == 'Thursday':
                             day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 3
                             day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 3
                         elif str(day) == 'Friday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
                         else:
                             print('Incorrect week title')
 
@@ -92,6 +94,7 @@ def clone_program():
             from_email = 'capstone18fa@gmail.com'
             content = 'Program ' + new_program + ' has been successfully created.'
             subject = 'Program cloning complete'
+
 
             user_obj = User.objects.get(id=user)
             email = user_obj.email
