@@ -14,6 +14,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 EVENT = (
     (1, _("8-10")),
     (2, _("11-13")),
+    (3, _("14-16")),
 
 )
 
@@ -212,6 +213,9 @@ class CloneProgramInfo(models.Model):
     active = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return str(self.new_program)
+
 class Schools(models.Model):
     schools_id = models.AutoField(primary_key=True,blank=False,null=False)
     schools_name = models.CharField(max_length=25, blank=True, null=True)
@@ -227,4 +231,3 @@ class Statements(models.Model):
 
     def __str__(self):
         return str(self.mission)
-

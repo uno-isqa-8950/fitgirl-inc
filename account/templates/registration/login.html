@@ -77,13 +77,13 @@
               <h1 class="display-4 font-weight-bold"><img src="{% static 'images/logologin.png' %}" alt="logo" height="100"/></h1>
               <hr class="hr-dark">
               <!--<h6 class="mb-3 text-dark">The mission of FITGirl, Inc. is to empower young girls as they develop and mature by demonstrating positive lifestyle choices; physical, mental, relational and nutritional.
-              </h6>-->{% for statement in statements %}
-                <h6 class="mb-3 text-dark"> {{  statement.mission| default_if_none:"&nbsp;" }} Mission
+              </h6>-->
+                <h6 class="mb-3 text-dark"> {{  page.mission| default_if_none:"&nbsp;" }}
               </h6>
-                <h6 class="mb-3 text-dark"> {{  statement.vision| default_if_none:"&nbsp;" }} Vision
+                <h6 class="mb-3 text-dark"> {{  page.vision| default_if_none:"&nbsp;" }}
               </h6>
-                <h6 class="mb-3 text-dark"> {{  statement.values| default_if_none:"&nbsp;" }} Values
-              </h6>{% endfor %}
+                <h6 class="mb-3 text-dark"> {{  page.values| default_if_none:"&nbsp;" }}
+              </h6>
             </div>
             <!--Grid column-->
             <!--Grid column-->

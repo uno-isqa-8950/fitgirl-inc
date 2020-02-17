@@ -54,6 +54,7 @@ class UploadFileForm(forms.Form):
 EVENT = (
     (1, _("8-10")),
     (2, _("11-13")),
+    (3, _("14-16")),
 )
 
 BACKGROUND_CHOICES = [
@@ -246,6 +247,7 @@ class SchoolsForm(forms.ModelForm):
         fields = ('schools_name',)
 
 
+
 class StatementEditForm(forms.ModelForm):
     mission = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter mission statement'}), max_length=255, required=False)
     vision = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter vision statement'}), max_length=255, required=False)
@@ -253,3 +255,4 @@ class StatementEditForm(forms.ModelForm):
     class Meta:
         model = Statements
         fields = ('mission','vision', 'values')
+
