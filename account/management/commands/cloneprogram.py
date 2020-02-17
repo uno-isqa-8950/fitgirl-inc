@@ -69,19 +69,19 @@ def clone_program():
 
                         if str(day) == 'Monday':
                             day.physicalpostpage.start_date = new_week_start_date
-                            day.physicalpostpage.end_date = new_week_end_date * 6
+                            day.physicalpostpage.end_date = new_week_end_date
                         elif str(day) == 'Tuesday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 5
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 5
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day
                         elif str(day) == 'Wednesday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
                         elif str(day) == 'Thursday':
                             day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 3
                             day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 3
                         elif str(day) == 'Friday':
-                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 2
-                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 2
+                            day.physicalpostpage.start_date = new_week_start_date + plus_one_day * 4
+                            day.physicalpostpage.end_date = new_week_end_date + plus_one_day * 4
                         else:
                             print('Incorrect week title')
 
@@ -107,4 +107,3 @@ def clone_program():
 class Command(BaseCommand):
     def handle(self, **options):
         clone_program()
-
