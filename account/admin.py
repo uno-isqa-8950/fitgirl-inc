@@ -15,7 +15,7 @@ class CloneProgramInfoList(admin.ModelAdmin):
     search_fields = ('program_to_clone')
     ordering = ['active']
 
-admin.site.register(CloneProgramInfo, CloneProgramInfoList)
+admin.site.register(CloneProgramInfo)
 
 
 class ProgramList(admin.ModelAdmin):
