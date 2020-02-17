@@ -11,9 +11,7 @@ from django.contrib import admin
 # Register your models here.
 class CloneProgramInfoList(admin.ModelAdmin):
     list_display = ('program_to_clone', 'new_start_date', 'new_program', 'active', 'created_at')
-    list_filter = ('active')
-    search_fields = ('program_to_clone')
-    ordering = ['active']
+
 
 admin.site.register(CloneProgramInfo, CloneProgramInfoList)
 
