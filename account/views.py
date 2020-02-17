@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, CronForm, \
     RewardsNotificationForm, ManagePointForm, ParametersForm, ProgramClone
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
+from .forms import RewardItemForm, RewardCategoryForm, StatementEditForm
+from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Statements
+from week.models import WeekPage, EmailTemplates, UserActivity, StatementPage
 from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
     CloneProgramInfo, RewardCategory, RewardItem, Schools, Program
@@ -100,6 +103,7 @@ def point_check(sender, instance, **kwargs):
 
 # user login
 def user_login(request):
+    statements = StatementPage.objects.all()
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -110,14 +114,14 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated successfully')
+                    return redirect('login_success')
                 else:
-                    return HttpResponse('Disabled account')
+                    return HttpResponse('login')
             else:
-                return HttpResponse('Invalid login')
+                return HttpResponse('login')
     else:
         form = LoginForm()
-    return render(request, 'account/login.html', {'form': form})
+    return render(request, 'account/login.html', {'form': form, 'statements':statements})
 
 
 # user's first page on login
@@ -1182,3 +1186,19 @@ def add_school(request):
     return render(request,
                   'account/add_school.html',
                   {'section': 'add_school', 'form': form, 'addschool': addschool})
+
+@login_required()
+def statement_list(request):
+    statements = StatementPage.objects.all()
+    #form = StatementEditForm()
+    #if request.method == 'POST':
+    #    form = StatementEditForm(data=request.POST or None, files=request.FILES)
+    #    if form.is_valid():
+     #       statements = form.save()
+      #      statements.save()
+    #        messages.success(request, 'Statements updated successfully')
+     #       return redirect('users')
+    #    else:
+       #     form - StatementEditForm()
+    return render (request, 'account/statement_list.html', { 'statements': statements})
+

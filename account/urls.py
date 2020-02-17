@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('login/', views.user_login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', views.login_success, name='login_success'),
     # path('dashboard/', views.dashboard, name='dashboard'),
@@ -49,6 +49,7 @@ urlpatterns = [
     path('reward_category/', views.reward_category, name='reward_category'),
     path('reward_category_edit/<int:pk>', views.reward_category_edit, name='reward_category_edit'),
     path('activity_data/', views.json_data, name='activity_data'),
-    path('add_school/', views.add_school, name='add_school')
+    path('add_school/', views.add_school, name='add_school'),
+    path('statement_list/', views.statement_list, name='statement_list'),
 
 ]
