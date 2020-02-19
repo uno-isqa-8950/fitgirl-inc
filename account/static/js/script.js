@@ -168,42 +168,42 @@ console.log(slideCount);
 
 
 /*BEGIN Swipe*/
-$(function() {			
-	//Enable swiping...
-	$(".slider").swipe( {
-		//Generic swipe handler for all directions
-		swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-			if (direction == "left") {
-					// $( ".previous" ).trigger( "click" );
-                    console.log("left swipe");
-                    $('.slider ul').animate({
-                        left: + slideWidth
-                    }, 200, function () {
-                        $('.slider ul li:last-child').prependTo('.slider ul');
-                        $('.slider ul').css('left', '');
-                    });
-			}
-			if (direction == "right") {
-					// $( ".next" ).trigger( "click" );
-                    console.log("right swipe");
-                    $('.slider ul').animate({
-                        left: - slideWidth
-                    }, 200, function () {
-                        $('.slider ul li:first-child').appendTo('.slider ul');
-                        $('.slider ul').css('left', '');
-                    });
-			}			
-			// if (direction == "down") {
-			// 		window.scrollBy(0,-300);
-			// }
-			// if (direction == "up") {
-			// 		window.scrollBy(0,300);
-			// }
-		},
-		//Default is 75px, set to 0 for demo so any distance triggers swipe
-	   threshold:0
-	});
-});
+// $(function() {			
+// 	//Enable swiping...
+// 	$(".slider").swipe( {
+// 		//Generic swipe handler for all directions
+// 		swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+// 			if (direction == "left") {
+// 					// $( ".previous" ).trigger( "click" );
+//                     console.log("left swipe");
+//                     $('.slider ul').animate({
+//                         left: + slideWidth
+//                     }, 200, function () {
+//                         $('.slider ul li:last-child').prependTo('.slider ul');
+//                         $('.slider ul').css('left', '');
+//                     });
+// 			}
+// 			if (direction == "right") {
+// 					// $( ".next" ).trigger( "click" );
+//                     console.log("right swipe");
+//                     $('.slider ul').animate({
+//                         left: - slideWidth
+//                     }, 200, function () {
+//                         $('.slider ul li:first-child').appendTo('.slider ul');
+//                         $('.slider ul').css('left', '');
+//                     });
+// 			}			
+// 			// if (direction == "down") {
+// 			// 		window.scrollBy(0,-300);
+// 			// }
+// 			// if (direction == "up") {
+// 			// 		window.scrollBy(0,300);
+// 			// }
+// 		},
+// 		//Default is 75px, set to 0 for demo so any distance triggers swipe
+// 	   threshold:0
+// 	});
+// });
 /*END Swipe*/
     if($(".slider").width() < 1253)
 {

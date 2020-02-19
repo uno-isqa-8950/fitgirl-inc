@@ -6,6 +6,7 @@ from week.models import EmailTemplates
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from account.models import RewardsNotification
+from django.conf import settings
 
 
 def rewards_notification():
@@ -37,7 +38,7 @@ def rewards_notification():
     for user in users:
 
         if user.profile.points == set_point1 or user.profile.points == set_point2 or user.profile.points == set_point3 or user.profile.points == set_point4:
-            from_email = 'capstone18fa@gmail.com'
+            from_email = settings.EMAIL_HOST_USER
             email = user.email
             print(email)
             send_mail(subject,plain_message,from_email,[email],html_message=html_message)

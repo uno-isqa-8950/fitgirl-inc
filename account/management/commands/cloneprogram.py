@@ -107,4 +107,3 @@ def clone_program():
 class Command(BaseCommand):
     def handle(self, **options):
         clone_program()
-

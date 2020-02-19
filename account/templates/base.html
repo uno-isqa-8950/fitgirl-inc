@@ -82,6 +82,10 @@
                                 <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
                         </li>
                         <li class="nav-item ">
+                            <a class="nav-link hoverable" href="{% url 'login_success' %}" style="background-color: rgba(255,255,255,.1);">Current Week</a>
+                        </li>
+                        </li>
+                        <li class="nav-item ">
                             <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
                         </li>
                         <li class="nav-item ">
@@ -104,13 +108,13 @@
 
 
                 <ul class="navbar-nav navbar-right ">
-                        {% if user.profile.pre_assessment == "yes" %}
-                            <li class="nav-item admin-hide">
+                       {% if user.profile.pre_assessment == "yes" %}
+                           <li class="nav-item admin-hide">
                                 <a href="/pages/rewards/" class="dropdown-toggle avatar-menu">
-                                    <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
-                                </a>
-                                <span class="notification-dot"> {{ user.profile.points }}</span>
-                            </li>
+                                   <!-- <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
+
+                                <span class="notification-dot"> {{ user.profile.points }}</span>-->
+
 
                             <li class="dropdown admin-hide">
                                 <a href="#" class="dropdown-toggle avatar-menu" data-toggle="dropdown" style="position:relative">
@@ -193,6 +197,8 @@
                                 <a class="dropdown-item no-pointer" href="#">Background: {{ user.profile.select_your_background_color_for_website }}</a><span
                                     class="user-dropdown"></span>
                                 <a class="dropdown-item no-pointer" href="#">Program: {{ user.profile.program.program_name }}</a>
+                                <a class="dropdown-item no-pointer" href="#" ><img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">My Points: {{ user.profile.points}}</a>
+
                                 <div class="dropdown-divider"></div>
 
                                 <a class="dropdown-item" href="{% url 'user_edit' %}"><i class="fas fa-edit fa-fw"></i> Edit
@@ -206,7 +212,7 @@
                     </li>
                 </ul>
             </div>
-      
+
     </nav>
 </div>
 
@@ -318,7 +324,7 @@
 <!-- MDB core JavaScript -->
 <script src="{% static 'js/confetti.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script>
+<!-- <script type="text/javascript" src="{% static 'js/touchswipe.min.js' %}"></script> -->
 <script type="text/javascript" src="{% static 'js/lightbox.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery.slimscroll.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/addons/datatables.min.js' %}"></script>
@@ -367,7 +373,7 @@
             'resizeDuration': 200,
             'wrapAround': true
         })
-      
+
 
     });
 
