@@ -9,6 +9,7 @@ from PIL import Image
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
 # Create your models here.
 
 EVENT = (
@@ -74,6 +75,14 @@ class Dailyquote(models.Model):
         return str(self.dailyquote)
 
 
+class Schools(models.Model):
+    schools_id = models.AutoField(primary_key=True,blank=False,null=False)
+    schools_name = models.CharField(max_length=25, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.schools_name)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image', blank=True)
@@ -91,6 +100,7 @@ class Profile(models.Model):
     eve_phone = models.CharField(blank=True, null=True, max_length=13)
     age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
     school = models.CharField(max_length=50, blank=True, null=True)
+    # school = models.ForeignKey(Schools, on_delete=models.CASCADE, null=False)
     points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
     select_your_background_color_for_website = models.CharField(max_length=50, choices=BACKGROUND_CHOICES, blank=False,null=True, default='pink')
@@ -211,10 +221,5 @@ class CloneProgramInfo(models.Model):
     active = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
-class Schools(models.Model):
-    schools_id = models.AutoField(primary_key=True,blank=False,null=False)
-    schools_name = models.CharField(max_length=25, blank=True, null=True)
 
-    def __str__(self):
-        return str(self.schools_name)
 
