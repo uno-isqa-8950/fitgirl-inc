@@ -119,6 +119,7 @@ class RewardsNotificationForm(forms.Form):
     Rewards_milestone_3 = forms.IntegerField(required=True)
     Rewards_milestone_4 = forms.IntegerField(required=True)
 
+
 class ManagePointForm(forms.Form):
 
     #programs = forms.ModelChoiceField(queryset=Program.objects.all().order_by('program_name'))
