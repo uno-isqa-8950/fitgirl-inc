@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block title %}Statements{% endblock %}
+
+{% block content %}
+
+<div class ="container">
+
+    <h3 style="text-align: center;">Mission: {{ page.mission }}</h3>
+    <h3 style="text-align: center;">Vision: {{ page.vision}}</h3>
+    <h3 style="text-align: center;">Values: {{ page.values}}</h3>
+
+
+</div>
+
+
+{% endblock %}
