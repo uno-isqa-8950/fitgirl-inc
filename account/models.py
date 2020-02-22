@@ -75,6 +75,14 @@ class Dailyquote(models.Model):
     def __str__(self):
         return str(self.dailyquote)
 
+class Schools(models.Model):
+    # commented out below line - to resolve ticket 1144
+    # schools_id = models.AutoField(primary_key=True,blank=False,null=False)
+    schools_name = models.CharField(max_length=25, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.schools_name)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -92,7 +100,8 @@ class Profile(models.Model):
     day_phone = models.CharField(blank=True, null=True, max_length=13)
     eve_phone = models.CharField(blank=True, null=True, max_length=13)
     age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
-    school = models.CharField(max_length=50, blank=True, null=True)
+    #school = models.CharField(max_length=50, blank=True, null=True) -- commented out to resolve ticket 1144
+    school = models.ForeignKey(Schools, on_delete=models.CASCADE, default=None, blank=True, null=True)  # added this line to enable the drop down for school in django admin
     points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
     select_your_background_color_for_website = models.CharField(max_length=50, choices=BACKGROUND_CHOICES, blank=False,null=True, default='pink')
@@ -216,10 +225,4 @@ class CloneProgramInfo(models.Model):
     def __str__(self):
         return str(self.new_program)
 
-class Schools(models.Model):
-    schools_id = models.AutoField(primary_key=True,blank=False,null=False)
-    schools_name = models.CharField(max_length=25, blank=True, null=True)
-
-    def __str__(self):
-        return str(self.schools_name)
 
