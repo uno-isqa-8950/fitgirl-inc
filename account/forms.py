@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, Program, Parameters, RewardCategory, RewardItem,Schools
+from .models import Profile, Program, Parameters, RewardCategory, RewardItem, Schools
 #from .models import Profile, Program, Parameters, RewardCategory, RewardItem
 from django.utils.translation import gettext as _
 from datetime import date
 import re
+
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -98,8 +99,8 @@ class ProfileEditForm(forms.ModelForm):
         if user.profile.school:
             schools_name = user.profile.school #in future school should be linked to school table
             schools = Schools.objects.get(schools_name=schools_name)
-            schools_id = schools.schools_id
-            self.initial['schools'] = schools_id
+            # schools_id = schools.schools_id
+            # self.initial['schools'] = schools_id
         else:
             pass
 
