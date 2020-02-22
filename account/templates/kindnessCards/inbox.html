@@ -13,6 +13,9 @@
                 <section>
                   <input type="radio" name="sections" id="option" checked>
                   <label for="option">{{ key }}</label>
+
+                    <h2> <img class="rounded-circle account-img" src="{{ values.photo }}"
+                              onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="height: 50px;width: 50px"></h2>    <!--{{ key }}</h2> -->
                   <article>
                      <!--{% for v in values.messages %}-->
                         <!--<p class="received-kindness">{{v}}</p>-->
@@ -21,8 +24,7 @@
 <div class="container" style="position:relative;padding: 0;">
     <div class="card-wrapper">
 
-                    <h2> <img class="rounded-circle account-img" src="{{ values.photo }}"
-                             onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="height: 50px;width: 50px"> {{ key }}</h2>
+<button class="kdns-btn read-button" type="button" onclick="openReadCard();" id="read-button" style="text-align: center;background-color: #FBEFEF;color: #000000;margin: 0 auto;margin-top: 15px;">OPEN/CLOSE CARD</button>
 
 <div class="wrap kind-all-wrap" id="wrap">
   <div class="kindnessCardContainer kindnessCardAllContainer card--inner">
@@ -50,7 +52,7 @@
   <div class="kindnessCardContainer kindnessCardAllContainer  card--front" onclick="openReadCard();">
   </div>
 </div>
-         <button class="kdns-btn read-button" type="button" onclick="openReadCard();" id="read-button" style="text-align: center;margin: 0 auto;margin-top: 15px;">Open/Close Cards</button>
+
 </div>
 
 </div>
@@ -62,10 +64,22 @@
 
 </div>
 
+
 <div class="container kindness" style="position:relative;padding: 0;">
-    <a class=" btn all-cards btn-pink ">Show All My Cards</a>
+
+   <a class=" btn all-cards btn-pink ">Show All My Cards</a>
     <div class="card-wrapper">
-<div class="wrap kindness kind-wrap" id="kind">
+
+      <form action="{% url 'mark_read' %}">
+    <button type="button" onclick="openCard();" id="button" style="
+    text-align: center;
+    background-color: #FBEFEF;color: #000000;
+    margin: 0 auto;
+    margin-top: 15px;
+    ">OPEN CARD</button>
+     </form>
+
+  <div class="wrap kindness kind-wrap" id="kind">
   <div class="kindnessCardContainer card--inner">
       <div class="kindness-bg"></div>
     <span style="
@@ -82,7 +96,7 @@
             {% for v in message %}
                 <p>{{v}}</p>
             {% endfor %}
-          
+
             <u><i><label style="
               text-align: right;
           ">{{ name }}</label></i></u>
@@ -93,22 +107,12 @@
         <h6><i>You have no new messages</i></h6>
 {#        <img src="/static/images/heart.png">#}
     {% endif %}
-
   </div>
 
   <div class="kindnessCardContainer card--front back" onclick="openCard();"></div>
-  <div class="kindnessCardContainer card--front" onclick="openCard();">
+  <div class="kindnessCardContainer card--front" onclick="openCard();"></div>
   </div>
-</div>
-</div>
-<form action="{% url 'mark_read' %}">
-    <button type="button" onclick="openCard();" id="button" style="
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 15px;
-">Open Card</button>
-</form>
-</div>
+    </div>
 
 <script>
 function openReadCard() {
@@ -139,15 +143,15 @@ $('.card--inner').slimScroll({
             });
 $(".kind-wrap").css('margin-left','33%');
   var button = document.getElementById('button');
-  if(button.innerHTML == 'Open Card') {
+  if(button.innerHTML == 'OPEN CARD') {
       button.type = 'button';
-      button.innerHTML = 'Close Card';
-  } else if(button.innerHTML = 'Close Card') {
+      button.innerHTML = 'CLOSE CARD';
+  } else if(button.innerHTML = 'CLOSE CARD') {
 $(".kind-wrap").css('margin-left','0');
       button.type = 'submit';
-      button.innerHTML = 'Open Card';
+      button.innerHTML = 'OPEN CARD';
   } else {
-        button.innerHTML = 'Open Card';
+        button.innerHTML = 'OPEN CARD';
   }
   var cards = document.querySelectorAll('.kindnessCardContainer');
   for(var i = 0; i < cards.length; i++) {
@@ -156,5 +160,3 @@ $(".kind-wrap").css('margin-left','0');
 }
 </script>
 {% endblock %}
-
-
