@@ -8,7 +8,7 @@ from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm
 from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
     CloneProgramInfo, RewardCategory, RewardItem, Schools, Program
-from week.models import WeekPage, EmailTemplates, UserActivity
+from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
@@ -100,6 +100,7 @@ def point_check(sender, instance, **kwargs):
 
 # user login
 def user_login(request):
+    statements = StatementsPage.objects.all()
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -110,14 +111,14 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated successfully')
+                    return redirect('login_success')
                 else:
-                    return HttpResponse('Disabled account')
+                    return redirect('login')
             else:
-                return HttpResponse('Invalid login')
+                return redirect('login')
     else:
         form = LoginForm()
-    return render(request, 'account/login.html', {'form': form})
+    return render(request, 'account/login.html', {'form': form, 'statements': statements})
 
 
 # user's first page on login
@@ -292,13 +293,13 @@ def registerusers(request):
                     return redirect('registerusers')
                 elif value > 0 and fail == 0 and existing > 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
-                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Total number of user-account added successfully: {value + existing}')
+                    messages.info(request, f'{existing} of which were in a previous program: ')
                     return redirect('registerusers')
                 elif value > 0 and fail == 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
-                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of user-account added successfully: {value + existing}')
+                    messages.info(request, f'{existing} of which were in a previous program: ')
                     messages.info(request, f'Number of invalid email address: {bademail}')
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing == 0 and bademail == 0:
@@ -314,15 +315,15 @@ def registerusers(request):
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing > 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
+                    messages.info(request, f'Number of user-account added successfully: {value + existing}')
+                    messages.info(request, f'{existing} of which were in a previous program: ')
                     messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of user-account already exist: {existing}')
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
+                    messages.info(request, f'Number of user-account added successfully: {value + existing}')
+                    messages.info(request, f'{existing} of which were in a previous program: ')
                     messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of user-account already exist: {existing}')
                     messages.info(request, f'Number of invalid email address: {bademail}')
                     return redirect('registerusers')
                 else:
