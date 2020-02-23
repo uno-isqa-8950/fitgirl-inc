@@ -65,7 +65,19 @@
 <div class="container kindness" style="position:relative;padding: 0;">
     <a class=" btn all-cards btn-pink ">Show All My Cards</a>
     <div class="card-wrapper">
+
+    <form action="{% url 'mark_read' %}">
+    <button type="button" onclick="openCard();" id="button" style="
+    text-align: center;
+    background-color: #FBEFEF;color: #000000;
+    margin: 0 auto;
+    margin-top: 15px;
+">Open Card</button>
+</form>
+
 <div class="wrap kindness kind-wrap" id="kind">
+
+
   <div class="kindnessCardContainer card--inner">
       <div class="kindness-bg"></div>
     <span style="
@@ -82,7 +94,7 @@
             {% for v in message %}
                 <p>{{v}}</p>
             {% endfor %}
-          
+
             <u><i><label style="
               text-align: right;
           ">{{ name }}</label></i></u>
@@ -101,13 +113,7 @@
   </div>
 </div>
 </div>
-<form action="{% url 'mark_read' %}">
-    <button type="button" onclick="openCard();" id="button" style="
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 15px;
-">Open Card</button>
-</form>
+
 </div>
 
 <script>
@@ -156,5 +162,3 @@ $(".kind-wrap").css('margin-left','0');
 }
 </script>
 {% endblock %}
-
-
