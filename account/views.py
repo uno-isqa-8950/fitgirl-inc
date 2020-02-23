@@ -178,7 +178,7 @@ def handle_uploaded_file(request, name):
     emailcount = 0
     for row in reader:
         try:
-            if row[1] and row[2] and row[3]:
+            if row[1].lower() and row[2] and row[3]:
                 if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
                     num = len(User.objects.all().filter(email=row[1]))
                     if (len(User.objects.all().filter(email=row[1])) > 0):
@@ -209,8 +209,9 @@ def handle_uploaded_file(request, name):
 
                     else:
                         vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
-                        theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
+                        theUser = User(username=vu.email.lower(), first_name=row[2], last_name=row[3], email=row[1])
                         theUser.set_password('stayfit2020')
+                        theUser.email = row[1].lower()
                         theUser.save()
                         profile = Profile.objects.create(user=theUser,
                                                          program=Program.objects.all().filter(program_name=name)[0])

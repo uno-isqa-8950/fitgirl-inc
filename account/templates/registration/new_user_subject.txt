@@ -1,1 +1,1 @@
-{{ site_name }} Password Reset For New User
+{{ site_name }} Welcome to FITGirl Inc!!
