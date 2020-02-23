@@ -91,7 +91,7 @@ class Profile(models.Model):
     country = models.CharField(max_length=25, blank=True, null=True)
     day_phone = models.CharField(blank=True, null=True, max_length=13)
     eve_phone = models.CharField(blank=True, null=True, max_length=13)
-    age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
+    age_group = models.IntegerField(choices=EVENT, blank=False, null=True, default=1)
     school = models.CharField(max_length=50, blank=True, null=True)
     points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
