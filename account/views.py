@@ -7,7 +7,7 @@ from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, program
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
-    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program
+    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile
 from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
@@ -38,6 +38,12 @@ from wagtail.core.models import Page
 from week.models import PhysicalPostPage
 from django.core.mail import send_mail
 from django.conf import settings
+from datetime import datetime
+#from datetime import datetime, timedelta
+#from datetime import timedelta
+from account.todays_date import todays_date
+from account.tomorrows_date import tomorrows_date
+
 
 # json data for analytics dashboard
 @login_required
@@ -125,8 +131,10 @@ def user_login(request):
 @login_required
 def login_success(request):
     programs = Program.objects.all()
-    today = datetime.date.today()
-    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+    today = todays_date()
+    print(today)
+    tomorrow = tomorrows_date()
+    print(tomorrow)
     dailyquote = Dailyquote.objects.filter(quote_date__gte=today).filter(quote_date__lt=tomorrow)
     if request.user.is_staff:
         registeredUsers = User.objects.filter(is_superuser=False, is_active=True).order_by('-date_joined')
@@ -170,7 +178,7 @@ def handle_uploaded_file(request, name):
     emailcount = 0
     for row in reader:
         try:
-            if row[1] and row[2] and row[3]:
+            if row[1].lower() and row[2] and row[3]:
                 if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
                     num = len(User.objects.all().filter(email=row[1]))
                     if (len(User.objects.all().filter(email=row[1])) > 0):
@@ -201,8 +209,9 @@ def handle_uploaded_file(request, name):
 
                     else:
                         vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
-                        theUser = User(username=vu.email, first_name=row[2], last_name=row[3], email=row[1])
+                        theUser = User(username=vu.email.lower(), first_name=row[2], last_name=row[3], email=row[1])
                         theUser.set_password('stayfit2020')
+                        theUser.email = row[1].lower()
                         theUser.save()
                         profile = Profile.objects.create(user=theUser,
                                                          program=Program.objects.all().filter(program_name=name)[0])
@@ -294,7 +303,7 @@ def registerusers(request):
                 elif value > 0 and fail == 0 and existing > 0 and bademail == 0:
                     form = request.POST
                     messages.info(request, f'Total number of user-account added successfully: {value + existing}')
-                    messages.info(request, f'{existing} of which were in a previous program: ')
+                    messages.info(request, f'{existing} of which were in a previous program ')
                     return redirect('registerusers')
                 elif value > 0 and fail == 0 and existing > 0 and bademail > 0:
                     form = request.POST
@@ -348,6 +357,7 @@ def users(request):
 # edit profile during registration
 @login_required
 def edit(request):
+    print("in edit")
     activated = False
     if (request.user.profile.profile_filled):
         activated = True
@@ -360,6 +370,24 @@ def edit(request):
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
                                        files=request.FILES, user=request.user)
+        date_of_birth = request.POST.get('date_of_birth')
+        converted_dob = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
+
+        print(type(date_of_birth))
+        her_age = int((datetime.now().date() - converted_dob).days / 365.25)
+        print(her_age)
+        if her_age >= 8 and her_age <= 10:
+            request.user.profile.age_group = 1
+            request.user.profile.save()
+        elif her_age >= 11 and her_age <= 13:
+            request.user.profile.age_group = 2
+            request.user.profile.save()
+        elif her_age >= 14 and her_age <= 16:
+            request.user.profile.age_group = 3
+            request.user.profile.save()
+        else:
+            request.user.profile.age_group = 1
+            request.user.profile.save()
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -383,6 +411,7 @@ def edit(request):
 # edit profile post registration
 @login_required
 def user_edit(request):
+    print('in user_edit')
     activated = False
     if request.user.profile.profile_filled:
         activated = True
@@ -395,7 +424,27 @@ def user_edit(request):
         profile_form = ProfileEditForm(instance=request.user.profile,
                                        data=request.POST,
                                        files=request.FILES, user=request.user)
+        date_of_birth = request.POST.get('date_of_birth')
+        converted_dob = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
+
+        print(type(date_of_birth))
+        her_age = int((datetime.now().date() - converted_dob).days / 365.25)
+        print(her_age)
+        if her_age >= 8 and her_age <= 10:
+            request.user.profile.age_group = 1
+            request.user.profile.save()
+        elif her_age >= 11 and her_age <= 13:
+            request.user.profile.age_group = 2
+            request.user.profile.save()
+        elif her_age >= 14 and her_age <= 16:
+            request.user.profile.age_group = 3
+            request.user.profile.save()
+        else:
+            request.user.profile.age_group = 1
+            request.user.profile.save()
+
         if user_form.is_valid() and profile_form.is_valid():
+
             user_form.save()
             profile_form.save()
             theProfile = request.user.profile
@@ -419,16 +468,19 @@ def user_edit(request):
 # admin - edit user profile
 @login_required
 def admin_edit(request):
+    print('in admin edit')
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user,
                                  data=request.POST)
         admin_form = AdminEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+
         if user_form.is_valid() and admin_form.is_valid():
             user_form.save()
             admin_form.save()
             theProfile = request.user.profile
             theProfile.profile_filled = True
             theProfile.save()
+            print('in admin edit')
             messages.success(request, 'Profile updated successfully')
             return redirect('users')
         else:
@@ -1006,12 +1058,32 @@ def mark_read(request):
 
 @login_required()
 def edit_user(request, pk):
+    print("in edit user")
     user = get_object_or_404(User, pk=pk)
     user1 = Profile.objects.filter(user_id=pk).first()
+
     if request.method == 'POST':
         form = UserEditForm(instance=user, data=request.POST, files=request.FILES)
         form1 = ProfileEditForm(instance=user1, data=request.POST, files=request.FILES, user=user)
+        print(request.POST.get('date_of_birth'))
+        date_of_birth = request.POST.get('date_of_birth')
+        converted_dob = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
 
+        print(type(date_of_birth))
+        her_age = int((datetime.now().date() - converted_dob).days / 365.25)
+        print(her_age)
+        if her_age >= 8 and her_age <= 10:
+            user1.age_group = 1
+            user1.save()
+        elif her_age >= 11 and her_age <= 13:
+            user1.age_group = 2
+            user1.save()
+        elif her_age >= 14 and her_age <= 16:
+            user1.age_group = 3
+            user1.save()
+        else:
+            user1.age_group = 1
+            user1.save()
         if form1.is_valid() and form.is_valid():
             user = form.save(commit=False)
             user1 = form1.save(commit=False)
