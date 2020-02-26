@@ -2,15 +2,12 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, HttpRes
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, CronForm, RewardsNotificationForm, ManagePointForm, ParametersForm, ProgramClone
+from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, CronForm, \
+    RewardsNotificationForm, ManagePointForm, ParametersForm, ProgramClone
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
-<<<<<<< HEAD
-from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, CloneProgramInfo, RewardCategory, RewardItem, Schools, Program
-=======
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
     CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile
->>>>>>> 52a7a458074961d8326fd7f858ced68228cc40bf
 from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
@@ -46,6 +43,7 @@ from datetime import datetime
 #from datetime import timedelta
 from account.todays_date import todays_date
 from account.tomorrows_date import tomorrows_date
+
 
 
 # json data for analytics dashboard
