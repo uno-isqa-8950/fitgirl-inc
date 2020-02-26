@@ -111,8 +111,9 @@ def user_login(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+            username_lower = cd['username'].lower()
             user = authenticate(request,
-                                username=cd['username'],
+                                username=username_lower,
                                 password=cd['password'])
             if user is not None:
                 if user.is_active:
