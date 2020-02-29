@@ -5,10 +5,9 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from PIL import Image, ExifTags
+from PIL import Image
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
-import os
 
 # Create your models here.
 
@@ -112,37 +111,6 @@ class Profile(models.Model):
         else:
             return int((datetime.now().date() - self.date_of_birth).days / 365.25)
 
-def rotate_photo(filepath):
-    try:
-        photo = Image.open(filepath)
-        for orientation in ExifTags.TAGS.keys():
-            if ExifTags.TAGS[orientation] == 'Orientation':
-                break
-        exif = dict(photo._getexif().items())
-
-        if exif[orientation] == 3:
-            photo = photo.rotate(180, expand=True)
-        elif exif[orientation] == 6:
-            photo = photo.rotate(270, expand=True)
-        elif exif[orientation] == 8:
-            photo = photo.rotate(90, expand=True)
-        photo.save(filepath)
-        photo.close()
-
-    except (AttributeError, KeyError, IndexError):
-        # cases: image don't have getexif
-        pass
-
-
-
-
-
-@receiver(post_save, sender=Profile, dispatch_uid="update_photo_profile")
-def update_image(sender, instance, **kwargs):
-    if instance.photo:
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        fullpath = BASE_DIR + instance.photo.url
-        rotate_photo(fullpath)
 
 class Inactiveuser(models.Model):
     inactive_id = models.AutoField(primary_key=True, blank=False, null=False)
@@ -254,6 +222,4 @@ class Schools(models.Model):
 
     def __str__(self):
         return str(self.schools_name)
-
-
 
