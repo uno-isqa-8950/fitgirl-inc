@@ -79,7 +79,7 @@ class Dailyquote(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image', blank=True)
+    photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image/', blank=True)
     bio = models.CharField(max_length=255, blank=False, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
