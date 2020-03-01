@@ -48,7 +48,7 @@
             <tr class="hoverable">
                 <td><input type="checkbox" name="checks[]" value="{{ registeredUser.email }}" /></td>
                 <td>{{ registeredUser.profile.program.program_name  }}</td>
-                <td ><a href="{% url 'profile' registeredUser.id %}"><img src="{{ registeredUser.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:30px;height:30px;border:1px;" class="img-fluid rounded-circle"></a>&nbsp;&nbsp;<span>{{ registeredUser.first_name }}</span>&nbsp;<span>{{ registeredUser.last_name }}</span></td>
+                <td ><a href="{% url 'profile' registeredUser.id %}"><img src="{{ registeredUser.profile.photo_thumbnail.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:30px;height:30px;border:1px;" class="img-fluid rounded-circle"></a>&nbsp;&nbsp;<span>{{ registeredUser.first_name }}</span>&nbsp;<span>{{ registeredUser.last_name }}</span></td>
 
                 {% if registeredUser.profile.age  == "None" %}
                  <td align="center"></td>
