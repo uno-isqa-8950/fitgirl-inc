@@ -5,12 +5,13 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from PIL import Image, ExifTags
+from PIL import Image
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, Transpose, SmartResize
 import os
+
 
 # Create your models here.
 
@@ -22,16 +23,16 @@ EVENT = (
 )
 
 BACKGROUND_CHOICES = [
-    ('pink', 'Pink'),
+    ('pink','Pink'),
     ('blue', 'Blue'),
-    ('yellow', 'Yellow'),
-    ('green', 'Green'),
-    ('orange', 'Orange'),
+    ('yellow','Yellow'),
+    ('green','Green'),
+    ('orange','Orange'),
 ]
 
 
 class Program(models.Model):
-    # program_id = models.AutoField(null=False, primary_key=True)
+    #program_id = models.AutoField(null=False, primary_key=True)
     program_name = models.CharField(max_length=20, null=False, unique=True)
     program_start_date = models.DateField(null=False, blank=False)
     program_end_date = models.DateField(null=False, blank=False)
@@ -54,16 +55,15 @@ class RegisterUser(models.Model):
     email = models.EmailField(blank=True, null=None)
     first_name = models.CharField(max_length=50, default=None)
     last_name = models.CharField(max_length=50, default=None)
-    is_active = models.BooleanField(_('active'), default=True)
+    is_active = models.BooleanField(_('active'), default =True)
     program = models.CharField(max_length=50, default='Test')
-
 
 class InspirationalQuotes(models.Model):
     quote = models.CharField(max_length=500, blank=True, null=True)
-
+    
     def __str__(self):
         return str(self.quote)
-
+    
 
 class Affirmations(models.Model):
     affirmation = models.CharField(max_length=500, blank=True, null=True)
@@ -72,12 +72,10 @@ class Affirmations(models.Model):
     def __str__(self):
         return str(self.affirmation)
 
-
 class Dailyquote(models.Model):
     dailyquote = models.CharField(max_length=500, blank=True, null=True)
     quote_date = models.DateField(null=True, blank=False)
     description = models.CharField(max_length=500, blank=True, null=True)
-
     def __str__(self):
         return str(self.dailyquote)
 
@@ -103,15 +101,15 @@ class Profile(models.Model):
     country = models.CharField(max_length=25, blank=True, null=True)
     day_phone = models.CharField(blank=True, null=True, max_length=13)
     eve_phone = models.CharField(blank=True, null=True, max_length=13)
-    age_group = models.IntegerField(choices=EVENT, blank=False, null=True)
+    age_group = models.IntegerField(choices=EVENT, blank=False, null=True, default=1)
     school = models.CharField(max_length=50, blank=True, null=True)
-    points = models.IntegerField(default=0, blank=True, null=True)
+    points = models.IntegerField(default=0,blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
-    select_your_background_color_for_website = models.CharField(max_length=50, choices=BACKGROUND_CHOICES, blank=False,
-                                                                null=True, default='pink')
+    select_your_background_color_for_website = models.CharField(max_length=50, choices=BACKGROUND_CHOICES, blank=False,null=True, default='pink')
     profile_filled = models.BooleanField(default=False)
     pre_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
     post_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
+
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -122,6 +120,7 @@ class Profile(models.Model):
             return "None";
         else:
             return int((datetime.now().date() - self.date_of_birth).days / 365.25)
+
 
 
 # def rotate_photo(filepath):
@@ -154,6 +153,7 @@ class Profile(models.Model):
 #         rotate_photo(fullpath)
 
 
+
 class Inactiveuser(models.Model):
     inactive_id = models.AutoField(primary_key=True, blank=False, null=False)
     set_days = models.IntegerField(default=7, validators=[MaxValueValidator(31), MinValueValidator(1)])
@@ -170,7 +170,6 @@ class Inactiveuser(models.Model):
 
 BOOL_CHOICES = [('Yes', 'yes'), ('No', 'no')]
 
-
 class Reward(models.Model):
     reward_no = models.AutoField(null=False, primary_key=True)
     user = models.ForeignKey(User, related_name='rewards', on_delete=models.CASCADE)
@@ -186,10 +185,9 @@ class Reward(models.Model):
         self.timestamp = timezone.now()
         self.save()
 
-
 class RewardsNotification(models.Model):
-    rewards_notification_id = models.AutoField(primary_key=True, blank=False, null=False)
-    Rewards_milestone_1 = models.IntegerField(default=25, blank=False, null=False)
+    rewards_notification_id = models.AutoField(primary_key=True,blank=False,null=False)
+    Rewards_milestone_1 = models.IntegerField(default=25,blank=False,null=False)
     Rewards_milestone_2 = models.IntegerField(default=50, blank=False, null=False)
     Rewards_milestone_3 = models.IntegerField(default=75, blank=False, null=False)
     Rewards_milestone_4 = models.IntegerField(default=100, blank=False, null=False)
@@ -219,6 +217,7 @@ class KindnessMessage(models.Model):
     read_message = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
 
+
     def created(self):
         self.created_date = timezone.now()
         self.save()
@@ -227,11 +226,11 @@ class KindnessMessage(models.Model):
         return str(self.body)
 
 
+
 class RewardCategory(models.Model):
     category = models.CharField(max_length=25, blank=False, null=False, unique=True)
     description = models.CharField(max_length=50, blank=True, null=True)
-    category_image = models.ImageField(blank=True, default='reward_categories/default.jpg',
-                                       upload_to='reward_categories/')
+    category_image = models.ImageField(blank=True, default='reward_categories/default.jpg', upload_to='reward_categories/')
 
     def __str__(self):
         return str(self.category)
@@ -248,7 +247,6 @@ class RewardItem(models.Model):
     def __str__(self):
         return str(self.item)
 
-
 class CloneProgramInfo(models.Model):
     program_to_clone = models.CharField(max_length=25, blank=False, null=False)
     new_start_date = models.DateField(blank=False, null=False)
@@ -260,13 +258,10 @@ class CloneProgramInfo(models.Model):
     def __str__(self):
         return str(self.new_program)
 
-
 class Schools(models.Model):
-    schools_id = models.AutoField(primary_key=True, blank=False, null=False)
+    schools_id = models.AutoField(primary_key=True,blank=False,null=False)
     schools_name = models.CharField(max_length=25, blank=True, null=True)
 
     def __str__(self):
         return str(self.schools_name)
-
-
 
