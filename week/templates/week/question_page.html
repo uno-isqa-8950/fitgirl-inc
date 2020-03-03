@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load sidebar_data %}
 
 {% block content %}
 <div class ="container question-page">
@@ -14,15 +16,14 @@
                 <div>
                     {{ page.intro|richtext }}
                     <div class="col-sm-2 vertical-ad-banner">
-                            <div class="advertisement">
-                                    <a target="_blank" href="http://fitgirlinc.com/">
-                                <img src="/static/images/200x450 Mobile Camp Banner.png">
-                                </a>
-                            </div>
+                             <div class="announcements">
+                                    <h2>Advertisement</h2>
+                                      <div class="rich-text"><ol><li><b>{% sidebarimage %}</b></li></ol><p></p></div>
+                             </div>
                             <div class="announcements">
                                     <h2>Announcements</h2>
                                       <div class="rich-text"><ol><li><b>Join us for EmpowerU!</b></li><li><b>Our 12 week empowerment classes are offered 2x a year for girls ages 8-13 years!</b></li><li><b>Become more physically active, working their way up to getting 60 minutes of exercise a day and staying active for life!</b></li><li><b>Develop and maintain self-respect, self-confidence, and a positive self-image.</b></li><li><b>Understand the connection between mind and body.</b></li></ol><p></p></div>
-                                  </div>
+                            </div>
                     </div>
                 </div>
 

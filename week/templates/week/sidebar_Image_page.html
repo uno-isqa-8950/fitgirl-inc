@@ -1,0 +1,20 @@
+{% extends 'account/dashboard.html' %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block title %}Sidebar Image{% endblock %}
+
+{% block dash_content %}
+
+<div class ="container">
+
+    <h1 style="text-align: center;">This is how your adverisement looks:</h1>
+    <div style="background: #ffffff; text-align: center;">
+        {{ page.advertisement_image|richtext }}
+    </div>
+
+
+
+
+</div>
+{% endblock %}

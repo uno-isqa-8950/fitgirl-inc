@@ -56,47 +56,53 @@
                         <a class="navbar-brand" href="/users/"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
                                                                 height="40"/></a>
                         <li class="nav-item">
-                            <a class="nav-link hoverable" style="
-                        background-color: rgba(255,255,255,.1);
-                    " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content <span
-                                    class="sr-only">(current)</span></a>
+                            <span class="sr-only">(current)</span>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);
+                            " href="{% url 'cms_frame' %}"> <i class="fas fa-book"></i> Manage Content </a>
+                        </li>
+                        <li class="nav-item ">
                             <a class="nav-link hoverable" style="
                         background-color: rgba(255,255,255,.1);
                     " href="/analytics_dashboard/"> <i class="fas fa-book"></i> Analytics Dashboard </a>
-                        </li>
+                         </li>
                         <li class="nav-item ">
                             <a class="nav-link hoverable " style="
                     background-color: rgba(255,255,255,.1);" href="/users/"><i class="fa fa-female" aria-hidden="true"></i>Users</a>
                         </li>
-
-                        {% else %}
-
-                        <li class="nav-item ">
-                            <a class="navbar-brand" href="/pages/userdashboard"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
-                                                                height="40"/></a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link hoverable" href="/pages/userdashboard" style="background-color: rgba(255,255,255,.1);">
-                                <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
-                               href="/pages/about-fitgirl">About Us</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
-                               href="http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
-                        </li>
-                        {% if user.profile.pre_assessment == "yes" %}
+                        </ul>
+                    {% else %}
+                        {% if request.user.profile.pre_assessment == 'yes' %}
+                            <li class="nav-item ">
+                                <a class="navbar-brand" href="/pages/userdashboard"><img src="{% static 'images/EmpowerU_LogoHR25.png' %}" alt="logo"
+                                                                    height="40"/></a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link hoverable" href="/pages/userdashboard" style="background-color: rgba(255,255,255,.1);">
+                                    <i class="fas fa-home" style="padding-left: 5px;"></i>&nbsp</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link hoverable" href="{% url 'login_success' %}" style="background-color: rgba(255,255,255,.1);">Current Week</a>
+                            </li>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link hoverable" href="/pages/extras/" style="background-color: rgba(255,255,255,.1);">Extras!</a>
+                            </li>
                             <li class="nav-item ">
                                 <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
-                                   href="/pages/kindness-card/"> Send Kindness Card</a>
+                                   href="/pages/about-fitgirl">About Us</a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
+                                   href="http://fitgirlinc.com/parent-resources/" target="_blank">Parent Resources</a>
+                            </li>
+                            {% if user.profile.pre_assessment == "yes" %}
+                                <li class="nav-item ">
+                                    <a class="nav-link hoverable" style="background-color: rgba(255,255,255,.1);"
+                                       href="/pages/kindness-card/"> Send Kindness Card</a>
+                                </li>
+                            {%  endif %}
                         {% endif %}
                     {% endif %}
                 </ul>

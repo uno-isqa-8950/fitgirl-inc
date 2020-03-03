@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, Program, Parameters, RewardCategory, RewardItem,Schools
+from .models import Profile, Program, Parameters, RewardCategory, RewardItem, Schools
 #from .models import Profile, Program, Parameters, RewardCategory, RewardItem
 from django.utils.translation import gettext as _
 from datetime import date
 import re
+
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -54,6 +55,7 @@ class UploadFileForm(forms.Form):
 EVENT = (
     (1, _("8-10")),
     (2, _("11-13")),
+    (3, _("14-16")),
 )
 
 BACKGROUND_CHOICES = [
@@ -75,7 +77,7 @@ class ProfileEditForm(forms.ModelForm):
     city = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
     state = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your State'}))
     day_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Phone Number'}))
-    age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
+   # age_group = forms.ChoiceField(widget=forms.Select, choices=EVENT)
     school = forms.ModelChoiceField(widget=forms.Select, queryset=Schools.objects.all(), empty_label=None)
     select_your_background_color_for_website = forms.ChoiceField(widget=forms.Select, choices=BACKGROUND_CHOICES)
 
@@ -90,7 +92,7 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('photo', 'bio', 'secondary_email', 'other_email', 'date_of_birth', 'city', 'state', 'zip', 'day_phone',
-                  'age_group', 'school', 'select_your_background_color_for_website')           # Added Photo to the Start --Shamrose
+                  'school', 'select_your_background_color_for_website')           # Added Photo to the Start --Shamrose
 
     def __init__(self, user, *args, **kwargs):
         super(ProfileEditForm, self).__init__(*args, **kwargs)
@@ -117,6 +119,7 @@ class RewardsNotificationForm(forms.Form):
     Rewards_milestone_2 = forms.IntegerField(required=True)
     Rewards_milestone_3 = forms.IntegerField(required=True)
     Rewards_milestone_4 = forms.IntegerField(required=True)
+
 
 class ManagePointForm(forms.Form):
 
@@ -194,7 +197,8 @@ class SignUpForm(forms.ModelForm):
         fields = ('email','first_name', 'last_name')
 
     def clean_email(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get('email').lower()
+
 
         try:
             match = User.objects.get(email=email)
@@ -204,7 +208,7 @@ class SignUpForm(forms.ModelForm):
         raise forms.ValidationError('This email address is already in use. ')
 
     def validate_email(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data.get('email').lower()
         validemail = 0
 
         if re.match(r'(^[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,}$)', email):
