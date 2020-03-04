@@ -179,7 +179,7 @@
                             <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg"
                                  height="35" width="35">
                             {% else %}
-                            <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"
+                            <img class="rounded-circle account-img" src="{{ user.profile.photo_thumbnail.url }}"
                                  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30"
                                  width="30" style="height: 30px;width: 30px">
                             {% endif %}

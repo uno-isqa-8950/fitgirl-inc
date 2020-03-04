@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'dashboard',
     'rest_framework',
+    'imagekit',
 ]
 
 MIDDLEWARE = [
