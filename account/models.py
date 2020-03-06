@@ -8,6 +8,10 @@ from django.dispatch import receiver
 from PIL import Image
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill, Transpose, SmartResize
+import os
+
 
 # Create your models here.
 
@@ -79,6 +83,12 @@ class Dailyquote(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     photo = models.ImageField(default='profile_image/default.jpg', upload_to='profile_image', blank=True)
+    photo_thumbnail= ImageSpecField(
+    source='photo',
+    processors = [Transpose(),SmartResize(200, 200)],
+    format = 'JPEG',
+    options = {'quality': 75}
+  )
     bio = models.CharField(max_length=255, blank=False, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
@@ -110,6 +120,38 @@ class Profile(models.Model):
             return "None";
         else:
             return int((datetime.now().date() - self.date_of_birth).days / 365.25)
+
+
+
+# def rotate_photo(filepath):
+#     try:
+#         photo = Image.open(filepath)
+#         for orientation in ExifTags.TAGS.keys():
+#             if ExifTags.TAGS[orientation] == 'Orientation':
+#                 break
+#         exif = dict(photo._getexif().items())
+#
+#         if exif[orientation] == 3:
+#             photo = photo.rotate(180, expand=True)
+#         elif exif[orientation] == 6:
+#             photo = photo.rotate(270, expand=True)
+#         elif exif[orientation] == 8:
+#             photo = photo.rotate(90, expand=True)
+#         photo.save(filepath)
+#         photo.close()
+#
+#     except (AttributeError, KeyError, IndexError):
+#         # cases: image don't have getexif
+#         pass
+#
+#
+# @receiver(post_save, sender=Profile, dispatch_uid="update_photo_profile")
+# def update_image(sender, instance, **kwargs):
+#     if instance.photo:
+#         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#         fullpath = BASE_DIR + instance.photo.url
+#         rotate_photo(fullpath)
+
 
 
 class Inactiveuser(models.Model):

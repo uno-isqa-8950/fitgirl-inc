@@ -285,29 +285,29 @@ class PreassessmentPage(AbstractForm):
         FieldPanel('thank_you_text', classname="full"),
     ]
 
-    def serve(self, request, *args, **kwargs):
-        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
-            return render(
-                request,
-                self.template,
-                self.get_context(request)
-            )
-
-        return super().serve(request, *args, **kwargs)
-
-    def get_submission_class(self):
-        return CustomFormSubmission
+    # def serve(self, request, *args, **kwargs):
+    #     if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+    #         return render(
+    #             request,
+    #             self.template,
+    #             self.get_context(request)
+    #         )
+    #
+    #     return super().serve(request, *args, **kwargs)
+    #
+    # def get_submission_class(self):
+    #     return CustomFormSubmission
 
     def process_form_submission(self, form):
         self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
-            page=self, user=form.user)
+            page=self)
         user1=User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         user1.profile.pre_assessment = "yes"
-        user1.profile.save()
 
+        user1.profile.save()
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 class Print(Page):
