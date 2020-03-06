@@ -306,8 +306,8 @@ class PreassessmentPage(AbstractForm):
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         user1.profile.pre_assessment = "yes"
-        user1.profile.save()
 
+        user1.profile.save()
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
 class Print(Page):
