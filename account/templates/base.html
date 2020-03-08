@@ -114,7 +114,6 @@
                            <li class="nav-item admin-hide">
                                 <a href="/pages/rewards/" class="dropdown-toggle avatar-menu">
                                    <!-- <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
-
                                 <span class="notification-dot"> {{ user.profile.points }}</span>-->
 
 
@@ -179,7 +178,7 @@
                             <img class="rounded-circle account-img" alt="My-image" src="/media/profile_image/default.jpg"
                                  height="35" width="35">
                             {% else %}
-                            <img class="rounded-circle account-img" src="{{ user.profile.photo_thumbnail.url }}"
+                            <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}"
                                  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="30"
                                  width="30" style="height: 30px;width: 30px">
                             {% endif %}
@@ -468,4 +467,3 @@
 </div>
 </body>
 </html>
-
