@@ -182,11 +182,11 @@ def handle_uploaded_file(request, name):
     emailcount = 0
     for row in reader:
         try:
-            if row[1].lower() and row[2] and row[3]:
-                if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[1]):
-                    num = len(User.objects.all().filter(email=row[1]))
-                    if (len(User.objects.all().filter(email=row[1])) > 0):
-                        users = User.objects.all().filter(is_superuser=False).filter(email=row[1])
+            if row[0].lower() and row[1] and row[2]:
+                if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[2]):
+                    num = len(User.objects.all().filter(email=row[2]))
+                    if (len(User.objects.all().filter(email=row[2])) > 0):
+                        users = User.objects.all().filter(is_superuser=False).filter(email=row[2])
                         for user in users:
                             user.is_active = True
                             print(user.is_active)
@@ -212,10 +212,10 @@ def handle_uploaded_file(request, name):
                             existcount += 1
 
                     else:
-                        vu = RegisterUser(email=row[1], first_name=row[2], last_name=row[3], program=name)
-                        theUser = User(username=vu.email.lower(), first_name=row[2], last_name=row[3], email=row[1])
+                        vu = RegisterUser(email=row[2], first_name=row[0], last_name=row[1], program=name)
+                        theUser = User(username=vu.email.lower(), first_name=row[0], last_name=row[1], email=row[2])
                         theUser.set_password('stayfit2020')
-                        theUser.email = row[1].lower()
+                        theUser.email = row[2].lower()
                         theUser.save()
                         profile = Profile.objects.create(user=theUser,
                                                          program=Program.objects.all().filter(program_name=name)[0])
