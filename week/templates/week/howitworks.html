@@ -1,0 +1,23 @@
+{% extends "account/dashboard.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}howitworks{% endblock %}
+
+{% block dash_content %}
+
+<div class ="container howitworks-container">
+
+
+
+  <p>{{ page.text1|richtext }}</p>
+
+
+  <div>
+
+      <a href="/pages/disclaimer/"  class="btn btn-secondary" style="float: Right">Next</a>  </div>
+
+
+
+{% endblock %}
+</div>
+
