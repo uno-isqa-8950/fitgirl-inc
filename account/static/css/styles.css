@@ -2531,8 +2531,8 @@ button.close {
 }
 .unread-cards, .all-cards{
   position: absolute;
-  right:0;
-  top: 0;
+  right: 15px;
+  top: 10px;
   z-index: 100;
 }
 .all-kindness-wrapper{
