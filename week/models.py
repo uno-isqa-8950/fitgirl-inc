@@ -285,23 +285,23 @@ class PreassessmentPage(AbstractForm):
         FieldPanel('thank_you_text', classname="full"),
     ]
 
-    def serve(self, request, *args, **kwargs):
-        if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
-            return render(
-                request,
-                self.template,
-                self.get_context(request)
-            )
-
-        return super().serve(request, *args, **kwargs)
-
-    def get_submission_class(self):
-        return CustomFormSubmission
+    # def serve(self, request, *args, **kwargs):
+    #     if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
+    #         return render(
+    #             request,
+    #             self.template,
+    #             self.get_context(request)
+    #         )
+    #
+    #     return super().serve(request, *args, **kwargs)
+    #
+    # def get_submission_class(self):
+    #     return CustomFormSubmission
 
     def process_form_submission(self, form):
         self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
-            page=self, user=form.user)
+            page=self)
         user1=User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
@@ -649,20 +649,6 @@ class SidebarImagePage(Page):
 
     ]
 
-class Disclaimerlink(Page):
-    disclaimer = RichTextField(blank=True)
-    disclaimer2 = models.CharField(max_length=10000, blank=True, )
-    disclaimer3 = models.CharField(max_length=10000, blank=True, )
-    disclaimer4 = models.CharField(max_length=10000, blank=True, )
-    disclaimer5 = models.CharField(max_length=10000, blank=True, )
-
-    content_panels = Page.content_panels + [
-        FieldPanel('disclaimer', classname="full"),
-        FieldPanel('disclaimer2', classname="full"),
-        FieldPanel('disclaimer3', classname="full"),
-        FieldPanel('disclaimer4', classname="full"),
-        FieldPanel('disclaimer5', classname="full"),
-    ]
 
 class StatementsPage(Page):
     mission = models.CharField(max_length=200, blank=True, )
@@ -675,3 +661,11 @@ class StatementsPage(Page):
         FieldPanel('values'),
     ]
 
+class howitworks(Page):
+    text1 = RichTextField(blank=True)
+
+
+    content_panels = Page.content_panels + [
+        FieldPanel('text1', classname="full"),
+
+    ]
