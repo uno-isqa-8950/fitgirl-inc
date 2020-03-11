@@ -1,4 +1,4 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {% extends "base.html" %}
 
 {% block title %}Dashboard{% endblock %}
@@ -48,8 +48,13 @@
 
 
             <h1>FITGirl, Inc.</h1>
-          <a href="/" class="btn btn-secondary pull-right">NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+              <p><b>FORMING INCREDIBLE TEEN GIRLS by INFLUENCING RELATIONSHIPS and LIFESTYLES</b></p>
+              <p><b>Welcome to the EmpowerU interactive website! Created just for you!</b></p>
+            <p>This website aims to give you the tools and confidence to make the best health choices.
+                Here you can find simple snack ideas, track your daily physical activity, watch videos, find games, learn about friendships and more!</p>
 
+                <p>Click <b> NEXT </b> and update your profile to begin and start earning points!
+            </p>
             <!--<p>The mission of FITGirl, Inc is to empower young girls as they develop-->
             <!--and mature by demonstrating positive lifestyle choices:-->
                 <!--<b>  Physical, Nutritional, Mental and Relational.</b></p>-->
@@ -135,6 +140,19 @@
                                                         <a href="{% url 'users' %}" id="users" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                             <i class="fas fa-female fa-fw"></i> Users </a>
                                                     </li>
+
+
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'cms_frame_gallery' %}" id="cms" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-plus-circle fa-fw"></i> Gallery </a>
+                                                    </li>
+
+                                                    <li class="nav-item">
+                                                            <a href="{% url 'cms_frame_gallery_category' %}" id="cms" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-plus-circle fa-fw"></i> Add Category </a>
+                                                    </li>
+
+
                                                     <li class="nav-item">
                                                         <a href="{% url 'parameters' %}" id="parameters" class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                             <i class="fas fa-cog fa-fw"></i> Settings </a>
@@ -260,7 +278,7 @@
               <hr class="hr-dark my-1 w-75">
                 <h6 class="subtext-header animated fadeIn slower delay-1s mt-1 mb-0"></h6>
 
-
+        
                   <p>Doesn't it feel great to move! Whether it’s stretching out in yoga or shooting hoops in the gym,
                       exercising just makes you feel awesome. However, you need to exercise your brain too - that's just as important!</p>
 
@@ -328,7 +346,7 @@
 </div>
 {% endif %}
 <div class="container-fluid">
-    <div>
+    <div class="row">
 
         {% block dash_content %}
         {% endblock %}
