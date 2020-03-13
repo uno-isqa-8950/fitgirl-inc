@@ -512,6 +512,21 @@ def cms_frame(request):
                   {'section': 'cms_frame'})
 
 
+# admin - CMS Gallery
+@login_required
+def cms_frame_gallery(request):
+    return render(request,
+                  'account/cms_frame_gallery.html',
+                  {'section': 'cms_frame_gallery'})
+
+# admin - CMS Gallery Category
+@login_required
+def cms_frame_gallery_category(request):
+    return render(request,
+                  'account/cms_frame_gallery_category.html',
+                  {'section': 'cms_frame_gallery_category'})
+
+
 # admin - django panel
 @login_required
 def django_frame(request):
