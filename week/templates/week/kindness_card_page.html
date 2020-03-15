@@ -5,6 +5,8 @@
 
 {% block content %}
 
+<!--These will be forever known as "Karthik Cards". -->
+
 <div class ="container kindness-container">
     {% if messages %}
         <ul class="messages">
@@ -13,7 +15,7 @@
         {% endfor %}
         </ul>
     {% endif %}
-
+    
     <!--<div class="spacer-div-30"></div>-->
     <h1>{{ page.title }}</h1>
 
@@ -52,8 +54,8 @@
           <div class="modal-header">
            <h3 class="modal-title" id="exampleModalLongTitle">
 
-              <a class="navbar-brand" href="/"><label>Dear <span class="popup-name"></span>,</label></a>
-
+               <a class="navbar-brand" href="/"><label>Dear <span class="popup-name"></span>,</label></a>
+                 <!--<a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>-->
            </h3>
            <button type="button" class="close remove-popup close_x" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
@@ -63,7 +65,7 @@
               {% csrf_token %}
               <div class="modal-body kindness-modal-content">
                   <!--<label>Dear <span class="popup-name">Jane</span>,</label>-->
-                  <textarea required name="message" maxlength="220" placeholder="Enter your Kindness message here." style="font-family: sans-serif; font-weight: normal;"></textarea>
+                  <textarea required name="message" maxlength="220" placeholder="Enter your Kindness message here."></textarea>
               </div>
 
               <div class="modal-footer text-center">

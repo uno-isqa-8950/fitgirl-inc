@@ -1,3 +1,4 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {% extends "base.html" %}
 
 {% block title %}Dashboard{% endblock %}
@@ -133,6 +134,14 @@
                                                     <li class="nav-item">
                                                         <a href="{% url 'users' %}" id="users" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                             <i class="fas fa-female fa-fw"></i> Users </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'cms_frame_gallery' %}" id="cms" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-plus-circle fa-fw"></i> Gallery </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'cms_frame_gallery_category' %}" id="cms" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-plus-circle fa-fw"></i> Add Category </a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a href="{% url 'parameters' %}" id="parameters" class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
