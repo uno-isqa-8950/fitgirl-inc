@@ -13,7 +13,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
 import re, json
-#import weasyprint
+import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv
@@ -510,6 +510,22 @@ def cms_frame(request):
     return render(request,
                   'account/cms_frame.html',
                   {'section': 'cms_frame'})
+
+
+# admin - CMS Gallery
+@login_required
+def cms_frame_gallery(request):
+    return render(request,
+                  'account/cms_frame_gallery.html',
+                  {'section': 'cms_frame_gallery'})
+
+
+# admin - CMS Gallery Category
+@login_required
+def cms_frame_gallery_category(request):
+    return render(request,
+                  'account/cms_frame_gallery_category.html',
+                  {'section': 'cms_frame_gallery_category'})
 
 
 # admin - django panel
