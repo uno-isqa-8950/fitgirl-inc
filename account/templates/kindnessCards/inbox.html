@@ -5,10 +5,12 @@
 {% block content %}
 
 
- <div class="container all-kindness-wrapper" style="position: relative;height: 680px;">
-<!-- <div class="container kindness" style="position:relative;padding: 0;">  -->
 
-    <a class=" btn unread-cards btn-white font-bold"><strong>Show Unread Cards</strong></a>
+ <div class="container all-kindness-wrapper" style="position: relative; height: 680px; overflow: hidden;">
+
+    <a class=" btn unread-cards btn-white" style="font-family: sans-serif; font-size: 14px; font-weight: bold;">Show Unread Cards</a>
+
+        <div class="tabordion" style="width: 1230px; overflow: hidden;">
 
         <div class="tabordion" style="width:1220px;">
             {% for key, values in all.items %}
@@ -20,27 +22,26 @@
                         <!--<p class="received-kindness">{{v}}</p>-->
                      <!--{% endfor %}-->
 
-                         <div class="container" style="position:relative;padding: 0;height: 680px;">
-                             <div class="card-wrapper">
-                                 <img class="rounded-circle account-img" src="{{ values.photo }}"
+                         <div class="container" style="position: relative; padding: 0; height: 100%; overflow: hidden;">
+                             <div class="card-wrapper" style="height: 100%;">
+
+                                 <img class="rounded-circle account-img"  src="{{ values.photo }}"
                                      onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="height: 40px;width: 40px;align: left;">{{ key }}</img>
 
-                            <!--     <h2> <img class="rounded-circle account-img" src="{{ values.photo }}"
-                              onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="height: 40px;width: 40px;">{{ key }}</h2>  -->
+                                     <button class="kdns-btn read-button" type="button" onclick="openReadCard();" id="read-button"
+                                             style="text-align: center; width: 200px; background-color: #FBEFEF; color: #000000; margin: 0 auto;
+                                             font-family: sans-serif; font-size: 15px; font-weight: bold; top: 5px;">OPEN/CLOSE CARD</button>
 
-                                 <button class="kdns-btn read-button" type="button" onclick="openReadCard();" id="read-button" style="text-align: center;background-color: #FBEFEF;color: #000000;margin: 0 auto;margin-top: 15px;">OPEN/CLOSE CARD</button>
-<div class="wrap kind-all-wrap" id="wrap">
-  <div class="kindnessCardContainer kindnessCardAllContainer card--inner">
-      <div class="kindness-bg"></div>
-   <span style="
-    text-align: left;
-    float: left;
-    clear: right;
-    width: 100%;
-    margin-left: 20px;
-">Hi,</span>
 
-      <ul style="padding-right: 25px;">
+ <div class="wrap kind-all-wrap" id="wrap"  style="background: white; position: relative; top: -50px;">
+    <div style="overflow-y: scroll; height:510px; padding-right: 20px;">
+       <div class="kindness-bg"></div>
+
+
+   <span style="padding-left: 10px;">Hi,</span>
+
+      <ul>
+
           <li>
             {% for v in values.messages  %}
                 <!--<p>{{v}}</p>-->
@@ -49,7 +50,9 @@
 
             <u><i><label for="option" style="z-index:1;width: auto;background: transparent;border: none;float: right;">
                              <img class="rounded-circle account-img" src="{{ values.photo }}"
-                             onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="height: 35px;overflow-y: scroll;width: 35px;margin: 15px auto 0;">{{ key }}</label></i></u>
+
+                             onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="height: 35px; width: 35px; margin: 15px auto 0;">{{ key }}</label></i></u>
+
           </li>
   </ul>
   </div>
@@ -63,33 +66,30 @@
             {% endfor %}
           </div>
 </div>
+<div class="container kindness" style="position: relative; padding: 0;">
 
-<div class="container kindness" style="position:relative;padding: 0;">
+    <a class=" btn all-cards btn-white" style="font-family: sans-serif; font-size: 14px; font-weight: bold;">Show All My Cards</a>
+    <div class="card-wrapper" style="height: 680px;">
 
-   <!--<a class=" btn all-cards btn-white">Show All My Cards</a>   -->
-    <a class=" btn all-cards btn-white"><strong>Show All My Cards</strong></a>
-    <div class="card-wrapper">
 
       <form action="{% url 'mark_read' %}">
     <button type="button" onclick="openCard();" id="button" style="
     text-align: center;
     background-color: #FBEFEF;color: #000000;
-    margin: 15px auto 0;
+    margin: 12px auto 0;
+    position: absolute; top: 8%; left: 44%;
+    font-family: sans-serif; font-size: 15px; font-weight: bold;
     ">OPEN CARD</button>
 
      </form>
 
-  <div class="wrap kindness kind-wrap" id="kind">
-  <div class="kindnessCardContainer card--inner">
+   <div class="wrap kind-all-wrap" id="wrap1"  style="background: white; position: absolute; top: 60px;">
+   <div style="overflow-y: scroll; height:510px; padding-right: 20px;">
       <div class="kindness-bg"></div>
-    <span style="
-    text-align: left;
-    float: left;
-    clear: right;
-    width: 100%;
-    margin-left: 20px;
-">Hi,</span>
-      <ul style="padding-right: 25px;">
+
+    <span style="padding-left: 10px;">Hi,</span>
+      <ul>
+
     {% if unread.items %}
         {% for name, message in unread.items %}
           <li>
