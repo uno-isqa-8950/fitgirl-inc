@@ -1475,49 +1475,6 @@ canvas{
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   @media (max-width: 767px) {
       .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
           color: #ecf0f1;
@@ -2205,7 +2162,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 .tabordion {
   color: #333;
   display: block;
-  font-family: arial, sans-serif;
+  font-family: sans-serif;
   margin: auto;
   position: relative;
   width: 80%;
@@ -2226,7 +2183,8 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
   border:1px solid #fff;
   cursor: pointer;
   display: block;
-  font-size: 1.2em;
+  font-family: sans-serif;
+  font-size: 1em;
   font-weight: bold;
   padding: 15px 20px;
   position: relative;
@@ -2267,7 +2225,6 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 
 @media (max-width: 533px) {
 
-
   .tabordion {
     width: 100%;
   }
@@ -2296,9 +2253,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 
 }
 
-
 @media (max-width: 768px) {
-
 
   .tabordion {
     width: 96%;
@@ -2335,8 +2290,8 @@ img {
 }
 
 .kindnessCardContainer h2 {
-  font-family: 'Amatic SC', cursive !important;
-  font-size: 45px;
+  font-family: sans-serif;
+  font-size: 40px;
   color: yellow;
   text-align: center;
   font-weight: bold;
@@ -2372,7 +2327,7 @@ margin-left:42%}
   position: relative;
   border: 5px solid #B60003;
   text-align: center;
-  font-family: 'Amatic SC', cursive !important;
+  font-family: sans-serif;
   font-weight: bold;
   font-size: 33px;
   background: url(../images/KCard.jpg) repeat 100%;
@@ -2420,7 +2375,7 @@ background-size: cover;
   position: relative;
     overflow-y: auto;
     background:transparent;
-        background: white;
+      /*  background: white; */
         z-index:-1
 }
 .card--inner::after {
@@ -2532,8 +2487,8 @@ button.close {
 }
 .unread-cards, .all-cards{
   position: absolute;
-  right:0;
-  top: 0;
+  right: 15px;
+  top: 10px;
   z-index: 100;
 }
 .all-kindness-wrapper{
@@ -2589,7 +2544,7 @@ button.close {
 .tabordion {
   color: #333;
   display: block;
-  font-family: arial, sans-serif;
+  font-family: sans-serif;
   /*margin: auto;*/
   position: relative;
    /* position: absolute; */
@@ -2614,6 +2569,7 @@ button.close {
   border:1px solid #fff;
   cursor: pointer;
   display: block;
+    font-family: sans-serif;
   font-size: 0.9em;
   padding: 10px 10px;
   position: relative;
