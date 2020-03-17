@@ -24,7 +24,7 @@
   .btn-return {
     padding: .84rem;
     }
-
+    
 }
 @media (min-width: 1200px){
   .container,.fitgirlinc-footer-socialLinks{
@@ -238,7 +238,7 @@ input[type=submit], a.button{
     position: absolute;
     pointer-events: none;
   }
-
+  
   .arrow_box:after {
     border-color: rgba(117, 117, 117, 0);
     border-bottom-color: #4b515d;
@@ -363,7 +363,7 @@ background-color: #e83e8c;
 /* margin-top: 20px; */
 margin-bottom: 0px;
 }
-/* .physical-post-page .horizontal-banner{
+/* .physical-post-page .horizontal-banner{        
 margin-top: 20px;
 padding-bottom:20px;
 } */
@@ -442,9 +442,8 @@ background: url(../images/Cute-Hearts-are-Hanging-Background.jpg);
 background-repeat:no-repeat;
 background-size: contain;
 opacity: 0.95;
-/* font-family: 'Amatic SC', cursive !important; */
-    font-family: Arial, Helvetica, sans-serif;
-font-size: 16px;
+font-family: 'Amatic SC', cursive !important;
+font-size: 40px;
     background-color: #f4cdde;
     background-size: 100% auto;
 }
@@ -468,8 +467,8 @@ padding: 15px;
 
 /*fixing the footer spacing issues-starts here-karthik*/
 .fitgirlinc-footer-socialLinks{
-text-align:center;
-margin:10px;
+text-align:center; 
+margin:10px; 
 /*height:100px;*/
 font-size: 15px
 }
@@ -1173,10 +1172,9 @@ border-radius: 15px 15px 0 0;
   margin: 0 auto;
 }
 #kindnessModal textarea{
-      font-size: 20px;
+      font-size: 26px;
     width: 100%;
-       /* font-weight: bold; */
-    font-weight: normal;
+        font-weight: bold;
     min-height: 100px;
         background: transparent;
         padding-top: 100px;
@@ -2470,6 +2468,7 @@ background-size: cover;
   text-align: center;
   display: block;
   transform: rotateX(30deg);
+  margin-top: 20px;
   box-shadow: 0 4px 2px rgba(0, 0, 0, 0.3);
 }
 .kindness button:active {
@@ -2590,13 +2589,11 @@ button.close {
   color: #333;
   display: block;
   font-family: arial, sans-serif;
-  /*margin: auto;*/
+  margin: auto;
   position: relative;
-   /* position: absolute; */
-  width: 100%;
+  width: 80%;
   height: 100%;
-   /* height: auto; */
-  padding: 10px 0px;
+  padding: 25px 0px;
 }
 
 .tabordion input[name="sections"] {
@@ -2614,10 +2611,10 @@ button.close {
   border:1px solid #fff;
   cursor: pointer;
   display: block;
-  font-size: 0.9em;
-  padding: 10px 10px;
+  font-size: 1em;
+  padding: 15px 20px;
   position: relative;
-  width: 18%;
+  width: 20%;
   z-index:100;
 }
 
@@ -2654,7 +2651,7 @@ button.close {
   width: 81.8%;
   background: #F6F6F6;
   border-left: 1px solid #cfcfcf;
-  overflow-y: scroll;
+  overflow-y: auto;
   font-family: cursive;
   padding-left:0;
 }
