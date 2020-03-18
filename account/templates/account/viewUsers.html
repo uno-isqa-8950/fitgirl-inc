@@ -4,9 +4,6 @@
 
 
 
-<div class="datatable-container">
-    <div class="spacer-div-30"></div>
-
       <div>
           <h1 class="text-left"> All Users</h1>
 {#          <div class="select">#}
@@ -26,27 +23,28 @@
 
 <form class="user-form" action="{% url 'group_email' %}" method="post" >
     {% csrf_token %}
-      <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered" class="target">
+    <div class="table table-responsive-sm">
+      <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered ">
           <thead class="thead stylish-color text-white">
           <tr>
-              <th><input type="checkbox" onClick="toggle(this)" /></th>
-              <th class="th-lg">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg">Profile <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg text-center">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg text-center">Registered<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg text-center">User Logged-In<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg text-center">Pre-Assessment<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg text-center ">Post-Assessment<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg text-center">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-              <th class="th-lg text-center ">Email</th>
-              <th class="th-lg text-center ">Edit User</th>
+              <th scope="col"><input type="checkbox" onClick="toggle(this)" /></th>
+              <th scope="col">Program<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th scope="col">Profile <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th scope="col">Age<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th scope="col">Registered<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th scope="col">User Logged-In<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th scope="col">Pre-Assessment<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th scope="col">Post-Assessment<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th scope="col">Points <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+              <th scope="col">Email</th>
+              <th scope="col">Edit User</th>
 
           </tr>
           </thead >
             <tbody  >
             {% for registeredUser in registeredUsers %}
-            <tr class="hoverable">
-                <td><input type="checkbox" name="checks[]" value="{{ registeredUser.email }}" /></td>
+            <tr class="hoverable odd">
+                <th scope="row"><input type="checkbox" name="checks[]" value="{{ registeredUser.email }}" /></th>
                 <td>{{ registeredUser.profile.program.program_name  }}</td>
                 <td ><a href="{% url 'profile' registeredUser.id %}"><img src="{{ registeredUser.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:30px;height:30px;border:1px;" class="img-fluid rounded-circle"></a>&nbsp;&nbsp;<span>{{ registeredUser.first_name }}</span>&nbsp;<span>{{ registeredUser.last_name }}</span></td>
 
@@ -83,11 +81,13 @@
             {% endfor %}
             </tbody>
       </table>
+
     <button type="submit" formaction="{% url 'group_email' %}" class="btn btn-pink">Send E-mail to selected</button>
     <button type="submit" formaction="{% url 'manage_points' %}" class="btn btn-pink">Manage points for selected</button>
 
 </form>
-</div>
+
+
 
 {% endif %}
 
