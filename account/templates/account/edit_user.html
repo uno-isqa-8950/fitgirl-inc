@@ -13,7 +13,7 @@
 
         <div class="content-section">
       <div class="media">
-        <img class="rounded-circle account-img" src="{{ user1.photo_thumbnail.url }}" onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="100" width="100" style="height: 100px;width: 100px">
+        <img class="rounded-circle account-img" src="{{ user1.photo.url }}" onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="100" width="100" style="height: 100px;width: 100px">
         <div class="media-body">
           <h2 class="account-heading">{{ user.first_name }}</h2>
           <p class="text-secondary">{{ user.email }}</p>
