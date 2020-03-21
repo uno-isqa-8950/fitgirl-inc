@@ -45,15 +45,12 @@
             <div class="container offset-lg-2 justify-content-between  step-1">
               <div class="col-sm-12 ">
                 <h1>FITGirl, Inc.</h1>
-                  <p><b>FORMING INCREDIBLE TEEN GIRLS by INFLUENCING RELATIONSHIPS and LIFESTYLES</b></p>
-                  <p><b>Welcome to the EmpowerU interactive website! Created just for you!</b></p>
-                <p>This website aims to give you the tools and confidence to make the best health choices.
-                    Here you can find simple snack ideas, track your daily physical activity, watch videos, find games, learn about friendships and more!
-                </p>
-                <p>Click <b> NEXT </b> and update your profile to begin and start earning points!
-                </p>
-                    <br>
-                    <br>
+                 {% for work in works%}
+              <h6 class="mb-3 text-dark">{{ work.text1|richtext  }}
+              </h6>
+
+                  {% endfor %}
+
                   <!-- Disabling animation-->
                     <!--<iframe allowtransparency="true" width="780" height="630" src="//scratch.mit.edu/projects/embed/262218134/?autostart=false" frameborder="0" allowfullscreen></iframe>-->
                     <br>

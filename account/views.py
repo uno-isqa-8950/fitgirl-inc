@@ -43,7 +43,7 @@ from datetime import datetime
 #from datetime import timedelta
 from account.todays_date import todays_date
 from account.tomorrows_date import tomorrows_date
-
+from week.models import howitworks
 
 
 # json data for analytics dashboard
@@ -132,6 +132,7 @@ def user_login(request):
 # user's first page on login
 @login_required
 def login_success(request):
+    works=howitworks.objects.all()
     programs = Program.objects.all()
     today = todays_date()
     print(today)
@@ -146,7 +147,8 @@ def login_success(request):
         return render(request,
                       'account/current_week.html',
                       {'current_week': current_week,
-                       'dailyquote': dailyquote})
+                       'dailyquote': dailyquote,
+                       'works':works,})
 
 
 # admin - create program
@@ -508,6 +510,22 @@ def cms_frame(request):
     return render(request,
                   'account/cms_frame.html',
                   {'section': 'cms_frame'})
+
+
+# admin - CMS Gallery
+@login_required
+def cms_frame_gallery(request):
+    return render(request,
+                  'account/cms_frame_gallery.html',
+                  {'section': 'cms_frame_gallery'})
+
+
+# admin - CMS Gallery Category
+@login_required
+def cms_frame_gallery_category(request):
+    return render(request,
+                  'account/cms_frame_gallery_category.html',
+                  {'section': 'cms_frame_gallery_category'})
 
 
 # admin - django panel
