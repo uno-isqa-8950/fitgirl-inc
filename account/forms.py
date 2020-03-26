@@ -248,4 +248,3 @@ class SchoolsForm(forms.ModelForm):
     class Meta:
         model = Schools
         fields = ('schools_name',)
-

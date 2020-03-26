@@ -3,10 +3,12 @@
 # Register your models here.
 from django.contrib import admin
 from .models import Program, CloneProgramInfo
-from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote,Inactiveuser,RewardsNotification, Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem,Schools
+from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote, Inactiveuser, RewardsNotification, \
+    Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem, Schools, DefaultPassword, WelcomeEmail
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
+
 
 # Register your models here.
 class CloneProgramInfoList(admin.ModelAdmin):
@@ -25,6 +27,7 @@ class ProgramList(admin.ModelAdmin):
 
 admin.site.register(Program, ProgramList)
 
+
 # class ProfileAdmin(admin.ModelAdmin):
 #     list_display = ['user','first_name','last_name','bio','date_of_birth', 'photo']
 
@@ -34,18 +37,20 @@ class ProfileInline(admin.StackedInline):
     verbose_name_plural = 'Profile'
     fk_name = 'user'
 
+
 class CustomUserAdmin(UserAdmin):
-    inlines = (ProfileInline, )
+    inlines = (ProfileInline,)
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
             return list()
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
+
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
-#admin.site.register(Inactiveuser)
-#admin.site.register(Profile)
+# admin.site.register(Inactiveuser)
+# admin.site.register(Profile)
 admin.site.register(RegisterUser)
 
 
@@ -62,24 +67,31 @@ class DailyquoteAdmin(admin.ModelAdmin):
     list_filter = ('dailyquote', 'quote_date')
     search_fields = ('dailyquote', 'quote_date')
 
+
 admin.site.register(Dailyquote, DailyquoteAdmin)
+
 
 class InspirationalAdmin(admin.ModelAdmin):
     InspirationalQuote = 'Inspirational Quotes'
+
+
 admin.site.register(InspirationalQuotes, InspirationalAdmin)
 
 
 class InactiveusersAdmin(admin.ModelAdmin):
     Inactiveuser = 'Inactiveuser'
-    list_display = ('set_days','created_at','updated_at')
+    list_display = ('set_days', 'created_at', 'updated_at')
 
-admin.site.register(Inactiveuser,InactiveusersAdmin)
+
+admin.site.register(Inactiveuser, InactiveusersAdmin)
 
 
 class RewardsNotificationAdmin(admin.ModelAdmin):
-    list_display = ('Rewards_milestone_1','Rewards_milestone_2','Rewards_milestone_3','Rewards_milestone_4')
+    list_display = ('Rewards_milestone_1', 'Rewards_milestone_2', 'Rewards_milestone_3', 'Rewards_milestone_4')
 
-admin.site.register(RewardsNotification,RewardsNotificationAdmin)
+
+admin.site.register(RewardsNotification, RewardsNotificationAdmin)
+
 
 class RewardList(admin.ModelAdmin):
     list_display = ('reward_no', 'user', 'timestamp')
@@ -87,7 +99,9 @@ class RewardList(admin.ModelAdmin):
     search_fields = ('user', 'timestamp')
     ordering = ['timestamp']
 
+
 admin.site.register(Reward, RewardList)
+
 
 class RewardCategories(admin.ModelAdmin):
     list_display = ('category', 'description')
@@ -95,7 +109,9 @@ class RewardCategories(admin.ModelAdmin):
     search_fields = ['category']
     ordering = ['category']
 
+
 admin.site.register(RewardCategory, RewardCategories)
+
 
 class RewardItems(admin.ModelAdmin):
     list_display = ('item', 'description', 'category', 'points_needed', 'qty_available')
@@ -103,13 +119,16 @@ class RewardItems(admin.ModelAdmin):
     search_fields = ('item', 'qty_available')
     ordering = ['category']
 
+
 admin.site.register(RewardItem, RewardItems)
 
+
 class KindnessMessageAdmin(admin.ModelAdmin):
-    list_display = ('message_id','from_user', 'to_user', 'body', 'created_date')
+    list_display = ('message_id', 'from_user', 'to_user', 'body', 'created_date')
     list_filter = ('from_user', 'to_user', 'created_date')
     search_fields = ('from_user', 'to_user')
     ordering = ['created_date']
+
 
 admin.site.register(KindnessMessage, KindnessMessageAdmin)
 
@@ -118,5 +137,21 @@ class SchoolsAdmin(admin.ModelAdmin):
     Schools = 'Schools'
     list_display = ('schools_name',)
 
-admin.site.register(Schools,SchoolsAdmin)
 
+admin.site.register(Schools, SchoolsAdmin)
+
+
+# to display default password on django
+class DefaultPass(admin.ModelAdmin):
+    list_display = ('default_password',)
+
+
+admin.site.register(DefaultPassword, DefaultPass)
+
+
+# to display welcome email on django
+class WelcmEmail(admin.ModelAdmin):
+    list_display = ('welcome_email',)
+
+
+admin.site.register(WelcomeEmail, WelcmEmail)
