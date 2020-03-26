@@ -669,3 +669,14 @@ class howitworks(Page):
         FieldPanel('text1', classname="full"),
 
     ]
+
+class PrivacyPolicyLink(Page):
+    policy = RichTextField(blank=True)
+    policy2 = models.CharField(max_length=10000, blank=True, )
+    attach_file = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('policy', classname="full"),
+        FieldPanel('policy2', classname="full"),
+        FieldPanel('attach_file', classname="full"),
+    ]
