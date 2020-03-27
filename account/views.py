@@ -198,9 +198,13 @@ def handle_uploaded_file(request, name):
                             print(user)
                             user.save()
                             print(user.is_active)
-                            profile = Profile.objects.update(points=0, pre_assessment='No',
-                                                             program=Program.objects.all().filter(program_name=name)[0])
-                            print(profile)
+                            user.profile.points = 0
+                            user.profile.pre_assessment = 'No'
+                            user.profile.save()
+                            #profile = Profile.objects.update(points=0, pre_assessment='No',
+                            #                                 program=Program.objects.all().filter(program_name=name)[0])
+                            #print("Profile")
+                            #print(profile)
                             profile.save()
                             form = PasswordResetForm({'email': user.email})
                             if form.is_valid():
