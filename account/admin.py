@@ -20,10 +20,12 @@ class ProgramList(admin.ModelAdmin):
     list_display = ('program_name', 'program_start_date', 'program_end_date')
     list_filter = ('program_name', 'program_start_date')
     search_fields = ('program_name', 'program_start_date')
-    ordering = ['program_name']
+    ordering = ['-program_start_date']  # Sandra Dizdarevic. Order by the latest end date so that we can use this to fetch the first program on the list (kindness card messages, etc.) 3/14/2020 552PM
 
 
 admin.site.register(Program, ProgramList)
+
+
 
 # class ProfileAdmin(admin.ModelAdmin):
 #     list_display = ['user','first_name','last_name','bio','date_of_birth', 'photo']
@@ -106,10 +108,10 @@ class RewardItems(admin.ModelAdmin):
 admin.site.register(RewardItem, RewardItems)
 
 class KindnessMessageAdmin(admin.ModelAdmin):
-    list_display = ('message_id','from_user', 'to_user', 'body', 'created_date')
+    list_display = ('message_id','from_user', 'to_user', 'body', 'created_date','message_program')#sdizdarevic, added message_program to filter out kindness messages that are from older programs 3/11/2020
     list_filter = ('from_user', 'to_user', 'created_date')
-    search_fields = ('from_user', 'to_user')
-    ordering = ['created_date']
+    search_fields = ('from_user', 'to_user', 'message_program')
+    ordering = ['-created_date'] #sdizdarevic, added - to sort by the latest kindness message 3/11/2020
 
 admin.site.register(KindnessMessage, KindnessMessageAdmin)
 
