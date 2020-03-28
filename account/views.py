@@ -1275,3 +1275,4 @@ def add_school(request):
     return render(request,
                   'account/add_school.html',
                   {'section': 'add_school', 'form': form, 'addschool': addschool})
+

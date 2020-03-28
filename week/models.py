@@ -669,3 +669,24 @@ class howitworks(Page):
         FieldPanel('text1', classname="full"),
 
     ]
+
+class addstudentoftheweek(Page):
+    intro=RichTextField(blank=True)
+    student_name = models.CharField(max_length=200, blank=True,)
+    my_favorite_color = models.CharField(max_length=200, blank=True,)
+    my_favorite_healthy_snack = models.CharField(max_length=200, blank=True,)
+    my_favorite_sport =models.CharField(max_length=200, blank=True,)
+    my_favorite_athlete = models.CharField(max_length=200, blank=True,)
+    my_friends_would_describe_me_as = models.CharField(max_length=300, blank=True,)
+    am_good_at = models.CharField(max_length=300, blank=True,)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        FieldPanel('student_name'),
+        FieldPanel('my_favorite_color'),
+        FieldPanel('my_favorite_healthy_snack'),
+        FieldPanel('my_favorite_sport'),
+        FieldPanel('my_favorite_athlete'),
+        FieldPanel('my_friends_would_describe_me_as'),
+        FieldPanel('am_good_at'),
+    ]

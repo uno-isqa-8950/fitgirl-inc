@@ -228,3 +228,4 @@ class Schools(models.Model):
 
     def __str__(self):
         return str(self.schools_name)
+
