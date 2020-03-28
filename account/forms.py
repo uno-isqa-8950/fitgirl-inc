@@ -249,5 +249,3 @@ class SchoolsForm(forms.ModelForm):
         model = Schools
         fields = ('schools_name',)
 
-
-
