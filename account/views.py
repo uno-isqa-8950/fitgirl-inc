@@ -13,7 +13,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
 import re, json
-#import weasyprint
+import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv
@@ -1131,6 +1131,7 @@ def edit_user(request, pk):
 @login_required
 def signup(request):
     programs = Program.objects.all()
+    #welcome = WelcomeEmail.objects.all()
     if request.method == 'POST':
         sign_form = SignUpForm(data=request.POST)
 
@@ -1160,6 +1161,7 @@ def signup(request):
                     from_email=settings.EMAIL_HOST_USER,
                     subject_template_name='registration/new_user_subject.txt',
                     email_template_name='registration/password_reset_newuser_email.html')
+                #form.fields['email'] = welcome
             return redirect('/account/users/')
     else:
         sign_form = SignUpForm()
