@@ -239,6 +239,7 @@ class Schools(models.Model):
 
 # Model to save default password
 class DefaultPassword(models.Model):
+    id = models.IntegerField(primary_key=True, blank=False, null=False)
     default_password = models.CharField(max_length=30, blank=False)
 
     def __str__(self):
