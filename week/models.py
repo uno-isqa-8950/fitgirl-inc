@@ -670,6 +670,7 @@ class howitworks(Page):
 
     ]
 
+
 class addstudentoftheweek(Page):
     intro=RichTextField(blank=True)
     student_name = models.CharField(max_length=200, blank=True,)
@@ -689,4 +690,16 @@ class addstudentoftheweek(Page):
         FieldPanel('my_favorite_athlete'),
         FieldPanel('my_friends_would_describe_me_as'),
         FieldPanel('am_good_at'),
+    ]
+
+
+class PrivacyPolicyLink(Page):
+    policy = RichTextField(blank=True)
+    policy2 = models.CharField(max_length=10000, blank=True, )
+    attach_file = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('policy', classname="full"),
+        FieldPanel('policy2', classname="full"),
+        FieldPanel('attach_file', classname="full"),
     ]
