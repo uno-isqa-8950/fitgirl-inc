@@ -65,6 +65,7 @@
         {% for current_week in current_week %}
             <h1 style="text-align: center;">{{ current_week.title }}</h1>
             <h3 style="text-align: center;"> {{ current_week.description|richtext }}</h3>
+
             <!--Card Content-->
             <div class="row" style="display: flex; flex-wrap: wrap; text-align: center;">
                 {% for post in current_week.get_children %}
