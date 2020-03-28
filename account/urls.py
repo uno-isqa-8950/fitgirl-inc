@@ -52,6 +52,8 @@ urlpatterns = [
     path('reward_category_edit/<int:pk>', views.reward_category_edit, name='reward_category_edit'),
     path('activity_data/', views.json_data, name='activity_data'),
     path('add_school/', views.add_school, name='add_school'),
+
     path('default_password/', views.Default_Password, name='default_password'),
     path('welcome_email/', views.Welcome_Email, name='welcome_email')
+
 ]

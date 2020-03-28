@@ -171,9 +171,12 @@ class Parameters(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
 
-
 class KindnessMessage(models.Model):
+    message_program = models.CharField(max_length=20, blank=True, null=True)  # sdizdarevic added for archiving messages from previous programs 3/11/2020
+    user = models.ForeignKey(User, null=True, blank=False, on_delete=models.CASCADE)  #sdizdarevic added so that kindness messages are delted when users are deleted 3/11/2020
     message_id = models.AutoField(null=False, primary_key=True)
+   # user = models.ForeignKey(User, related_name='all_messages', on_delete=models.CASCADE)
+   # user = models.ForeignKey(User, related_name='message_id', on_delete=models.CASCADE)
     body = models.CharField(max_length=500, blank=True, null=True)
     from_user = models.CharField(max_length=50, blank=False, null=False)
     to_user = models.CharField(max_length=50, blank=False, null=False)
@@ -186,6 +189,10 @@ class KindnessMessage(models.Model):
 
     def __str__(self):
         return str(self.body)
+
+    def __str__(self):
+        return str(self.user_id)
+        self.save()
 
 
 class RewardCategory(models.Model):
@@ -244,3 +251,4 @@ class WelcomeEmail(models.Model):
 
     def __str__(self):
         return str(self.welcome_email)
+
