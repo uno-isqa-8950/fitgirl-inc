@@ -201,6 +201,7 @@ def handle_uploaded_file(request, name):
                             print(user.is_active)
                             user.profile.points = 0
                             user.profile.pre_assessment = 'No'
+                            user.profile.program = Program.objects.all().filter(program_name=name)[0]
                             user.profile.save()
                             #profile = Profile.objects.update(points=0, pre_assessment='No',
                             #                                 program=Program.objects.all().filter(program_name=name)[0])
