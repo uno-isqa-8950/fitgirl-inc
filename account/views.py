@@ -43,7 +43,7 @@ from datetime import datetime
 #from datetime import timedelta
 from account.todays_date import todays_date
 from account.tomorrows_date import tomorrows_date
-from week.models import howitworks
+from week.models import welcomepage
 import pandas as pd
 
 
@@ -133,7 +133,7 @@ def user_login(request):
 # user's first page on login
 @login_required
 def login_success(request):
-    works=howitworks.objects.all()
+    works=welcomepage.objects.all()
     programs = Program.objects.all()
     today = todays_date()
     print(today)
