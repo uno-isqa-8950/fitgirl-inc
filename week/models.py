@@ -661,7 +661,7 @@ class StatementsPage(Page):
         FieldPanel('values'),
     ]
 
-class howitworks(Page):
+class welcomepage(Page):
     text1 = RichTextField(blank=True)
 
 
@@ -673,6 +673,8 @@ class howitworks(Page):
 
 class addstudentoftheweek(Page):
     intro=RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
     student_name = models.CharField(max_length=200, blank=True,)
     my_favorite_color = models.CharField(max_length=200, blank=True,)
     my_favorite_healthy_snack = models.CharField(max_length=200, blank=True,)
@@ -683,6 +685,7 @@ class addstudentoftheweek(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
         FieldPanel('student_name'),
         FieldPanel('my_favorite_color'),
         FieldPanel('my_favorite_healthy_snack'),
