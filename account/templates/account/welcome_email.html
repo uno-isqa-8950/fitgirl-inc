@@ -1,0 +1,17 @@
+{% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block dash_content %}
+<div class="container">
+    <div class="col-9 offset-lg-0">
+        <div class="spacer-div-30"></div>
+        <h1 class="text-left"> Welcome Email</h1>
+        <br>
+        <form actions="{% url 'welcome_email' %}" method="post" class="form-group">
+            {% csrf_token %}
+            <label for="password"><b>Edit Welcome Email</b></label>
+            <textarea name="email" class="form-control" rows="15">{{ id1 }}</textarea>
+            <button type="submit" class="btn btn-pink waves-effect waves-light">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

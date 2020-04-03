@@ -7,7 +7,7 @@ from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, program
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
-    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile
+    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile, DefaultPassword, WelcomeEmail
 from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
@@ -43,7 +43,8 @@ from datetime import datetime
 #from datetime import timedelta
 from account.todays_date import todays_date
 from account.tomorrows_date import tomorrows_date
-from week.models import howitworks
+from week.models import welcomepage
+import pandas as pd
 
 
 # json data for analytics dashboard
@@ -132,7 +133,7 @@ def user_login(request):
 # user's first page on login
 @login_required
 def login_success(request):
-    works=howitworks.objects.all()
+    works=welcomepage.objects.all()
     programs = Program.objects.all()
     today = todays_date()
     print(today)
@@ -182,7 +183,9 @@ def handle_uploaded_file(request, name):
     emailcount = 0
     for row in reader:
         try:
-            if row[0].lower() and row[1] and row[2]:
+            if row[0] and row[1] and row[2]:
+                #row[0].lower() used to be .lower...row zero is the first name
+
                 if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[2]):
                     num = len(User.objects.all().filter(email=row[2]))
                     if (len(User.objects.all().filter(email=row[2])) > 0):
@@ -190,13 +193,15 @@ def handle_uploaded_file(request, name):
                         for user in users:
                             user.is_active = True
                             print(user.is_active)
-                            user.set_password('stayfit2020')
+                            # new password implementation with model object
+                            user.set_password(DefaultPassword.objects.get(id=1))
                             print(user.set_password)
                             print(user)
                             user.save()
                             print(user.is_active)
                             user.profile.points = 0
                             user.profile.pre_assessment = 'No'
+                            user.profile.program = Program.objects.all().filter(program_name=name)[0]
                             user.profile.save()
                             #profile = Profile.objects.update(points=0, pre_assessment='No',
                             #                                 program=Program.objects.all().filter(program_name=name)[0])
@@ -218,11 +223,11 @@ def handle_uploaded_file(request, name):
                     else:
                         vu = RegisterUser(email=row[2], first_name=row[0], last_name=row[1], program=name)
                         theUser = User(username=vu.email.lower(), first_name=row[0], last_name=row[1], email=row[2])
-                        theUser.set_password('stayfit2020')
+                        # new password implementation with model object
+                        theUser.set_password(DefaultPassword.objects.get(id=1))
                         theUser.email = row[2].lower()
                         theUser.save()
-                        profile = Profile.objects.create(user=theUser,
-                                                         program=Program.objects.all().filter(program_name=name)[0])
+                        profile = Profile.objects.create(user=theUser,program=Program.objects.all().filter(program_name=name)[0])
                         profile.save()
                         form = PasswordResetForm({'email': theUser.email})
                         if form.is_valid():
@@ -352,7 +357,6 @@ def registerusers(request):
     return render(request,
                   'account/registerusers.html',
                   {'form': form})
-
 
 # admin - all users table
 @login_required
@@ -573,7 +577,6 @@ def archive(request):
                     user.profile.save()
 
             '''
-
             profiles =Profile.objects.all().filter(program = theProgram)
             for theProfile in profiles:
                 if(theProfile.user.is_superuser == False):
@@ -1005,7 +1008,7 @@ def Analytics_Dashboard(request):
                   'analytics/Analytics_Dashboard.html',
                   {'section': 'Analytics_Dashboard', 'jsondata': jsondata})
 
-
+'''
 # user - send kindness message
 @login_required
 def send_message(request):
@@ -1018,8 +1021,35 @@ def send_message(request):
         name = user.first_name + user.last_name
         messages.success(request, f'Message sent to: {name}')
     return redirect('pages/kindness-card', {'section': 'send_message'})
+'''
+
+# user - send kindness message
+@login_required
+def send_message(request):
+    if request.method == 'POST':
+        message = request.POST.get("message")
+        to = request.POST.get("user")
+        from_user = request.user.username
+        #KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
+        user = User.objects.get(username=to)
+        user1 = User.objects.get(username=from_user) #sdizdarevic 3/21/2020 for deleting purposes, if a user is deleted from Django Admin, we want to delete kindness messages too
+        name = user.first_name + user.last_name
+        messages.success(request, f'Message sent to: {name}')
+        today = datetime.today()
+        programs = Program.objects.filter(program_start_date__lte=today).filter(
+            program_end_date__gte=today)  # sdizdarevic 3/15/2020
+
+        for program in programs: # sdizdarevic 3/15/2020
+
+            current_program = program.program_name # sdizdarevic 3/15/2020
+            KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to,
+                                           message_program=current_program, user=user1) # sdizdarevic 3/15/2020
+            program.save()  # sdizdarevic since we dont have a field with primary_key, save() will assign an id automatically and we should be able to query it later for show all kcarsd purposes
+
+    return redirect('pages/kindness-card', {'section': 'send_message'})
 
 
+'''
 # user - read kindness message
 def inbox(request):
     if request.method == 'GET':
@@ -1027,6 +1057,41 @@ def inbox(request):
         unread_messages = all_messages.filter(read_message=False)
         # user = User.objects.get(email=request.user.email)
         # unread_message = KindnessMessage.objects.filter(to_user=user).filter(read_message=False)
+        dict_all = {}
+        dict_unread = {}
+        for message in unread_messages:
+            username = User.objects.get(username=message.from_user)
+            name = username.first_name + " " + username.last_name
+            try:
+                dict_unread[name].append(message.body)
+            except KeyError:
+                dict_unread[name] = [message.body]
+        for message in all_messages:
+            username = User.objects.get(username=message.from_user)
+            date = message.created_date.date()
+            message.read_message = True
+            message.save()
+            try:
+                photo = username.profile.photo.url
+            except:
+                photo = ''
+            name = username.first_name + " " + username.last_name
+            try:
+                dict_all[name]['messages'].append({'body': message.body, 'date': date})
+            except KeyError:
+                dict_all[name] = {'messages': [{'body': message.body, 'date': date}], 'photo': photo}
+        return render(request, 'kindnessCards/inbox.html',
+                      {'messages': messages, 'all': dict_all, 'unread': dict_unread})
+'''
+
+# user - read kindness message
+def inbox(request):
+    if request.method == 'GET':
+        current_program = Program.objects.last() #sdizdarevic 3/19/20 in account_program table in our db, a pk is assigned to programs as they're created. the last program created will have the last pk number
+        #print("Current Program") leave for testing
+        #print(current_program) leave for testing
+        all_messages = KindnessMessage.objects.filter(to_user=request.user.username).filter(message_program__exact=current_program).order_by('-message_id') #sdizdarevic 3/15/2020 added filter to also query the program message was sent
+        unread_messages = all_messages.filter(read_message=False)
         dict_all = {}
         dict_unread = {}
         for message in unread_messages:
@@ -1129,6 +1194,7 @@ def edit_user(request, pk):
 @login_required
 def signup(request):
     programs = Program.objects.all()
+    #welcome = WelcomeEmail.objects.all()
     if request.method == 'POST':
         sign_form = SignUpForm(data=request.POST)
 
@@ -1137,7 +1203,8 @@ def signup(request):
             username = email
             first_name = sign_form.cleaned_data['first_name']
             last_name = sign_form.cleaned_data['last_name']
-            password = 'stayfit2020'
+            # new password implementation with model object
+            password = DefaultPassword.objects.get(id=1)
             selected_program = get_object_or_404(Program, pk=request.POST.get('programs'))
             theUser = User(username=username, email=email, first_name=first_name,
                            last_name=last_name)
@@ -1157,6 +1224,7 @@ def signup(request):
                     from_email=settings.EMAIL_HOST_USER,
                     subject_template_name='registration/new_user_subject.txt',
                     email_template_name='registration/password_reset_newuser_email.html')
+                #form.fields['email'] = welcome
             return redirect('/account/users/')
     else:
         sign_form = SignUpForm()
@@ -1279,3 +1347,24 @@ def add_school(request):
     return render(request,
                   'account/add_school.html',
                   {'section': 'add_school', 'form': form, 'addschool': addschool})
+
+
+
+# admin - default password
+def Default_Password(request):
+    pass1 = DefaultPassword.objects.get(id=1)
+    if request.method == 'POST':
+        pass1.default_password = request.POST['password']
+        pass1.save()
+    return render(request, 'account/default_password.html', {'pass1': pass1})
+
+
+# admin - welcome email editing
+def Welcome_Email(request):
+    id1 = WelcomeEmail.objects.get(id=1)
+    if request.method == 'POST':
+        id1.welcome_email = request.POST['email']
+        id1.save()
+    return render(request, 'account/welcome_email.html', {'id1': id1})
+
+
