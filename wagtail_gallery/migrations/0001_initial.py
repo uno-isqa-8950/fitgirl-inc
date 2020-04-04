@@ -75,11 +75,11 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
         ),
-       '''
+       
         migrations.AddField(
             model_name='categorygallerypage',
             name='page',
             field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='gallery_categories', to='wagtail_gallery.GalleryPage'),
         ),
-       ''' 
+       
     ]
