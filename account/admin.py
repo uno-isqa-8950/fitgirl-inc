@@ -143,18 +143,5 @@ class SchoolsAdmin(admin.ModelAdmin):
 admin.site.register(Schools, SchoolsAdmin)
 
 
-# # to display default password on django
-# class DefaultPass(admin.ModelAdmin):
-#     list_display = ('default_password',)
 
-
-# admin.site.register(DefaultPassword, DefaultPass)
-
-
-# # to display welcome email on django
-# class WelcmEmail(admin.ModelAdmin):
-#     list_display = ('welcome_email',)
-
-
-# admin.site.register(WelcomeEmail, WelcmEmail)
 
