@@ -119,13 +119,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='WelcomeEmail',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('welcome_email', models.CharField(max_length=1000)),
-            ],
-        ),
-        migrations.CreateModel(
             name='RewardItem',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
