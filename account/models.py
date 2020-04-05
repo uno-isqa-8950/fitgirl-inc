@@ -236,20 +236,3 @@ class Schools(models.Model):
     def __str__(self):
         return str(self.schools_name)
 
-
-# # Model to save default password
-# class DefaultPassword(models.Model):
-#     id = models.IntegerField(primary_key=True, blank=False, null=False)
-#     default_password = models.CharField(max_length=30, blank=False)
-
-#     def __str__(self):
-#         return str(self.default_password)
-
-
-# # Model to save default welcome email
-# class WelcomeEmail(models.Model):
-#     welcome_email = models.CharField(max_length=1000, blank=False)
-
-#     def __str__(self):
-#         return str(self.welcome_email)
-
