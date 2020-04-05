@@ -7,7 +7,7 @@ from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, program
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
-    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile, DefaultPassword, WelcomeEmail
+    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile
 from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
@@ -194,7 +194,8 @@ def handle_uploaded_file(request, name):
                             user.is_active = True
                             print(user.is_active)
                             # new password implementation with model object
-                            user.set_password(DefaultPassword.objects.get(id=1))
+                            # user.set_password(DefaultPassword.objects.get(id=1))
+                            user.set_password('stayfit2020')
                             print(user.set_password)
                             print(user)
                             user.save()
@@ -224,7 +225,8 @@ def handle_uploaded_file(request, name):
                         vu = RegisterUser(email=row[2], first_name=row[0], last_name=row[1], program=name)
                         theUser = User(username=vu.email.lower(), first_name=row[0], last_name=row[1], email=row[2])
                         # new password implementation with model object
-                        theUser.set_password(DefaultPassword.objects.get(id=1))
+                        # theUser.set_password(DefaultPassword.objects.get(id=1))
+                        theUser.set_password('stayfit2020')
                         theUser.email = row[2].lower()
                         theUser.save()
                         profile = Profile.objects.create(user=theUser,program=Program.objects.all().filter(program_name=name)[0])
@@ -1204,7 +1206,8 @@ def signup(request):
             first_name = sign_form.cleaned_data['first_name']
             last_name = sign_form.cleaned_data['last_name']
             # new password implementation with model object
-            password = DefaultPassword.objects.get(id=1)
+            # password = DefaultPassword.objects.get(id=1)
+            password = 'stayfit2020'
             selected_program = get_object_or_404(Program, pk=request.POST.get('programs'))
             theUser = User(username=username, email=email, first_name=first_name,
                            last_name=last_name)
@@ -1350,21 +1353,21 @@ def add_school(request):
 
 
 
-# admin - default password
-def Default_Password(request):
-    pass1 = DefaultPassword.objects.get(id=1)
-    if request.method == 'POST':
-        pass1.default_password = request.POST['password']
-        pass1.save()
-    return render(request, 'account/default_password.html', {'pass1': pass1})
+# # admin - default password
+# def Default_Password(request):
+#     pass1 = DefaultPassword.objects.get(id=1)
+#     if request.method == 'POST':
+#         pass1.default_password = request.POST['password']
+#         pass1.save()
+#     return render(request, 'account/default_password.html', {'pass1': pass1})
 
 
-# admin - welcome email editing
-def Welcome_Email(request):
-    id1 = WelcomeEmail.objects.get(id=1)
-    if request.method == 'POST':
-        id1.welcome_email = request.POST['email']
-        id1.save()
-    return render(request, 'account/welcome_email.html', {'id1': id1})
+# # admin - welcome email editing
+# def Welcome_Email(request):
+#     id1 = WelcomeEmail.objects.get(id=1)
+#     if request.method == 'POST':
+#         id1.welcome_email = request.POST['email']
+#         id1.save()
+#     return render(request, 'account/welcome_email.html', {'id1': id1})
 
 
