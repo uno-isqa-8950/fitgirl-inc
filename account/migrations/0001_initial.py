@@ -33,13 +33,7 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(blank=True, max_length=500, null=True)),
             ],
         ),
-        migrations.CreateModel(
-            name='DefaultPassword',
-            fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False)),
-                ('default_password', models.CharField(max_length=30)),
-            ],
-        ),
+        
         migrations.CreateModel(
             name='Inactiveuser',
             fields=[
