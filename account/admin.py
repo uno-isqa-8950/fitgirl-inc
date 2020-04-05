@@ -4,7 +4,7 @@
 
 from .models import Program, CloneProgramInfo
 from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote, Inactiveuser, RewardsNotification, \
-    Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem, Schools, DefaultPassword, WelcomeEmail
+    Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem, Schools
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
@@ -143,18 +143,18 @@ class SchoolsAdmin(admin.ModelAdmin):
 admin.site.register(Schools, SchoolsAdmin)
 
 
-# to display default password on django
-class DefaultPass(admin.ModelAdmin):
-    list_display = ('default_password',)
+# # to display default password on django
+# class DefaultPass(admin.ModelAdmin):
+#     list_display = ('default_password',)
 
 
-admin.site.register(DefaultPassword, DefaultPass)
+# admin.site.register(DefaultPassword, DefaultPass)
 
 
-# to display welcome email on django
-class WelcmEmail(admin.ModelAdmin):
-    list_display = ('welcome_email',)
+# # to display welcome email on django
+# class WelcmEmail(admin.ModelAdmin):
+#     list_display = ('welcome_email',)
 
 
-admin.site.register(WelcomeEmail, WelcmEmail)
+# admin.site.register(WelcomeEmail, WelcmEmail)
 
