@@ -25,7 +25,11 @@
                           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#flexibility">Flexibility</a></li>
                         </ul>
 
-
+                        <div class="tab-content">
+                          <div id="strength" class="tab-pane fade in active">
+                              <h3>Strength</h3>
+                              {{ page.strength|richtext }}
+                          </div>
                           <div id="agility" class="tab-pane fade in">
                               <h3>Agility</h3>
                               {{ page.agility|richtext }}
