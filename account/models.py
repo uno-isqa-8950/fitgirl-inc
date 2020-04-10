@@ -19,16 +19,16 @@ EVENT = (
 )
 
 BACKGROUND_CHOICES = [
-    ('pink','Pink'),
+    ('pink', 'Pink'),
     ('blue', 'Blue'),
-    ('yellow','Yellow'),
-    ('green','Green'),
-    ('orange','Orange'),
+    ('yellow', 'Yellow'),
+    ('green', 'Green'),
+    ('orange', 'Orange'),
 ]
 
 
 class Program(models.Model):
-    #program_id = models.AutoField(null=False, primary_key=True)
+    # program_id = models.AutoField(null=False, primary_key=True)
     program_name = models.CharField(max_length=20, null=False, unique=True)
     program_start_date = models.DateField(null=False, blank=False)
     program_end_date = models.DateField(null=False, blank=False)
@@ -48,18 +48,19 @@ class Program(models.Model):
 
 
 class RegisterUser(models.Model):
-    email = models.EmailField(blank=True, null=None)
+    email = models.EmailField(blank=True, null=None, unique=True)
     first_name = models.CharField(max_length=50, default=None)
     last_name = models.CharField(max_length=50, default=None)
-    is_active = models.BooleanField(_('active'), default =True)
+    is_active = models.BooleanField(_('active'), default=True)
     program = models.CharField(max_length=50, default='Test')
+
 
 class InspirationalQuotes(models.Model):
     quote = models.CharField(max_length=500, blank=True, null=True)
-    
+
     def __str__(self):
         return str(self.quote)
-    
+
 
 class Affirmations(models.Model):
     affirmation = models.CharField(max_length=500, blank=True, null=True)
@@ -68,10 +69,12 @@ class Affirmations(models.Model):
     def __str__(self):
         return str(self.affirmation)
 
+
 class Dailyquote(models.Model):
     dailyquote = models.CharField(max_length=500, blank=True, null=True)
     quote_date = models.DateField(null=True, blank=False)
     description = models.CharField(max_length=500, blank=True, null=True)
+
     def __str__(self):
         return str(self.dailyquote)
 
@@ -93,13 +96,13 @@ class Profile(models.Model):
     eve_phone = models.CharField(blank=True, null=True, max_length=13)
     age_group = models.IntegerField(choices=EVENT, blank=False, null=True, default=1)
     school = models.CharField(max_length=50, blank=True, null=True)
-    points = models.IntegerField(default=0,blank=True, null=True)
+    points = models.IntegerField(default=0, blank=True, null=True)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, blank=True, null=True)
-    select_your_background_color_for_website = models.CharField(max_length=50, choices=BACKGROUND_CHOICES, blank=False,null=True, default='pink')
+    select_your_background_color_for_website = models.CharField(max_length=50, choices=BACKGROUND_CHOICES, blank=False,
+                                                                null=True, default='pink')
     profile_filled = models.BooleanField(default=False)
     pre_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
     post_assessment = models.CharField(default='No', blank=True, null=True, max_length=50)
-
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -128,6 +131,7 @@ class Inactiveuser(models.Model):
 
 BOOL_CHOICES = [('Yes', 'yes'), ('No', 'no')]
 
+
 class Reward(models.Model):
     reward_no = models.AutoField(null=False, primary_key=True)
     user = models.ForeignKey(User, related_name='rewards', on_delete=models.CASCADE)
@@ -143,9 +147,10 @@ class Reward(models.Model):
         self.timestamp = timezone.now()
         self.save()
 
+
 class RewardsNotification(models.Model):
-    rewards_notification_id = models.AutoField(primary_key=True,blank=False,null=False)
-    Rewards_milestone_1 = models.IntegerField(default=25,blank=False,null=False)
+    rewards_notification_id = models.AutoField(primary_key=True, blank=False, null=False)
+    Rewards_milestone_1 = models.IntegerField(default=25, blank=False, null=False)
     Rewards_milestone_2 = models.IntegerField(default=50, blank=False, null=False)
     Rewards_milestone_3 = models.IntegerField(default=75, blank=False, null=False)
     Rewards_milestone_4 = models.IntegerField(default=100, blank=False, null=False)
@@ -166,15 +171,17 @@ class Parameters(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
 
-
 class KindnessMessage(models.Model):
+    message_program = models.CharField(max_length=20, blank=True, null=True)  # sdizdarevic added for archiving messages from previous programs 3/11/2020
+    user = models.ForeignKey(User, null=True, blank=False, on_delete=models.CASCADE)  #sdizdarevic added so that kindness messages are delted when users are deleted 3/11/2020
     message_id = models.AutoField(null=False, primary_key=True)
+   # user = models.ForeignKey(User, related_name='all_messages', on_delete=models.CASCADE)
+   # user = models.ForeignKey(User, related_name='message_id', on_delete=models.CASCADE)
     body = models.CharField(max_length=500, blank=True, null=True)
     from_user = models.CharField(max_length=50, blank=False, null=False)
     to_user = models.CharField(max_length=50, blank=False, null=False)
     read_message = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
-
 
     def created(self):
         self.created_date = timezone.now()
@@ -183,12 +190,16 @@ class KindnessMessage(models.Model):
     def __str__(self):
         return str(self.body)
 
+    def __str__(self):
+        return str(self.user_id)
+        self.save()
 
 
 class RewardCategory(models.Model):
     category = models.CharField(max_length=25, blank=False, null=False, unique=True)
     description = models.CharField(max_length=50, blank=True, null=True)
-    category_image = models.ImageField(blank=True, default='reward_categories/default.jpg', upload_to='reward_categories/')
+    category_image = models.ImageField(blank=True, default='reward_categories/default.jpg',
+                                       upload_to='reward_categories/')
 
     def __str__(self):
         return str(self.category)
@@ -205,6 +216,7 @@ class RewardItem(models.Model):
     def __str__(self):
         return str(self.item)
 
+
 class CloneProgramInfo(models.Model):
     program_to_clone = models.CharField(max_length=25, blank=False, null=False)
     new_start_date = models.DateField(blank=False, null=False)
@@ -216,8 +228,9 @@ class CloneProgramInfo(models.Model):
     def __str__(self):
         return str(self.new_program)
 
+
 class Schools(models.Model):
-    schools_id = models.AutoField(primary_key=True,blank=False,null=False)
+    schools_id = models.AutoField(primary_key=True, blank=False, null=False)
     schools_name = models.CharField(max_length=25, blank=True, null=True)
 
     def __str__(self):
