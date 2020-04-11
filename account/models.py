@@ -48,7 +48,7 @@ class Program(models.Model):
 
 
 class RegisterUser(models.Model):
-    email = models.EmailField(blank=True, null=None, unique=True)
+    email = models.EmailField(blank=True, null=None)
     first_name = models.CharField(max_length=50, default=None)
     last_name = models.CharField(max_length=50, default=None)
     is_active = models.BooleanField(_('active'), default=True)
