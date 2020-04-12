@@ -37,6 +37,7 @@ class ProfileAdmin(ImportExportModelAdmin):
 
 class ProfileInline(admin.StackedInline):
     model = Profile
+    search_fields = ('user')
     can_delete = False
     verbose_name_plural = 'Profile'
     fk_name = 'user'
@@ -44,6 +45,7 @@ class ProfileInline(admin.StackedInline):
 
 class CustomUserAdmin(ImportExportModelAdmin):
     inlines = (ProfileInline,)
+    search_fields = ('email')
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
