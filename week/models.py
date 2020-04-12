@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
 import datetime, re
@@ -23,29 +23,31 @@ class AboutUsIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
     ad_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
-                                      related_name='+')
+                                 related_name='+')
     ad_url = models.URLField(blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         FieldPanel('description', classname="full"),
-		ImageChooserPanel('ad_image'),
+        ImageChooserPanel('ad_image'),
         FieldPanel('ad_url'),
     ]
 
+
 class ProgramIndexPage(Page):
-    description =  RichTextField(blank=True)
+    description = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full")
 
     ]
+
+
 class WeekPage(Page):
     description = RichTextField(blank=True)
     start_date = models.DateTimeField("Start Date", null=True, blank=True)
     end_date = models.DateTimeField("End Date", null=True, blank=True)
     Page.show_in_menus_default = True
-
 
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full"),
@@ -53,6 +55,7 @@ class WeekPage(Page):
         FieldPanel('end_date'),
 
     ]
+
 
 class ModelIndexPage(Page):
     description = RichTextField(blank=True)
@@ -67,7 +70,6 @@ class ModelIndexPage(Page):
     vertical_url = models.URLField(blank=True)
     announcements = RichTextField(blank=True)
 
-
     content_panels = Page.content_panels + [
         FieldPanel('description', classname="full"),
         FieldPanel('intro', classname="full"),
@@ -79,7 +81,6 @@ class ModelIndexPage(Page):
         FieldPanel('vertical_url'),
         FieldPanel('announcements', classname="full"),
 
-
     ]
 
 
@@ -87,10 +88,11 @@ class NutritionGame(Page):
     body = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
-    content_panels= Page.content_panels + [
+    content_panels = Page.content_panels + [
         FieldPanel('body', classname="full"),
         ImageChooserPanel('display_image')
     ]
+
 
 class NutritionPostPage(Page):
     body = RichTextField(blank=True)
@@ -102,9 +104,9 @@ class NutritionPostPage(Page):
     content_panels = AbstractForm.content_panels + [
         FieldPanel('intro', classname="full"),
         ImageChooserPanel('display_image'),
-        FieldPanel('body',classname="title"),
-        FieldPanel('morecontent',classname='full'),
-        FieldPanel('facts', classname="full" ),
+        FieldPanel('body', classname="title"),
+        FieldPanel('morecontent', classname='full'),
+        FieldPanel('facts', classname="full"),
     ]
 
 
@@ -114,12 +116,13 @@ class Fact(Page):
                                       related_name='+')
     description = RichTextField(blank=True)
     body = RichTextField(blank=True)
-    content_panels= Page.content_panels + [
+    content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         ImageChooserPanel('display_image'),
         FieldPanel('body', classname="full"),
         FieldPanel('description', classname="full")
     ]
+
 
 class QuestionFormField(AbstractFormField):
     page = ParentalKey('QuestionPage', on_delete=models.CASCADE, related_name='form_fields')
@@ -137,7 +140,6 @@ class QuestionPage(AbstractForm):
         FieldPanel('thank_you_text', classname="full"),
     ]
 
-
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
             return render(
@@ -155,14 +157,16 @@ class QuestionPage(AbstractForm):
         self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user)
-        user1=User.objects.get(username=form.user.username)
+        user1 = User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         user1.profile.save()
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
+
 class BonusQuestionFormField(AbstractFormField):
     page = ParentalKey('BonusQuestionPage', on_delete=models.CASCADE, related_name='form_fields')
+
 
 class BonusQuestionPage(AbstractForm):
     intro = RichTextField(blank=True)
@@ -179,7 +183,6 @@ class BonusQuestionPage(AbstractForm):
         FieldPanel('thank_you_text', classname="full"),
     ]
 
-
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
             return render(
@@ -197,13 +200,11 @@ class BonusQuestionPage(AbstractForm):
         self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user)
-        user1=User.objects.get(username=form.user.username)
+        user1 = User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         user1.profile.save()
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
-
-
 
 
 class CustomFormSubmission(AbstractFormSubmission):
@@ -212,8 +213,10 @@ class CustomFormSubmission(AbstractFormSubmission):
     class Meta:
         unique_together = ('page', 'user')
 
+
 class PhysicalFormField(AbstractFormField):
     page = ParentalKey('PhysicalPostPage', on_delete=models.CASCADE, related_name='form_fields')
+
 
 class PhysicalPostPage(AbstractForm):
     intro = RichTextField(blank=True)
@@ -269,6 +272,7 @@ class PhysicalPostPage(AbstractForm):
         print(user1.profile.points)
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
+
 class PreassessmentFormField(AbstractFormField):
     page = ParentalKey('PreassessmentPage', on_delete=models.CASCADE, related_name='form_fields')
 
@@ -302,7 +306,7 @@ class PreassessmentPage(AbstractForm):
         self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self)
-        user1=User.objects.get(username=form.user.username)
+        user1 = User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         user1.profile.pre_assessment = "yes"
@@ -310,37 +314,44 @@ class PreassessmentPage(AbstractForm):
 
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
 
+
 class Print(Page):
     body = RichTextField(blank=True)
-    content_panels= Page.content_panels + [
+    content_panels = Page.content_panels + [
         FieldPanel('body', classname="full"),
     ]
+
 
 class MentalPostPage(Page):
     body = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
-    content_panels= Page.content_panels + [
+    content_panels = Page.content_panels + [
         FieldPanel('body', classname="full"),
         ImageChooserPanel('display_image')
     ]
+
 
 class MentalArtPostPage(Page):
     body = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
-    content_panels= Page.content_panels + [
+    content_panels = Page.content_panels + [
         FieldPanel('body', classname="full"),
         ImageChooserPanel('display_image')
     ]
 
+
 class RewardsIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
         FieldPanel('description', classname="full"),
+        ImageChooserPanel('display_image')
 
     ]
 
@@ -374,7 +385,6 @@ class QuestionPageText(AbstractForm):
                                       related_name='+')
     points_for_this_activity = models.IntegerField(blank=True, default=0)
 
-
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel('intro', classname="full"),
         ImageChooserPanel('display_image'),
@@ -403,7 +413,7 @@ class QuestionPageText(AbstractForm):
         self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user)
-        user1=User.objects.get(username=form.user.username)
+        user1 = User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         user1.profile.save()
@@ -433,7 +443,6 @@ class PostassessmentPage(AbstractForm):
         FieldPanel('end_date'),
     ]
 
-
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
             return render(
@@ -451,13 +460,12 @@ class PostassessmentPage(AbstractForm):
         self.get_submission_class().objects.create(
             form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
             page=self, user=form.user)
-        user1=User.objects.get(username=form.user.username)
+        user1 = User.objects.get(username=form.user.username)
         print(user1.profile.points)
         user1.profile.points += self.points_for_this_activity
         user1.profile.post_assessment = "yes"
         user1.profile.save()
         log_activity(user1, self.points_for_this_activity, user1.profile.program, form.data['pageurl'])
-
 
 
 class DisclaimerPage(Page):
@@ -475,6 +483,7 @@ class DisclaimerPage(Page):
         FieldPanel('disclaimer5', classname="full"),
     ]
 
+
 class Disclaimerlink(Page):
     disclaimer = RichTextField(blank=True)
     disclaimer2 = models.CharField(max_length=10000, blank=True, )
@@ -490,22 +499,23 @@ class Disclaimerlink(Page):
         FieldPanel('disclaimer5', classname="full"),
     ]
 
+
 class LandingIndexPage(Page):
     intro = RichTextField(blank=True)
     description = RichTextField(blank=True)
     additional = RichTextField(blank=True)
     card_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
-                                      related_name='+')
-    physical= RichTextField(blank=True)
+                                   related_name='+')
+    physical = RichTextField(blank=True)
     card_imageb = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
-                                   related_name='+')
-    nutritional= RichTextField(blank=True)
+                                    related_name='+')
+    nutritional = RichTextField(blank=True)
     card_imagec = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
-                                   related_name='+')
-    mental= RichTextField(blank=True)
+                                    related_name='+')
+    mental = RichTextField(blank=True)
     card_imaged = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
-                                   related_name='+')
-    relational= RichTextField(blank=True)
+                                    related_name='+')
+    relational = RichTextField(blank=True)
     physicaldesc = RichTextField(blank=True)
     nutritionaldesc = RichTextField(blank=True)
     mentaldesc = RichTextField(blank=True)
@@ -528,8 +538,8 @@ class LandingIndexPage(Page):
         FieldPanel('mentaldesc', classname="full"),
         FieldPanel('relationaldesc', classname="full"),
 
-
     ]
+
 
 class EmailTemplates(Page):
     subject_for_inactivity = models.CharField(max_length=10000, blank=True)
@@ -547,7 +557,8 @@ class EmailTemplates(Page):
         FieldPanel('subject_for_rewards_notification', classname="full"),
         FieldPanel('rewards_message', classname="full"),
 
-        ]
+    ]
+
 
 class KindnessCardPage(Page):
     KindnessCard = models.CharField(max_length=10000, blank=True, )
@@ -563,9 +574,9 @@ class KindnessCardPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['user_data'] = User.objects.filter(is_superuser=False).filter(is_active=True).exclude(username=request.user.username)
+        context['user_data'] = User.objects.filter(is_superuser=False).filter(is_active=True).exclude(
+            username=request.user.username)
         return context
-
 
 
 class UserActivity(models.Model):
@@ -577,7 +588,6 @@ class UserActivity(models.Model):
     points_earned = models.IntegerField(null=True)
     creation_date = models.DateField()
     updated_date = models.DateField()
-
 
 
 def log_activity(user, points, program, page_url):
@@ -605,11 +615,10 @@ def log_activity(user, points, program, page_url):
     activity_log.save()
 
 
-
 class SidebarContentPage(Page):
     subject_for_announcement1 = models.CharField(max_length=10000, blank=True)
     message_announcement1 = RichTextField(blank=True)
-    subject_for_announcement2 = models.CharField(max_length=10000,blank=True)
+    subject_for_announcement2 = models.CharField(max_length=10000, blank=True)
     message_announcement2 = RichTextField(blank=True)
     subject_for_announcement3 = models.CharField(max_length=10000, blank=True)
     message_announcement3 = RichTextField(blank=True)
@@ -637,11 +646,9 @@ class AnnouncementAlertPage(Page):
     ]
 
 
-
 class SidebarImagePage(Page):
     subject_for_advertisement = models.CharField(max_length=10000, blank=True)
     advertisement_image = RichTextField(blank=True)
-
 
     content_panels = Page.content_panels + [
         FieldPanel('subject_for_advertisement', classname="full"),
@@ -661,9 +668,9 @@ class StatementsPage(Page):
         FieldPanel('values'),
     ]
 
+
 class welcomepage(Page):
     text1 = RichTextField(blank=True)
-
 
     content_panels = Page.content_panels + [
         FieldPanel('text1', classname="full"),
@@ -672,16 +679,16 @@ class welcomepage(Page):
 
 
 class addstudentoftheweek(Page):
-    intro=RichTextField(blank=True)
+    intro = RichTextField(blank=True)
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')
-    student_name = models.CharField(max_length=200, blank=True,)
-    my_favorite_color = models.CharField(max_length=200, blank=True,)
-    my_favorite_healthy_snack = models.CharField(max_length=200, blank=True,)
-    my_favorite_sport =models.CharField(max_length=200, blank=True,)
-    my_favorite_athlete = models.CharField(max_length=200, blank=True,)
-    my_friends_would_describe_me_as = models.CharField(max_length=300, blank=True,)
-    am_good_at = models.CharField(max_length=300, blank=True,)
+    student_name = models.CharField(max_length=200, blank=True, )
+    my_favorite_color = models.CharField(max_length=200, blank=True, )
+    my_favorite_healthy_snack = models.CharField(max_length=200, blank=True, )
+    my_favorite_sport = models.CharField(max_length=200, blank=True, )
+    my_favorite_athlete = models.CharField(max_length=200, blank=True, )
+    my_friends_would_describe_me_as = models.CharField(max_length=300, blank=True, )
+    am_good_at = models.CharField(max_length=300, blank=True, )
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
