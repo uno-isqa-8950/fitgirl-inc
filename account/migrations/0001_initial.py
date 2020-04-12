@@ -33,13 +33,7 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(blank=True, max_length=500, null=True)),
             ],
         ),
-        migrations.CreateModel(
-            name='DefaultPassword',
-            fields=[
-                ('id', models.IntegerField(primary_key=True, serialize=False)),
-                ('default_password', models.CharField(max_length=30)),
-            ],
-        ),
+
         migrations.CreateModel(
             name='Inactiveuser',
             fields=[
@@ -124,13 +118,7 @@ class Migration(migrations.Migration):
                 ('schools_name', models.CharField(blank=True, max_length=25, null=True)),
             ],
         ),
-        migrations.CreateModel(
-            name='WelcomeEmail',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('welcome_email', models.CharField(max_length=1000)),
-            ],
-        ),
+        
         migrations.CreateModel(
             name='RewardItem',
             fields=[
