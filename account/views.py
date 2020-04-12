@@ -45,7 +45,9 @@ from account.todays_date import todays_date
 from account.tomorrows_date import tomorrows_date
 from week.models import welcomepage
 import pandas as pd
-
+from django.http import HttpResponse
+from .resources import ProfileResource
+from tablib import Dataset
 
 # json data for analytics dashboard
 @login_required
@@ -1351,6 +1353,21 @@ def add_school(request):
                   'account/add_school.html',
                   {'section': 'add_school', 'form': form, 'addschool': addschool})
 
+
+def profileexport(request):
+    person_resource = ProfileResource()
+    dataset = profile_resource.export()
+    response = HttpResponse(dataset.csv, content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="profile.csv"'
+    return response
+
+
+def kindnessmessageexport(request):
+    kindnessmessage_resource = KindnessMessageResource()
+    dataset = kindnessmessage_resource.export()
+    response = HttpResponse(dataset.csv, content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="kindnessmessage.csv"'
+    return response
 
 
 # # admin - default password
