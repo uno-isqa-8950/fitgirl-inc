@@ -8,6 +8,7 @@ from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote, Inac
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
 
 
 # Register your models here.
@@ -27,7 +28,9 @@ class ProgramList(admin.ModelAdmin):
 
 admin.site.register(Program, ProgramList)
 
-
+@admin.register(Profile)
+class ProfileAdmin(ImportExportModelAdmin):
+    pass
 
 # class ProfileAdmin(admin.ModelAdmin):
 #     list_display = ['user','first_name','last_name','bio','date_of_birth', 'photo']
@@ -39,7 +42,7 @@ class ProfileInline(admin.StackedInline):
     fk_name = 'user'
 
 
-class CustomUserAdmin(UserAdmin):
+class CustomUserAdmin(ImportExportModelAdmin):
     inlines = (ProfileInline,)
 
     def get_inline_instances(self, request, obj=None):
@@ -124,7 +127,7 @@ class RewardItems(admin.ModelAdmin):
 admin.site.register(RewardItem, RewardItems)
 
 
-class KindnessMessageAdmin(admin.ModelAdmin):
+class KindnessMessageAdmin(ImportExportModelAdmin):
 
     list_display = ('message_id','from_user', 'to_user', 'body', 'created_date','message_program')#sdizdarevic, added message_program to filter out kindness messages that are from older programs 3/11/2020
 
