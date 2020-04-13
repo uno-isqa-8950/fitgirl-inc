@@ -144,7 +144,7 @@ admin.site.register(Schools, SchoolsAdmin)
 
 
 class KindnessCardTemplateAdmin(admin.ModelAdmin):
-    image_template = ['template_image']
+    image_template = ['id', 'template_image']
 
     def template_image(self, obj):
         return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
