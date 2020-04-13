@@ -7,7 +7,7 @@ from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, program
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
-    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile
+    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile, KindnessCardTemplate
 from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
@@ -156,10 +156,16 @@ def login_success(request):
 @login_required
 def createprogram(request):
     registeredPrograms = Program.objects.all()
+    programTemplates = KindnessCardTemplate.objects.all()
     if request.method == 'POST':
         form = ProgramForm(request.POST)
         if form.is_valid():
-            program = form.save(commit=False)
+            program_name = form.cleaned_data['program_name']
+            program_start_date = form.cleaned_data['program_start_date']
+            program_end_date = form.cleaned_data['program_end_date']
+            selected_template = get_object_or_404(KindnessCardTemplate, pk=request.POST.get('templates'))
+            program = Program.objects.create(program_name=program_name, program_start_date=program_start_date,
+                                             program_end_date=program_end_date, KCardTemplate=selected_template)
             program.save()
             messages.success(request, 'Program added successfully')
             return redirect('createprogram')
@@ -169,7 +175,8 @@ def createprogram(request):
         form = ProgramForm()
     return render(request,
                   'account/createprogram.html',
-                  {'section': 'createprogram', 'form': form, 'registeredPrograms': registeredPrograms})
+                  {'section': 'createprogram', 'form': form, 'registeredPrograms': registeredPrograms,
+                   'templates': programTemplates})
 
 
 # admin - signup users with csv upload
@@ -1094,6 +1101,12 @@ def inbox(request):
         #print(current_program) leave for testing
         all_messages = KindnessMessage.objects.filter(to_user=request.user.username).filter(message_program__exact=current_program).order_by('-message_id') #sdizdarevic 3/15/2020 added filter to also query the program message was sent
         unread_messages = all_messages.filter(read_message=False)
+        program = Program.objects.latest('KCardTemplate_id')
+        programTemplates = program.KCardTemplate
+        tempImage = str(programTemplates.image)
+        print (tempImage)
+        programTemplatesAndPath = '../../../media/' + tempImage
+        print (programTemplatesAndPath)
         dict_all = {}
         dict_unread = {}
         for message in unread_messages:
@@ -1118,7 +1131,7 @@ def inbox(request):
             except KeyError:
                 dict_all[name] = {'messages': [{'body': message.body, 'date': date}], 'photo': photo}
         return render(request, 'kindnessCards/inbox.html',
-                      {'messages': messages, 'all': dict_all, 'unread': dict_unread})
+                      {'messages': messages, 'all': dict_all, 'unread': dict_unread, 'templates': programTemplatesAndPath})
 
 
 # user - mark read messages
