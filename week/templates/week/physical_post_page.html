@@ -38,14 +38,15 @@
                               <h3>Flexibility</h3>
                               {{ page.flexibility|richtext }}
                           </div>
-                          
+{#                          <input type="submit" id="start" value="Click here to start timer" name="submit" onClick="start()"/>#}
+{#                          <input type="submit" id="pause" value="Click here to paue timer" name="submit" onClick="pause()"/>#}
                         <form class="physical-form" action="{% pageurl page %}" method="POST">
                                 {% csrf_token %}
                                 {{ form.as_p }}
                                 <input type="hidden" name="pageurl" value="{% pageurl page %}">
                                 <br>
                                 <br>
-                                <button class="btn-fitgirl btn-lg" id="done">Completed!</button>
+{#                                <button class="btn-fitgirl btn-lg" id="done">Completed!</button>#}
                             </form>
                         </div>
                     </div>
@@ -69,7 +70,7 @@
         <div>To fill in the form, you should log in.</div>
     {% endif %}
 <!--added banner space, return button modified:hghanta-->
-    
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <hr style="color: black; background: #333;">
     <!--Advertisement-->
@@ -78,106 +79,218 @@
         {% image page.get_parent.specific.ad_image width-800 as ad_photo %}
             <img src="{{ ad_photo.url }}" class="img-fluid"/>
     </a>
-    
+
     <!--End Advertisement-->
+{#    <div class="controls">#}
+{#         <button onclick="start()">Start</button>#}
+{#         <button onclick="pause()">Pause</button>#}
+</div>
+{#    <div class="timer">{{ page.timer_for_this_activity|safe }}</div>#}
+    <section style="background-color: darkgray;">
+    <div id="countdown" style="text-align: center; font-size: 50px; border:3px solid black; background-color: pink;  height: 150px; padding-top: 30px; border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%; width:150px; vertical-align: middle; left: 42%; position: relative; box-shadow: 5px 5px black">00:00</div>
+<div id="pause" style="color:ghostwhite; margin: 10px; text-align: center; font-size: 25px; font-weight: bold; display: inline-block; border:2px solid black; padding-top: 5px; padding-left: 12px; padding-right: 12px; padding-bottom: 5px; background-color: #e83e8c; vertical-align: middle; left: 38%; position: relative; box-shadow: 5px 5px black">Start</div>
+<div id="resume" style="color:ghostwhite; margin: 10px; text-align: center; font-size: 25px; font-weight: bold; display: inline-block; border:2px solid black; padding-top: 5px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; background-color: #e83e8c; vertical-align: middle; left: 40%; position: relative; box-shadow: 5px 5px black">Pause</div>
+</section>
+
+{#    <input type="submit" id="start" value="Click here to start timer" name="submit" onClick="start()"/>#}
+{#    <input type="submit" id="pause" value="Click here to paue timer" name="submit" onClick="pause()"/>#}
     <script>
-        $('#done').hide();
+    var CountDown = (function ($) {
+        // Length ms
+    var TimeOut = 10000;
+    // Interval ms
+    var TimeGap = 1000;
 
-        jQuery(function($){
-            $('#startClock').on('click', doCount);
-        });
+    var CurrentTime = ( new Date() ).getTime();
+    var EndTime = ( new Date() ).getTime() + TimeOut;
 
-        function doCount(){
-            var timer2 = "{{ page.timer_for_this_activity|safe }}";
-            var interval = setInterval(function() {
-                var timer = timer2.split(':');
-                //by parsing integer, I avoid all extra string processing
-                var minutes = parseInt(timer[0], 10);
-                var seconds = parseInt(timer[1], 10);
-                --seconds;
-                minutes = (seconds < 0) ? --minutes : minutes;
-                seconds = (seconds < 0) ? 59 : seconds;
-                seconds = (seconds < 10) ? '0' + seconds : seconds;
-                alert(minutes);
-                alert(seconds);
-                //minutes = (minutes < 10) ?  minutes : minutes;
-                $('#countdown').html(minutes + ':' + seconds);
-                if (minutes < 0)
-                    clearInterval(interval);
-                //check if both minutes and seconds are 0
-                if ((seconds <= 0) && (minutes <= 0)){
-                    clearInterval(interval);
-                    $('#done').show();
-                    $('#countdown').hide();
-                }
+    var GuiTimer = $('#countdown');
+    var GuiPause = $('#pause');
+    var GuiResume = $('#resume');
 
-                timer2 = minutes + ':' + seconds;
-            }, 1000);
+    var Running = true;
+
+    var UpdateTimer = function() {
+        // Run till timeout
+        if( CurrentTime + TimeGap < EndTime ) {
+            setTimeout( UpdateTimer, TimeGap );
         }
+        // Countdown if running
+        if( Running ) {
+            CurrentTime += TimeGap;
+            if( CurrentTime >= EndTime ) {
+                GuiTimer.css('color','red');
+                $('#done').show();
+                $('#countdown').hide();
+                $( ".physical-form" ).submit();
+            }
+        }
+        // Update Gui
+        var Time = new Date();
+        Time.setTime( EndTime - CurrentTime );
+        var Minutes = Time.getMinutes();
+        var Seconds = Time.getSeconds();
 
-        $(document).ready(function() {
-        $('.nav-item a[href="#strength"]').tab('show')
-            
-
-    });
-    
-
-    </script>
-
-</div>
-
-</div>
-<script>
-$(".physical-post-page").on('click', '.start-timer', function() {
-    $(".demo").css("visibility", "visible");
-    var options = {
-        // data-since
-        since: null,
-        // data-due
-        due: "2017",
-        // data-now
-        now: null,
-        // data-layout
-        layout: "group tight label-uppercase label-small",
-        // data-face
-        face: "text",
-        // data-visual
-        visual: "ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0",
-        // data-format
-        format: "m,s",
-        // data-singular
-        singular: false,
-        // data-reflect
-        reflect: false,
-        // data-scale-max
-        scaleMax: "fill",
-        // data-scale-hide
-        scaleHide: null,
-        // data-separate-chars
-        separateChars: true,
-        // data-cascade
-        cascade: true,
-        // data-separator
-        separator: "",
-        // data-labels-*
-        labelsYears: null,
-        labelsDays: null,
-        labelsHours: null,
-        labelsMinutes: null,
-        labelsSeconds: null,
-        // data-padding
-        padding: true,
-        // data-padding-*
-        paddingDays: null,
-        paddingHours: null,
-        paddingMinutes: null,
-        paddingSeconds: null,
-        // data-event-complete
-        eventComplete: null,
-        // data-event-tick
-        eventTick: null,
-
+        GuiTimer.html(
+            (Minutes < 10 ? '0' : '') + Minutes
+            + ':'
+            + (Seconds < 10 ? '0' : '') + Seconds );
     };
+
+    var Resume = function() {
+        Running = false;
+        GuiPause.show();
+        {#GuiResume.hide();#}
+    };
+
+    var Pause = function() {
+        Running = true;
+        {#GuiPause.hide();#}
+        GuiResume.show();
+    };
+
+
+    var Start = function( Timeout ) {
+        TimeOut = Timeout;
+        CurrentTime = ( new Date() ).getTime();
+        EndTime = ( new Date() ).getTime() + TimeOut;
+        Running = false;
+        UpdateTimer();
+    };
+
+    return {
+        Pause: Pause,
+        Resume: Resume,
+        Start: Start
+    };
+})(jQuery);
+
+jQuery('#pause').on('click',CountDown.Pause);
+jQuery('#resume').on('click',CountDown.Resume);
+
+// ms
+CountDown.Start(1800000);
+{#        $('#done').hide();#}
+{##}
+{#        jQuery(function($){#}
+{#            $('#startClock').on('click', doCount);#}
+{#        });#}
+{#        #}
+{#        var timer2 = "{{ page.timer_for_this_activity|safe }}";#}
+{#        var timer = timer2.split(':');#}
+{#        var minutes = parseInt(timer[0], 10);#}
+{#        var seconds = parseInt(timer[1], 10);#}
+{#        --seconds;#}
+{#        minutes = (seconds < 0) ? --minutes : minutes;#}
+{#        seconds = (seconds < 0) ? 59 : seconds;#}
+{#        seconds = (seconds < 10) ? '0' + seconds : seconds;#}
+{##}
+{##}
+{##}
+{#        function start() {#}
+{#            if (!timer){#}
+{#                timer = setInterval(warmUp, 10);#}
+{#            }#}
+{#        }#}
+{##}
+{#        function doCount(){#}
+{#            var timer2 = "{{ page.timer_for_this_activity|safe }}";#}
+{#            var interval = setInterval(function() {#}
+{#                var timer = timer2.split(':');#}
+{#                //by parsing integer, I avoid all extra string processing#}
+{#                var minutes = parseInt(timer[0], 10);#}
+{#                var seconds = parseInt(timer[1], 10);#}
+{#                --seconds;#}
+{#                minutes = (seconds < 0) ? --minutes : minutes;#}
+{#                seconds = (seconds < 0) ? 59 : seconds;#}
+{#                seconds = (seconds < 10) ? '0' + seconds : seconds;#}
+{#                alert(minutes);#}
+{#                alert(seconds);#}
+{#                //minutes = (minutes < 10) ?  minutes : minutes;#}
+{#                $('#countdown').html(minutes + ':' + seconds);#}
+{#                if (minutes < 0)#}
+{#                    clearInterval(interval);#}
+{#                //check if both minutes and seconds are 0#}
+{#                if ((seconds <= 0) && (minutes <= 0)){#}
+{#                    clearInterval(interval);#}
+{#                    $('#done').show();#}
+{#                    $('#countdown').hide();#}
+{#                }#}
+{##}
+{#                timer2 = minutes + ':' + seconds;#}
+{#            }, 1000);#}
+{#        }#}
+{##}
+{##}
+{##}
+{#        function pause() {#}
+{#            clearInterval(timer);#}
+{#            timer = false;#}
+{#        }//function needs to pause warmup#}
+{##}
+{#        $(document).ready(function() {#}
+{#        $('.nav-item a[href="#strength"]').tab('show')#}
+{##}
+{##}
+{#    });#}
+{##}
+{##}
+{#    </script>#}
+{##}
+{#</div>#}
+{##}
+{#</div>#}
+{#<script>#}
+{#$(".physical-post-page").on('click', '.start-timer', function() {#}
+{#    $(".demo").css("visibility", "visible");#}
+{#    var options = {#}
+{#        // data-since#}
+{#        since: null,#}
+{#        // data-due#}
+{#        due: "2017",#}
+{#        // data-now#}
+{#        now: null,#}
+{#        // data-layout#}
+{#        layout: "group tight label-uppercase label-small",#}
+{#        // data-face#}
+{#        face: "text",#}
+{#        // data-visual#}
+{#        visual: "ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0",#}
+{#        // data-format#}
+{#        format: "m,s",#}
+{#        // data-singular#}
+{#        singular: false,#}
+{#        // data-reflect#}
+{#        reflect: false,#}
+{#        // data-scale-max#}
+{#        scaleMax: "fill",#}
+{#        // data-scale-hide#}
+{#        scaleHide: null,#}
+{#        // data-separate-chars#}
+{#        separateChars: true,#}
+{#        // data-cascade#}
+{#        cascade: true,#}
+{#        // data-separator#}
+{#        separator: "",#}
+{#        // data-labels-*#}
+{#        labelsYears: null,#}
+{#        labelsDays: null,#}
+{#        labelsHours: null,#}
+{#        labelsMinutes: null,#}
+{#        labelsSeconds: null,#}
+{#        // data-padding#}
+{#        padding: true,#}
+{#        // data-padding-*#}
+{#        paddingDays: null,#}
+{#        paddingHours: null,#}
+{#        paddingMinutes: null,#}
+{#        paddingSeconds: null,#}
+{#        // data-event-complete#}
+{#        eventComplete: null,#}
+{#        // data-event-tick#}
+{#        eventTick: null,#}
+{##}
+{#    };#}
     // get the element
     var element = document.getElementById('my-soon-watch-red');
     // turn it into a Soon counter
@@ -189,70 +302,72 @@ $(".physical-post-page").on('click', '.start-timer', function() {
         'face': 'slot',
         'padding': 'false',
         'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0',
-        'eventComplete': 'warmUp'
+        'eventComplete': 'CountDown'
     });
-});
 
-function warmUp() {
-    // Calculate the time in terms of seconds and minutes
-    var timer2 = "{{ page.timer_for_this_activity|safe }}";
-    var timer = timer2.split(':');
-    //by parsing integer, I avoid all extra string processing
-    var minutes = parseInt(timer[0], 10);
-    var seconds = parseInt(timer[1], 10);
-    --seconds;
-    minutes = (seconds < 0) ? --minutes : minutes;
-    seconds = (seconds < 0) ? 59 : seconds;
-    seconds = (seconds < 10) ? '0' + seconds : seconds;
-    var minutes_in_seconds = 60 * minutes;
-    var total_time_in_seconds = minutes_in_seconds + seconds;
-    var total_time_in_milliseconds = total_time_in_seconds*1000;
-    var time = "in " + total_time_in_seconds + " seconds";
-    // ##############Exercise variables###########################
-        // var _exercise ="in " + 90 + " seconds";
-        // var _exercise_set_timeout = 90*1000;
-        // var _rest = "in " + 30 + " seconds";
-        // var _rest_set_timeout = 30*1000;
-        // var _one_interval = 3 * (_exercise_set_timeout + _rest_set_timeout);
-        // console.log(_one_interval)
-        // var _intervals =5;
-        // var _total_exercise_time = _intervals * _one_interval;
-        // console.log(_total_exercise_time);
-        // var _warm_up = "in " + 180 + " seconds";
-        // var _cool_down = "in " + 180 + " seconds";
-        // var _cool_down_timeout = 180*1000;
-    // ##############Exercise variables########################### 
-    $("#my-soon-watch-red").soon().destroy();
-    var element = document.getElementById('my-soon-watch-red');
-    var someObject = {
-        'due': 'in 6 seconds',
-        'eventComplete': 'training',
-        'layout': 'group tight label-uppercase label-small',
-        'format': 'm,s',
-        'face': 'slot',
-        'padding': 'false',
-        'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'
-    };
-     someObject.due = time;
-    $("#my-soon-watch-red").soon().create(someObject);
-    console.log("warm-up");
-    //     $( "span.interval" ).text( " " );
-    //     $( "span.interval" ).text( "Warm-up" );
-    setTimeout(function() {
-            $( ".physical-form" ).submit();
-        },total_time_in_milliseconds);
-}
+{##}
+{##}
+{##}
+{#function warmUp() {#}
+{#    // Calculate the time in terms of seconds and minutes#}
+{#    var timer2 = "{{ page.timer_for_this_activity|safe }}";#}
+{#    var timer = timer2.split(':');#}
+{#    //by parsing integer, I avoid all extra string processing#}
+{#    var minutes = parseInt(timer[0], 10);#}
+{#    var seconds = parseInt(timer[1], 10);#}
+{#    --seconds;#}
+{#    minutes = (seconds < 0) ? --minutes : minutes;#}
+{#    seconds = (seconds < 0) ? 59 : seconds;#}
+{#    seconds = (seconds < 10) ? '0' + seconds : seconds;#}
+{#    var minutes_in_seconds = 60 * minutes;#}
+{#    var total_time_in_seconds = minutes_in_seconds + seconds;#}
+{#    var total_time_in_milliseconds = total_time_in_seconds*1000;#}
+{#    var time = "in " + total_time_in_seconds + " seconds";#}
+{#    // ##############Exercise variables############################}
+{#        // var _exercise ="in " + 90 + " seconds";#}
+{#        // var _exercise_set_timeout = 90*1000;#}
+{#        // var _rest = "in " + 30 + " seconds";#}
+{#        // var _rest_set_timeout = 30*1000;#}
+{#        // var _one_interval = 3 * (_exercise_set_timeout + _rest_set_timeout);#}
+{#        // console.log(_one_interval)#}
+{#        // var _intervals =5;#}
+{#        // var _total_exercise_time = _intervals * _one_interval;#}
+{#        // console.log(_total_exercise_time);#}
+{#        // var _warm_up = "in " + 180 + " seconds";#}
+{#        // var _cool_down = "in " + 180 + " seconds";#}
+{#        // var _cool_down_timeout = 180*1000;#}
+{#    // ##############Exercise variables########################### #}
+{#    $("#my-soon-watch-red").soon().destroy();#}
+{#    var element = document.getElementById('my-soon-watch-red');#}
+{#    var someObject = {#}
+{#        'due': 'in 6 seconds',#}
+{#        'eventComplete': 'training',#}
+{#        'layout': 'group tight label-uppercase label-small',#}
+{#        'format': 'm,s',#}
+{#        'face': 'slot',#}
+{#        'padding': 'false',#}
+{#        'visual': 'ring cap-round invert progressgradient-fb1a1b_fc1eda ring-width-custom align-center gap-0'#}
+{#    };#}
+{#     someObject.due = time;#}
+{#    $("#my-soon-watch-red").soon().create(someObject);#}
+{#    console.log("warm-up");#}
+{#    //     $( "span.interval" ).text( " " );#}
+{#    //     $( "span.interval" ).text( "Warm-up" );#}
+{#    setTimeout(function() {#}
+{#            $( ".physical-form" ).submit();#}
+{#        },total_time_in_milliseconds);#}
+
 // function coolDown(){// enter the number of intervals here
 // var training = function() {
 //     //Strength Timer
 //     var strength = function() {
 //         var defer = $.Deferred();
 //         // Setting time from wagtail
-        
+
 //     // ##############Exercise variables###########################
 //         var _exercise ="in " + 90 + " seconds";
 //         var _exercise_set_timeout = 90*1000;
-//     // ##############Exercise variables########################### 
+//     // ##############Exercise variables###########################
 
 //         $("#my-soon-watch-red").soon().destroy();
 //         var element = document.getElementById('my-soon-watch-red');
@@ -281,11 +396,11 @@ function warmUp() {
 
 //     var agility = function() {
 //         var defer = $.Deferred();
-        
+
 //         // ##############Exercise variables###########################
 //             var _exercise ="in " + 90 + " seconds";
 //             var _exercise_set_timeout = 90*1000;
-//         // ##############Exercise variables########################### 
+//         // ##############Exercise variables###########################
 //         $("#my-soon-watch-red").soon().destroy();
 //         var element = document.getElementById('my-soon-watch-red');
 //         var someObject = {
@@ -309,11 +424,11 @@ function warmUp() {
 //     };
 //     var flexibility = function() {
 //         var defer = $.Deferred();
-        
+
 //         // ##############Exercise variables###########################
 //             var _exercise ="in " + 90 + " seconds";
 //             var _exercise_set_timeout = 90*1000;
-//         // ##############Exercise variables########################### 
+//         // ##############Exercise variables###########################
 //         $("#my-soon-watch-red").soon().destroy();
 //         var element = document.getElementById('my-soon-watch-red');
 //         var someObject = {
@@ -338,7 +453,7 @@ function warmUp() {
 //     };
 
 //     var rest = function() {
-//         var defer = $.Deferred(); 
+//         var defer = $.Deferred();
 //         // ##############Exercise variables###########################
 //         var _rest = "in " + 30 + " seconds";
 //         var _rest_set_timeout = 30*1000;
@@ -377,10 +492,10 @@ function warmUp() {
 //         var _one_interval = 3 * (_exercise_set_timeout + _rest_set_timeout);
 //         var _intervals =5;
 //         var _total_exercise_time = _intervals * _one_interval;
-//     // ##############Exercise variables########################### 
+//     // ##############Exercise variables###########################
 //     innertraining();
 //     var refreshIntervalId = setInterval(innertraining, _one_interval);
-    
+
 //     setTimeout(function() {
 //         clearInterval(refreshIntervalId)
 //         var _cool_down = "in " + 180 + " seconds";
@@ -405,10 +520,10 @@ function warmUp() {
 //             $( ".physical-form" ).submit();
 //         },_cool_down_timeout);
 //     }, _total_exercise_time);
-    
+
 // }
     </script>
-  <section class="demo">
-    <div id="my-soon-watch-red"></div>
-      </section>
+{#  <section class="demo">#}
+{#    <div id="my-soon-watch-red"></div>#}
+{#      </section>#}
 {% endblock %}
