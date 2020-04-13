@@ -28,7 +28,7 @@ BACKGROUND_CHOICES = [
 
 
 class KindnessCardTemplate(models.Model):
-    id = models.AutoField(null=False, primary_key=True, blank = False)
+    
     image_name = models.CharField(max_length=25, null=True, blank=True)
     image = models.ImageField(null=True, blank=True, upload_to="images")
 
