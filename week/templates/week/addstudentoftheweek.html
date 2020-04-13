@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load staticfiles %}
+{% load wagtailimages_tags %}
+
+
+{% block title %}Add Student of the Week{% endblock %}
+{% block content %}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class ="container" style="background: white">
+<h1><b><img class="heartBeat" alt="star " src="{% static 'images/bell-icon.png' %}" height="30" width="30">!!!Congratulations!!!<img class="heartBeat" alt="star " src="{% static 'images/bell-icon.png' %}" height="30" width="30">{{ page.intro|richtext }}</b></h1>
+
+
+
+<div class="container emp-profile" style="background: white">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="https://cdn.clipart.email/cc90680fd991eebd6eedbce9b8007803_girl-trophy-stock-illustrations-1342-girl-trophy-stock-_517-900.jpeg" alt=""/>
+
+                            <div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h3>
+                                        <label>Hi I am,</label>  {{ page.student_name }}!!!
+                                    </h3>
+                        </div>
+
+<br>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>My Favorite Color is :</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><b>{{page.my_favorite_color}}</p></b>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>My Favorite Healthy Snack is:</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><b>{{page.my_favorite_healthy_snack}}</p></b>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>My Favorite Sport is:</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><b>{{page.my_favorite_sport}}</p></b>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>My Favorite Athlete is:</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><b>{{ page.my_favorite_athlete }}</p></b>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6" >
+                                                <label>My Friends describe me as:</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><b>{{page.my_friends_would_describe_me_as}}</p></b>
+                                            </div>
+                                        </div>
+                                <div class="row">
+                                            <div class="col-md-6">
+                                                <label>I am really good at:</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><b>{{page.am_good_at}}</p></b>
+                                            </div>
+                                        </div>
+                            </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+            </form>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}
+
+
