@@ -27,6 +27,8 @@ urlpatterns = [
     path('analytics/', views.analytics, name='analytics'),
     path('registerusers/', views.registerusers, name='registerusers'),
     path('cms_frame/', views.cms_frame, name='cms_frame'),
+    path('cms_frame/gallery', views.cms_frame_gallery, name='cms_frame_gallery'),
+    path('cms_frame/category', views.cms_frame_gallery_category, name='cms_frame_gallery_category'),
     path('redeem-rewards/<int:pk>/', views.rewards_redeem, name='redeem_rewards'),
     path('export_data/', views.export_data, name='export_data'),
     path('django_frame/', views.django_frame, name='django_frame'),
@@ -49,6 +51,9 @@ urlpatterns = [
     path('reward_category/', views.reward_category, name='reward_category'),
     path('reward_category_edit/<int:pk>', views.reward_category_edit, name='reward_category_edit'),
     path('activity_data/', views.json_data, name='activity_data'),
-    path('add_school/', views.add_school, name='add_school')
+    path('add_school/', views.add_school, name='add_school'),
+
+#     path('default_password/', views.Default_Password, name='default_password'),
+#     path('welcome_email/', views.Welcome_Email, name='welcome_email')
 
 ]

@@ -24,7 +24,7 @@
   .btn-return {
     padding: .84rem;
     }
-    
+
 }
 @media (min-width: 1200px){
   .container,.fitgirlinc-footer-socialLinks{
@@ -238,7 +238,7 @@ input[type=submit], a.button{
     position: absolute;
     pointer-events: none;
   }
-  
+
   .arrow_box:after {
     border-color: rgba(117, 117, 117, 0);
     border-bottom-color: #4b515d;
@@ -363,7 +363,7 @@ background-color: #e83e8c;
 /* margin-top: 20px; */
 margin-bottom: 0px;
 }
-/* .physical-post-page .horizontal-banner{        
+/* .physical-post-page .horizontal-banner{
 margin-top: 20px;
 padding-bottom:20px;
 } */
@@ -442,8 +442,9 @@ background: url(../images/Cute-Hearts-are-Hanging-Background.jpg);
 background-repeat:no-repeat;
 background-size: contain;
 opacity: 0.95;
-font-family: 'Amatic SC', cursive !important;
-font-size: 40px;
+/* font-family: 'Amatic SC', cursive !important; */
+    font-family: Arial, Helvetica, sans-serif;
+font-size: 16px;
     background-color: #f4cdde;
     background-size: 100% auto;
 }
@@ -467,8 +468,8 @@ padding: 15px;
 
 /*fixing the footer spacing issues-starts here-karthik*/
 .fitgirlinc-footer-socialLinks{
-text-align:center; 
-margin:10px; 
+text-align:center;
+margin:10px;
 /*height:100px;*/
 font-size: 15px
 }
@@ -606,7 +607,7 @@ width: 100%;
       text-decoration: underline;
   }
 .footer-from-disclaimer .btn{
-    margin-left: 0;
+    margin-right: 3px;
 }
 
  .physical-body{
@@ -1172,9 +1173,10 @@ border-radius: 15px 15px 0 0;
   margin: 0 auto;
 }
 #kindnessModal textarea{
-      font-size: 26px;
+      font-size: 20px;
     width: 100%;
-        font-weight: bold;
+       /* font-weight: bold; */
+    font-weight: normal;
     min-height: 100px;
         background: transparent;
         padding-top: 100px;
@@ -1471,49 +1473,6 @@ canvas{
   border-left: none;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   @media (max-width: 767px) {
@@ -2203,7 +2162,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 .tabordion {
   color: #333;
   display: block;
-  font-family: arial, sans-serif;
+  font-family: sans-serif;
   margin: auto;
   position: relative;
   width: 80%;
@@ -2224,7 +2183,8 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
   border:1px solid #fff;
   cursor: pointer;
   display: block;
-  font-size: 1.2em;
+  font-family: sans-serif;
+  font-size: 1em;
   font-weight: bold;
   padding: 15px 20px;
   position: relative;
@@ -2265,7 +2225,6 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 
 @media (max-width: 533px) {
 
-
   .tabordion {
     width: 100%;
   }
@@ -2294,9 +2253,7 @@ and (orientation : portrait) { /* STYLES GO HERE */ }
 
 }
 
-
 @media (max-width: 768px) {
-
 
   .tabordion {
     width: 96%;
@@ -2333,8 +2290,8 @@ img {
 }
 
 .kindnessCardContainer h2 {
-  font-family: 'Amatic SC', cursive !important;
-  font-size: 45px;
+  font-family: sans-serif;
+  font-size: 40px;
   color: yellow;
   text-align: center;
   font-weight: bold;
@@ -2370,7 +2327,7 @@ margin-left:42%}
   position: relative;
   border: 5px solid #B60003;
   text-align: center;
-  font-family: 'Amatic SC', cursive !important;
+  font-family: sans-serif;
   font-weight: bold;
   font-size: 33px;
   background: url(../images/KCard.jpg) repeat 100%;
@@ -2418,7 +2375,7 @@ background-size: cover;
   position: relative;
     overflow-y: auto;
     background:transparent;
-        background: white;
+      /*  background: white; */
         z-index:-1
 }
 .card--inner::after {
@@ -2468,7 +2425,6 @@ background-size: cover;
   text-align: center;
   display: block;
   transform: rotateX(30deg);
-  margin-top: 20px;
   box-shadow: 0 4px 2px rgba(0, 0, 0, 0.3);
 }
 .kindness button:active {
@@ -2531,8 +2487,8 @@ button.close {
 }
 .unread-cards, .all-cards{
   position: absolute;
-  right:0;
-  top: 0;
+  right: 15px;
+  top: 10px;
   z-index: 100;
 }
 .all-kindness-wrapper{
@@ -2588,12 +2544,14 @@ button.close {
 .tabordion {
   color: #333;
   display: block;
-  font-family: arial, sans-serif;
-  margin: auto;
+  font-family: sans-serif;
+  /*margin: auto;*/
   position: relative;
-  width: 80%;
+   /* position: absolute; */
+  width: 100%;
   height: 100%;
-  padding: 25px 0px;
+   /* height: auto; */
+  padding: 10px 0px;
 }
 
 .tabordion input[name="sections"] {
@@ -2611,10 +2569,11 @@ button.close {
   border:1px solid #fff;
   cursor: pointer;
   display: block;
-  font-size: 1em;
-  padding: 15px 20px;
+    font-family: sans-serif;
+  font-size: 0.9em;
+  padding: 10px 10px;
   position: relative;
-  width: 20%;
+  width: 18%;
   z-index:100;
 }
 
@@ -2651,7 +2610,7 @@ button.close {
   width: 81.8%;
   background: #F6F6F6;
   border-left: 1px solid #cfcfcf;
-  overflow-y: auto;
+  overflow-y: scroll;
   font-family: cursive;
   padding-left:0;
 }

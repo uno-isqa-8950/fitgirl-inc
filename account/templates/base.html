@@ -112,10 +112,9 @@
                 <ul class="navbar-nav navbar-right ">
                        {% if user.profile.pre_assessment == "yes" %}
                            <li class="nav-item admin-hide">
-                                <a href="/pages/rewards/" class="dropdown-toggle avatar-menu">
-                                   <!-- <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
-
-                                <span class="notification-dot"> {{ user.profile.points }}</span>-->
+{#                               <a href="/pages/rewards/" class="dropdown-toggle avatar-menu">#}
+                                    <img class="bell-account-img" alt="Rewards" src="{% static 'images/rewards-icon.png' %}" height="30" width="30">
+                                <span class="rewards-notify" style="background-color: white"> {{ user.profile.points }}</span>
 
 
                             <li class="dropdown admin-hide">
@@ -305,7 +304,8 @@
                 <!--</a>-->
                 <!--Disclaimer footer path - Tarun -->
                 <div class="disclaimer">
-                    <a href="/pages/empoweru-disclaimer/"> Click here for Disclaimer</a>
+                    <a href="/pages/empoweru-disclaimer/"> Click here for Disclaimer</a><br>
+                    <a href="/pages/privacy-policy/">Click here for Privacy Policy.</a>
                 </div>
             </div>
             <!--</div>-->
@@ -468,4 +468,3 @@
 </div>
 </body>
 </html>
-
