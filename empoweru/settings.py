@@ -221,4 +221,3 @@ try:
 except ImportError:
     raise Exception("A local_settings.py file is required to run this project")
 '''
-s
