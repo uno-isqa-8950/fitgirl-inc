@@ -4,10 +4,9 @@
 
 {% block content %}
 
+<div class="container all-kindness-wrapper" style="position: relative; height: 680px; width: 100%; overflow: hidden; overflow-x: scroll;">
 
-<div class="container all-kindness-wrapper" style="position: relative; height: 680px; width: 100%; overflow: hidden;">
-
-    <a class="btn unread-cards btn-white" style="font-family: sans-serif; font-size: 14px; font-weight: bold;">Show Unread Cards</a>
+       <a class="btn unread-cards btn-white" style="font-family: sans-serif; width: 180px; padding-left: 1px; padding-right: 1px; font-size: 14px; font-weight: bold;">Show Unread Cards</a>
 
         <div class="tabordion" style="width: 1230px; overflow: hidden;">
 
@@ -70,7 +69,8 @@
 
 <div class="container kindness" style="position: relative; padding: 0;">
 
-    <a class=" btn all-cards btn-white" style="font-family: sans-serif; font-size: 14px; font-weight: bold;">Show All My Cards</a>
+    <a class=" btn all-cards btn-white" style="font-family: sans-serif; width: 180px; padding-left: 1px; padding-right: 1px; font-size: 14px; font-weight: bold;">Show All My Cards</a>
+
     <div class="card-wrapper" style="height: 680px;">
 
       <form action="{% url 'mark_read' %}">
