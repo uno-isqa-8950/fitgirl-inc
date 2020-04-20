@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}Fun Stuff{% endblock %}
+
+{% block content %}
+<div class ="container" style="background: aliceblue">
+
+<h1>
+
+      <a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn">
+      <i class="fa fa-chevron-circle-left"></i>
+      <span class="return-txt"> &nbsp Return</span></a>
+      {{ page.title }}</h1>
+<br>
+<br>
+
+<div class="relative">{{page.body|richtext}}</div>
+  <div class="absolute" style="background-image: url('https://media.istockphoto.com/vectors/healthy-lifestyle-vector-illustration-dieting-fitness-nutrition-vector-id843836420')"></div>
+
+
+</div>
+<div class="callout">
+    <div class="callout-header"><b>{{page.callout_intro|richtext}}</b></div>
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">x</span>
+  <div class="callout-container">{{ page.callout_message|richtext }}  </div>
+
+
+</div>
+  {% for post in page.get_children %}
+<h2><a href="{% pageurl post %}">{{post.title}}</a>----</h2>
+{% endfor %}
+<!--<p><a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a></p>-->
+    <style>
+        .rich-text img {
+            max-width: 100%;
+            height: auto;
+        }
+        .responsive-object {
+            position: relative;
+        }
+
+        .responsive-object iframe,
+        .responsive-object object,
+        .responsive-object embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+        }
+
+
+.callout {
+  position:fixed;
+  bottom: 90px;
+  right: 150px;
+  margin-left: 40px;
+  max-width: 300px;
+  animation: mymove 5s infinite;
+  animation-duration: 3s;
+  font-family: "Comic Sans MS";
+}
+
+.callout-header {
+  padding: 25px 15px;
+  background:black;
+  font-size: 30px;
+  color: white;
+}
+
+.callout-container {
+  padding: 15px;
+  background-color: white;
+  color: black;
+}
+
+.closebtn {
+  position: absolute;
+  top: 5px;
+  right: 25px;
+  color: deeppink;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+    color: pink;
+}
+
+@keyframes mymove {
+  from {right: 90px;}
+  to {right: 200px;}
+}
+div.relative {
+  position: relative;
+  width: 700px;
+  height: 500px;
+
+}
+
+div.absolute {
+  top: 340px;
+  right:1400px;
+  height: 200px;
+  border: 4px solid black;
+}
+    </style>
+{% endblock %}
+
+ </div>
+
