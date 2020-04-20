@@ -7,8 +7,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 # import django_heroku
-import os
+# import os
 from decouple import config
+import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -184,7 +185,7 @@ SECURE_SSL_REDIRECT = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-#AWS_DEFAULT_ACL = None
+# AWS_DEFAULT_ACL = None
 LOGIN_REDIRECT_URL = 'login_success'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
@@ -201,7 +202,7 @@ CLIENT_EMAIL = os.environ.get('CLIENT_EMAIL')
 # Weback loader
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'bundles/', #deplomnet bundle
+        'BUNDLE_DIR_NAME': 'bundles/',  # deplomnet bundle
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
     }
 }

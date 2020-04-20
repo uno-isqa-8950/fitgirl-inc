@@ -547,7 +547,7 @@ width: 50%;
 }
 .start-timer{
   margin:0 auto;
-  display: block;
+  display: none;
   margin-bottom: 25px;
 }
 .physical-post-page .rich-text img{
