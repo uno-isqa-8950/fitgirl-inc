@@ -5,9 +5,11 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from PIL import Image
+from PIL import Image, ExifTags
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.files import File
+from io import BytesIO
 
 # Create your models here.
 
@@ -113,6 +115,28 @@ class Profile(models.Model):
             return "None";
         else:
             return int((datetime.now().date() - self.date_of_birth).days / 365.25)
+
+    # def save(self, *args, **kwargs):
+    #     if self.photo:
+    #         pilImage = Image.open(BytesIO(self.photo.read()))
+    #         for orientation in ExifTags.TAGS.keys():
+    #             if ExifTags.TAGS[orientation] == 'Orientation':
+    #                 break
+    #         exif = dict(pilImage._getexif().items())
+    #
+    #         if exif[orientation] == 3:
+    #             pilImage = pilImage.rotate(180, expand=True)
+    #         elif exif[orientation] == 6:
+    #             pilImage = pilImage.rotate(270, expand=True)
+    #         elif exif[orientation] == 8:
+    #             pilImage = pilImage.rotate(90, expand=True)
+    #
+    #         output = BytesIO()
+    #         pilImage.save(output, format='JPEG', quality=75)
+    #         output.seek(0)
+    #         self.photo = File(output, self.photo.name)
+    #
+    #     return super(Profile, self).save(*args, **kwargs)
 
 
 class Inactiveuser(models.Model):
