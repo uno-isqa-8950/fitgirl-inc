@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}Facts{% endblock %}
+
+{% block content %}
+<div class ="container">
+
+  <h1>
+      <a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn">
+      <i class="fa fa-chevron-circle-left"></i>
+      <span class="return-txt"> &nbsp Return</span></a>
+      {{ page.title }}</h1>
+
+      <h3 >{{ page.intro|richtext }}</h3>
+  <div class="intro"> {{page.body|richtext}} </div>
+
+  {% for post in page.get_children %}
+<h2><a href="{% pageurl post %}">{{post.title}}</a>----</h2>
+{% endfor %}
+<!--<p><a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a></p>-->
+    <style>
+        .rich-text img {
+            max-width: 100%;
+            height: auto;
+        }
+        .responsive-object {
+            position: relative;
+        }
+
+        .responsive-object iframe,
+        .responsive-object object,
+        .responsive-object embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+{% endblock %}
+ </div>                                   
+                                  

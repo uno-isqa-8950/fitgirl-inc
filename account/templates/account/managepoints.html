@@ -1,0 +1,21 @@
+{% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block dash_content %}
+<div class="container">
+    <div class="col-9 offset-lg-0">
+        <div class="spacer-div-30"></div>
+        <h1 class="text-left">Manage Points</h1>
+        <form action="{% url 'update_points' %}" method="post">
+            {% csrf_token %}
+            {% for user in users %}
+                <p>
+                    User: {{ user.username }}, Current Points: {{ user.profile.points }}
+                </p>
+            {% endfor %}
+            {{ form|crispy }}
+            <input type="hidden" name="to_list" value="{{ to_list }}">
+            <button type="submit" class="btn btn-pink">Update</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

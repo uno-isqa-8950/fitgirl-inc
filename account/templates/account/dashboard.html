@@ -1,0 +1,381 @@
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+<div class="container ">
+    <div class="row">
+
+
+
+
+{% block content %}
+   {% if not user.is_staff and user.profile.pre_assessment == "No" %}
+            {% load staticfiles %}
+        <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <div id="steps">
+            {% if request.path == "/dashboard/" %}
+                <div class="step active" data-desc="How It Works">1</div>
+            {% else %}
+                <div class="step done" data-desc="How It Works">1</div>
+            {% endif %}
+            {% if request.path == "/pages/disclaimer/" %}
+                <div class="step active" data-desc="Disclaimer">2</div>  <!--Disclaimer added as step 2 - Tarun, hghanta-->
+            {% elif request.path == "/dashboard/" %}
+                <div class="step" data-desc="Disclaimer">2</div>
+            {% elif request.path == "/edit/" %}
+                <div class="step done" data-desc="Disclaimer">2</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Disclaimer">2</div>
+            {% endif %}
+            {% if request.path == "/edit/" %}
+                <div class="step active" data-desc="Update Profile">3</div>
+            {% elif request.path == "/pages/pre-assessment/" %}
+                <div class="step done" data-desc="Update Profile">3</div>
+            {% else %}
+                <div class="step" data-desc="Update Profile">3</div>
+            {% endif %}
+            {% if request.path == "/pages/pre-assessment/" %}
+                <div class="step active" data-desc="Take Pre-Assessment">4</div>
+            {% else %}
+                <div class="step" data-desc="Take Pre-Assessment">4</div>
+            {% endif %}
+            <div class="step" data-desc="Complete">5</div>
+        </div>
+        {% if request.path == "/dashboard/" %}
+        <div class="container justify-content-between">
+          <div class="col-sm-12 ">
+
+
+            <h1>FITGirl, Inc.</h1>
+              <p><b>FORMING INCREDIBLE TEEN GIRLS by INFLUENCING RELATIONSHIPS and LIFESTYLES</b></p>
+              <p><b>Welcome to the EmpowerU interactive website! Created just for you!</b></p>
+            <p>This website aims to give you the tools and confidence to make the best health choices.
+                Here you can find simple snack ideas, track your daily physical activity, watch videos, find games, learn about friendships and more!
+                Best part...collect points to redeem for amazing prizes from local and national stores!</p>
+
+                <p>To see the graphic featured below, please view on a desktop. Click "this page" link  and allow Flash if it is having trouble displaying.  Or, click <b> NEXT </b> and update your profile to begin and start earning points!
+            </p>
+            <!--<p>The mission of FITGirl, Inc is to empower young girls as they develop-->
+            <!--and mature by demonstrating positive lifestyle choices:-->
+                <!--<b>  Physical, Nutritional, Mental and Relational.</b></p>-->
+
+            <!--<p>FITGirl, Inc.  was developed in direct response to the decline in physical-->
+            <!--activity among young girls, lack of opportunity for participation in physical-->
+            <!--activity outside of select sports and the increase in low self-esteem. Seven in ten-->
+            <!--girls believe they are not good enough or do not measure up in some way, including their-->
+            <!--looks, performance in school and relationships with family and friends.</p>-->
+
+            <!--<p>Programs and summer camps provide empowerment workshops focusing on relationships, body image,-->
+            <!--self-esteem, goal setting and self worth in tandem with various physical fitness-->
+            <!--and nutritional activities.-->
+                <br>
+                <br>
+              <!-- Disabling animation-->
+                <!--<iframe allowtransparency="true" width="780" height="630" src="//scratch.mit.edu/projects/embed/262218134/?autostart=false" frameborder="0" allowfullscreen></iframe>-->
+                <br>
+                <br>
+
+                 <a href="/pages/disclaimer/" class="btn btn-secondary pull-right">NEXT &nbsp;<i class="fa fa-arrow-circle-right"></i></a>
+              <!--Next button goes to disclaimer - Tarun-->
+            </p>
+
+
+
+          </div>
+        </div>
+        {% endif %}
+
+   {% else %}
+            {% if request.user.is_superuser %}
+
+
+
+             <h4 class="pink lighten-1 my-0" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "
+                    data-toggle="modal" data-target="#fullHeightModalLeft"></i> Admin Dashboard</h4>
+
+        </div>
+        {% else %}
+        <!--<h4 class="pink lighten-1" style="padding-top:2px"><i class=" btn btn-elegant fa fa-bars" type="button "-->
+            <!--data-toggle="modal" data-target="#fullHeightModalLeft"></i> {{user.get_short_name|capfirst }}'s Dashboard</h4>-->
+        <!-- <h1>{{user.get_short_name|capfirst }}'s Dashboard</h1> -->
+
+
+        {% endif %}
+    </div>
+    <!-- <div class="row">
+        <div class="col-sm-3"> -->
+    {% if request.user.is_superuser %}
+   <div class="modal fade left " id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-full-height modal-left" role="document">
+                <!--Content-->
+
+                    <div class="modal-content w-75" >
+                        <div class="modal-header stylish-color">
+                            <h4 class="modal-title w-100" id="myModalLabel" style="color:white">Admin Dashboard</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+
+                                     <ul class="nav flex-column ">
+                                        <div>
+                                            <li class="nav-item">
+                                                <a href="{% url 'createprogram' %}" id="createProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                        class="fas fa-folder-plus fa-fw"></i> Programs </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{% url 'cloneprogram' %}" id="cloneProgram" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                        class="fas fa-clone fa-fw"></i> Clone Program </a>
+                                            </li>
+                                            <div>
+                                                <div>
+                                                <li class="nav-item">
+                                                    <a href="{% url 'signup' %}" id="signup" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable"><i
+                                                            class="fas fa-plus-circle fa-fw"></i> Register Users </a>
+                                                </li>
+                                                <div>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'users' %}" id="users" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-female fa-fw"></i> Users </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'parameters' %}" id="parameters" class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Settings </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'rewards' %}" id="rewards" class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Manage Rewards </a>
+                                                    </li>
+                                                    <div>
+                                                        <div>
+                                                     <li class="nav-item">
+                                                        <a href="{% url 'analytics' %}" id="analytics" class=" btn btn-block btn-pink list-group-item list-group-item-action example  hoverable"><i
+                                                                class="fas fa-chart-bar fa-fw"></i> Analytics </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'archive' %}" id="archive" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-archive fa-fw"></i> Archive </a>
+                                                    </li>
+                                                    <div>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'cms_frame' %}" id="cms" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-cog fa-fw"></i> Manage Content </a>
+                                                    </li>
+                                                        <div>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'django_frame' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fas fa-database fa-fw"></i> Manage Site </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{% url 'user_inactivity' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fab fa-font-awesome fa-fw"></i> User Inactivity </a>
+                                                    </li>
+                                                            <li class="nav-item">
+                                                        <a href="{% url 'rewards_notification' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fab fa-font-awesome fa-fw"></i> Rewards Notification</a>
+                                                    </li>
+                                                    </li>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                        <a href="{% url 'add_school' %}" id="django" class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
+                                                            <i class="fab fa-font-awesome fa-fw"></i> Add School</a>
+                                                    </li>
+                                                    <!-- <div>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#panel53" role="tab">Mental</a>
+                                                    </div>
+                                                    </li> -->
+                                     </ul>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    {% else %}
+    <div class="modal fade left" id="fullHeightModalLeft" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-full-height modal-left" role="document"  >
+            <!--Content-->
+
+                <div class="modal-content w-75" >
+                    <div class="modal-header stylish-color">
+                        <h4 class="modal-title w-100" id="myModalLabel" style="color:white"> Hello, {{user.get_short_name|capfirst }}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                 <ul class="nav flex-column ">
+                                    <div>
+                                        <li class="nav-item">
+                                            <a href="/" class=" btn btn-block btn-pink list-group-item list-group-item-action hoverable"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                                        </li>
+                                        <div>
+                                            <li class="nav-item">
+
+                                            </li>
+                                            <div>
+                                                <li class="nav-item">
+                                                    <a href="{% url 'password_change' %}" class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-lock"></i> Change Password</a>
+                                                </li>
+
+                                                    <div>
+                                                        <li class="nav-item">
+                                                    <a href="/pages/rewards/ " class=" btn btn-block btn-pink list-group-item list-group-item-action"><i class="fa fa-thumbs-up"></i> Rewards</a>
+                                                        </li>
+                                 </ul>
+                            </div>
+                        </div>
+                    <div class="modal-footer justify-content-center">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    </div>
+    <div id="userLandingContent1" style="min-height: calc(100vh - 260px);">
+            <div id="userLandingContent2">
+
+    <div class="mask rgba-gradient d-flex justify-content-center align-items-center">
+        <!-- Content -->
+        <div class="container px-md-3 px-sm-0">
+          <!--Grid row-->
+          <div class="row wow fadeIn">
+            <!--Grid column-->
+            <div class="col-md-12 mb-4 white-dark text-center wow fadeIn">
+              <h3 class="display-7 font-weight-bold white-dark mb-0 pt-md-1 pt-3" style="padding:10px 0">Welcome to <span class="animated fadeIn slower"> EmpowerU online!</span></h3>
+              <hr class="hr-dark my-1 w-75">
+                <h6 class="subtext-header animated fadeIn slower delay-1s mt-1 mb-0"></h6>
+
+        
+                  <p>Doesn't it feel great to move! Whether it’s stretching out in yoga or shooting hoops in the gym,
+                      exercising just makes you feel awesome. However, you need to exercise your brain too - that's just as important!</p>
+
+                  <p>Every week you will get to choose an activity to try from four categories: <b>Physical, Nutritional, Mental and Relational.</b></p>
+
+                  <p><b>Earn rewards for exercising and eating the right foods!</b> Check out the prizes you can win just for taking care of yourself!
+                  <p><a href="/pages/rewards/ "><i class="fa fa-thumbs-up"></i> Rewards </a><i class="fa fa-thumbs-up" style="color:deeppink"></i></p>
+                  Each week we will give you something new to try - but you must complete the <b>Physical</b> and <b>Nutritional</b> activity each week because you can't go back to earn past points.
+                  So don't skip your exercises or healthy snacks - we want you to get as many points as possible and win amazing prizes for participating!</p></h4>
+
+                <br>
+                <div class="card-deck ">
+                  <div class="card">
+                    <a href="/pages/{{ new_str1 }}/{{new_week_str1 }}/physical/"><img class="card-img-top" src="/media/images/physical.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
+                        <h5 class="card-title" style="color:deeppink" ><b>Physical</b></h5>
+                      <p class="card-text" style="color:white">Physical activity can lead to all kinds of benefits from better overall health to higher self-esteem to increased leadership skills.</p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <a href="/pages/{{ new_str1 }}/{{ new_week_str1 }}/nutritional/"><img class="card-img-top" src="/media/images/nutritional.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
+                        <h5 class="card-title"  style="color:deeppink"><b>Nutritional</b></h5>
+                      <p class="card-text"style="color:white" >You have the right to feel good and be healthy. Choose food that fuels your body and boosts brain power!</p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <a href="/pages/{{ new_str1 }}/{{ new_week_str1 }}/mental/"><img class="card-img-top"src="../../../media/images/shutterstock_280067543 (1).jpg"   alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
+                        <h5 class="card-title" style="color:deeppink"><b>Mental</b></h5>
+                      <p class="card-text" style="color:white">Learn to love who you are and find ways to stay calm in tough situations, crush limiting beliefs and become the person you were meant to be!</p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <a href="/pages/{{ new_str1 }}/{{ new_week_str1 }}/relational/"><img class="card-img-top" src="/media/images/relational.jpg" alt="Card image cap" style="width: 100%; height: 200px; object-fit: cover;">
+                    </a>
+                        <div class="card-body bg-dark">
+                      <h5 class="card-title" style="color:deeppink" ><b>Relational</b></h5>
+                      <p class="card-text" style="color:white" >Learn how to embrace differences in others, develop amazing friendships and work through difficult feelings.</p>
+                    </div>
+                  </div>
+                </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
+        </div>
+        <!-- Content -->
+      </div>
+      <!-- Mask & flexbox options-->
+    </div>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+    {% endif %}
+
+</div>
+{% endif %}
+<div class="container-fluid">
+    <div class="row">
+
+        {% block dash_content %}
+        {% endblock %}
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<script>
+// window.onload = function() {
+//   window.setTimeout(fadeout, 8000); //8 seconds
+// }
+// function fadeout() {
+//   document.getElementById('fadeout').style.opacity = '0';
+// }
+    $('.success').css('background-color','#3eb34b')
+    $('.success').css('margin-left','-98px')
+</script>
+{% endblock %}
+
+<style>
+ /* #fadeout {
+  opacity: 1;
+  transition: 1s opacity;
+  text-align: center;
+  font-size:32px;
+} */
+p {
+  text-align: center;
+}
+.card-deck {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 5;
+  }
+}
+</style>

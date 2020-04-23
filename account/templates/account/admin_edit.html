@@ -1,0 +1,41 @@
+{% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Edit your account{% endblock %}
+
+{% block dash_content %}
+<div class="container registration-edit">
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+<div class="col-sm-9">
+  <h1 class="text-left">Edit your Profile</h1>
+
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="100" width="100" style="height: 100px;width: 100px">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.first_name }} {{ user.last_name }}</h2>
+          <p class="text-secondary">{{ user.email }}</p>
+        </div>
+      </div>
+      <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Profile Info</legend>
+              {{ user_form|crispy }}
+              {{ admin_form|crispy }}
+          </fieldset>
+          <div class="form-group">
+              <input type="submit" class="btn-padding" value="Save and Proceed">
+          </div>
+
+      </form>
+    </div>
+</div>
+
+{% endblock %}

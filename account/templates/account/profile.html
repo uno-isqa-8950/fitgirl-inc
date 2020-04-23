@@ -1,0 +1,229 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+
+<br>
+<br>
+
+
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div >
+        <br>
+        <div>
+        <br>
+            <div>
+                <h1 class="text-center">
+                    Profile</h1>
+
+
+
+                </h5>
+
+
+<div class="profile media"><img  src="{{ user.user.profile.photo.url }}"  onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" style="width:150px;height:150px;border:1px;" class="img-fluid rounded-circle"></div>
+            </div>
+            <!--Card content-->
+                <br>
+                <!-- Form -->
+                <form class="text-left"style="overflow-x: hidden" >
+
+                    <div class="form-row">
+                        <div class="col">
+
+                            <div></div>
+                            <!-- First name -->
+                            <div>
+                               <p><span class="fas fa-user" style="font-size:20px;color:#ec407a;"></span> First Name: {{ user.user.first_name }}  </p>
+                            </div>
+                        </div>
+                        <div class="col">
+
+                            <!-- Last name -->
+                            <div class="">
+                                <p><span class="fas fa-user" style="font-size:20px;color:#ec407a"></span>   Last Name: {{ user.user.last_name }} </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- E-mail -->
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="">
+                                <p><span class="fas fa-envelope" style="font-size:15px;color:#ec407a"></span> Email: {{ user.user.email }} </p>
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+
+
+                        <div class="col">
+                            <div class="text-justify">
+
+                                <p><span class="fas fa-pen-square" style="font-size:15px;color:#ec407a"></span> Bio: {{ user.bio }} </p>                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- Phone number -->
+                    <div class="form-row">
+                        <div class="col">
+                            <div >
+                                <p><span class="fas fa-birthday-cake" style="font-size:20px;color:#ec407a"></span> Birthday: {{ user.date_of_birth}} </p>
+
+                            </div>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="col">
+                            <div >
+                                <p><span class="fas fa-birthday-cake" style="font-size:20px;color:#ec407a"></span> Age: {{ user.age}} </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!--  Address  -->
+                    <div class="form-row">
+
+                        <div class="col">
+                            <div >
+                         <p><span class="fas fa-address-card" style="font-size:15px;color:#ec407a"></span> City: {{ user.city }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-row">
+
+                        <div class="col">
+                            <div >
+                               <p><span class="fas fa-address-card" style="font-size:15px;color:#ec407a"></span> State: {{ user.state }} </p>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div >
+                                 <p><span class="fas fa-address-card" style="font-size:15px;color:#ec407a"></span> Zip: {{ user.zip }} </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!--   Phone   -->
+                    <div class="form-row">
+                        <div class="col">
+                            <div >
+                                <p><span class="fas fa-mobile-alt" style="font-size:20px;color:#ec407a"></span> Day Phone: {{ user.day_phone }} </p>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <br>
+                    <div class="form-row">
+                        <div class="col">
+
+
+                            <div >
+
+                                <p><span class="fas fa-user" style="font-size:20px;color:#ec407a"></span>
+
+                                    {% if user.age_group  == 1 %}
+                                Age Group: 8-10
+                                {% elif user.age_group  == 2 %}
+                                Age Group: 11-13
+                                {% else %}
+                                Age Group: {{ user.age_group }}
+
+                                {% endif %}
+
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="col">
+                            <div >
+                                <p><span class="fas fa-school" style="font-size:15px;color:#ec407a"></span> School: {{ user.school}} </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div style="float: left">
+
+                                <a href="{% url 'users' %}" class="btn btn-pink" >Return</a>
+                    </div>
+
+                </form>
+                <!-- Form -->
+
+        <!-- Material form register -->
+
+        <!-- <div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
+      <div class="table-responsive">
+          <tr></tr>
+        <table  class="table table table-bordered table" class="target">
+        <thead class="thead stylish-color text-white z-depth-2">
+                <th class="th-lg">First name: </th>
+                <th class="th-lg">Last name: </th>
+                <th class="th-lg">Bio: </th>
+                <th class="th-lg">Email: </th>
+                <th class="th-lg">Birthday: </th>
+                {% if user.userprofile.image %}
+                <img src="{{ user.userprofile.image.url }}" width="240">
+                {% endif %}
+                <th class="th-lg">Age: </th>
+                <th class="th-lg">Address: </th>
+                <th class="th-lg">Zip: </th>
+                <th class="th-lg">City: </th>
+                <th class="th-lg">State: </th>
+                <th class="th-lg">Day Phone: </th>
+                <th class="th-lg">Eve Phone: </th>
+                <th class="th-lg">Age Group: </th>
+                <th class="th-lg">School: </th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                        <td >{{ user.user.first_name }}</td>
+                        <td>{{ user.user.last_name }}</td>
+                        <td>{{ user.bio }}</td>
+                        <td>{{ user.user.email }}</td>
+                        <td>{{  user.date_of_birth }}</td>
+                        <td>{{ user.age }}</td>
+                        <td>{{ user.address }}</td>
+                        <td>{{ user.zip }}</td>
+                        <td>{{ user.city}}</td>
+                        <td>{{ user.state }}</td>
+                        <td>{{  user.day_phone }}</td>
+                        <td>{{ user.eve_phone }}</td>
+                        <td>{{ user.age_group }}</td>
+                        <td>{{ user.school }}</td>
+                      </tr>
+        </tbody>
+        <!-- <p>First name: {{ user.user.first_name }}</p>
+        <p>Last name: {{ user.user.last_name }}</p>
+        <p>Bio: {{ user.bio }}</p>
+        <p>Email: {{ user.user.email }}</p>
+        <p>Birthday: {{ user.date_of_birth}}</p>
+        {% if user.userprofile.image %}
+        <img src="{{ user.userprofile.image.url }}" width="240">
+        {% endif %}
+        <p>Age: {{ user.age }}</p>
+        <p>Address: {{ user.address }}</p>
+        <p>Zip: {{ user.zip }}</p>
+        <p>City: {{ user.city }}</p>
+        <p>State: {{ user.state }}</p>
+        <p>Day Phone: {{ user.day_phone }}</p>
+        <p>Eve Phone: {{ user.eve_phone }}</p>
+        <p>Age Group:  {{ user.age_group }}</p>
+        <p>School: {{ user.school }}</p> -->
+
+
+        <!-- </table> -->
+    </div>
+</div>
+{% endblock %}

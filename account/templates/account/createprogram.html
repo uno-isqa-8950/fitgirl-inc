@@ -1,0 +1,280 @@
+{% extends 'account/dashboard.html' %}
+
+{% block dash_content %}
+<style>
+    .dataTables_wrapper .dataTables_length {
+float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: right;
+}
+  .accordion {
+    
+    color: #ffffff;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+  
+    color: #ffffff;
+}
+
+.accordion:after {
+    content: '\002B';
+
+    color: #ffffff;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.panel {
+    padding: 0 18px;
+    margin-bottom: 5%;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+
+</style>
+
+  {% if request.user.is_superuser %}
+<div class="container">
+  <div class="row">
+
+    
+<div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
+    <h1 class="text-center"> All Programs</h1>
+    <button class="accordion stylish-color">Add New Program</button>
+    <div class="panel" id="divpanel" >
+  
+      <form class="container" method="post" action="." id="form">{% csrf_token %}
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+            </div>
+          </div>
+        </div>
+  
+  
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="ProgramName">Program Name</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <input type="text" required class="form-control" name="program_name" id="InputProgramName" placeholder="Enter Program Name">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="StartDate">Start Date</label>
+              <input type="date" required class="form-control" name="program_start_date" id="InputStartDate" placeholder="Enter Start Date"
+                onchange="EndDate()">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="EndDate">End Date</label>
+              <input type="date" required class="form-control" name="program_end_date" id="InputEndDate" placeholder="Enter End Date">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-sm-4">
+  
+  
+              <button type="submit" class="btn btn-primary">Save Program</button>
+              <!-- <input type="submit" value="Save Program"> -->
+  
+          </div>
+        <!-- <div class="col-sm-3">
+        </div> -->
+  
+          <div class="col-sm-4">
+  
+  
+              <button type="button" id="resetButton" class="btn btn-warning" style="
+      width: 172;">Reset</button>
+              <!-- <input type="submit" value="Save Program"> -->
+  
+          </div>
+          <div class="col-sm-4">
+  
+              <button type="button" id="cancelButton" class="btn btn-danger" style="
+      width: 172;
+  ">Cancel</button>
+              <!-- <button type="cancel" value="Reset" id="cancelButton">Cancel</button> -->
+  
+          </div>
+        </div>
+      </form>
+  
+    </div>
+  
+  </div>
+
+
+<div class="col-12 col-sm-2 col-md-4 col-lg-10 offset-lg-1">
+  
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <table id="dtDynamicVerticalScroll" class="table table table-bordered table" class="target">
+    <thead class="thead stylish-color text-white z-depth-2">
+      <tr>
+        <th class="th-lg">Program Name <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+        <th class="th-lg">Start Date<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+        <th class="th-lg">End Date<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for registeredPrograms in registeredPrograms %}
+      <tr>
+        <td >{{ registeredPrograms.program_name }}</td>
+        <td>{{ registeredPrograms.program_start_date }}</td>
+        <td>{{ registeredPrograms.program_end_date }}</td>
+
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--here the table ends-->
+
+</div>
+</div>
+</div>
+  {% endif %}
+
+
+
+
+
+
+
+
+
+<script>
+  $(document).ready(function () {
+  $('#dtDynamicVerticalScroll').DataTable({
+    "scrollY": "80vh",
+    "scrollCollapse": true,
+    "order": [[ 0, "desc" ]],
+      language: {
+                  searchPlaceholder: "Search",
+                  search: "",
+          }
+  });
+
+  $('.dataTables_length').addClass('bs-select');
+});
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+  document.getElementById("InputStartDate").setAttribute("min", today);
+</script>
+<script>
+  function EndDate() {
+    var InputStartDate = document.getElementById("InputStartDate").value;
+    document.getElementById("InputEndDate").setAttribute("min", InputStartDate);
+  }
+</script>
+
+<script>
+
+$("#resetButton").click(function(){
+
+  $("form")[0].reset();
+
+});
+
+  $("#cancelButton").click(function () {
+    // console.log($("#accordioncheck").attr("class"))
+    $("#accordioncheck").attr("class", "accordion default-color-dark");
+    $("#divpanel").attr("style", "")
+  });
+
+
+  $(document).ready(function () {
+
+    $("#image1").remove()
+    $("#image2").remove()
+    $("#image3").remove()
+
+    $("#createProgram").css("border", "2px solid")
+    $("#createProgram").css("background-color", "#ed217c")
+    $("#createProgram").css("color", "#ffffff")
+    $("#createProgram").css("border-color", "black")
+
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
+    }
+
+
+
+
+  });
+</script>
+
+
+
+{% endblock %}

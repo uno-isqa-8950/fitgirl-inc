@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load staticfiles %}
+{% block content %}
+        <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<div class ="container registration-complete" align="center" style="position: absolute">
+        <div id="steps">
+                <div class="step done" data-desc="How It Works">1</div>
+                <div class="step done" data-desc="Disclaimer">2</div>
+                <div class="step done" data-desc="Update Profile">3</div>
+                <div class="step done" data-desc="Take Pre-Assessment">4</div>
+                <div class="step done" data-desc="Complete">5</div>
+            </div>
+        <br>
+        <br>
+        <h2 align="center"> You're now ready to get started with the EmpowerU Program! </h2>
+        <h4 align="center">{{page.thank_you_text|richtext}}</h4>
+        {% if page.points_for_this_activity %}
+            <h4 align="center">Congratulations! You have scored {{page.points_for_this_activity}} points! </h4>
+        {% endif %}
+        <br>
+        <br>
+            <a href="/"  class="btn btn-pink" style="text-align: center">Get Started!</a>
+</div>
+<canvas id="canvas"></canvas>
+{% endblock %}

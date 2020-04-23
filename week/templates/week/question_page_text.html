@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{#{% load wagtailcore_tags %}#}
+{% load static wagtailcore_tags widget_tweaks %}
+
+{% block content %}
+
+    <div class="container">
+    <div id="printableArea" class="intro">
+
+
+        <h1>
+            <!--Brent added return button-->
+            <a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn no-print">
+            <i class="fa fa-chevron-circle-left"></i>
+            <span class="return-txt"> &nbsp Return</span></a>
+            {{ page.title }}</h1>
+
+        {% if user.is_authenticated and user.is_active or request.is_preview %}
+            {% if form %}
+                <div>{{ page.intro|richtext }}</div>
+                <div>{{ page.description|richtext }}</div>
+
+                <script>
+                    function printDiv(divName) {
+                        var index = 0;
+                        var inputText = [];
+                        {% for field in form.visible_fields %}
+                            inputText[index] = document.getElementsByClassName("form-control")[index].value;
+                            index++;
+                        {% endfor %}
+                        var printContents = document.getElementById(divName).innerHTML;
+                        var originalContents = document.body.innerHTML;
+                        document.body.innerHTML = printContents;
+                        index = 0;
+                        {% for field in form.visible_fields %}
+                            document.getElementsByClassName("form-control")[index].value = inputText[index];
+                            index++;
+                        {% endfor %}
+                        window.print();
+                        document.body.innerHTML = originalContents;
+                        index = 0;
+                        {% for field in form.visible_fields %}
+                            document.getElementsByClassName("form-control")[index].value = inputText[index];
+                            index++;
+                        {% endfor %}
+                    }
+                </script>
+                <form action="{% pageurl page %}" method="POST">
+
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                        <div class="col-sm-8 form-group">
+                            {{ field.label_tag }}
+                            {% render_field field class+="form-control" %}
+                        </div>
+                    {% endfor %}
+                    <input type="hidden" name="pageurl" value="{% pageurl page %}">
+                    <br>
+                    <div class="col-sm-8">
+                        <br>
+                        <input class="print-button" id="no-print" type="button" value="Print Form"
+                               onClick="printDiv('printableArea')"/>
+                        <br>
+                        <br>
+                        <br>
+                        <input class="btn-md " id="no-print" type="submit">
+                    </div>
+                </form>
+                </div>
+
+
+            {% else %}
+                <div>You have already answered this. Go to the next question.</div>
+            {% endif %}
+        {% else %}
+            <div>To fill in the form, you should log in.</div>
+        {% endif %}
+    <br>
+    <!--added btn-return - Brent-->
+    <!--<a href="{{ page.get_parent.url }}" class="btn btn-fitgirl pull-right back-btn"><i class="fa fa-chevron-circle-left"></i> &nbsp Return</a>
+-->
+{% endblock %}
+</div>

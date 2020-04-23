@@ -1,0 +1,72 @@
+{% extends 'account/dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Edit your account{% endblock %}
+
+{% block dash_content %}
+
+<div class="container registration-edit">
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+    <div class="container">
+    <div class="spacer-div-50">
+
+      <h1 class="text-center" >Edit Profile</h1>
+
+      <h5 class="text-center">Fill out all the mandatory fields and save your profile to proceed</h5>
+      <br>
+      <br>
+        <form method="POST" class="useredit-form" enctype='multipart/form-data'>
+
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}" onError="this.onerror=null;this.src='/media/profile_image/default.jpg';" height="150" width="150" style="height: 100px;width: 100px">
+
+            <div class="media-body">
+                <div>
+                    <h2></h2>
+                </div>
+                <h2 class="account-heading"> {{ user.first_name }} {{ user.last_name }}</h2>
+
+               <div>
+               </div>
+              <p class="text-secondary">{{ user.email }}</p>
+
+            </div>
+          </div>
+          <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              <fieldset class="form-group">
+                  <legend class="border-bottom mb-4">Profile Info</legend>
+                  {{ user_form|crispy }}
+                  {{ profile_form|crispy }}
+              </fieldset>
+              <div class="form-group">
+                  <input type="submit" class="btn-padding" value="Save and Proceed">
+              </div>
+
+          </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+$(document).ready(function(){
+$("#userLandingContent2").remove()
+$("#userLandingContent1").remove()
+
+});
+</script>
+<script>
+ $(document).ready(function(){
+    $("textarea").attr({"rows": "4"
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "wagtailadmin/base.html" %}
+{% load staticfiles %}
+{% load wagtailuserbar %}
+
+{% block branding_logo %}
+    <img href="http://fitgirlinc.com/" src="{% static 'images/logologin.png' %}" alt="Custom Project" />
+{% endblock %}
+
+{% wagtailuserbar 'bottom-right' %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+
+$('nav.nav-main').css({"position":"static"})});
+
+
+</script> -->

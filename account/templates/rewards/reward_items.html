@@ -1,0 +1,210 @@
+{% extends 'account/dashboard.html' %}
+{% load rewards %}
+{% block dash_content %}
+{% if request.user.is_superuser %}
+
+            {% media_url as media_url %}
+            <div class="container col-sm-9 reward-types-container">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                <h1 class="text-left">Reward Items</h1>
+
+                <form method="post" enctype="multipart/form-data" id="item-form">
+                    {{ form.non_field_errors }}
+                    {% csrf_token %}
+                    <div class="reward-item col-sm-6">
+                        {{ form.item.errors }}
+                        {{ form.item.label_tag }}
+                        {{ form.item }}
+                    </div>
+                    <div class="reward-item col-sm-6">
+                        {{ form.description.errors }}
+                        {{ form.description.label_tag }}
+                        {{ form.description }}
+                    </div>
+                    <div class="reward-item col-sm-6">
+                        {{ form.points_needed.errors }}
+                        {{ form.points_needed.label_tag }}
+                        {{ form.points_needed }}
+                    </div>
+                    <div class="reward-item col-sm-6">
+                        {{ form.qty_available.errors }}
+                        {{ form.qty_available.label_tag }}
+                        {{ form.qty_available }}
+                    </div>
+                    <div class="reward-item col-sm-6">
+                        {{ form.category.errors }}
+                        {{ form.category.label_tag }}
+                        {{ form.category }}
+                    </div>
+                    <div class="reward-item col-sm-6">
+                        {{ form.reward_image.errors }}
+                        {{ form.reward_image.label_tag }}
+                        {{ form.reward_image }}
+                    </div>
+                    <!--
+                    <div class="reward-item col-sm-6 hidden float-right" id="id_current_file">
+                        <img src="" height="35">
+                    </div>
+                    -->
+                    <div class="reward-item col-sm-10">
+                        <button id="edit" type="submit" formaction="" class=""></button>
+                        <button type="submit" id="add" class="btn btn-pink">Add</button>
+                        <button type="button" class="btn btn-pink" onclick="clear_form()">Clear</button>
+                        <button onclick="event.preventDefault(); location.href='/reward_category';" class="btn btn-pink float-right">Reward Categories</button>
+                    </div>
+                </form>
+
+            </div>
+
+    <div class="datatable-container">
+        <div class="spacer-div-30"></div>
+            <div class="col-sm-9">
+
+            {% all_reward_items as rewards %}
+            <table id="dtDynamicVerticalScroll" class="table table-hover table-striped table-bordered" class="target">
+                <thead class="thead stylish-color text-white">
+                    <tr>
+                        <th class="th-lg">Item</th>
+                        <th class="th-lg">Description</th>
+                        <th class="th-lg">Points Needed</th>
+                        <th class="th-lg">Quantity</th>
+                        <th class="th-lg">Category</th>
+                        <th class="th-lg text-center">Image</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reward in rewards %}
+                    <tr class="hoverable" onclick="edit_item(event, {{ reward.id }})">
+                        <td id="item-{{ reward.id }}">{{ reward.item }}</td>
+                        <td id="description-{{ reward.id }}">{{ reward.description }}</td>
+                        <td id="points-{{ reward.id }}">{{ reward.points_needed }}</td>
+                        <td id="qty-{{ reward.id }}">{{ reward.qty_available }}</td>
+                        <td id="category-{{ reward.id }}">{{ reward.category }}</td>
+                        <input type="hidden" value="{{ reward.category_id }}" id="categoryid-{{ reward.id }}">
+                        <td><img src="{{ media_url }}{{ reward.reward_image }}" height="35" id="image-{{ reward.id }}"></td>
+                        <td><a onclick="action_row({{ reward.id }}, 'delete')" class="fa fa-trash"></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
+
+<script>
+  $(document).ready(function () {
+      document.getElementById("edit").style.display = "none";
+      /* $('#id_current_file').hide(); */
+      $('#dtDynamicVerticalScroll').DataTable({
+          "order": [[4, "YES"]],
+          "responsive": true,
+          "scrollCollapse": true,
+          language: {
+              searchPlaceholder: "Search",
+              search: "",
+          }
+      });
+      $('.dataTables_length').addClass('bs-select');
+  });
+  function action_row(item_id, action) {
+    if (action = 'delete'){
+        $('#ModalRedeemSuccess').modal('show');
+        var test = document.getElementById('delete-reward-item');
+        test.value = item_id;
+    }
+    else {
+        return false;
+      }
+
+}
+
+
+let edit_item = function(e, id) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log(e);
+    var test = document.getElementById('edit');
+    test.style.display = 'inline-block';
+    test.innerHTML = 'UPDATE';
+    test.className = 'btn btn-pink';
+    test.formAction = '/reward_item_edit/'+id;
+    document.getElementById("add").style.display = "none";
+    $('#id_item').val($('#item-'+id).text());
+    $('#id_description').val($('#description-'+id).text());
+    $('#id_points_needed').val($('#points-'+id).text());
+    $('#id_qty_available').val($('#qty-'+id).text());
+    let selected_value = $('#categoryid-'+id).val();
+    $('#id_category').val(selected_value);
+    /*
+    let current_file = $('#image-'+id).attr('src');
+    $('#id_current_file img').attr('src', current_file);
+    $('#id_current_file').show();
+     */
+};
+
+let clear_form = function() {
+    $('#item-form').trigger('reset');
+    var test = document.getElementById('add');
+    test.style.display = 'inline-block';
+    test.innerHTML = 'ADD';
+    test.className = 'btn btn-pink';
+    test.formAction = '';
+    /* $('#id_current_file').hide(); */
+    document.getElementById("edit").style.display = "none";
+};
+
+
+</script>
+<style>
+    .dataTables_wrapper .dataTables_length {
+        float: left;
+        }
+        .dataTables_wrapper .dataTables_filter {
+            float: right;
+            text-align: right;
+        }
+        form {
+            padding : 5px;
+        }
+        input {
+            width: 100%;
+            display: inline-block;
+        }
+        .reward-item {
+            float: left;
+    }
+</style>
+
+<div class="modal fade" id="ModalRedeemSuccess" tabindex="-1" role="dialog" aria-labelledby="ModalRedeemSuccess" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                    <a class="navbar-brand" href="/"><img src="/static/images/EmpowerU_LogoHR25.png" alt="logo" height="40"></a>
+                </h5>
+                <button type="button" class="close remove-popup" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                 <p>Are you sure you want to delete it?</p>
+            </div>
+            <div class="modal-footer text-center">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <input type="hidden" id="delete-reward-item" name="item_id" value="">
+                    <button type="submit" class="confirm btn btn-secondary btn-pink">CONFIRM</button>
+                    <button type="button" class="cancel btn btn-secondary btn-pink" data-dismiss="modal">CANCEL</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
