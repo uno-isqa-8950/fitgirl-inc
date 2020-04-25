@@ -144,6 +144,7 @@ admin.site.register(Schools, SchoolsAdmin)
 
 
 class KindnessCardTemplateAdmin(admin.ModelAdmin):
+    list_display = ['id', 'image_name']
     image_template = ['id', 'template_image']
 
     def template_image(self, obj):
