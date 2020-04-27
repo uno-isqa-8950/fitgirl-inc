@@ -4,7 +4,7 @@
 
 from .models import Program, CloneProgramInfo
 from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote, Inactiveuser, RewardsNotification, \
-    Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem, Schools
+    Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem, Schools, DefaultPassword
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
@@ -22,11 +22,11 @@ class ProgramList(admin.ModelAdmin):
     list_display = ('program_name', 'program_start_date', 'program_end_date')
     list_filter = ('program_name', 'program_start_date')
     search_fields = ('program_name', 'program_start_date')
-    ordering = ['-program_start_date']  # Sandra Dizdarevic. Order by the latest end date so that we can use this to fetch the first program on the list (kindness card messages, etc.) 3/14/2020 552PM
+    ordering = [
+        '-program_start_date']  # Sandra Dizdarevic. Order by the latest end date so that we can use this to fetch the first program on the list (kindness card messages, etc.) 3/14/2020 552PM
 
 
 admin.site.register(Program, ProgramList)
-
 
 
 # class ProfileAdmin(admin.ModelAdmin):
@@ -125,12 +125,12 @@ admin.site.register(RewardItem, RewardItems)
 
 
 class KindnessMessageAdmin(admin.ModelAdmin):
-
-    list_display = ('message_id','from_user', 'to_user', 'body', 'created_date','message_program')#sdizdarevic, added message_program to filter out kindness messages that are from older programs 3/11/2020
+    list_display = ('message_id', 'from_user', 'to_user', 'body', 'created_date',
+                    'message_program')  # sdizdarevic, added message_program to filter out kindness messages that are from older programs 3/11/2020
 
     list_filter = ('from_user', 'to_user', 'created_date')
     search_fields = ('from_user', 'to_user', 'message_program')
-    ordering = ['-created_date'] #sdizdarevic, added - to sort by the latest kindness message 3/11/2020
+    ordering = ['-created_date']  # sdizdarevic, added - to sort by the latest kindness message 3/11/2020
 
 
 admin.site.register(KindnessMessage, KindnessMessageAdmin)
@@ -140,8 +140,15 @@ class SchoolsAdmin(admin.ModelAdmin):
     Schools = 'Schools'
     list_display = ('schools_name',)
 
+
 admin.site.register(Schools, SchoolsAdmin)
 
 
+# to display default password on django
+class DefaultPass(admin.ModelAdmin):
+    list_display = ('id', 'default_password',)
+
+
+admin.site.register(DefaultPassword, DefaultPass)
 
 
