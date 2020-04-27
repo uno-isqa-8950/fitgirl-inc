@@ -129,7 +129,7 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fitgirl2',
+        'NAME': 'fitgirl3',
         'USER': 'postgres',
         'PASSWORD': 'obrien1!',
         'HOST': 'localhost',

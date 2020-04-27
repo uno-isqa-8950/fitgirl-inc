@@ -28,9 +28,8 @@ BACKGROUND_CHOICES = [
 
 
 class KindnessCardTemplate(models.Model):
-    id = models.AutoField(primary_key=True, blank=False, null=False, default=1)
-    image_name = models.CharField(max_length=25, null=True, blank=True, default='../account/static/images/KCard.jpg')
-    image = models.ImageField(null=True, blank=True, upload_to="images/")
+    image_name = models.CharField(max_length=25, null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to="images/", default='images/KCard.jpg')
 
     def __str__(self):
         return str(self.image_name)
@@ -41,7 +40,7 @@ class Program(models.Model):
     program_name = models.CharField(max_length=20, null=False, unique=True)
     program_start_date = models.DateField(null=False, blank=False)
     program_end_date = models.DateField(null=False, blank=False)
-    KCardTemplate = models.ForeignKey(KindnessCardTemplate, on_delete=models.CASCADE, null=True, blank=True, default=1)
+    KCardTemplate = models.ForeignKey(KindnessCardTemplate, on_delete=models.SET_NULL, null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now, blank=True)
     updated_date = models.DateTimeField(auto_now_add=True, null=True)
 
@@ -58,7 +57,7 @@ class Program(models.Model):
 
 
 class RegisterUser(models.Model):
-    email = models.EmailField(blank=True, null=None, unique=True)
+    email = models.EmailField(blank=True, null=None)
     first_name = models.CharField(max_length=50, default=None)
     last_name = models.CharField(max_length=50, default=None)
     is_active = models.BooleanField(_('active'), default=True)
@@ -181,12 +180,15 @@ class Parameters(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
 
+
 class KindnessMessage(models.Model):
-    message_program = models.CharField(max_length=20, blank=True, null=True)  # sdizdarevic added for archiving messages from previous programs 3/11/2020
-    user = models.ForeignKey(User, null=True, blank=False, on_delete=models.CASCADE)  #sdizdarevic added so that kindness messages are delted when users are deleted 3/11/2020
+    message_program = models.CharField(max_length=20, blank=True,
+                                       null=True)  # sdizdarevic added for archiving messages from previous programs 3/11/2020
+    user = models.ForeignKey(User, null=True, blank=False,
+                             on_delete=models.CASCADE)  # sdizdarevic added so that kindness messages are delted when users are deleted 3/11/2020
     message_id = models.AutoField(null=False, primary_key=True)
-   # user = models.ForeignKey(User, related_name='all_messages', on_delete=models.CASCADE)
-   # user = models.ForeignKey(User, related_name='message_id', on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, related_name='all_messages', on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, related_name='message_id', on_delete=models.CASCADE)
     body = models.CharField(max_length=500, blank=True, null=True)
     from_user = models.CharField(max_length=50, blank=False, null=False)
     to_user = models.CharField(max_length=50, blank=False, null=False)
@@ -245,4 +247,17 @@ class Schools(models.Model):
 
     def __str__(self):
         return str(self.schools_name)
+
+
+# Model to save default password
+class DefaultPassword(models.Model):
+    id = models.AutoField(primary_key=True, blank=False, null=False, default=1)
+    default_password = models.CharField(max_length=30, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.default_password)
+
+    class Meta:
+        get_latest_by = 'created_at'
 
