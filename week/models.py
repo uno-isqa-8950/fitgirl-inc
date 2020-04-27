@@ -710,3 +710,34 @@ class PrivacyPolicyLink(Page):
         FieldPanel('policy2', classname="full"),
         FieldPanel('attach_file', classname="full"),
     ]
+class FunStuffGames(Page):
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    callout_intro=RichTextField(blank=True)
+    callout_message=RichTextField(blank=True)
+    body = RichTextField(blank=True)
+    content_panels= Page.content_panels + [
+        ImageChooserPanel('display_image'),
+        FieldPanel('body', classname="full"),
+        FieldPanel('callout_intro', classname="full"),
+        FieldPanel('callout_message', classname="full"),
+
+
+
+    ]
+
+class FunStuffArt(Page):
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    callout_intro = RichTextField(blank=True)
+    callout_message = RichTextField(blank=True)
+    body = RichTextField(blank=True)
+    content_panels= Page.content_panels + [
+        ImageChooserPanel('display_image'),
+        FieldPanel('body', classname="full"),
+        FieldPanel('callout_intro', classname="full"),
+        FieldPanel('callout_message', classname="full"),
+
+
+
+    ]
