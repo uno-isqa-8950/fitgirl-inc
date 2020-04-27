@@ -13,7 +13,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
 import re, json
-# import weasyprint
+import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv
