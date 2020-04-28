@@ -196,7 +196,7 @@ def handle_uploaded_file(request, name):
                             # new password implementation with model object
                             try:
                                 pass1 = DefaultPassword.objects.latest()
-                            except DefaultPassword.objects.DoesNotExist:
+                            except:
                                 pass1 = 'stayfit2020'
                             user.set_password(pass1)
                             print(user.set_password)
@@ -230,7 +230,7 @@ def handle_uploaded_file(request, name):
                         # new password implementation with model object
                         try:
                             pass1 = DefaultPassword.objects.latest()
-                        except DefaultPassword.objects.DoesNotExist:
+                        except:
                             pass1 = 'stayfit2020'
                         theUser.set_password(pass1)
                         theUser.email = row[2].lower()
@@ -1230,7 +1230,7 @@ def signup(request):
             # password = DefaultPassword.objects.get(id=1)
             try:
                 password = DefaultPassword.objects.latest()
-            except DefaultPassword.objects.DoesNotExist:
+            except:
                 password = 'stayfit2020'
             selected_program = get_object_or_404(Program, pk=request.POST.get('programs'))
             theUser = User(username=username, email=email, first_name=first_name,
@@ -1380,7 +1380,7 @@ def add_school(request):
 def Default_Password(request):
     try:
         pass1 = DefaultPassword.objects.latest()
-    except DefaultPassword.objects.DoesNotExist:
+    except:
         pass1 = 'stayfit2020'
 
     if request.method == 'POST':
