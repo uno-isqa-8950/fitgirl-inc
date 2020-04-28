@@ -710,8 +710,6 @@ class PrivacyPolicyLink(Page):
         FieldPanel('policy2', classname="full"),
         FieldPanel('attach_file', classname="full"),
     ]
-
-
 class FunStuffGames(Page):
     display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
                                       related_name='+')

@@ -7,7 +7,7 @@ from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, program
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
-    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile
+    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile, DefaultPassword
 from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
@@ -30,7 +30,7 @@ from wagtail.core.models import Page
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core import serializers, exceptions
-#from django.core.management.base import BaseCommand, CommandError
+# from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
 import datetime, pytz, re
 from account.models import Inactiveuser, CloneProgramInfo, Program
@@ -39,8 +39,8 @@ from week.models import PhysicalPostPage
 from django.core.mail import send_mail
 from django.conf import settings
 from datetime import datetime
-#from datetime import datetime, timedelta
-#from datetime import timedelta
+# from datetime import datetime, timedelta
+# from datetime import timedelta
 from account.todays_date import todays_date
 from account.tomorrows_date import tomorrows_date
 from week.models import welcomepage
@@ -133,7 +133,7 @@ def user_login(request):
 # user's first page on login
 @login_required
 def login_success(request):
-    works=welcomepage.objects.all()
+    works = welcomepage.objects.all()
     programs = Program.objects.all()
     today = todays_date()
     print(today)
@@ -149,7 +149,7 @@ def login_success(request):
                       'account/current_week.html',
                       {'current_week': current_week,
                        'dailyquote': dailyquote,
-                       'works':works,})
+                       'works': works, })
 
 
 # admin - create program
@@ -184,7 +184,7 @@ def handle_uploaded_file(request, name):
     for row in reader:
         try:
             if row[0] and row[1] and row[2]:
-                #row[0].lower() used to be .lower...row zero is the first name
+                # row[0].lower() used to be .lower...row zero is the first name
 
                 if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[2]):
                     num = len(User.objects.all().filter(email=row[2]))
@@ -194,8 +194,11 @@ def handle_uploaded_file(request, name):
                             user.is_active = True
                             print(user.is_active)
                             # new password implementation with model object
-                            # user.set_password(DefaultPassword.objects.get(id=1))
-                            user.set_password('stayfit2020')
+                            try:
+                                pass1 = DefaultPassword.objects.latest()
+                            except:
+                                pass1 = 'stayfit2020'
+                            user.set_password(pass1)
                             print(user.set_password)
                             print(user)
                             user.save()
@@ -204,10 +207,10 @@ def handle_uploaded_file(request, name):
                             user.profile.pre_assessment = 'No'
                             user.profile.program = Program.objects.all().filter(program_name=name)[0]
                             user.profile.save()
-                            #profile = Profile.objects.update(points=0, pre_assessment='No',
+                            # profile = Profile.objects.update(points=0, pre_assessment='No',
                             #                                 program=Program.objects.all().filter(program_name=name)[0])
-                            #print("Profile")
-                            #print(profile)
+                            # print("Profile")
+                            # print(profile)
                             profile.save()
                             form = PasswordResetForm({'email': user.email})
                             if form.is_valid():
@@ -225,11 +228,15 @@ def handle_uploaded_file(request, name):
                         vu = RegisterUser(email=row[2], first_name=row[0], last_name=row[1], program=name)
                         theUser = User(username=vu.email.lower(), first_name=row[0], last_name=row[1], email=row[2])
                         # new password implementation with model object
-                        # theUser.set_password(DefaultPassword.objects.get(id=1))
-                        theUser.set_password('stayfit2020')
+                        try:
+                            pass1 = DefaultPassword.objects.latest()
+                        except:
+                            pass1 = 'stayfit2020'
+                        theUser.set_password(pass1)
                         theUser.email = row[2].lower()
                         theUser.save()
-                        profile = Profile.objects.create(user=theUser,program=Program.objects.all().filter(program_name=name)[0])
+                        profile = Profile.objects.create(user=theUser,
+                                                         program=Program.objects.all().filter(program_name=name)[0])
                         profile.save()
                         form = PasswordResetForm({'email': theUser.email})
                         if form.is_valid():
@@ -1020,6 +1027,7 @@ def Analytics_Dashboard(request):
                   'analytics/Analytics_Dashboard.html',
                   {'section': 'Analytics_Dashboard', 'jsondata': jsondata})
 
+
 '''
 # user - send kindness message
 @login_required
@@ -1035,6 +1043,7 @@ def send_message(request):
     return redirect('pages/kindness-card', {'section': 'send_message'})
 '''
 
+
 # user - send kindness message
 @login_required
 def send_message(request):
@@ -1042,20 +1051,21 @@ def send_message(request):
         message = request.POST.get("message")
         to = request.POST.get("user")
         from_user = request.user.username
-        #KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
+        # KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
         user = User.objects.get(username=to)
-        user1 = User.objects.get(username=from_user) #sdizdarevic 3/21/2020 for deleting purposes, if a user is deleted from Django Admin, we want to delete kindness messages too
+        user1 = User.objects.get(
+            username=from_user)  # sdizdarevic 3/21/2020 for deleting purposes, if a user is deleted from Django Admin, we want to delete kindness messages too
         name = user.first_name + user.last_name
         messages.success(request, f'Message sent to: {name}')
         today = datetime.today()
         programs = Program.objects.filter(program_start_date__lte=today).filter(
             program_end_date__gte=today)  # sdizdarevic 3/15/2020
 
-        for program in programs: # sdizdarevic 3/15/2020
+        for program in programs:  # sdizdarevic 3/15/2020
 
-            current_program = program.program_name # sdizdarevic 3/15/2020
+            current_program = program.program_name  # sdizdarevic 3/15/2020
             KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to,
-                                           message_program=current_program, user=user1) # sdizdarevic 3/15/2020
+                                           message_program=current_program, user=user1)  # sdizdarevic 3/15/2020
             program.save()  # sdizdarevic since we dont have a field with primary_key, save() will assign an id automatically and we should be able to query it later for show all kcarsd purposes
 
     return redirect('pages/kindness-card', {'section': 'send_message'})
@@ -1096,13 +1106,16 @@ def inbox(request):
                       {'messages': messages, 'all': dict_all, 'unread': dict_unread})
 '''
 
+
 # user - read kindness message
 def inbox(request):
     if request.method == 'GET':
-        current_program = Program.objects.last() #sdizdarevic 3/19/20 in account_program table in our db, a pk is assigned to programs as they're created. the last program created will have the last pk number
-        #print("Current Program") leave for testing
-        #print(current_program) leave for testing
-        all_messages = KindnessMessage.objects.filter(to_user=request.user.username).filter(message_program__exact=current_program).order_by('-message_id') #sdizdarevic 3/15/2020 added filter to also query the program message was sent
+        current_program = Program.objects.last()  # sdizdarevic 3/19/20 in account_program table in our db, a pk is assigned to programs as they're created. the last program created will have the last pk number
+        # print("Current Program") leave for testing
+        # print(current_program) leave for testing
+        all_messages = KindnessMessage.objects.filter(to_user=request.user.username).filter(
+            message_program__exact=current_program).order_by(
+            '-message_id')  # sdizdarevic 3/15/2020 added filter to also query the program message was sent
         unread_messages = all_messages.filter(read_message=False)
         dict_all = {}
         dict_unread = {}
@@ -1206,7 +1219,6 @@ def edit_user(request, pk):
 @login_required
 def signup(request):
     programs = Program.objects.all()
-    #welcome = WelcomeEmail.objects.all()
     if request.method == 'POST':
         sign_form = SignUpForm(data=request.POST)
 
@@ -1217,7 +1229,10 @@ def signup(request):
             last_name = sign_form.cleaned_data['last_name']
             # new password implementation with model object
             # password = DefaultPassword.objects.get(id=1)
-            password = 'stayfit2020'
+            try:
+                password = DefaultPassword.objects.latest()
+            except:
+                password = 'stayfit2020'
             selected_program = get_object_or_404(Program, pk=request.POST.get('programs'))
             theUser = User(username=username, email=email, first_name=first_name,
                            last_name=last_name)
@@ -1237,7 +1252,7 @@ def signup(request):
                     from_email=settings.EMAIL_HOST_USER,
                     subject_template_name='registration/new_user_subject.txt',
                     email_template_name='registration/password_reset_newuser_email.html')
-                #form.fields['email'] = welcome
+                # form.fields['email'] = welcome
             return redirect('/account/users/')
     else:
         sign_form = SignUpForm()
@@ -1362,22 +1377,17 @@ def add_school(request):
                   {'section': 'add_school', 'form': form, 'addschool': addschool})
 
 
+# admin - default password
+def Default_Password(request):
+    try:
+        pass1 = DefaultPassword.objects.latest()
+    except:
+        pass1 = 'stayfit2020'
 
-# # admin - default password
-# def Default_Password(request):
-#     pass1 = DefaultPassword.objects.get(id=1)
-#     if request.method == 'POST':
-#         pass1.default_password = request.POST['password']
-#         pass1.save()
-#     return render(request, 'account/default_password.html', {'pass1': pass1})
+    if request.method == 'POST':
+        pass1.default_password = request.POST['password']
+        pass1.save()
+    return render(request, 'account/default_password.html', {'pass1': pass1})
 
-
-# # admin - welcome email editing
-# def Welcome_Email(request):
-#     id1 = WelcomeEmail.objects.get(id=1)
-#     if request.method == 'POST':
-#         id1.welcome_email = request.POST['email']
-#         id1.save()
-#     return render(request, 'account/welcome_email.html', {'id1': id1})
 
 
