@@ -95,7 +95,20 @@
 {#    <input type="submit" id="start" value="Click here to start timer" name="submit" onClick="start()"/>#}
 {#    <input type="submit" id="pause" value="Click here to paue timer" name="submit" onClick="pause()"/>#}
     <script>
+        var timer2 = "{{ page.timer_for_this_activity|safe }}";
+    var timer = timer2.split(':');
+    //by parsing integer, I avoid all extra string processing
+    var minutes = parseInt(timer[0], 10);
+    var seconds = parseInt(timer[1], 10);
+    --seconds;
+    minutes = (seconds < 0) ? --minutes : minutes;
+    seconds = (seconds < 0) ? 59 + 1 : seconds;
+    seconds = (seconds < 10) ? '0' + seconds : seconds;
+    var minutes_in_seconds = 60 * minutes;
+    var total_time_in_seconds = minutes_in_seconds + seconds;
+    var total_time_in_milliseconds = total_time_in_seconds*1000 + 1;
     var CountDown = (function ($) {
+
         // Length ms
     var TimeOut = 10000;
     // Interval ms
@@ -122,6 +135,8 @@
                 GuiTimer.css('color','red');
                 $('#done').show();
                 $('#countdown').hide();
+                $('#pause').hide();
+                $('#resume').hide();
                 $( ".physical-form" ).submit();
             }
         }
@@ -169,7 +184,7 @@ jQuery('#pause').on('click',CountDown.Pause);
 jQuery('#resume').on('click',CountDown.Resume);
 
 // ms
-CountDown.Start(1800000);
+CountDown.Start(total_time_in_milliseconds);
 {#        $('#done').hide();#}
 {##}
 {#        jQuery(function($){#}
