@@ -2,9 +2,9 @@
 
 # Register your models here.
 
-from .models import Program, CloneProgramInfo
+from .models import Program, CloneProgramInfo, KindnessCardTemplate
 from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote, Inactiveuser, RewardsNotification, \
-Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem, Schools, KindnessCardTemplate, DefaultPassword
+    Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem, Schools, DefaultPassword
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
@@ -19,7 +19,7 @@ admin.site.register(CloneProgramInfo)
 
 
 class ProgramList(admin.ModelAdmin):
-    list_display = ('program_name', 'program_start_date', 'program_end_date', 'KCardTemplate')
+    list_display = ('program_name', 'program_start_date', 'program_end_date')
     list_filter = ('program_name', 'program_start_date')
     search_fields = ('program_name', 'program_start_date')
     ordering = [
@@ -155,11 +155,16 @@ class KindnessCardTemplateAdmin(admin.ModelAdmin):
             height=obj.headshot.height,
             )
         )
+
+admin.site.register(KindnessCardTemplate, KindnessCardTemplateAdmin)
+
+
+
 # to display default password on django
 class DefaultPass(admin.ModelAdmin):
     list_display = ('id', 'default_password',)
 
 
 admin.site.register(DefaultPassword, DefaultPass)
-admin.site.register(KindnessCardTemplate, KindnessCardTemplateAdmin)
+
 

@@ -7,7 +7,7 @@ from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, program
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
-    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile, KindnessCardTemplate, DefaultPassword
+    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile, DefaultPassword, KindnessCardTemplate
 from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
@@ -175,8 +175,7 @@ def createprogram(request):
         form = ProgramForm()
     return render(request,
                   'account/createprogram.html',
-                  {'section': 'createprogram', 'form': form, 'registeredPrograms': registeredPrograms,
-                   'templates': programTemplates})
+                  {'section': 'createprogram', 'form': form, 'registeredPrograms': registeredPrograms})
 
 
 # admin - signup users with csv upload
@@ -203,7 +202,7 @@ def handle_uploaded_file(request, name):
                             # new password implementation with model object
                             try:
                                 pass1 = DefaultPassword.objects.latest()
-                            except DefaultPassword.objects.DoesNotExist:
+                            except:
                                 pass1 = 'stayfit2020'
                             user.set_password(pass1)
                             print(user.set_password)
@@ -237,7 +236,7 @@ def handle_uploaded_file(request, name):
                         # new password implementation with model object
                         try:
                             pass1 = DefaultPassword.objects.latest()
-                        except DefaultPassword.objects.DoesNotExist:
+                        except:
                             pass1 = 'stayfit2020'
                         theUser.set_password(pass1)
                         theUser.email = row[2].lower()
@@ -292,77 +291,85 @@ def registerusers(request):
                     return redirect('registerusers')
                 elif value == 0 and fail == 0 and existing == 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value == 0 and fail == 0 and existing > 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
                     return redirect('registerusers')
                 elif value == 0 and fail == 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account already exist: {existing}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value == 0 and fail > 0 and existing == 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
                     return redirect('registerusers')
                 elif value == 0 and fail > 0 and existing == 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value == 0 and fail > 0 and existing > 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
                     return redirect('registerusers')
                 elif value == 0 and fail > 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of user-account already exist: {existing}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
 
                 elif value > 0 and fail == 0 and existing == 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value > 0 and fail == 0 and existing > 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Total number of user-account added successfully: {value + existing}')
-                    messages.info(request, f'{existing} of which were in a previous program ')
+                    messages.info(request, f'Total number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
                     return redirect('registerusers')
                 elif value > 0 and fail == 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value + existing}')
-                    messages.info(request, f'{existing} of which were in a previous program: ')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing == 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
-                    messages.info(request, f'Number of user-account already exist: {fail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing == 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing > 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value + existing}')
-                    messages.info(request, f'{existing} of which were in a previous program: ')
-                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value + existing}')
-                    messages.info(request, f'{existing} of which were in a previous program: ')
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 else:
                     form = request.POST
@@ -1240,7 +1247,7 @@ def signup(request):
             # password = DefaultPassword.objects.get(id=1)
             try:
                 password = DefaultPassword.objects.latest()
-            except DefaultPassword.objects.DoesNotExist:
+            except:
                 password = 'stayfit2020'
             selected_program = get_object_or_404(Program, pk=request.POST.get('programs'))
             theUser = User(username=username, email=email, first_name=first_name,
@@ -1390,7 +1397,7 @@ def add_school(request):
 def Default_Password(request):
     try:
         pass1 = DefaultPassword.objects.latest()
-    except DefaultPassword.objects.DoesNotExist:
+    except:
         pass1 = 'stayfit2020'
 
     if request.method == 'POST':
