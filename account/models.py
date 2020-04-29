@@ -27,6 +27,7 @@ BACKGROUND_CHOICES = [
 ]
 
 
+
 class KindnessCardTemplate(models.Model):
     id = models.AutoField(primary_key=True)
     image_name = models.CharField(max_length=25, null=True, blank=True)
@@ -35,13 +36,11 @@ class KindnessCardTemplate(models.Model):
     def __str__(self):
         return str(self.image_name)
 
-
 class Program(models.Model):
     # program_id = models.AutoField(null=False, primary_key=True)
     program_name = models.CharField(max_length=20, null=False, unique=True)
     program_start_date = models.DateField(null=False, blank=False)
     program_end_date = models.DateField(null=False, blank=False)
-    KCardTemplate = models.ForeignKey(KindnessCardTemplate, on_delete=models.SET_NULL, null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now, blank=True)
     updated_date = models.DateTimeField(auto_now_add=True, null=True)
 
