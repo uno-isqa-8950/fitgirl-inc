@@ -13,11 +13,21 @@ from io import BytesIO
 
 # Create your models here.
 
-EVENT = (
-    (1, _("8-10")),
-    (2, _("11-13")),
-    (3, _("14-16")),
+# Old age groups sdizdarevic 4/1
+# EVENT = (
+#    (1, _("8-10")),
+#    (2, _("11-13")),
+#    (3, _("14-16")),
 
+# )
+
+# Age Group from avatar view
+EVENT = (
+    (1, ("6")),
+    (2,("7-10")),
+    (3,("11-13")),
+    (4,("14-16")),
+    (5,("17+"))
 )
 
 BACKGROUND_CHOICES = [

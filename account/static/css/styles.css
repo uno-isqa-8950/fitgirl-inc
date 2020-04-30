@@ -2297,7 +2297,8 @@ img {
   font-weight: bold;
 }
 .move{
-margin-left:42%}
+/* previously margin-left:42% which was making the kindness card "jump" from left to right when "show all cards" on open/close card button sdizdarevic4/1/2020 */
+margin-left:0%}
 .wrap {
   width: 420px;
     height: 513px;

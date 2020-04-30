@@ -124,6 +124,24 @@ class Fact(Page):
     ]
 
 
+class Sensitive(Page):
+    intro = RichTextField(blank=True)
+    display_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL,
+                                      related_name='+')
+    description = RichTextField(blank=True)
+    body = RichTextField(blank=True)
+    age_group_content = models.IntegerField("Enter the age group to show the content to: 1 for 6 or younger; 2  for ages 7-10; 3 for ages 11-13; 4 for ages 14-16; 5 for 17+",
+                                             blank=True, default=0) #added so that Cheri can control who sees sensitive content sdizdarevic4/1/2020
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full"),
+        ImageChooserPanel('display_image'),
+        FieldPanel('body', classname="full"),
+        FieldPanel('description', classname="full"),
+        FieldPanel('age_group_content', classname="full")
+
+    ]
+
+
 class QuestionFormField(AbstractFormField):
     page = ParentalKey('QuestionPage', on_delete=models.CASCADE, related_name='form_fields')
 
