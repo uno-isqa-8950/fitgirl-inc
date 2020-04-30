@@ -196,7 +196,7 @@ def handle_uploaded_file(request, name):
                             # new password implementation with model object
                             try:
                                 pass1 = DefaultPassword.objects.latest()
-                            except DefaultPassword.objects.DoesNotExist:
+                            except:
                                 pass1 = 'stayfit2020'
                             user.set_password(pass1)
                             print(user.set_password)
@@ -230,7 +230,7 @@ def handle_uploaded_file(request, name):
                         # new password implementation with model object
                         try:
                             pass1 = DefaultPassword.objects.latest()
-                        except DefaultPassword.objects.DoesNotExist:
+                        except:
                             pass1 = 'stayfit2020'
                         theUser.set_password(pass1)
                         theUser.email = row[2].lower()
@@ -394,22 +394,29 @@ def edit(request):
                                        files=request.FILES, user=request.user)
         date_of_birth = request.POST.get('date_of_birth')
         converted_dob = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
-
+#changed age groups to 1,2,3,4,5. Previous logic 8-10 = age group 1; 11-13 age group 2; 14-16 age group 3; anything else = age group 1 sdizdarevic4/1/2020
         print(type(date_of_birth))
         her_age = int((datetime.now().date() - converted_dob).days / 365.25)
         print(her_age)
-        if her_age >= 8 and her_age <= 10:
+        if her_age >= 1 and her_age <= 6:
             request.user.profile.age_group = 1
             request.user.profile.save()
-        elif her_age >= 11 and her_age <= 13:
+        elif her_age >= 7 and her_age <=10:
             request.user.profile.age_group = 2
             request.user.profile.save()
-        elif her_age >= 14 and her_age <= 16:
+        elif her_age >= 11 and her_age <= 13:
             request.user.profile.age_group = 3
             request.user.profile.save()
-        else:
-            request.user.profile.age_group = 1
+        elif her_age >= 14 and her_age <= 16:
+            request.user.profile.age_group = 4
             request.user.profile.save()
+        elif her_age >= 17:
+            request.user.profile.age_group = 5
+            request.user.profile.save()
+        else:
+            request.user.profile.age_group = 0
+            request.user.profile.save()
+
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -448,21 +455,27 @@ def user_edit(request):
                                        files=request.FILES, user=request.user)
         date_of_birth = request.POST.get('date_of_birth')
         converted_dob = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
-
+#changed age groups here too sdizdarevic4/1
         print(type(date_of_birth))
         her_age = int((datetime.now().date() - converted_dob).days / 365.25)
         print(her_age)
-        if her_age >= 8 and her_age <= 10:
+        if her_age >=1 and her_age <= 6:
             request.user.profile.age_group = 1
             request.user.profile.save()
-        elif her_age >= 11 and her_age <= 13:
+        elif her_age >= 7 and her_age <= 10:
             request.user.profile.age_group = 2
             request.user.profile.save()
-        elif her_age >= 14 and her_age <= 16:
+        elif her_age >= 11 and her_age <= 13:
             request.user.profile.age_group = 3
             request.user.profile.save()
+        elif her_age >= 14 and her_age <= 16:
+            request.user.profile.age_group = 4
+            request.user.profile.save()
+        elif her_age >= 17:
+            request.user.profile.age_group = 5
+            request.user.profile.save()
         else:
-            request.user.profile.age_group = 1
+            request.user.profile.age_group = 0
             request.user.profile.save()
 
         if user_form.is_valid() and profile_form.is_valid():
@@ -1173,21 +1186,27 @@ def edit_user(request, pk):
         print(request.POST.get('date_of_birth'))
         date_of_birth = request.POST.get('date_of_birth')
         converted_dob = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
-
+#changed age groups here as well sdizdarevic4/1/2020
         print(type(date_of_birth))
         her_age = int((datetime.now().date() - converted_dob).days / 365.25)
         print(her_age)
-        if her_age >= 8 and her_age <= 10:
+        if her_age >=1 and her_age<= 6:
             user1.age_group = 1
             user1.save()
-        elif her_age >= 11 and her_age <= 13:
+        elif her_age >= 7 and her_age <= 10:
             user1.age_group = 2
             user1.save()
-        elif her_age >= 14 and her_age <= 16:
+        elif her_age >= 11 and her_age <= 13:
             user1.age_group = 3
             user1.save()
+        elif her_age >= 14 and her_age <= 16:
+            user1.age_group = 4
+            user1.save()
+        elif her_age >= 17:
+            user1.age_group = 5
+            user1.save()
         else:
-            user1.age_group = 1
+            user1.age_group = 0
             user1.save()
         if form1.is_valid() and form.is_valid():
             user = form.save(commit=False)
@@ -1222,7 +1241,7 @@ def signup(request):
             # password = DefaultPassword.objects.get(id=1)
             try:
                 password = DefaultPassword.objects.latest()
-            except DefaultPassword.objects.DoesNotExist:
+            except:
                 password = 'stayfit2020'
             selected_program = get_object_or_404(Program, pk=request.POST.get('programs'))
             theUser = User(username=username, email=email, first_name=first_name,
@@ -1372,7 +1391,7 @@ def add_school(request):
 def Default_Password(request):
     try:
         pass1 = DefaultPassword.objects.latest()
-    except DefaultPassword.objects.DoesNotExist:
+    except:
         pass1 = 'stayfit2020'
 
     if request.method == 'POST':
