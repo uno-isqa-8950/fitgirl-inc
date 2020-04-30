@@ -236,8 +236,10 @@ def handle_uploaded_file(request, name):
                         theUser.email = row[2].lower()
                         theUser.save()
                         profile = Profile.objects.create(user=theUser,
-                                                         program=Program.objects.all().filter(program_name=name)[0])
+                                                         program=Program.objects.all().filter(program_name=name)[0],bio="Enter your details")
+
                         profile.save()
+
                         form = PasswordResetForm({'email': theUser.email})
                         if form.is_valid():
                             request = HttpRequest()
@@ -1258,7 +1260,7 @@ def signup(request):
             theUser.set_password(password)
             theUser.save()
             profile = Profile.objects.create(user=theUser,
-                                             program=selected_program)
+                                             program=selected_program,bio="Enter your details")
             profile.save()
             messages.success(request, f'{theUser.first_name} {theUser.last_name} has been added successfully!')
             form = PasswordResetForm({'email': theUser.email})
