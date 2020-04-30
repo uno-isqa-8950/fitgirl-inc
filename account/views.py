@@ -236,8 +236,10 @@ def handle_uploaded_file(request, name):
                         theUser.email = row[2].lower()
                         theUser.save()
                         profile = Profile.objects.create(user=theUser,
-                                                         program=Program.objects.all().filter(program_name=name)[0])
+                                                         program=Program.objects.all().filter(program_name=name)[0],bio="Enter your details")
+
                         profile.save()
+
                         form = PasswordResetForm({'email': theUser.email})
                         if form.is_valid():
                             request = HttpRequest()
@@ -805,43 +807,43 @@ def parameters_form(request):
 
 
 # admin: Clone a program to copy all the pages toa new program
-@login_required
-def cloneprogram(request):
-    if request.method == "POST":
-        form = ProgramClone(request.POST)
-        if form.is_valid():
-            user = request.user
-            new_start_date = str(form.cleaned_data['new_start_date'])
-            program_to_clone = form.cleaned_data['program_to_clone']
-            new_program = form.clean()['new_program']
-
-            date_fields = new_start_date.split('-')
-            new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]),
-                                                   tzinfo=tzlocal.get_localzone())
-            new_program_slug = '-'.join(new_program.lower().split(' '))
-
-            if Page.objects.filter(slug=new_program_slug).count() > 0 \
-                    or Page.objects.filter(title=new_program).count() > 0:
-                message = "Error: A program with this name already exists"
-            elif CloneProgramInfo.objects.filter(new_program=new_program, active=True).count() > 0:
-                message = "Error: This program is already scheduled for setup"
-            else:
-                new_program_info = CloneProgramInfo()
-                new_program_info.program_to_clone = program_to_clone
-                new_program_info.new_program = new_program
-                new_program_info.new_start_date = new_start_datetime
-                new_program_info.active = True
-                new_program_info.user = user
-                new_program_info.save()
-                message = 'Your program is being created.  This will take several minutes. You will receive an email when the process is complete.'
-                return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
-        else:
-            message = 'Error: Invalid data'
-            return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
-    else:
-        form = ProgramClone()
-        return render(request, 'account/cloneprogram.html', {'form': form})
-
+# @login_required
+# def cloneprogram(request):
+#     if request.method == "POST":
+#         form = ProgramClone(request.POST)
+#         if form.is_valid():
+#             user = request.user
+#             new_start_date = str(form.cleaned_data['new_start_date'])
+#             program_to_clone = form.cleaned_data['program_to_clone']
+#             new_program = form.clean()['new_program']
+#
+#             date_fields = new_start_date.split('-')
+#             new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]),
+#                                                    tzinfo=tzlocal.get_localzone())
+#             new_program_slug = '-'.join(new_program.lower().split(' '))
+#
+#             if Page.objects.filter(slug=new_program_slug).count() > 0 \
+#                     or Page.objects.filter(title=new_program).count() > 0:
+#                 message = "Error: A program with this name already exists"
+#             elif CloneProgramInfo.objects.filter(new_program=new_program, active=True).count() > 0:
+#                 message = "Error: This program is already scheduled for setup"
+#             else:
+#                 new_program_info = CloneProgramInfo()
+#                 new_program_info.program_to_clone = program_to_clone
+#                 new_program_info.new_program = new_program
+#                 new_program_info.new_start_date = new_start_datetime
+#                 new_program_info.active = True
+#                 new_program_info.user = user
+#                 new_program_info.save()
+#                 message = 'Your program is being created.  This will take several minutes. You will receive an email when the process is complete.'
+#                 return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
+#         else:
+#             message = 'Error: Invalid data'
+#             return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
+#     else:
+#         form = ProgramClone()
+#         return render(request, 'account/cloneprogram.html', {'form': form})
+#
 
 # admin - set reward milestones
 def rewards_notification(request):
@@ -1258,7 +1260,7 @@ def signup(request):
             theUser.set_password(password)
             theUser.save()
             profile = Profile.objects.create(user=theUser,
-                                             program=selected_program)
+                                             program=selected_program,bio="Enter your details")
             profile.save()
             messages.success(request, f'{theUser.first_name} {theUser.last_name} has been added successfully!')
             form = PasswordResetForm({'email': theUser.email})
