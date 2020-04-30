@@ -2,49 +2,15 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, HttpRes
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, programArchiveForm, EmailForm, CronForm, \
-    RewardsNotificationForm, ManagePointForm, ParametersForm, ProgramClone
-from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
-from .forms import RewardItemForm, RewardCategoryForm
-from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
-    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile, DefaultPassword
-from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
-from week.forms import TemplateForm
-from week.models import CustomFormSubmission
-from io import StringIO
-import re, json
-#import weasyprint
-from io import BytesIO
-from django.shortcuts import redirect
-import csv
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.contrib.auth.forms import PasswordResetForm
-from django.conf import settings
-from empoweru.settings import CLIENT_EMAIL
-import datetime, tzlocal
-from django.core.mail import BadHeaderError, send_mail, EmailMessage
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-from wagtail.core.models import Page
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.core import serializers, exceptions
-# from django.core.management.base import BaseCommand, CommandError
-from django.contrib.auth.models import User
-import datetime, pytz, re
+from .forms import ProgramClone
+import tzlocal
+
 from account.models import Inactiveuser, CloneProgramInfo, Program
 from wagtail.core.models import Page
-from week.models import PhysicalPostPage
-from django.core.mail import send_mail
-from django.conf import settings
+
 from datetime import datetime
 # from datetime import datetime, timedelta
-# from datetime import timedelta
-from account.todays_date import todays_date
-from account.tomorrows_date import tomorrows_date
-from week.models import welcomepage
-import pandas as pd
+
 
 
 
