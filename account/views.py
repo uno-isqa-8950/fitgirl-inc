@@ -369,6 +369,7 @@ def registerusers(request):
                     form = request.POST
                     messages.success(request, f'Number of user-account added successfully: {value}')
                     return redirect('users')
+
     else:
         form = UploadFileForm()
     return render(request,

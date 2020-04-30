@@ -144,11 +144,13 @@ class SchoolsAdmin(admin.ModelAdmin):
 admin.site.register(Schools, SchoolsAdmin)
 
 
+
 # to display default password on django
 class DefaultPass(admin.ModelAdmin):
     list_display = ('id', 'default_password',)
 
 
 admin.site.register(DefaultPassword, DefaultPass)
+
 
 
