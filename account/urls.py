@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 from . import views
-
+from account.program_clone import cloneprogram
 urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
@@ -23,7 +23,9 @@ urlpatterns = [
     path('users/', views.users, name='users'),
     path('view-rewards/', views.viewRewards, name='rewards'),
     path('createprogram/', views.createprogram, name='createprogram'),
-    path('cloneprogram/', views.cloneprogram, name='cloneprogram'),
+    #path('cloneprogram/', views.cloneprogram, name='cloneprogram'),
+    path('cloneprogram/', cloneprogram, name='cloneprogram'),
+
     path('analytics/', views.analytics, name='analytics'),
     path('registerusers/', views.registerusers, name='registerusers'),
     path('cms_frame/', views.cms_frame, name='cms_frame'),
