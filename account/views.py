@@ -156,6 +156,7 @@ def login_success(request):
 @login_required
 def createprogram(request):
     registeredPrograms = Program.objects.all()
+    programTemplates = KindnessCardTemplate.objects.all()
     if request.method == 'POST':
         form = ProgramForm(request.POST)
         if form.is_valid():
@@ -165,7 +166,6 @@ def createprogram(request):
             selected_template = get_object_or_404(KindnessCardTemplate, pk=request.POST.get('templates'))
             program = Program.objects.create(program_name=program_name, program_start_date=program_start_date,
                                              program_end_date=program_end_date, KCardTemplate=selected_template)
-            program = form.save(commit=False)
             program.save()
             messages.success(request, 'Program added successfully')
             return redirect('createprogram')
@@ -175,7 +175,8 @@ def createprogram(request):
         form = ProgramForm()
     return render(request,
                   'account/createprogram.html',
-                  {'section': 'createprogram', 'form': form, 'registeredPrograms': registeredPrograms})
+                  {'section': 'createprogram', 'form': form, 'registeredPrograms': registeredPrograms,
+                   'templates': programTemplates})
 
 
 # admin - signup users with csv upload
