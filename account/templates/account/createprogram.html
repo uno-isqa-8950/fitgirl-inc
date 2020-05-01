@@ -104,6 +104,14 @@ text-align: right;
             </div>
           </div>
         </div>
+
+          <p>Program Template:</p>
+            <select name="templates" class="form-control">
+                {% for template in templates %}
+                    <option value="{{ template.id }}">{{ template.image_name }}</option>
+                {% endfor %}
+            </select>
+
         <div class="form-row">
           <div class="col">
             <div class="form-group">
