@@ -2331,7 +2331,6 @@ margin-left:0%}
   font-family: sans-serif;
   font-weight: bold;
   font-size: 33px;
-  background: url(../images/KCard.jpg) repeat 100%;
     background-size: cover;
     color: black;
 
@@ -2368,7 +2367,7 @@ width:100%;
 height:100%;
 opacity:0.2;
 z-index:-1;
-background: url(../images/KCard.jpg) repeat 100%;
+/*background: url(../images/KCard.jpg) repeat 100%;*/
 background-size: cover;
 }
 .card--inner {
@@ -2386,7 +2385,7 @@ background-size: cover;
   left: 0;
   bottom: 0;
   right: 0;
-  background: url(../images/KCard.jpg) repeat 100%;
+  /*background: url(../images/KCard.jpg) repeat 100%;*/
   position: absolute;
   z-index: -1;
 }

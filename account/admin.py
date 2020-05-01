@@ -2,7 +2,7 @@
 
 # Register your models here.
 
-from .models import Program, CloneProgramInfo
+from .models import Program, CloneProgramInfo, KindnessCardTemplate
 from .models import Profile, RegisterUser, InspirationalQuotes, Dailyquote, Inactiveuser, RewardsNotification, \
     Affirmations, Reward, KindnessMessage, RewardCategory, RewardItem, Schools, DefaultPassword
 from django.contrib.auth.models import User
@@ -144,6 +144,19 @@ class SchoolsAdmin(admin.ModelAdmin):
 admin.site.register(Schools, SchoolsAdmin)
 
 
+class KindnessCardTemplateAdmin(admin.ModelAdmin):
+    list_display = ['image_name']
+    image_template = ['template_image']
+
+    def template_image(self, obj):
+        return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
+            url=obj.headshot.url,
+            width=obj.headshot.width,
+            height=obj.headshot.height,
+            )
+        )
+
+admin.site.register(KindnessCardTemplate, KindnessCardTemplateAdmin)
 
 # to display default password on django
 class DefaultPass(admin.ModelAdmin):
