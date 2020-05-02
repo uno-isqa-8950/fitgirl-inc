@@ -45,7 +45,8 @@ from account.todays_date import todays_date
 from account.tomorrows_date import tomorrows_date
 from week.models import welcomepage
 import pandas as pd
-
+# from django.conf import settings
+from empoweru.settings import MEDIA_ROOT
 
 # json data for analytics dashboard
 @login_required
@@ -1148,7 +1149,7 @@ def inbox(request):
             tempImage = programTemplates
 
         print (tempImage)
-        programTemplatesAndPath = '../../../media/' + tempImage
+        programTemplatesAndPath = MEDIA_ROOT + tempImage
         print (programTemplatesAndPath)
         dict_all = {}
         dict_unread = {}
