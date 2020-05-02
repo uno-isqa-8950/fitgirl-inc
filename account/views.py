@@ -1140,16 +1140,16 @@ def inbox(request):
             message_program__exact=current_program).order_by(
             '-message_id')  # sdizdarevic 3/15/2020 added filter to also query the program message was sent
         unread_messages = all_messages.filter(read_message=False)
-        program = Program.objects.latest('KCardTemplate')
+        program = request.user.profile.program
         try:
             programTemplates = program.KCardTemplate
-            tempImage = str(programTemplates.image)
+            tempImage = str(programTemplates.image.url)
+            print (tempImage)
         except:
             programTemplates = 'images/KCard.jpg'
-            tempImage = programTemplates
+            tempImage = MEDIA_ROOT + programTemplates
 
-        print (tempImage)
-        programTemplatesAndPath = MEDIA_ROOT + tempImage
+        programTemplatesAndPath = '../../..' + tempImage
         print (programTemplatesAndPath)
         dict_all = {}
         dict_unread = {}
