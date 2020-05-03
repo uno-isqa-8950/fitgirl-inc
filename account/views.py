@@ -13,7 +13,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
 import re, json
-import weasyprint
+# import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv
@@ -46,7 +46,7 @@ from account.tomorrows_date import tomorrows_date
 from week.models import welcomepage
 import pandas as pd
 # from django.conf import settings
-from empoweru.settings import MEDIA_ROOT
+from empoweru.settings import MEDIA_ROOT, AWS_S3_BUCKET
 
 # json data for analytics dashboard
 @login_required
@@ -1133,7 +1133,7 @@ def inbox(request):
 # user - read kindness message
 def inbox(request):
     if request.method == 'GET':
-        current_program = Program.objects.last()  # sdizdarevic 3/19/20 in account_program table in our db, a pk is assigned to programs as they're created. the last program created will have the last pk number
+        current_program = request.user.profile.program  # sdizdarevic 3/19/20 in account_program table in our db, a pk is assigned to programs as they're created. the last program created will have the last pk number
         # print("Current Program") leave for testing
         # print(current_program) leave for testing
         all_messages = KindnessMessage.objects.filter(to_user=request.user.username).filter(
@@ -1149,7 +1149,7 @@ def inbox(request):
             programTemplates = 'images/KCard.jpg'
             tempImage = MEDIA_ROOT + programTemplates
 
-        programTemplatesAndPath = '../../..' + tempImage
+        programTemplatesAndPath = AWS_S3_BUCKET + tempImage
         print (programTemplatesAndPath)
         dict_all = {}
         dict_unread = {}
