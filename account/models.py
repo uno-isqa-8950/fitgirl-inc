@@ -270,6 +270,7 @@ class CloneProgramInfo(models.Model):
     new_start_date = models.DateField(blank=False, null=False)
     new_program = models.CharField(max_length=25, null=False, blank=False)
     user = models.ForeignKey(User, blank=False, null=True, on_delete=models.SET_NULL)
+    KCardTemplate = models.ForeignKey(KindnessCardTemplate, on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 

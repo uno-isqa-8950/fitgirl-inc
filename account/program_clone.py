@@ -6,6 +6,7 @@ from .forms import ProgramClone
 import tzlocal
 
 from account.models import Inactiveuser, CloneProgramInfo, Program
+from .models import KindnessCardTemplate
 from wagtail.core.models import Page
 import datetime
 #from datetime import datetime
@@ -17,6 +18,7 @@ import datetime
 
 @login_required
 def cloneprogram(request):
+    programTemplates = KindnessCardTemplate.objects.all()
     if request.method == "POST":
         form = ProgramClone(request.POST)
         if form.is_valid():
@@ -24,6 +26,7 @@ def cloneprogram(request):
             new_start_date = str(form.cleaned_data['new_start_date'])
             program_to_clone = form.cleaned_data['program_to_clone']
             new_program = form.clean()['new_program']
+            selected_template = get_object_or_404(KindnessCardTemplate, pk=request.POST.get('templates'))
 
             date_fields = new_start_date.split('-')
             new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]),
@@ -42,13 +45,14 @@ def cloneprogram(request):
                 new_program_info.new_start_date = new_start_datetime
                 new_program_info.active = True
                 new_program_info.user = user
+                new_program_info.KCardTemplate = selected_template
                 new_program_info.save()
                 message = 'Your program is being created.  This will take several minutes. You will receive an email when the process is complete.'
-                return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
+                return render(request, 'account/cloneprogram.html', {'form': form, 'message': message, 'templates': programTemplates})
         else:
             message = 'Error: Invalid data'
-            return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
+            return render(request, 'account/cloneprogram.html', {'form': form, 'message': message, 'templates': programTemplates})
     else:
         form = ProgramClone()
-        return render(request, 'account/cloneprogram.html', {'form': form})
+        return render(request, 'account/cloneprogram.html', {'form': form, 'templates': programTemplates})
 

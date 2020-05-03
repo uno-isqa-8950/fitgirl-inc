@@ -46,7 +46,7 @@ from account.tomorrows_date import tomorrows_date
 from week.models import welcomepage
 import pandas as pd
 # from django.conf import settings
-from empoweru.settings import MEDIA_ROOT, AWS_S3_BUCKET
+from empoweru.settings import MEDIA_ROOT
 
 # json data for analytics dashboard
 @login_required
