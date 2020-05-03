@@ -14,7 +14,18 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
+
+            <p>Kindness Card Template:</p>
+            <select name="templates" class="form-control">
+                {% for template in templates %}
+                    <option value="{{ template.id }}">{{ template.image_name }}</option>
+                {% endfor %}
+            </select>
+
+
+           <div>
            <button class="btn btn-default" value="Submit" action="submit">Submit</button>
+           </div>
 
         </form>
     </fieldset>
