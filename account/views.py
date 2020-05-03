@@ -1149,7 +1149,7 @@ def inbox(request):
             programTemplates = 'images/KCard.jpg'
             tempImage = MEDIA_ROOT + programTemplates
 
-        programTemplatesAndPath = AWS_S3_BUCKET + tempImage
+        programTemplatesAndPath = tempImage
         print (programTemplatesAndPath)
         dict_all = {}
         dict_unread = {}
