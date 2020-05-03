@@ -13,7 +13,7 @@ from week.forms import TemplateForm
 from week.models import CustomFormSubmission
 from io import StringIO
 import re, json
-import weasyprint
+# import weasyprint
 from io import BytesIO
 from django.shortcuts import redirect
 import csv
@@ -46,7 +46,7 @@ from account.tomorrows_date import tomorrows_date
 from week.models import welcomepage
 import pandas as pd
 # from django.conf import settings
-from empoweru.settings import MEDIA_ROOT
+from empoweru.settings import MEDIA_ROOT, AWS_S3_BUCKET
 
 # json data for analytics dashboard
 @login_required
@@ -1149,7 +1149,7 @@ def inbox(request):
             programTemplates = 'images/KCard.jpg'
             tempImage = MEDIA_ROOT + programTemplates
 
-        programTemplatesAndPath = 'https://fitgirl-empoweru-cat.s3.us-east-2.amazonaws.com' + tempImage
+        programTemplatesAndPath = AWS_S3_BUCKET + tempImage
         print (programTemplatesAndPath)
         dict_all = {}
         dict_unread = {}
