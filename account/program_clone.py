@@ -12,9 +12,6 @@ import datetime
 # from datetime import datetime, timedelta
 
 
-
-
-
 @login_required
 def cloneprogram(request):
     if request.method == "POST":
@@ -30,11 +27,10 @@ def cloneprogram(request):
                                                    tzinfo=tzlocal.get_localzone())
             new_program_slug = '-'.join(new_program.lower().split(' '))
 
-            if Page.objects.filter(slug=new_program_slug).count() > 0 \
-                    or Page.objects.filter(title=new_program).count() > 0:
-               message = "Error: A program with this name already exists"
+            if Page.objects.filter(slug=new_program_slug).count() > 0 or Page.objects.filter(title=new_program).count() > 0:
+                message = "Error: A program with this name already exists"
             elif CloneProgramInfo.objects.filter(new_program=new_program, active=True).count() > 0:
-                 message = "Error: This program is already scheduled for setup"
+                message = "Error: This program is already scheduled for setup"
             else:
                 new_program_info = CloneProgramInfo()
                 new_program_info.program_to_clone = program_to_clone
