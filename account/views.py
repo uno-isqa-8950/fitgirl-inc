@@ -1133,14 +1133,14 @@ def inbox(request):
 # user - read kindness message
 def inbox(request):
     if request.method == 'GET':
-        current_program = request.user.profile.program  # sdizdarevic 3/19/20 in account_program table in our db, a pk is assigned to programs as they're created. the last program created will have the last pk number
+        current_program = Program.objects.last()  # sdizdarevic 3/19/20 in account_program table in our db, a pk is assigned to programs as they're created. the last program created will have the last pk number
         # print("Current Program") leave for testing
         # print(current_program) leave for testing
         all_messages = KindnessMessage.objects.filter(to_user=request.user.username).filter(
             message_program__exact=current_program).order_by(
             '-message_id')  # sdizdarevic 3/15/2020 added filter to also query the program message was sent
         unread_messages = all_messages.filter(read_message=False)
-        program = request.user.profile.program
+        program = request.user.profile.program # O'Briens as of 5/3/2020
         try:
             programTemplates = program.KCardTemplate
             tempImage = str(programTemplates.image.url)
