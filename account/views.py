@@ -7,7 +7,7 @@ from .forms import LoginForm, UserEditForm, ProgramForm, UploadFileForm, program
 from .forms import Profile, Program, ContactForm, ProfileEditForm, AdminEditForm, SignUpForm, SchoolsForm
 from .forms import RewardItemForm, RewardCategoryForm
 from .models import RegisterUser, Dailyquote, Inactiveuser, RewardsNotification, Parameters, Reward, KindnessMessage, \
-    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile
+    CloneProgramInfo, RewardCategory, RewardItem, Schools, Program, Profile, DefaultPassword, KindnessCardTemplate
 from week.models import WeekPage, EmailTemplates, UserActivity, StatementsPage
 from week.forms import TemplateForm
 from week.models import CustomFormSubmission
@@ -30,7 +30,7 @@ from wagtail.core.models import Page
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core import serializers, exceptions
-#from django.core.management.base import BaseCommand, CommandError
+# from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
 import datetime, pytz, re
 from account.models import Inactiveuser, CloneProgramInfo, Program
@@ -39,13 +39,14 @@ from week.models import PhysicalPostPage
 from django.core.mail import send_mail
 from django.conf import settings
 from datetime import datetime
-#from datetime import datetime, timedelta
-#from datetime import timedelta
+# from datetime import datetime, timedelta
+# from datetime import timedelta
 from account.todays_date import todays_date
 from account.tomorrows_date import tomorrows_date
 from week.models import welcomepage
 import pandas as pd
-
+# from django.conf import settings
+from empoweru.settings import MEDIA_ROOT
 
 # json data for analytics dashboard
 @login_required
@@ -133,7 +134,7 @@ def user_login(request):
 # user's first page on login
 @login_required
 def login_success(request):
-    works=welcomepage.objects.all()
+    works = welcomepage.objects.all()
     programs = Program.objects.all()
     today = todays_date()
     print(today)
@@ -149,17 +150,23 @@ def login_success(request):
                       'account/current_week.html',
                       {'current_week': current_week,
                        'dailyquote': dailyquote,
-                       'works':works,})
+                       'works': works, })
 
 
 # admin - create program
 @login_required
 def createprogram(request):
     registeredPrograms = Program.objects.all()
+    programTemplates = KindnessCardTemplate.objects.all()
     if request.method == 'POST':
         form = ProgramForm(request.POST)
         if form.is_valid():
-            program = form.save(commit=False)
+            program_name = form.cleaned_data['program_name']
+            program_start_date = form.cleaned_data['program_start_date']
+            program_end_date = form.cleaned_data['program_end_date']
+            selected_template = get_object_or_404(KindnessCardTemplate, pk=request.POST.get('templates'))
+            program = Program.objects.create(program_name=program_name, program_start_date=program_start_date,
+                                             program_end_date=program_end_date, KCardTemplate=selected_template)
             program.save()
             messages.success(request, 'Program added successfully')
             return redirect('createprogram')
@@ -169,7 +176,8 @@ def createprogram(request):
         form = ProgramForm()
     return render(request,
                   'account/createprogram.html',
-                  {'section': 'createprogram', 'form': form, 'registeredPrograms': registeredPrograms})
+                  {'section': 'createprogram', 'form': form, 'registeredPrograms': registeredPrograms,
+                   'templates': programTemplates})
 
 
 # admin - signup users with csv upload
@@ -184,7 +192,7 @@ def handle_uploaded_file(request, name):
     for row in reader:
         try:
             if row[0] and row[1] and row[2]:
-                #row[0].lower() used to be .lower...row zero is the first name
+                # row[0].lower() used to be .lower...row zero is the first name
 
                 if re.match(r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', row[2]):
                     num = len(User.objects.all().filter(email=row[2]))
@@ -194,8 +202,11 @@ def handle_uploaded_file(request, name):
                             user.is_active = True
                             print(user.is_active)
                             # new password implementation with model object
-                            # user.set_password(DefaultPassword.objects.get(id=1))
-                            user.set_password('stayfit2020')
+                            try:
+                                pass1 = DefaultPassword.objects.latest()
+                            except:
+                                pass1 = 'stayfit2020'
+                            user.set_password(pass1)
                             print(user.set_password)
                             print(user)
                             user.save()
@@ -204,10 +215,10 @@ def handle_uploaded_file(request, name):
                             user.profile.pre_assessment = 'No'
                             user.profile.program = Program.objects.all().filter(program_name=name)[0]
                             user.profile.save()
-                            #profile = Profile.objects.update(points=0, pre_assessment='No',
+                            # profile = Profile.objects.update(points=0, pre_assessment='No',
                             #                                 program=Program.objects.all().filter(program_name=name)[0])
-                            #print("Profile")
-                            #print(profile)
+                            # print("Profile")
+                            # print(profile)
                             profile.save()
                             form = PasswordResetForm({'email': user.email})
                             if form.is_valid():
@@ -225,12 +236,18 @@ def handle_uploaded_file(request, name):
                         vu = RegisterUser(email=row[2], first_name=row[0], last_name=row[1], program=name)
                         theUser = User(username=vu.email.lower(), first_name=row[0], last_name=row[1], email=row[2])
                         # new password implementation with model object
-                        # theUser.set_password(DefaultPassword.objects.get(id=1))
-                        theUser.set_password('stayfit2020')
+                        try:
+                            pass1 = DefaultPassword.objects.latest()
+                        except:
+                            pass1 = 'stayfit2020'
+                        theUser.set_password(pass1)
                         theUser.email = row[2].lower()
                         theUser.save()
-                        profile = Profile.objects.create(user=theUser,program=Program.objects.all().filter(program_name=name)[0])
+                        profile = Profile.objects.create(user=theUser,
+                                                         program=Program.objects.all().filter(program_name=name)[0],bio="Enter your details")
+
                         profile.save()
+
                         form = PasswordResetForm({'email': theUser.email})
                         if form.is_valid():
                             request = HttpRequest()
@@ -278,87 +295,97 @@ def registerusers(request):
                     return redirect('registerusers')
                 elif value == 0 and fail == 0 and existing == 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value == 0 and fail == 0 and existing > 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
                     return redirect('registerusers')
                 elif value == 0 and fail == 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account already exist: {existing}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value == 0 and fail > 0 and existing == 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
                     return redirect('registerusers')
                 elif value == 0 and fail > 0 and existing == 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value == 0 and fail > 0 and existing > 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of user-account already exist: {existing}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
                     return redirect('registerusers')
                 elif value == 0 and fail > 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of user-account already exist: {existing}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
 
                 elif value > 0 and fail == 0 and existing == 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value > 0 and fail == 0 and existing > 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Total number of user-account added successfully: {value + existing}')
-                    messages.info(request, f'{existing} of which were in a previous program ')
+                    messages.info(request, f'Total number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
                     return redirect('registerusers')
                 elif value > 0 and fail == 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value + existing}')
-                    messages.info(request, f'{existing} of which were in a previous program: ')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing == 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
-                    messages.info(request, f'Number of user-account already exist: {fail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing == 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value}')
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing > 0 and bademail == 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value + existing}')
-                    messages.info(request, f'{existing} of which were in a previous program: ')
-                    messages.info(request, f'Number of user-account not added: {fail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
                     return redirect('registerusers')
                 elif value > 0 and fail > 0 and existing > 0 and bademail > 0:
                     form = request.POST
-                    messages.info(request, f'Number of user-account added successfully: {value + existing}')
-                    messages.info(request, f'{existing} of which were in a previous program: ')
-                    messages.info(request, f'Number of user-account not added: {fail}')
-                    messages.info(request, f'Number of invalid email address: {bademail}')
+                    messages.info(request, f'Number of user-accounts added successfully: {value}')
+                    messages.info(request, f'Number of duplicate user-accounts not added: {existing}')
+                    messages.info(request, f'Number of invalid user-accounts not added: {fail}')
+                    messages.info(request,
+                                  f'Number of user-accounts with invalid email addresses not added: {bademail}')
                     return redirect('registerusers')
                 else:
                     form = request.POST
                     messages.success(request, f'Number of user-account added successfully: {value}')
                     return redirect('users')
+
     else:
         form = UploadFileForm()
     return render(request,
                   'account/registerusers.html',
                   {'form': form})
+
 
 # admin - all users table
 @login_required
@@ -386,22 +413,29 @@ def edit(request):
                                        files=request.FILES, user=request.user)
         date_of_birth = request.POST.get('date_of_birth')
         converted_dob = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
-
+#changed age groups to 1,2,3,4,5. Previous logic 8-10 = age group 1; 11-13 age group 2; 14-16 age group 3; anything else = age group 1 sdizdarevic4/1/2020
         print(type(date_of_birth))
         her_age = int((datetime.now().date() - converted_dob).days / 365.25)
         print(her_age)
-        if her_age >= 8 and her_age <= 10:
+        if her_age >= 1 and her_age <= 6:
             request.user.profile.age_group = 1
             request.user.profile.save()
-        elif her_age >= 11 and her_age <= 13:
+        elif her_age >= 7 and her_age <=10:
             request.user.profile.age_group = 2
             request.user.profile.save()
-        elif her_age >= 14 and her_age <= 16:
+        elif her_age >= 11 and her_age <= 13:
             request.user.profile.age_group = 3
             request.user.profile.save()
-        else:
-            request.user.profile.age_group = 1
+        elif her_age >= 14 and her_age <= 16:
+            request.user.profile.age_group = 4
             request.user.profile.save()
+        elif her_age >= 17:
+            request.user.profile.age_group = 5
+            request.user.profile.save()
+        else:
+            request.user.profile.age_group = 0
+            request.user.profile.save()
+
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -440,21 +474,27 @@ def user_edit(request):
                                        files=request.FILES, user=request.user)
         date_of_birth = request.POST.get('date_of_birth')
         converted_dob = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
-
+#changed age groups here too sdizdarevic4/1
         print(type(date_of_birth))
         her_age = int((datetime.now().date() - converted_dob).days / 365.25)
         print(her_age)
-        if her_age >= 8 and her_age <= 10:
+        if her_age >=1 and her_age <= 6:
             request.user.profile.age_group = 1
             request.user.profile.save()
-        elif her_age >= 11 and her_age <= 13:
+        elif her_age >= 7 and her_age <= 10:
             request.user.profile.age_group = 2
             request.user.profile.save()
-        elif her_age >= 14 and her_age <= 16:
+        elif her_age >= 11 and her_age <= 13:
             request.user.profile.age_group = 3
             request.user.profile.save()
+        elif her_age >= 14 and her_age <= 16:
+            request.user.profile.age_group = 4
+            request.user.profile.save()
+        elif her_age >= 17:
+            request.user.profile.age_group = 5
+            request.user.profile.save()
         else:
-            request.user.profile.age_group = 1
+            request.user.profile.age_group = 0
             request.user.profile.save()
 
         if user_form.is_valid() and profile_form.is_valid():
@@ -775,43 +815,43 @@ def parameters_form(request):
 
 
 # admin: Clone a program to copy all the pages toa new program
-@login_required
-def cloneprogram(request):
-    if request.method == "POST":
-        form = ProgramClone(request.POST)
-        if form.is_valid():
-            user = request.user
-            new_start_date = str(form.cleaned_data['new_start_date'])
-            program_to_clone = form.cleaned_data['program_to_clone']
-            new_program = form.clean()['new_program']
-
-            date_fields = new_start_date.split('-')
-            new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]),
-                                                   tzinfo=tzlocal.get_localzone())
-            new_program_slug = '-'.join(new_program.lower().split(' '))
-
-            if Page.objects.filter(slug=new_program_slug).count() > 0 \
-                    or Page.objects.filter(title=new_program).count() > 0:
-                message = "Error: A program with this name already exists"
-            elif CloneProgramInfo.objects.filter(new_program=new_program, active=True).count() > 0:
-                message = "Error: This program is already scheduled for setup"
-            else:
-                new_program_info = CloneProgramInfo()
-                new_program_info.program_to_clone = program_to_clone
-                new_program_info.new_program = new_program
-                new_program_info.new_start_date = new_start_datetime
-                new_program_info.active = True
-                new_program_info.user = user
-                new_program_info.save()
-                message = 'Your program is being created.  This will take several minutes. You will receive an email when the process is complete.'
-                return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
-        else:
-            message = 'Error: Invalid data'
-            return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
-    else:
-        form = ProgramClone()
-        return render(request, 'account/cloneprogram.html', {'form': form})
-
+# @login_required
+# def cloneprogram(request):
+#     if request.method == "POST":
+#         form = ProgramClone(request.POST)
+#         if form.is_valid():
+#             user = request.user
+#             new_start_date = str(form.cleaned_data['new_start_date'])
+#             program_to_clone = form.cleaned_data['program_to_clone']
+#             new_program = form.clean()['new_program']
+#
+#             date_fields = new_start_date.split('-')
+#             new_start_datetime = datetime.datetime(int(date_fields[0]), int(date_fields[1]), int(date_fields[2]),
+#                                                    tzinfo=tzlocal.get_localzone())
+#             new_program_slug = '-'.join(new_program.lower().split(' '))
+#
+#             if Page.objects.filter(slug=new_program_slug).count() > 0 \
+#                     or Page.objects.filter(title=new_program).count() > 0:
+#                 message = "Error: A program with this name already exists"
+#             elif CloneProgramInfo.objects.filter(new_program=new_program, active=True).count() > 0:
+#                 message = "Error: This program is already scheduled for setup"
+#             else:
+#                 new_program_info = CloneProgramInfo()
+#                 new_program_info.program_to_clone = program_to_clone
+#                 new_program_info.new_program = new_program
+#                 new_program_info.new_start_date = new_start_datetime
+#                 new_program_info.active = True
+#                 new_program_info.user = user
+#                 new_program_info.save()
+#                 message = 'Your program is being created.  This will take several minutes. You will receive an email when the process is complete.'
+#                 return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
+#         else:
+#             message = 'Error: Invalid data'
+#             return render(request, 'account/cloneprogram.html', {'form': form, 'message': message})
+#     else:
+#         form = ProgramClone()
+#         return render(request, 'account/cloneprogram.html', {'form': form})
+#
 
 # admin - set reward milestones
 def rewards_notification(request):
@@ -1010,6 +1050,7 @@ def Analytics_Dashboard(request):
                   'analytics/Analytics_Dashboard.html',
                   {'section': 'Analytics_Dashboard', 'jsondata': jsondata})
 
+
 '''
 # user - send kindness message
 @login_required
@@ -1025,6 +1066,7 @@ def send_message(request):
     return redirect('pages/kindness-card', {'section': 'send_message'})
 '''
 
+
 # user - send kindness message
 @login_required
 def send_message(request):
@@ -1032,20 +1074,21 @@ def send_message(request):
         message = request.POST.get("message")
         to = request.POST.get("user")
         from_user = request.user.username
-        #KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
+        # KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to)
         user = User.objects.get(username=to)
-        user1 = User.objects.get(username=from_user) #sdizdarevic 3/21/2020 for deleting purposes, if a user is deleted from Django Admin, we want to delete kindness messages too
+        user1 = User.objects.get(
+            username=from_user)  # sdizdarevic 3/21/2020 for deleting purposes, if a user is deleted from Django Admin, we want to delete kindness messages too
         name = user.first_name + user.last_name
         messages.success(request, f'Message sent to: {name}')
         today = datetime.today()
         programs = Program.objects.filter(program_start_date__lte=today).filter(
             program_end_date__gte=today)  # sdizdarevic 3/15/2020
 
-        for program in programs: # sdizdarevic 3/15/2020
+        for program in programs:  # sdizdarevic 3/15/2020
 
-            current_program = program.program_name # sdizdarevic 3/15/2020
+            current_program = program.program_name  # sdizdarevic 3/15/2020
             KindnessMessage.objects.create(body=message, from_user=from_user, to_user=to,
-                                           message_program=current_program, user=user1) # sdizdarevic 3/15/2020
+                                           message_program=current_program, user=user1)  # sdizdarevic 3/15/2020
             program.save()  # sdizdarevic since we dont have a field with primary_key, save() will assign an id automatically and we should be able to query it later for show all kcarsd purposes
 
     return redirect('pages/kindness-card', {'section': 'send_message'})
@@ -1086,14 +1129,28 @@ def inbox(request):
                       {'messages': messages, 'all': dict_all, 'unread': dict_unread})
 '''
 
+
 # user - read kindness message
 def inbox(request):
     if request.method == 'GET':
-        current_program = Program.objects.last() #sdizdarevic 3/19/20 in account_program table in our db, a pk is assigned to programs as they're created. the last program created will have the last pk number
-        #print("Current Program") leave for testing
-        #print(current_program) leave for testing
-        all_messages = KindnessMessage.objects.filter(to_user=request.user.username).filter(message_program__exact=current_program).order_by('-message_id') #sdizdarevic 3/15/2020 added filter to also query the program message was sent
+        current_program = Program.objects.last()  # sdizdarevic 3/19/20 in account_program table in our db, a pk is assigned to programs as they're created. the last program created will have the last pk number
+        # print("Current Program") leave for testing
+        # print(current_program) leave for testing
+        all_messages = KindnessMessage.objects.filter(to_user=request.user.username).filter(
+            message_program__exact=current_program).order_by(
+            '-message_id')  # sdizdarevic 3/15/2020 added filter to also query the program message was sent
         unread_messages = all_messages.filter(read_message=False)
+        program = request.user.profile.program # O'Briens as of 5/3/2020
+        try:
+            programTemplates = program.KCardTemplate
+            tempImage = str(programTemplates.image.url)
+            print (tempImage)
+        except:
+            programTemplates = 'images/KCard.jpg'
+            tempImage = MEDIA_ROOT + programTemplates
+
+        programTemplatesAndPath = tempImage
+        print (programTemplatesAndPath)
         dict_all = {}
         dict_unread = {}
         for message in unread_messages:
@@ -1118,7 +1175,7 @@ def inbox(request):
             except KeyError:
                 dict_all[name] = {'messages': [{'body': message.body, 'date': date}], 'photo': photo}
         return render(request, 'kindnessCards/inbox.html',
-                      {'messages': messages, 'all': dict_all, 'unread': dict_unread})
+                      {'messages': messages, 'all': dict_all, 'unread': dict_unread, 'templates': programTemplatesAndPath})
 
 
 # user - mark read messages
@@ -1159,21 +1216,27 @@ def edit_user(request, pk):
         print(request.POST.get('date_of_birth'))
         date_of_birth = request.POST.get('date_of_birth')
         converted_dob = datetime.strptime(date_of_birth, '%Y-%m-%d').date()
-
+#changed age groups here as well sdizdarevic4/1/2020
         print(type(date_of_birth))
         her_age = int((datetime.now().date() - converted_dob).days / 365.25)
         print(her_age)
-        if her_age >= 8 and her_age <= 10:
+        if her_age >=1 and her_age<= 6:
             user1.age_group = 1
             user1.save()
-        elif her_age >= 11 and her_age <= 13:
+        elif her_age >= 7 and her_age <= 10:
             user1.age_group = 2
             user1.save()
-        elif her_age >= 14 and her_age <= 16:
+        elif her_age >= 11 and her_age <= 13:
             user1.age_group = 3
             user1.save()
+        elif her_age >= 14 and her_age <= 16:
+            user1.age_group = 4
+            user1.save()
+        elif her_age >= 17:
+            user1.age_group = 5
+            user1.save()
         else:
-            user1.age_group = 1
+            user1.age_group = 0
             user1.save()
         if form1.is_valid() and form.is_valid():
             user = form.save(commit=False)
@@ -1196,7 +1259,6 @@ def edit_user(request, pk):
 @login_required
 def signup(request):
     programs = Program.objects.all()
-    #welcome = WelcomeEmail.objects.all()
     if request.method == 'POST':
         sign_form = SignUpForm(data=request.POST)
 
@@ -1207,14 +1269,17 @@ def signup(request):
             last_name = sign_form.cleaned_data['last_name']
             # new password implementation with model object
             # password = DefaultPassword.objects.get(id=1)
-            password = 'stayfit2020'
+            try:
+                password = DefaultPassword.objects.latest()
+            except:
+                password = 'stayfit2020'
             selected_program = get_object_or_404(Program, pk=request.POST.get('programs'))
             theUser = User(username=username, email=email, first_name=first_name,
                            last_name=last_name)
             theUser.set_password(password)
             theUser.save()
             profile = Profile.objects.create(user=theUser,
-                                             program=selected_program)
+                                             program=selected_program,bio="Enter your details")
             profile.save()
             messages.success(request, f'{theUser.first_name} {theUser.last_name} has been added successfully!')
             form = PasswordResetForm({'email': theUser.email})
@@ -1227,7 +1292,7 @@ def signup(request):
                     from_email=settings.EMAIL_HOST_USER,
                     subject_template_name='registration/new_user_subject.txt',
                     email_template_name='registration/password_reset_newuser_email.html')
-                #form.fields['email'] = welcome
+                # form.fields['email'] = welcome
             return redirect('/account/users/')
     else:
         sign_form = SignUpForm()
@@ -1352,22 +1417,17 @@ def add_school(request):
                   {'section': 'add_school', 'form': form, 'addschool': addschool})
 
 
+# admin - default password
+def Default_Password(request):
+    try:
+        pass1 = DefaultPassword.objects.latest()
+    except:
+        pass1 = 'stayfit2020'
 
-# # admin - default password
-# def Default_Password(request):
-#     pass1 = DefaultPassword.objects.get(id=1)
-#     if request.method == 'POST':
-#         pass1.default_password = request.POST['password']
-#         pass1.save()
-#     return render(request, 'account/default_password.html', {'pass1': pass1})
+    if request.method == 'POST':
+        pass1.default_password = request.POST['password']
+        pass1.save()
+    return render(request, 'account/default_password.html', {'pass1': pass1})
 
-
-# # admin - welcome email editing
-# def Welcome_Email(request):
-#     id1 = WelcomeEmail.objects.get(id=1)
-#     if request.method == 'POST':
-#         id1.welcome_email = request.POST['email']
-#         id1.save()
-#     return render(request, 'account/welcome_email.html', {'id1': id1})
 
 

@@ -2,7 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 from . import views
-
+from account.program_clone import cloneprogram
 urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
@@ -23,7 +23,9 @@ urlpatterns = [
     path('users/', views.users, name='users'),
     path('view-rewards/', views.viewRewards, name='rewards'),
     path('createprogram/', views.createprogram, name='createprogram'),
-    path('cloneprogram/', views.cloneprogram, name='cloneprogram'),
+    #path('cloneprogram/', views.cloneprogram, name='cloneprogram'),
+    path('cloneprogram/', cloneprogram, name='cloneprogram'),
+
     path('analytics/', views.analytics, name='analytics'),
     path('registerusers/', views.registerusers, name='registerusers'),
     path('cms_frame/', views.cms_frame, name='cms_frame'),
@@ -52,8 +54,6 @@ urlpatterns = [
     path('reward_category_edit/<int:pk>', views.reward_category_edit, name='reward_category_edit'),
     path('activity_data/', views.json_data, name='activity_data'),
     path('add_school/', views.add_school, name='add_school'),
-
-#     path('default_password/', views.Default_Password, name='default_password'),
-#     path('welcome_email/', views.Welcome_Email, name='welcome_email')
+    path('default_password/', views.Default_Password, name='default_password'),
 
 ]

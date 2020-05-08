@@ -5,17 +5,29 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from PIL import Image
+from PIL import Image, ExifTags
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.files import File
+from io import BytesIO
 
 # Create your models here.
 
-EVENT = (
-    (1, _("8-10")),
-    (2, _("11-13")),
-    (3, _("14-16")),
+# Old age groups sdizdarevic 4/1
+# EVENT = (
+#    (1, _("8-10")),
+#    (2, _("11-13")),
+#    (3, _("14-16")),
 
+# )
+
+# Age Group from avatar view
+EVENT = (
+    (1, ("6")),
+    (2,("7-10")),
+    (3,("11-13")),
+    (4,("14-16")),
+    (5,("17+"))
 )
 
 BACKGROUND_CHOICES = [
@@ -27,11 +39,21 @@ BACKGROUND_CHOICES = [
 ]
 
 
+class KindnessCardTemplate(models.Model):
+    id = models.AutoField(primary_key=True)
+    image_name = models.CharField(max_length=25, null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to="KCardtemplates/")
+
+    def __str__(self):
+        return str(self.image_name)
+
+
 class Program(models.Model):
     # program_id = models.AutoField(null=False, primary_key=True)
     program_name = models.CharField(max_length=20, null=False, unique=True)
     program_start_date = models.DateField(null=False, blank=False)
     program_end_date = models.DateField(null=False, blank=False)
+    KCardTemplate = models.ForeignKey(KindnessCardTemplate, on_delete=models.SET_NULL, null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now, blank=True)
     updated_date = models.DateTimeField(auto_now_add=True, null=True)
 
@@ -114,6 +136,29 @@ class Profile(models.Model):
         else:
             return int((datetime.now().date() - self.date_of_birth).days / 365.25)
 
+    # def save(self, *args, **kwargs):
+    #     if self.photo:
+    #         pilImage = Image.open(BytesIO(self.photo.read()))
+    #         for orientation in ExifTags.TAGS.keys():
+    #             if ExifTags.TAGS[orientation] == 'Orientation':
+    #                 break
+    #         exif = dict(pilImage._getexif().items())
+    #
+    #         if exif[orientation] == 3:
+    #             pilImage = pilImage.rotate(180, expand=True)
+    #         elif exif[orientation] == 6:
+    #             pilImage = pilImage.rotate(270, expand=True)
+    #         elif exif[orientation] == 8:
+    #             pilImage = pilImage.rotate(90, expand=True)
+    #
+    #         output = BytesIO()
+    #         pilImage.save(output, format='JPEG', quality=75)
+    #         output.seek(0)
+    #         self.photo = File(output, self.photo.name)
+    #         return self.photo
+    #
+    #     return super(Profile, self).save(*args, **kwargs)
+
 
 class Inactiveuser(models.Model):
     inactive_id = models.AutoField(primary_key=True, blank=False, null=False)
@@ -171,12 +216,15 @@ class Parameters(models.Model):
     creation_date = models.DateTimeField(auto_now=True)
     current_values = models.BooleanField(default=True)
 
+
 class KindnessMessage(models.Model):
-    message_program = models.CharField(max_length=20, blank=True, null=True)  # sdizdarevic added for archiving messages from previous programs 3/11/2020
-    user = models.ForeignKey(User, null=True, blank=False, on_delete=models.CASCADE)  #sdizdarevic added so that kindness messages are delted when users are deleted 3/11/2020
+    message_program = models.CharField(max_length=20, blank=True,
+                                       null=True)  # sdizdarevic added for archiving messages from previous programs 3/11/2020
+    user = models.ForeignKey(User, null=True, blank=False,
+                             on_delete=models.CASCADE)  # sdizdarevic added so that kindness messages are delted when users are deleted 3/11/2020
     message_id = models.AutoField(null=False, primary_key=True)
-   # user = models.ForeignKey(User, related_name='all_messages', on_delete=models.CASCADE)
-   # user = models.ForeignKey(User, related_name='message_id', on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, related_name='all_messages', on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, related_name='message_id', on_delete=models.CASCADE)
     body = models.CharField(max_length=500, blank=True, null=True)
     from_user = models.CharField(max_length=50, blank=False, null=False)
     to_user = models.CharField(max_length=50, blank=False, null=False)
@@ -222,6 +270,7 @@ class CloneProgramInfo(models.Model):
     new_start_date = models.DateField(blank=False, null=False)
     new_program = models.CharField(max_length=25, null=False, blank=False)
     user = models.ForeignKey(User, blank=False, null=True, on_delete=models.SET_NULL)
+    KCardTemplate = models.ForeignKey(KindnessCardTemplate, on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField(default=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -235,4 +284,17 @@ class Schools(models.Model):
 
     def __str__(self):
         return str(self.schools_name)
+
+
+# Model to save default password
+class DefaultPassword(models.Model):
+    id = models.AutoField(primary_key=True, blank=False, null=False, default=1)
+    default_password = models.CharField(max_length=30, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.default_password)
+
+    class Meta:
+        get_latest_by = 'created_at'
 
