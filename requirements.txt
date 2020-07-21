@@ -65,7 +65,7 @@ tinycss2==0.6.1
 tzlocal==2.0.0
 Unidecode==1.1.1
 urllib3==1.25.8
-wagtail==2.8.2
+wagtail==2.9.3
 wagtail-gallery==0.1.1
 wagtailmenus==3.0
 WeasyPrint==45
