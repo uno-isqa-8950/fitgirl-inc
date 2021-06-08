@@ -43,7 +43,7 @@ jmespath==0.9.4
 l18n==2018.5
 Mezzanine==4.3.1
 oauthlib==3.1.0
-Pillow==6.2.2
+Pillow==8.2.0
 psycopg2-binary==2.8.4
 pycparser==2.19
 PyJWT==1.7.1
