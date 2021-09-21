@@ -3,7 +3,6 @@ from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 from . import views
 from account.program_clone import cloneprogram
-
 urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
@@ -24,16 +23,11 @@ urlpatterns = [
     path('users/', views.users, name='users'),
     path('view-rewards/', views.viewRewards, name='rewards'),
     path('createprogram/', views.createprogram, name='createprogram'),
-    # path('cloneprogram/', views.cloneprogram, name='cloneprogram'),
+    #path('cloneprogram/', views.cloneprogram, name='cloneprogram'),
     path('cloneprogram/', cloneprogram, name='cloneprogram'),
 
     path('analytics/', views.analytics, name='analytics'),
     path('registerusers/', views.registerusers, name='registerusers'),
-
-    # path('cms/', views.cms_frame, name='cms'),
-    # path('cms/gallery', views.cms_frame_gallery, name='cms_frame_gallery'),
-    # path('cms/category', views.cms_frame_gallery_category, name='cms_frame_gallery_category'),
-
     path('cms_frame/', views.cms_frame, name='cms_frame'),
     path('cms_frame/gallery', views.cms_frame_gallery, name='cms_frame_gallery'),
     path('cms_frame/category', views.cms_frame_gallery_category, name='cms_frame_gallery_category'),
@@ -45,7 +39,7 @@ urlpatterns = [
     path('group_email/', views.group_email, name='group_email'),
     path('send_group_email/', views.send_group_email, name='send_group_email'),
     path('send_individual_email/<int:pk>/', views.email_individual, name='send_individual_email'),
-    path('inactive_users/', views.user_inactivity, name='user_inactivity'),
+    path('inactive_users/',views.user_inactivity,name='user_inactivity'),
     path('manage_points/', views.manage_points, name='manage_points'),
     path('update_points/', views.update_points, name='update_points'),
     path('admin_edit/', views.admin_edit, name='admin_edit'),

@@ -2,7 +2,6 @@
 db.sqlite3
 myvenv
 env
-venv
 _pycache_
 local_settings.py
 .idea/
