@@ -9,11 +9,13 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-# import django_heroku
+#import django_heroku
 import os
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -60,7 +62,7 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'crispy_forms',
     'imagekit',
-    'storages',
+	'storages',
     'wagtail_gallery',
     'wagtail.contrib.routable_page',
     'django_social_share',
@@ -104,6 +106,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'empoweru.wsgi.application'
 
+
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -126,12 +129,13 @@ WSGI_APPLICATION = 'empoweru.wsgi.application'
 # }
 
 
+
 # # ## Local Setting
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'FitGirlInc',
-        'USER': 'instructor',
+        'NAME': 'Capstone',
+        'USER': 'postgres',
         'PASSWORD': 'instructor1a',
         'HOST': 'localhost',
         'PORT': '5432',
@@ -156,6 +160,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -168,6 +173,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -188,21 +194,20 @@ WAGTAIL_SITE_NAME = 'EmpowerU'
 CLIENT_EMAIL = 'Isqa8950-002@gmail.com'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'mswproject.uno@gmail.com'
-EMAIL_HOST_PASSWORD = 'ganmnxnluxlgmpoi'
+EMAIL_HOST_USER = 'capstone18FA'
+EMAIL_HOST_PASSWORD = 'Isqa8950-002'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# django_heroku.settings(locals())
+#django_heroku.settings(locals())
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
