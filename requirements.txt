@@ -73,7 +73,7 @@ six==1.16.0
 social-auth-app-django==3.1.0
 social-auth-core==4.1.0
 soupsieve==2.2.1
-sqlparse==0.4.1
+sqlparse==0.4.2
 tablib==3.0.0
 telepath==0.2
 tinycss2==1.1.0
