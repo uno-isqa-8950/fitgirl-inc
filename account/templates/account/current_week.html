@@ -9,7 +9,7 @@
 {% block content %}
 
    {% if not user.is_staff and user.profile.pre_assessment == "No" %}
-        {% load staticfiles %}
+        {% load static %}
         <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
         <div id="steps">

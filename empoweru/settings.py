@@ -75,7 +75,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
@@ -95,7 +94,6 @@ TEMPLATES = [
                 'wagtailmenus.context_processors.wagtailmenus',
                 'account.context_processors.get_quotes',
                 'account.context_processors.get_affirmations',
-                'django.template.context_processors.request'
             ],
         },
     },
@@ -217,6 +215,9 @@ WEBPACK_LOADER = {
 
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 '''
 try:
     from empoweru.local_settings import *

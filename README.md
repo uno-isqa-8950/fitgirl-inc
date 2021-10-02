@@ -3,13 +3,13 @@ FitGirl Inc
 
 The official repository of the FitGirl EmpowerU Project for Fall 2018 Capstone Class
 Written in Python/Django
-* Python Version 3.6
-* Django Version 2.0.8
+* Python Version 3.9.7
+* Django Version 3.2.6
 * Virtual Environment Version 16.0.0
 * PostgressSql Version 10.5
 ## Getting Started:
 1. Install Python from https://www.python.org/downloads/
-2. pip install Django==2.0.8
+2. pip install Django==3.2.6
 3. pip install psycopg2
 4. pip install wagtail
 5. pip install whitenoise
