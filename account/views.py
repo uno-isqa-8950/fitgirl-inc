@@ -716,8 +716,8 @@ def email_individual(request, pk):
                 send_mail(subject, message, CLIENT_EMAIL, [contact_email])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
-            return render(request, 'email/email_individual_confirmation.html', {'contact_email': contact_email},
-                          {'user_student': user_student})
+            return render(request, 'email/email_individual_confirmation.html', {'contact_email': contact_email,
+                                                                                'user_student': user_student})
     return render(request, 'email/email_individual.html', {'form': form, 'user_student': user_student})
 
 
