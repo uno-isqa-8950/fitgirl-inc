@@ -21,7 +21,7 @@ django-classy-tags==1.0.0
 django-cogwheels==0.3
 django-contrib-comments==1.9.2
 django-cors-headers==3.8.0
-django-crispy-forms==1.8.1
+django-crispy-forms==1.11.1
 django-filter==2.4.0
 django-formtools==2.2
 django-imagekit==4.0.1
