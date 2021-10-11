@@ -142,7 +142,7 @@
                                                        class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                         <i class="fas fa-female fa-fw"></i> Users </a>
                                                 </li>
-                                                <li class="nav-item">
+                                                {% comment %}<li class="nav-item">
                                                     <a href="{% url 'cms_frame_gallery' %}" id="cms"
                                                        class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                         <i class="fas fa-plus-circle fa-fw"></i> Gallery
@@ -154,7 +154,7 @@
                                                        class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                         <i class="fas fa-plus-circle fa-fw"></i> Add
                                                         Category </a>
-                                                </li>
+                                                </li>{% endcomment %}
                                                 <li class="nav-item">
                                                     <a href="{% url 'default_password' %}" id="parameters"
                                                        class="btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
@@ -193,7 +193,7 @@
                                                     </li>
                                                 </div>
                                                 <li class="nav-item">
-                                                    <a href="{% url 'django_frame' %}" id="django"
+                                                    <a href="/admin" id="django"
                                                        class=" btn btn-block btn-pink list-group-item list-group-item-action example hoverable">
                                                         <i class="fas fa-database fa-fw"></i> Manage
                                                         Site </a>
