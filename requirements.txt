@@ -82,7 +82,7 @@ typing-extensions==3.10.0.0
 tzdata==2021.1
 tzlocal==3.0
 Unidecode==1.1.1
-wagtail==2.14.1
+wagtail==2.15.2
 wagtail-gallery==0.1.1
 wagtailmenus==3.0.2
 weasyprint==53.3
